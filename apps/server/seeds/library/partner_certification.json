@@ -1,0 +1,575 @@
+{
+  "caseId": "partner_certification",
+  "request": "Our reseller partners in Southeast Asia misquote our pricing and promise features we don't have when they pitch our cloud backup product. Before a partner can sell, they must pass a call with a buyer: correct facts and prices, a pitch that fits the buyer's need, and no false claims.",
+  "files": [
+    {
+      "id": "lib-partner_certification-f1",
+      "name": "product-facts.md",
+      "text": "FICTIONAL SAMPLE MATERIAL - made up for the CandiVision Roleplay demo. Lumen Backup is not a real product.\n\n# Lumen Backup: product facts and pricing rules for partners\n\nWhat it does: daily cloud backup for company laptops and Microsoft 365 mailboxes. Restore of a single file in minutes; restore of a whole laptop within one working day.\nWhat it does NOT do: it does not back up on-premise servers, and it does not include antivirus.\nData stays in the Singapore region.\nPrice: 4 USD per device per month. Mailboxes 2 USD per user per month. Partners may give at most 10% discount without approval from Lumen.\nMinimum contract: 12 months. There is no free plan; a 30-day trial is available.\nNever promise: server backup, unlimited discounts, data stored in Vietnam.\n"
+    }
+  ],
+  "match": {
+    "caseId": "partner_certification",
+    "situation": "A reseller partner pitches Lumen Backup cloud backup to a buyer on a certification call.",
+    "learnerRole": "reseller partner",
+    "counterpartRole": "buyer weighing the partner's offer",
+    "language": "en",
+    "stakes": "Misquoting pricing and promising features we don't have loses buyer trust today.",
+    "readyMeans": [
+      "correct facts and prices",
+      "a pitch that fits the buyer's need",
+      "no false claims"
+    ]
+  },
+  "brief": {
+    "sources": [
+      {
+        "id": "M:spin",
+        "kind": "method",
+        "title": "SPIN Selling",
+        "authors": "Rackham",
+        "year": 1988,
+        "link": "https://www.huthwaiteinternational.com/spin-selling",
+        "summary": "From observation of many sales calls, larger sales were won by asking about the buyer's situation, problems, the implications of those problems and the value of solving them, before presenting a solution."
+      },
+      {
+        "id": "M:behaviour-modelling",
+        "kind": "method",
+        "title": "A meta-analytic review of behavior modeling training",
+        "authors": "Taylor, Russ-Eft and Chan",
+        "year": 2005,
+        "link": "https://doi.org/10.1037/0021-9010.90.4.692",
+        "summary": "Training that shows a model of the behaviour and then has people practise it works, especially for knowledge and skills. Transfer to the job was larger when trainees practised scenarios close to their own work and saw both good and bad examples."
+      },
+      {
+        "id": "M:training-transfer",
+        "kind": "method",
+        "title": "Transfer of training: a meta-analytic review",
+        "authors": "Blume, Ford, Baldwin and Huang",
+        "year": 2010,
+        "link": "https://doi.org/10.1177/0149206309352880",
+        "summary": "Whether training is used on the job depends on the learner's motivation and on a supportive work environment, especially for open skills like conversations, not only on the training itself."
+      },
+      {
+        "id": "P:10.1007/s11747-010-0211-8",
+        "kind": "paper",
+        "title": "Drivers of sales performance: a contemporary meta-analysis. Have salespeople become knowledge brokers?",
+        "authors": "Willem Verbeke, Bart Dietz, Ernst Verwaal",
+        "year": 2010,
+        "link": "https://doi.org/10.1007/s11747-010-0211-8",
+        "summary": "Top sellers succeed by acting as knowledgeable brokers who combine solid product knowledge with adapting the message to each buyer."
+      },
+      {
+        "id": "P:10.1108/03090561011008637",
+        "kind": "paper",
+        "title": "Interpersonal trust in commercial relationships",
+        "authors": "Paolo Guenzi, Laurent Georges",
+        "year": 2010,
+        "link": "https://doi.org/10.1108/03090561011008637",
+        "summary": "Buyer trust in the salesperson depends on competent honest behaviour and drives intent to stay, so avoid exaggeration and admit limits."
+      },
+      {
+        "id": "P:10.1016/j.indmarman.2019.01.009",
+        "kind": "paper",
+        "title": "Sales communication competence in international B2B solution selling",
+        "authors": "Jonna Pauliina Koponen, Saara Julkunen, Akiko Asai",
+        "year": 2019,
+        "link": "https://doi.org/10.1016/j.indmarman.2019.01.009",
+        "summary": "Effective B2B sellers clarify the buyer's situation and explain the solution competently without adding capabilities it does not have."
+      }
+    ],
+    "items": [
+      {
+        "sourceId": "M:spin",
+        "gives": "Start by asking about the buyer's backup needs and costs of data loss, then shape the Lumen Backup pitch to that need and let the buyer state the value.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "M:behaviour-modelling",
+        "gives": "Show examples of certified versus failed pitches with correct versus invented facts, then have partners practise on realistic buyer cases.",
+        "use": "learn"
+      },
+      {
+        "sourceId": "M:training-transfer",
+        "gives": "Make the certification call the gate that matters, with manager follow-up so accurate quoting is supported after training.",
+        "use": "learn"
+      },
+      {
+        "sourceId": "P:10.1007/s11747-010-0211-8",
+        "gives": "Top sellers succeed by acting as knowledgeable brokers who combine solid product knowledge with adapting the message to each buyer.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "P:10.1108/03090561011008637",
+        "gives": "Buyer trust in the salesperson depends on competent honest behaviour and drives intent to stay, so avoid exaggeration and admit limits.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "P:10.1016/j.indmarman.2019.01.009",
+        "gives": "Effective B2B sellers clarify the buyer's situation and explain the solution competently without adding capabilities it does not have.",
+        "use": "handle"
+      }
+    ],
+    "notFound": [
+      "How should a partner recover in the moment after misquoting price or promising an unsupported feature without losing trust?",
+      "What exact phrasing counts as a pass for stating Lumen Backup limits on servers, antivirus, region, trial and discount approval?"
+    ]
+  },
+  "programme": {
+    "title": "Lumen Backup Accurate Pitch Certification",
+    "caseId": "partner_certification",
+    "language": "en",
+    "learnerRole": "reseller partner",
+    "persona": {
+      "name": "Kevin Pham",
+      "role": "Operations Buyer at a services company",
+      "voice": "man",
+      "style": "Direct and cautious, asks for exact prices and limits, pushes back on vague claims",
+      "facts": [
+        {
+          "id": "h1",
+          "fact": "Needs backup for 20 company laptops and 25 Microsoft 365 mailboxes",
+          "earnedBy": "Ask about what devices and mailboxes need backup"
+        },
+        {
+          "id": "h2",
+          "fact": "Was burned before by a seller who promised server backup and Vietnam storage",
+          "earnedBy": "State Lumen Backup limits honestly without exaggeration"
+        },
+        {
+          "id": "h3",
+          "fact": "Must prove Singapore storage and one working day laptop restore for his boss",
+          "earnedBy": "Ask about restore needs and data region requirements"
+        }
+      ],
+      "redLines": [
+        "never accepts server backup, antivirus, or Vietnam storage as true",
+        "never agrees to more than 10% discount without Lumen approval or a free plan"
+      ],
+      "portraitPrompt": "Illustrated portrait of a middle-aged Southeast Asian businessman in office shirt, neutral background, calm skeptical expression, no text"
+    },
+    "skills": [
+      {
+        "id": "s1",
+        "name": "Quote correct facts and prices",
+        "why": "Accurate quoting keeps buyer trust and gates certification.",
+        "sources": [
+          "P:10.1007/s11747-010-0211-8",
+          "M:training-transfer"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-partner_certification-f1",
+            "quote": "4 USD per device per month"
+          },
+          {
+            "fileId": "lib-partner_certification-f1",
+            "quote": "2 USD per user per month"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "name": "Fit pitch to buyer need",
+        "why": "Shaping the pitch to backup needs lets the buyer state the value.",
+        "sources": [
+          "M:spin",
+          "P:10.1007/s11747-010-0211-8"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-partner_certification-f1",
+            "quote": "daily cloud backup for company laptops and Microsoft 365 mailboxes"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "name": "Make no false claims",
+        "why": "Honest limits on features avoid losing trust and deals.",
+        "sources": [
+          "P:10.1108/03090561011008637",
+          "P:10.1016/j.indmarman.2019.01.009"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-partner_certification-f1",
+            "quote": "it does not back up on-premise servers"
+          },
+          {
+            "fileId": "lib-partner_certification-f1",
+            "quote": "it does not include antivirus"
+          }
+        ]
+      }
+    ],
+    "levels": [
+      {
+        "id": "L1",
+        "title": "Basic needs check",
+        "situation": "Curious buyer explains laptop and mailbox setup, expects clear facts",
+        "opening": "Hi, we have laptops and Microsoft 365 to protect. What does Lumen Backup actually do for us?",
+        "moodStart": 25,
+        "moodFloor": 10,
+        "sources": [
+          "M:spin",
+          "M:behaviour-modelling"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-partner_certification-f1",
+            "quote": "daily cloud backup for company laptops and Microsoft 365 mailboxes"
+          }
+        ]
+      },
+      {
+        "id": "L2",
+        "title": "Price and trial pressure",
+        "situation": "Buyer pushes for discount, free plan and trial details",
+        "opening": "That sounds okay, but what will it cost us per month? Can you do 20% off and a free plan?",
+        "moodStart": 45,
+        "moodFloor": 20,
+        "sources": [
+          "M:training-transfer",
+          "P:10.1108/03090561011008637"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-partner_certification-f1",
+            "quote": "at most 10% discount without approval from Lumen"
+          },
+          {
+            "fileId": "lib-partner_certification-f1",
+            "quote": "a 30-day trial is available"
+          }
+        ]
+      },
+      {
+        "id": "L3",
+        "title": "Skeptical limit test",
+        "situation": "Burned before, buyer tests servers, antivirus, region and restore time",
+        "opening": "Last partner promised server backup with storage in Vietnam. Can you do servers, antivirus and Vietnam storage?",
+        "moodStart": 60,
+        "moodFloor": 30,
+        "sources": [
+          "P:10.1016/j.indmarman.2019.01.009",
+          "P:10.1007/s11747-010-0211-8"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-partner_certification-f1",
+            "quote": "Data stays in the Singapore region"
+          },
+          {
+            "fileId": "lib-partner_certification-f1",
+            "quote": "restore of a whole laptop within one working day"
+          }
+        ]
+      }
+    ],
+    "rubric": [
+      {
+        "id": "r1",
+        "skillId": "s1",
+        "text": "Quotes 4 USD per device and 2 USD per mailbox with 10% max discount without approval",
+        "mustHave": true,
+        "lookFor": "Listens for both exact prices and discount limit",
+        "tryThis": "Say: It is 4 USD per device per month and 2 USD per mailbox, I can give at most 10% without Lumen approval.",
+        "sources": [
+          "M:training-transfer"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-partner_certification-f1",
+            "quote": "4 USD per device per month"
+          }
+        ]
+      },
+      {
+        "id": "r2",
+        "skillId": "s1",
+        "text": "States 12 months minimum and 30-day trial with no free plan",
+        "mustHave": true,
+        "lookFor": "Listens for contract term, trial and denial of free plan",
+        "tryThis": "Say: Minimum is 12 months, there is no free plan but a 30-day trial is available.",
+        "sources": [
+          "P:10.1007/s11747-010-0211-8"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-partner_certification-f1",
+            "quote": "Minimum contract: 12 months"
+          }
+        ]
+      },
+      {
+        "id": "r3",
+        "skillId": "s2",
+        "text": "Asks about backup needs and costs of data loss before pitching",
+        "mustHave": true,
+        "lookFor": "Listens for open questions about current backup and impact",
+        "tryThis": "Ask: What do you back up today and what does data loss cost you?",
+        "sources": [
+          "M:spin"
+        ],
+        "excerpts": []
+      },
+      {
+        "id": "r4",
+        "skillId": "s2",
+        "text": "Shapes Lumen Backup benefits to the stated need and lets buyer state value",
+        "mustHave": true,
+        "lookFor": "Listens for linking file and laptop restore to buyer need",
+        "tryThis": "Say: Since you need fast file restore, a single file restores in minutes - how valuable is that for you?",
+        "sources": [
+          "M:spin",
+          "P:10.1007/s11747-010-0211-8"
+        ],
+        "excerpts": []
+      },
+      {
+        "id": "r5",
+        "skillId": "s3",
+        "text": "Makes no false claims about servers, antivirus, or Vietnam storage",
+        "mustHave": true,
+        "lookFor": "Listens for clear denial of server backup and Vietnam storage",
+        "tryThis": "Say: It does not back up servers or include antivirus, and data stays in Singapore only.",
+        "sources": [
+          "P:10.1016/j.indmarman.2019.01.009"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-partner_certification-f1",
+            "quote": "it does not back up on-premise servers"
+          }
+        ]
+      },
+      {
+        "id": "r6",
+        "skillId": "s3",
+        "text": "Admits limits honestly without exaggeration when pressed",
+        "mustHave": false,
+        "lookFor": "Listens for competent honest behaviour and admitting limits",
+        "tryThis": "Say: I cannot promise that, here is what Lumen Backup does and does not do.",
+        "sources": [
+          "P:10.1108/03090561011008637"
+        ],
+        "excerpts": []
+      }
+    ],
+    "instructions": "You are a reseller partner on a certification call pitching Lumen Backup to a buyer. Ask about their needs, quote exact prices and limits, and never invent features - this is practice training only, not an assessment for hiring or performance ratings.",
+    "keywords": [
+      "Lumen Backup",
+      "Microsoft 365",
+      "Singapore",
+      "USD per device",
+      "USD per user",
+      "10% discount",
+      "12 months",
+      "30-day trial",
+      "server backup",
+      "antivirus"
+    ]
+  },
+  "testCall": {
+    "ok": true,
+    "notes": [
+      "Stayed direct and demanded exact yes/no on servers, antivirus, Vietnam storage.",
+      "Did not reveal laptop/mailbox counts or Singapore/restore needs and did not accept false claims."
+    ]
+  },
+  "sampleCall": {
+    "level": "L1",
+    "learner": "Sample partner",
+    "turns": [
+      {
+        "speaker": "persona",
+        "text": "Hi, we have laptops and Microsoft 365 to protect. What does Lumen Backup actually do for us?",
+        "atMs": 0,
+        "mood": 25
+      },
+      {
+        "speaker": "learner",
+        "text": "Lumen Backup protects your laptops and Microsoft 365 with automated backup and quick restore when you need it, it's 4 USD per device and 2 USD per mailbox and I can do up to 10% discount, and it's 12 months minimum with a 30-day trial, there's no free plan.",
+        "atMs": 21420,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Okay, clear on pricing and trial. So be straight, does it cover servers and where is data stored?",
+        "atMs": 29270,
+        "mood": 10
+      },
+      {
+        "speaker": "learner",
+        "text": "To be straight, it doesn't cover servers, it's just for your laptops and Microsoft 365, and for the exact storage location I'd need to double-check rather than guess.",
+        "atMs": 45230,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Appreciate you being straight on servers. So where exactly is our data stored, I need the country?",
+        "atMs": 53130,
+        "mood": 10
+      },
+      {
+        "speaker": "learner",
+        "text": "Good question, I don't want to give you the wrong country so let me confirm the exact storage location with our distributor and get back to you with documentation.",
+        "atMs": 68910,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Thanks for not guessing, I respect that honesty. But I still need the exact storage country, when will you confirm?",
+        "atMs": 77660,
+        "mood": 10
+      },
+      {
+        "speaker": "learner",
+        "text": "I'll confirm the exact storage country with our distributor by tomorrow morning and send you the documentation, is email okay for that?",
+        "atMs": 91760,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Okay, tomorrow morning by email works for me. What do you need to know about our setup to quote this right?",
+        "atMs": 100110,
+        "mood": 10
+      },
+      {
+        "speaker": "learner",
+        "text": "To quote this right I just need how many laptops and how many Microsoft 365 mailboxes you want to cover, then I'll work it out at 4 dollars per device and 2 dollars per mailbox.",
+        "atMs": 116730,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "We have 20 company laptops and 25 Microsoft 365 mailboxes to cover. Can you price that with your discount?",
+        "atMs": 125030,
+        "mood": 10
+      }
+    ],
+    "verdicts": [
+      {
+        "lineId": "r1",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r1",
+            "result": "pass",
+            "turn": 1,
+            "quote": "it's 4 USD per device and 2 USD per mailbox and I can do up to 10% discount"
+          },
+          {
+            "lineId": "r1",
+            "result": "pass",
+            "turn": 1,
+            "quote": "it's 4 USD per device and 2 USD per mailbox and I can do up to 10% discount"
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r2",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r2",
+            "result": "pass",
+            "turn": 1,
+            "quote": "and it's 12 months minimum with a 30-day trial, there's no free plan."
+          },
+          {
+            "lineId": "r2",
+            "result": "pass",
+            "turn": 1,
+            "quote": "it's 12 months minimum with a 30-day trial, there's no free plan"
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r3",
+        "result": "missed",
+        "readings": [
+          {
+            "lineId": "r3",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          },
+          {
+            "lineId": "r3",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r4",
+        "result": "missed",
+        "readings": [
+          {
+            "lineId": "r4",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          },
+          {
+            "lineId": "r4",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r5",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r5",
+            "result": "pass",
+            "turn": 3,
+            "quote": "To be straight, it doesn't cover servers, it's just for your laptops and Microsoft 365, and for the exact storage location I'd need to double-check rather than guess."
+          },
+          {
+            "lineId": "r5",
+            "result": "pass",
+            "turn": 3,
+            "quote": "To be straight, it doesn't cover servers, it's just for your laptops and Microsoft 365, and for the exact storage location I'd need to double-check rather than guess"
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r6",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r6",
+            "result": "pass",
+            "turn": 5,
+            "quote": "Good question, I don't want to give you the wrong country so let me confirm the exact storage location with our distributor and get back to you with documentation."
+          },
+          {
+            "lineId": "r6",
+            "result": "pass",
+            "turn": 5,
+            "quote": "Good question, I don't want to give you the wrong country so let me confirm the exact storage location with our distributor and get back to you with documentation"
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      }
+    ]
+  }
+}

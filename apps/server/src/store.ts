@@ -97,9 +97,8 @@ export function openStore(path: string) {
   })
 
   return {
-    addFile(ws: string, name: string, text: string): string {
-      const id = randomUUID()
-      db.prepare('INSERT INTO files VALUES (?, ?, ?, ?, ?)').run(id, ws, name, text, Date.now())
+    addFile(ws: string, name: string, text: string, id: string = randomUUID()): string {
+      db.prepare('INSERT OR REPLACE INTO files VALUES (?, ?, ?, ?, ?)').run(id, ws, name, text, Date.now())
       return id
     },
     files(ws: string, ids: string[]): FileText[] {
@@ -108,8 +107,7 @@ export function openStore(path: string) {
       return ids.flatMap((id) => rows.filter((r) => r.id === id).map((r) => ({ id: r.id, name: r.name, text: r.text })))
     },
 
-    createProgramme(ws: string, request: RequestInput): string {
-      const id = randomUUID()
+    createProgramme(ws: string, request: RequestInput, id: string = randomUUID()): string {
       const now = Date.now()
       db.prepare('INSERT INTO programmes (id, ws, status, request_json, created, updated) VALUES (?, ?, ?, ?, ?, ?)').run(id, ws, 'draft', JSON.stringify(request), now, now)
       return id
@@ -173,8 +171,7 @@ export function openStore(path: string) {
       return r ? { id: r.id, ws: r.ws, status: r.status, events: JSON.parse(r.events_json), programmeId: r.programme_id } : null
     },
 
-    createCall(ws: string, c: CallInput, created = Date.now()): string {
-      const id = randomUUID()
+    createCall(ws: string, c: CallInput, created = Date.now(), id: string = randomUUID()): string {
       db.prepare('INSERT INTO calls (id, ws, version_id, learner, level, mode, drill_line_id, mood, turns_json, revealed_json, created) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)')
         .run(id, ws, c.versionId, c.learner, c.level, c.mode, c.drillLineId, c.mood, '[]', '[]', created)
       return id
@@ -185,6 +182,9 @@ export function openStore(path: string) {
       if (!entries.length) return
       db.prepare(`UPDATE calls SET ${entries.map(([k]) => `${cols[k]} = ?`).join(', ')} WHERE id = ? AND ws = ?`)
         .run(...entries.map(([k, v]) => (k === 'mood' || k === 'ended' ? (v as any) : JSON.stringify(v))), id, ws)
+    },
+    deleteCall(ws: string, id: string): void {
+      db.prepare('DELETE FROM calls WHERE id = ? AND ws = ?').run(id, ws)
     },
     call(ws: string, id: string): CallRow | null {
       const r = db.prepare('SELECT * FROM calls WHERE id = ? AND ws = ?').get(id, ws)

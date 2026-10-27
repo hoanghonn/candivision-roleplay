@@ -13,6 +13,7 @@ type CallView = {
   title: string
   persona: { name: string; role: string }
   turns: Turn[]
+  sample?: boolean
   debrief: DebriefT | null
 }
 
@@ -31,7 +32,7 @@ export default function Debrief({ callId }: { callId: string }) {
         .then((c) => {
           setCall(c)
           // the judges may still be scoring if the page was opened directly
-          if (!c.debrief && tries++ < 3) post(`/api/calls/${encodeURIComponent(callId)}/end`).then(load).catch(() => {})
+          if (!c.debrief && !c.sample && tries++ < 3) post(`/api/calls/${encodeURIComponent(callId)}/end`).then(load).catch(() => {})
         })
         .catch((e) => setError(e.message))
     void load()
@@ -50,6 +51,7 @@ export default function Debrief({ callId }: { callId: string }) {
     <main className="page">
       <a className="back" href={href({ name: 'programme', id: call.programmeId })}>← {call.title}</a>
       <p className="eyebrow">Your debrief · {call.mode === 'drill' ? '60-second drill' : call.level} · {call.learner}</p>
+      {call.sample && <p className="banner">Sample call: an AI played the learner, so you can see a debrief without taking the call. Real calls are scored the same way.</p>}
       <h1 className={`verdict ${d.passed ? 'passed' : 'notyet'}`}>
         {d.passed ? 'Ready at the gate: every must-have was done.' : d.waiting ? `Not yet, and ${d.waiting === 1 ? 'one line is' : 'some lines are'} waiting for your training lead.` : 'Not yet: one or more must-haves still to practise.'}
       </h1>
@@ -72,7 +74,7 @@ export default function Debrief({ callId }: { callId: string }) {
                     you said: <span className="quote">"{l.moment.quote}"</span>
                   </p>
                 )}
-                {l.result === 'unsure' && (
+                {l.result === 'unsure' && !call.sample && (
                   <div className="card small" style={{ margin: '8px 0' }}>
                     <p style={{ marginTop: 0 }}>The two AI judges read this differently, so it does not count yet. Your training lead decides.</p>
                     {l.readings.map((r, i) => (

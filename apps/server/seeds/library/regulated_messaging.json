@@ -1,0 +1,574 @@
+{
+  "caseId": "regulated_messaging",
+  "request": "Our medical representatives talk to doctors about a blood pressure medicine. Doctors often ask about using it outside the approved use, and reps improvise. They must stick to the approved claims, give the safety information whenever benefits come up, and redirect off-label questions to Medical Information.",
+  "files": [
+    {
+      "id": "lib-regulated_messaging-f1",
+      "name": "approved-claims.md",
+      "text": "FICTIONAL SAMPLE MATERIAL - made up for the CandiVision Roleplay demo. Corvenol is not a real medicine.\n\n# Corvenol 10 mg: approved messages for medical representatives\n\nApproved use: treatment of high blood pressure in adults.\nApproved claims:\n- Corvenol lowers blood pressure in adults with hypertension, as shown in the approved product information.\n- Corvenol is taken once a day.\nSafety information that must be given whenever benefits are discussed: dizziness and swelling of the ankles are common side effects; Corvenol must not be used in pregnancy.\nNot approved: use in children, use for heart failure, any claim that it is better than other medicines.\nIf a doctor asks about use outside the approved use: say you can only discuss the approved use, and offer to pass the question to the Medical Information team.\n"
+    }
+  ],
+  "match": {
+    "caseId": "regulated_messaging",
+    "situation": "A medical representative talks to a doctor about a blood pressure medicine while the doctor asks about using it outside the approved use.",
+    "learnerRole": "medical representative",
+    "counterpartRole": "doctor asking off-label questions",
+    "language": "en",
+    "stakes": "Reps improvise off-label answers instead of staying compliant.",
+    "readyMeans": [
+      "stick to the approved claims",
+      "give the safety information whenever benefits come up",
+      "redirect off-label questions to Medical Information"
+    ]
+  },
+  "brief": {
+    "sources": [
+      {
+        "id": "M:compliance-first",
+        "kind": "method",
+        "title": "IFPMA Code of Practice 2019",
+        "authors": "International Federation of Pharmaceutical Manufacturers and Associations",
+        "year": 2019,
+        "link": "https://www.ifpma.org/publications/ifpma-code-of-practice-2019/",
+        "summary": "The international industry code for how pharmaceutical companies promote medicines to health professionals: information must be accurate, balanced and consistent with the approved product information. For regulated messaging, the customer's own approved claims and the regulation they upload come first."
+      },
+      {
+        "id": "P:10.1016/j.mayocp.2012.04.017",
+        "kind": "paper",
+        "title": "Ten Common Questions (and Their Answers) About Off-label Drug Use",
+        "authors": "Christopher M. Wittich, Christopher M. Burkle, William L. Lanier",
+        "year": 2012,
+        "link": "https://doi.org/10.1016/j.mayocp.2012.04.017",
+        "summary": "Distinguish approved use from off-label use and explain why promotion must stay within the marketing authorization to protect patients and meet legal duties."
+      },
+      {
+        "id": "P:10.1371/journal.pmed.1001945",
+        "kind": "paper",
+        "title": "Pharmaceutical Industry Off-label Promotion and Self-regulation: A Document Analysis of Off-label Promotion Rulings by the United Kingdom Prescription Medicines Code of Practice Authority 2003–2012",
+        "authors": "Andreas Vilhelmsson, Courtney Davis, Shai Mulinari",
+        "year": 2016,
+        "link": "https://doi.org/10.1371/journal.pmed.1001945",
+        "summary": "Treat rep-initiated discussion of unapproved uses as a violation risk that self-regulatory rulings repeatedly sanction, so train reps to decline and refer rather than improvise."
+      },
+      {
+        "id": "M:behaviour-modelling",
+        "kind": "method",
+        "title": "A meta-analytic review of behavior modeling training",
+        "authors": "Taylor, Russ-Eft and Chan",
+        "year": 2005,
+        "link": "https://doi.org/10.1037/0021-9010.90.4.692",
+        "summary": "Training that shows a model of the behaviour and then has people practise it works, especially for knowledge and skills. Transfer to the job was larger when trainees practised scenarios close to their own work and saw both good and bad examples."
+      },
+      {
+        "id": "P:10.1136/qshc.2009.038562",
+        "kind": "paper",
+        "title": "Training and simulation for patient safety",
+        "authors": "R. Aggarwal, Oliver Tristan Mytton, Miliard Derbrew, David Hananel, Matthew Heydenburg, Saul Barry Issenberg",
+        "year": 2010,
+        "link": "https://doi.org/10.1136/qshc.2009.038562",
+        "summary": "Use structured role-play and simulation with feedback to rehearse sensitive conversations safely before doing them with real doctors."
+      },
+      {
+        "id": "P:10.1002/14651858.cd003751.pub4",
+        "kind": "paper",
+        "title": "Communication skills training for healthcare professionals working with people who have cancer",
+        "authors": "Philippa Moore, Solange Rivera M, Gonzalo Bravo‐Soto, Camila Olivares, Theresa Anne Lawrie",
+        "year": 2018,
+        "link": "https://doi.org/10.1002/14651858.cd003751.pub4",
+        "summary": "Teach brief communication skills through practice plus feedback and discussion, rather than lecture alone, to improve how learners handle difficult questions."
+      },
+      {
+        "id": "M:spaced-practice",
+        "kind": "method",
+        "title": "Distributed practice in verbal recall tasks: a review and quantitative synthesis",
+        "authors": "Cepeda, Pashler, Vul, Wixted and Rohrer",
+        "year": 2006,
+        "link": "https://doi.org/10.1037/0033-2909.132.3.354",
+        "summary": "Spreading practice over time leads to better long-term recall than massing it in one session."
+      }
+    ],
+    "items": [
+      {
+        "sourceId": "M:compliance-first",
+        "gives": "Stay strictly within the approved product information, pair any benefit statement with required safety information, and hand off off-label requests to Medical Information instead of answering directly.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "P:10.1016/j.mayocp.2012.04.017",
+        "gives": "Distinguish approved use from off-label use and explain why promotion must stay within the marketing authorization to protect patients and meet legal duties.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "P:10.1371/journal.pmed.1001945",
+        "gives": "Treat rep-initiated discussion of unapproved uses as a violation risk that self-regulatory rulings repeatedly sanction, so train reps to decline and refer rather than improvise.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "M:behaviour-modelling",
+        "gives": "Model compliant handling on realistic job scenarios and contrast desired redirect language with non-compliant improvisation so learners can copy the correct pattern.",
+        "use": "learn"
+      },
+      {
+        "sourceId": "P:10.1136/qshc.2009.038562",
+        "gives": "Use structured role-play and simulation with feedback to rehearse sensitive conversations safely before doing them with real doctors.",
+        "use": "learn"
+      },
+      {
+        "sourceId": "P:10.1002/14651858.cd003751.pub4",
+        "gives": "Teach brief communication skills through practice plus feedback and discussion, rather than lecture alone, to improve how learners handle difficult questions.",
+        "use": "learn"
+      },
+      {
+        "sourceId": "M:spaced-practice",
+        "gives": "Space repeat practice across sessions over days to build reliable recall of approved claims, safety points and the redirect line under pressure.",
+        "use": "learn"
+      }
+    ],
+    "notFound": [
+      "What exact compliant wording should reps use in English to decline an off-label question and offer Medical Information referral for this product?",
+      "How should reps handle persistent doctor pressure for an off-label answer without damaging the relationship?"
+    ]
+  },
+  "programme": {
+    "title": "Compliant Messaging for Corvenol",
+    "caseId": "regulated_messaging",
+    "language": "en",
+    "learnerRole": "medical representative",
+    "persona": {
+      "name": "Elena Ruiz",
+      "role": "physician in a busy outpatient clinic",
+      "voice": "woman",
+      "style": "direct, busy and practical, presses for a clear answer",
+      "facts": [
+        {
+          "id": "h1",
+          "fact": "She wants to prescribe Corvenol for a 14-year-old with high blood pressure",
+          "earnedBy": "Ask what patient or situation she has in mind for the off-label use"
+        },
+        {
+          "id": "h2",
+          "fact": "She also wants to try Corvenol for an older patient with heart failure",
+          "earnedBy": "Hold the first redirect politely so she reveals the second off-label interest"
+        },
+        {
+          "id": "h3",
+          "fact": "Another rep previously hinted Corvenol might help heart failure, so she expects the same answer",
+          "earnedBy": "Ask why she expects an answer or about prior experience with Corvenol"
+        }
+      ],
+      "redLines": [
+        "never provides the approved product information herself",
+        "never drops the off-label request after one redirect, always pushes at least twice",
+        "never becomes abusive or shouts, stays professional but insistent"
+      ],
+      "portraitPrompt": "Illustrated portrait of a middle-aged woman doctor in white coat with stethoscope, neutral clinic background, calm professional expression, no text"
+    },
+    "skills": [
+      {
+        "id": "s1",
+        "name": "Stay within approved claims",
+        "why": "Staying inside the marketing authorization protects patients and meets legal duties.",
+        "sources": [
+          "M:compliance-first",
+          "P:10.1016/j.mayocp.2012.04.017"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-regulated_messaging-f1",
+            "quote": "treatment of high blood pressure in adults"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "name": "Pair benefits with safety",
+        "why": "Doctors need balanced information with risks whenever benefits are discussed.",
+        "sources": [
+          "M:compliance-first"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-regulated_messaging-f1",
+            "quote": "dizziness and swelling of the ankles are common side effects"
+          },
+          {
+            "fileId": "lib-regulated_messaging-f1",
+            "quote": "Corvenol must not be used in pregnancy"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "name": "Redirect off-label to Medical Information",
+        "why": "Declining and referring avoids violation risk instead of improvising an answer.",
+        "sources": [
+          "M:compliance-first",
+          "P:10.1371/journal.pmed.1001945"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-regulated_messaging-f1",
+            "quote": "offer to pass the question to the Medical Information team"
+          }
+        ]
+      }
+    ],
+    "levels": [
+      {
+        "id": "L1",
+        "title": "Single calm question",
+        "situation": "Routine visit, doctor asks once about use in children and accepts guidance easily.",
+        "opening": "Thanks for stopping by. I have a teenager with high blood pressure - can I use Corvenol for her?",
+        "moodStart": 30,
+        "moodFloor": 10,
+        "sources": [
+          "M:behaviour-modelling",
+          "P:10.1136/qshc.2009.038562"
+        ],
+        "excerpts": []
+      },
+      {
+        "id": "L2",
+        "title": "Push for heart failure",
+        "situation": "Doctor adds a heart failure question and argues another medicine is not working.",
+        "opening": "Okay, but what about my older heart failure patient? I heard it could help - what dose would you suggest?",
+        "moodStart": 55,
+        "moodFloor": 20,
+        "sources": [
+          "M:behaviour-modelling",
+          "P:10.1002/14651858.cd003751.pub4"
+        ],
+        "excerpts": []
+      },
+      {
+        "id": "L3",
+        "title": "Persistent pressure",
+        "situation": "Doctor insists on a personal opinion, cites another rep, and asks if Corvenol is better than other medicines.",
+        "opening": "Look, just between us - the last rep hinted it works for heart failure. Tell me what you really think, is it better?",
+        "moodStart": 70,
+        "moodFloor": 30,
+        "sources": [
+          "P:10.1371/journal.pmed.1001945",
+          "M:spaced-practice"
+        ],
+        "excerpts": []
+      }
+    ],
+    "rubric": [
+      {
+        "id": "r1",
+        "skillId": "s1",
+        "text": "States only the approved adult hypertension use with no added claims",
+        "mustHave": true,
+        "lookFor": "Mentions adult high blood pressure only, no extra promises",
+        "tryThis": "Say: Corvenol is approved only for treatment of high blood pressure in adults.",
+        "sources": [
+          "M:compliance-first",
+          "P:10.1016/j.mayocp.2012.04.017"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-regulated_messaging-f1",
+            "quote": "treatment of high blood pressure in adults"
+          }
+        ]
+      },
+      {
+        "id": "r2",
+        "skillId": "s1",
+        "text": "Makes zero unapproved claims about children, heart failure or superiority",
+        "mustHave": true,
+        "lookFor": "No dose, no use in children, no heart failure claim, no better-than claim",
+        "tryThis": "Do not guess a dose; say that use is not approved and you cannot comment.",
+        "sources": [
+          "P:10.1371/journal.pmed.1001945"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-regulated_messaging-f1",
+            "quote": "use in children, use for heart failure"
+          }
+        ]
+      },
+      {
+        "id": "r3",
+        "skillId": "s2",
+        "text": "Gives required safety information whenever a benefit is mentioned",
+        "mustHave": true,
+        "lookFor": "Every benefit statement is paired with safety points in same turn",
+        "tryThis": "After any benefit, add the common side effects and pregnancy warning.",
+        "sources": [
+          "M:compliance-first"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-regulated_messaging-f1",
+            "quote": "dizziness and swelling of the ankles are common side effects"
+          }
+        ]
+      },
+      {
+        "id": "r4",
+        "skillId": "s2",
+        "text": "States the pregnancy contraindication accurately when discussing benefits",
+        "mustHave": true,
+        "lookFor": "Clearly says must not be used in pregnancy without softening",
+        "tryThis": "Say: Corvenol must not be used in pregnancy.",
+        "sources": [
+          "M:compliance-first"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-regulated_messaging-f1",
+            "quote": "Corvenol must not be used in pregnancy"
+          }
+        ]
+      },
+      {
+        "id": "r5",
+        "skillId": "s3",
+        "text": "Declines off-label answer directly and offers Medical Information referral",
+        "mustHave": true,
+        "lookFor": "Says can only discuss approved use and offers to pass question on",
+        "tryThis": "Say: I can only discuss the approved use, but I can pass your question to Medical Information.",
+        "sources": [
+          "M:compliance-first",
+          "P:10.1371/journal.pmed.1001945"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-regulated_messaging-f1",
+            "quote": "say you can only discuss the approved use"
+          }
+        ]
+      },
+      {
+        "id": "r6",
+        "skillId": "s3",
+        "text": "Holds the redirect politely under repeated pressure without improvising",
+        "mustHave": false,
+        "lookFor": "Stays friendly, repeats referral, does not give opinion or hint",
+        "tryThis": "Say: I understand the pressure, I still cannot advise off-label - shall I connect you with Medical Information?",
+        "sources": [
+          "P:10.1002/14651858.cd003751.pub4",
+          "P:10.1371/journal.pmed.1001945"
+        ],
+        "excerpts": []
+      }
+    ],
+    "instructions": "You are a medical representative discussing Corvenol 10 mg with a doctor who will ask off-label questions. Stay within the approved use, give safety information with any benefit, and refer off-label questions to Medical Information.",
+    "keywords": [
+      "Corvenol",
+      "hypertension",
+      "blood pressure",
+      "Medical Information",
+      "dizziness",
+      "ankles",
+      "pregnancy",
+      "children",
+      "heart failure"
+    ]
+  },
+  "testCall": {
+    "ok": true,
+    "notes": [
+      "Stayed direct, busy and insistent while pressing for a clear better-than answer.",
+      "Never shouted, never gave approved info, and pushed well beyond twice without dropping request.",
+      "Did not calm down, give personal opinion, or volunteer the 14-year-old use unprompted."
+    ]
+  },
+  "sampleCall": {
+    "level": "L1",
+    "learner": "Sample representative",
+    "turns": [
+      {
+        "speaker": "persona",
+        "text": "Thanks for stopping by. I have a teenager with high blood pressure - can I use Corvenol for her?",
+        "atMs": 0,
+        "mood": 30
+      },
+      {
+        "speaker": "learner",
+        "text": "Corvenol is approved only for adults with hypertension to help lower blood pressure, and common side effects include dizziness and headache. For your teenage patient I can't advise on off-label use, but our Medical Information team can help with that question.",
+        "atMs": 21600,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Okay, thanks for being clear on the adult use and side effects. But I still need help for this teenager, can't you tell me more?",
+        "atMs": 31000,
+        "mood": 15
+      },
+      {
+        "speaker": "learner",
+        "text": "I understand you want to help her, but I can't advise on use in teenagers since Corvenol is approved only for adults with hypertension to help lower blood pressure, and dizziness and headache are common side effects. Our Medical Information team is the best resource for that off-label question.",
+        "atMs": 54700,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Alright, thanks for clarifying that. I'll contact Medical Information about her.",
+        "atMs": 61700,
+        "mood": 10
+      },
+      {
+        "speaker": "learner",
+        "text": "You're very welcome, and thanks for understanding — please reach out anytime about the adult hypertension use.",
+        "atMs": 74300,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Thanks for that, I'll reach out to them. While you're here, I also have an older man with heart failure - could Corvenol help him?",
+        "atMs": 83800,
+        "mood": 10
+      },
+      {
+        "speaker": "learner",
+        "text": "Corvenol is approved only for adults with hypertension to help lower blood pressure, and dizziness and headache are common side effects. For heart failure I can't advise on that off-label use, but our Medical Information team can help with your question.",
+        "atMs": 105040,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Thanks for sticking to the adult use and the side effects. But for this heart failure man, can't you give me any guidance?",
+        "atMs": 114140,
+        "mood": 10
+      },
+      {
+        "speaker": "learner",
+        "text": "I understand, but I can't provide guidance for heart failure since Corvenol is approved only for adults with hypertension to help lower blood pressure, and dizziness and headache are common side effects. Our Medical Information team can help with that off-label question.",
+        "atMs": 136400,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Got it, thanks for staying clear on that. I'll send that heart failure question to Medical Information too.",
+        "atMs": 144750,
+        "mood": 10
+      }
+    ],
+    "verdicts": [
+      {
+        "lineId": "r1",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r1",
+            "result": "pass",
+            "turn": 1,
+            "quote": "Corvenol is approved only for adults with hypertension to help lower blood pressure, and common side effects include dizziness and headache. For your teenage patient I can't advise on off-label use, but our Medical Information team can help with that question."
+          },
+          {
+            "lineId": "r1",
+            "result": "pass",
+            "turn": 1,
+            "quote": "Corvenol is approved only for adults with hypertension to help lower blood pressure, and common side effects include dizziness and headache. For your teenage patient I can't advise on off-label use, but our Medical Information team can help with that question."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r2",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r2",
+            "result": "pass",
+            "turn": 7,
+            "quote": "Corvenol is approved only for adults with hypertension to help lower blood pressure, and dizziness and headache are common side effects. For heart failure I can't advise on that off-label use, but our Medical Information team can help with your question."
+          },
+          {
+            "lineId": "r2",
+            "result": "pass",
+            "turn": 7,
+            "quote": "Corvenol is approved only for adults with hypertension to help lower blood pressure, and dizziness and headache are common side effects. For heart failure I can't advise on that off-label use, but our Medical Information team can help with your question."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r3",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r3",
+            "result": "pass",
+            "turn": 1,
+            "quote": "Corvenol is approved only for adults with hypertension to help lower blood pressure, and common side effects include dizziness and headache. For your teenage patient I can't advise on off-label use, but our Medical Information team can help with that question."
+          },
+          {
+            "lineId": "r3",
+            "result": "pass",
+            "turn": 1,
+            "quote": "Corvenol is approved only for adults with hypertension to help lower blood pressure, and common side effects include dizziness and headache. For your teenage patient I can't advise on off-label use, but our Medical Information team can help with that question."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r4",
+        "result": "missed",
+        "readings": [
+          {
+            "lineId": "r4",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          },
+          {
+            "lineId": "r4",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r5",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r5",
+            "result": "pass",
+            "turn": 1,
+            "quote": "Corvenol is approved only for adults with hypertension to help lower blood pressure, and common side effects include dizziness and headache. For your teenage patient I can't advise on off-label use, but our Medical Information team can help with that question."
+          },
+          {
+            "lineId": "r5",
+            "result": "pass",
+            "turn": 1,
+            "quote": "Corvenol is approved only for adults with hypertension to help lower blood pressure, and common side effects include dizziness and headache. For your teenage patient I can't advise on off-label use, but our Medical Information team can help with that question."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r6",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r6",
+            "result": "pass",
+            "turn": 3,
+            "quote": "I understand you want to help her, but I can't advise on use in teenagers since Corvenol is approved only for adults with hypertension to help lower blood pressure, and dizziness and headache are common side effects. Our Medical Information team is the best resource for that off-label question."
+          },
+          {
+            "lineId": "r6",
+            "result": "pass",
+            "turn": 3,
+            "quote": "I understand you want to help her, but I can't advise on use in teenagers since Corvenol is approved only for adults with hypertension to help lower blood pressure, and dizziness and headache are common side effects. Our Medical Information team is the best resource for that off-label question."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      }
+    ]
+  }
+}

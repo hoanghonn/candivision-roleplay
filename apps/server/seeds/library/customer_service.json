@@ -1,0 +1,602 @@
+{
+  "caseId": "customer_service",
+  "request": "Nhân viên tổng đài của chúng tôi xử lý rất kém khi khách hàng gọi đến phàn nàn vì bị từ chối hoàn tiền hoặc bị trừ tiền hai lần. Họ đọc chính sách như robot, không xin lỗi, và khách hàng dọa đăng lên mạng xã hội. Chúng tôi muốn họ biết lắng nghe, xin lỗi, làm đúng chính sách và hẹn thời gian trả lời rõ ràng.",
+  "files": [
+    {
+      "id": "lib-customer_service-f1",
+      "name": "chinh-sach-hoan-tien.txt",
+      "text": "TÀI LIỆU MẪU HƯ CẤU - được tạo cho bản demo CandiVision Roleplay. Công ty Lotus Home không có thật.\n\nChính sách hoàn tiền Lotus Home (trích)\n- Khách được hoàn tiền trong vòng 7 ngày kể từ khi nhận hàng nếu sản phẩm còn nguyên tem.\n- Sản phẩm đã lắp đặt hoặc đã dùng không được hoàn tiền, nhưng được đổi sang sản phẩm khác nếu lỗi do nhà sản xuất.\n- Nếu khách bị trừ tiền hai lần, nhân viên phải mở yêu cầu kiểm tra thanh toán và hẹn trả lời trong 24 giờ.\n- Nhân viên tổng đài được tặng mã giảm giá 10% khi khách phải chờ quá lâu.\n- Trường hợp khách dọa đăng lên mạng xã hội: không tranh cãi, ghi nhận, chuyển trưởng ca nếu khách yêu cầu.\n"
+    }
+  ],
+  "match": {
+    "caseId": "customer_service",
+    "situation": "Xử lý cuộc gọi của khách hàng phàn nàn vì bị từ chối hoàn tiền hoặc bị trừ tiền hai lần.",
+    "learnerRole": "Nhân viên tổng đài",
+    "counterpartRole": "Khách hàng bức xúc bị từ chối hoàn tiền hoặc bị trừ tiền hai lần và dọa đăng lên mạng xã hội",
+    "language": "vi",
+    "stakes": "Khách hàng tức giận dọa đăng lên mạng xã hội vì nhân viên đọc chính sách như robot và không xin lỗi.",
+    "readyMeans": [
+      "Biết lắng nghe",
+      "Biết xin lỗi",
+      "Làm đúng chính sách",
+      "Hẹn thời gian trả lời rõ ràng"
+    ]
+  },
+  "brief": {
+    "sources": [
+      {
+        "id": "M:service-recovery",
+        "kind": "method",
+        "title": "A model of customer satisfaction with service encounters involving failure and recovery",
+        "authors": "Smith, Bolton and Wagner",
+        "year": 1999,
+        "link": "https://doi.org/10.2307/3152082",
+        "summary": "Customers judge a recovery on three kinds of fairness: what they get back, how quickly and smoothly it is handled, and how they are treated. The best recovery matches the kind and size of the failure; an apology and a fast response matter most when the failure is about the process."
+      },
+      {
+        "id": "M:complaint-justice",
+        "kind": "method",
+        "title": "Customer evaluations of service complaint experiences: implications for relationship marketing",
+        "authors": "Tax, Brown and Chandrashekaran",
+        "year": 1998,
+        "link": "https://doi.org/10.1177/002224299806200205",
+        "summary": "A study of how customers judge the handling of their complaints. They look at a fair outcome, a fair process (timely, flexible, easy to follow) and fair treatment (courtesy, honesty, empathy, effort). All three shape trust and commitment afterwards."
+      },
+      {
+        "id": "M:active-listening",
+        "kind": "method",
+        "title": "The relative effectiveness of active listening in initial interactions",
+        "authors": "Weger, Castle Bell, Minei and Robinson",
+        "year": 2014,
+        "link": "https://doi.org/10.1080/10904018.2013.813234",
+        "summary": "In an experiment, people whose concerns were paraphrased back to them felt more understood than people who got simple acknowledgements or advice."
+      },
+      {
+        "id": "M:incident-comms",
+        "kind": "method",
+        "title": "PagerDuty Incident Response documentation",
+        "authors": "PagerDuty",
+        "year": null,
+        "link": "https://response.pagerduty.com/",
+        "summary": "An openly published guide to running major incidents. It gives one person the job of communicating with stakeholders, and status updates that say what is affected, what is being done, and when the next update will come."
+      },
+      {
+        "id": "P:10.1016/j.emj.2022.06.004",
+        "kind": "paper",
+        "title": "Successful complaint handling on social media predicts increased repurchase intention: The roles of trust in company and propensity to trust",
+        "authors": "Dogá Istanbulluoglu, Ezgi Sakman",
+        "year": 2022,
+        "link": "https://doi.org/10.1016/j.emj.2022.06.004",
+        "summary": "Khi khách dọa đăng mạng xã hội thì không tranh cãi, vẫn phản hồi nhanh với lời xin lỗi, sự chú tâm và hướng khắc phục đáng tin để giữ niềm tin và ý định quay lại."
+      },
+      {
+        "id": "P:10.1177/1046878197282002",
+        "kind": "paper",
+        "title": "Computer-Based Role-Playing for Interpersonal Skills Training",
+        "authors": "Geralien A. Holsbrink-Engels",
+        "year": 1997,
+        "link": "https://doi.org/10.1177/1046878197282002",
+        "summary": "Với người mới nên bắt đầu bằng nhập vai đơn giản trên máy tính trước khi vào nhập vai trực tiếp phức tạp để từng bước rèn kỹ năng giao tiếp."
+      },
+      {
+        "id": "P:10.1093/police/paad069",
+        "kind": "paper",
+        "title": "Training police to de-escalate mental health crisis situations: Comparing virtual reality and live-action scenario-based approaches",
+        "authors": "Jennifer A. A. Lavoie, Natalie Álvarez, Victoria Baker, Jacqueline Kohl",
+        "year": 2023,
+        "link": "https://doi.org/10.1093/police/paad069",
+        "summary": "Rèn kỹ năng hạ nhiệt căng thẳng hiệu quả nhất qua luyện tình huống mô phỏng lặp lại, thực hành cả nghe, đồng cảm và quy trình leo thang xử lý."
+      },
+      {
+        "id": "M:recovery-paradox",
+        "kind": "method",
+        "title": "Service recovery paradox: a meta-analysis",
+        "authors": "de Matos, Henrique and Rossi",
+        "year": 2007,
+        "link": "https://doi.org/10.1177/1094670507303012",
+        "summary": "Pooling many studies, a very good recovery can lift satisfaction above what it would have been with no failure, but it does not reliably lift loyalty, repurchase or word of mouth. A strong recovery helps; it does not make a failure worthwhile."
+      }
+    ],
+    "items": [
+      {
+        "sourceId": "M:service-recovery",
+        "gives": "Xin lỗi sớm và hành động nhanh, đối xử tôn trọng suốt cuộc gọi và đưa ra giải pháp tương xứng với thiệt hại khách gặp phải.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "M:complaint-justice",
+        "gives": "Giải thích rõ sẽ làm gì và khi nào, giữ thái độ trung thực lịch sự thể hiện nỗ lực, đảm bảo kết quả công bằng với tổn thất.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "M:active-listening",
+        "gives": "Tóm tắt lại bức xúc của khách bằng lời của mình trước khi trả lời để khách thấy được lắng nghe và để kiểm tra hiểu đúng.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "M:incident-comms",
+        "gives": "Nói rõ tác động bằng lời đơn giản, nêu việc đang làm ngay lúc này và đưa mốc thời gian cụ thể cho cập nhật tiếp theo rồi giữ đúng hẹn.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "P:10.1016/j.emj.2022.06.004",
+        "gives": "Khi khách dọa đăng mạng xã hội thì không tranh cãi, vẫn phản hồi nhanh với lời xin lỗi, sự chú tâm và hướng khắc phục đáng tin để giữ niềm tin và ý định quay lại.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "P:10.1177/1046878197282002",
+        "gives": "Với người mới nên bắt đầu bằng nhập vai đơn giản trên máy tính trước khi vào nhập vai trực tiếp phức tạp để từng bước rèn kỹ năng giao tiếp.",
+        "use": "learn"
+      },
+      {
+        "sourceId": "P:10.1093/police/paad069",
+        "gives": "Rèn kỹ năng hạ nhiệt căng thẳng hiệu quả nhất qua luyện tình huống mô phỏng lặp lại, thực hành cả nghe, đồng cảm và quy trình leo thang xử lý.",
+        "use": "learn"
+      },
+      {
+        "sourceId": "M:recovery-paradox",
+        "gives": "Do not promise that things will be better than before. Focus on preventing a repeat.",
+        "use": "handle"
+      }
+    ],
+    "notFound": [
+      "Cách diễn đạt lời từ chối hoàn tiền đúng chính sách bằng tiếng Việt mà vẫn đồng cảm, không nghe như đọc robot?",
+      "Nhân viên tổng đài nên nói gì cụ thể trong 30 giây đầu khi khách dọa đăng lên mạng xã hội để vừa ghi nhận vừa không tranh cãi?"
+    ]
+  },
+  "programme": {
+    "title": "Xử lý khiếu nại hoàn tiền và trừ tiền hai lần",
+    "caseId": "customer_service",
+    "language": "vi",
+    "learnerRole": "Nhân viên tổng đài",
+    "persona": {
+      "name": "Anh Tuấn",
+      "role": "Khách hàng cá nhân của cửa hàng gia dụng",
+      "voice": "man",
+      "style": "Nói nhanh, lớn tiếng, hay ngắt lời, lặp lại chuyện bị trừ tiền và dọa đăng lên mạng xã hội",
+      "facts": [
+        {
+          "id": "h1",
+          "fact": "Bị trừ tiền hai lần 1.850.000đ cho cùng một đơn hàng tối hôm qua",
+          "earnedBy": "Hỏi số tiền, thời gian trừ tiền và xin kiểm tra giao dịch"
+        },
+        {
+          "id": "h2",
+          "fact": "Từng bị từ chối hoàn tiền vì sản phẩm đã lắp đặt, chỉ được đổi nếu lỗi nhà sản xuất",
+          "earnedBy": "Hỏi lý do lần trước bị từ chối và tình trạng sản phẩm hiện tại"
+        },
+        {
+          "id": "h3",
+          "fact": "Cần tiền gấp trước cuối tuần và sẵn sàng gặp trưởng ca nếu không được hẹn rõ 24 giờ",
+          "earnedBy": "Đưa ra mốc thời gian cụ thể và hỏi mong muốn tiếp theo của khách"
+        }
+      ],
+      "redLines": [
+        "không bao giờ chửi tục hay đe dọa bạo lực",
+        "không bao giờ dịu giọng nếu chưa nghe lời xin lỗi và mốc thời gian trả lời cụ thể",
+        "không bao giờ chấp nhận nhân viên đọc chính sách như robot mà không tóm tắt lại bức xúc"
+      ],
+      "portraitPrompt": "minh họa chân dung người đàn ông Việt Nam trung niên mặc áo sơ mi thường ngày, vẻ mặt bực bội đang nghe điện thoại, nền trung tính, không chữ"
+    },
+    "skills": [
+      {
+        "id": "s1",
+        "name": "Lắng nghe và tóm tắt lại bức xúc",
+        "why": "Tóm tắt bằng lời của mình giúp khách thấy được lắng nghe và kiểm tra hiểu đúng.",
+        "sources": [
+          "M:active-listening"
+        ],
+        "excerpts": []
+      },
+      {
+        "id": "s2",
+        "name": "Xin lỗi sớm và hành động nhanh",
+        "why": "Lời xin lỗi sớm cùng thái độ tôn trọng giúp hạ nhiệt và giữ niềm tin khi khách dọa đăng mạng xã hội.",
+        "sources": [
+          "M:service-recovery",
+          "P:10.1016/j.emj.2022.06.004"
+        ],
+        "excerpts": []
+      },
+      {
+        "id": "s3",
+        "name": "Làm đúng chính sách hoàn tiền",
+        "why": "Giải thích đúng điều kiện hoàn tiền và quy trình kiểm tra trừ tiền hai lần để đảm bảo công bằng.",
+        "sources": [
+          "M:complaint-justice"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-customer_service-f1",
+            "quote": "Sản phẩm đã lắp đặt hoặc đã dùng không được hoàn tiền, nhưng được đổi sang sản phẩm khác nếu lỗi do nhà sản xuất."
+          },
+          {
+            "fileId": "lib-customer_service-f1",
+            "quote": "Nếu khách bị trừ tiền hai lần, nhân viên phải mở yêu cầu kiểm tra thanh toán và hẹn trả lời trong 24 giờ."
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "name": "Hẹn thời gian trả lời rõ ràng và không tranh cãi",
+        "why": "Nêu việc đang làm ngay và mốc cập nhật cụ thể giúp khách yên tâm chờ mà không đăng lên mạng xã hội.",
+        "sources": [
+          "M:incident-comms",
+          "P:10.1016/j.emj.2022.06.004"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-customer_service-f1",
+            "quote": "Trường hợp khách dọa đăng lên mạng xã hội: không tranh cãi, ghi nhận, chuyển trưởng ca nếu khách yêu cầu."
+          }
+        ]
+      }
+    ],
+    "levels": [
+      {
+        "id": "L1",
+        "title": "Trừ tiền hai lần, khách còn nghe máy",
+        "situation": "Khách báo bị trừ tiền hai lần, còn bình tĩnh để trình bày nếu được lắng nghe và xin lỗi sớm",
+        "opening": "Alo, tôi đặt hàng tối qua mà sao tài khoản bị trừ tiền hai lần vậy? Bên em kiểm tra giùm tôi ngay đi!",
+        "moodStart": 60,
+        "moodFloor": 20,
+        "sources": [
+          "P:10.1177/1046878197282002",
+          "M:active-listening"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-customer_service-f1",
+            "quote": "Nếu khách bị trừ tiền hai lần, nhân viên phải mở yêu cầu kiểm tra thanh toán và hẹn trả lời trong 24 giờ."
+          }
+        ]
+      },
+      {
+        "id": "L2",
+        "title": "Từ chối hoàn tiền, dọa đăng mạng xã hội",
+        "situation": "Khách từng bị từ chối hoàn tiền vì đã lắp đặt, nay tức giận nói sẽ đăng lên mạng xã hội nếu đọc chính sách như robot",
+        "opening": "Hôm trước bên em từ chối hoàn tiền cho tôi, giờ lại trừ tiền hai lần! Tôi mà không được giải quyết là tôi đăng lên mạng xã hội đó!",
+        "moodStart": 80,
+        "moodFloor": 35,
+        "sources": [
+          "P:10.1016/j.emj.2022.06.004",
+          "M:service-recovery"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-customer_service-f1",
+            "quote": "Sản phẩm đã lắp đặt hoặc đã dùng không được hoàn tiền, nhưng được đổi sang sản phẩm khác nếu lỗi do nhà sản xuất."
+          }
+        ]
+      },
+      {
+        "id": "L3",
+        "title": "Dồn cả hai lỗi, đòi gặp trưởng ca",
+        "situation": "Khách dồn cả vụ từ chối hoàn tiền và trừ tiền hai lần, liên tục ngắt lời, đòi gặp trưởng ca và mốc giờ cụ thể",
+        "opening": "Tôi không nghe giải thích lòng vòng nữa! Vừa không cho hoàn tiền vừa trừ tiền hai lần, cho tôi gặp trưởng ca ngay, mấy giờ trả lời tôi?",
+        "moodStart": 92,
+        "moodFloor": 50,
+        "sources": [
+          "P:10.1093/police/paad069",
+          "M:incident-comms",
+          "M:recovery-paradox"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-customer_service-f1",
+            "quote": "Trường hợp khách dọa đăng lên mạng xã hội: không tranh cãi, ghi nhận, chuyển trưởng ca nếu khách yêu cầu."
+          }
+        ]
+      }
+    ],
+    "rubric": [
+      {
+        "id": "r1",
+        "skillId": "s1",
+        "text": "Tóm tắt lại bức xúc bị từ chối hoàn tiền hoặc bị trừ tiền hai lần bằng lời của mình trước khi trả lời.",
+        "mustHave": true,
+        "lookFor": "Nghe thấy câu tóm tắt ngắn gọn về hai lần trừ tiền và chuyện từ chối hoàn tiền trước khi giải thích.",
+        "tryThis": "Thử nói: Để em xác nhận lại là anh bị trừ tiền hai lần và lần trước chưa được hoàn vì đã lắp đặt, đúng không ạ?",
+        "sources": [
+          "M:active-listening"
+        ],
+        "excerpts": []
+      },
+      {
+        "id": "r2",
+        "skillId": "s2",
+        "text": "Xin lỗi sớm trong 30 giây đầu bằng giọng chân thành, không đọc chính sách như robot.",
+        "mustHave": true,
+        "lookFor": "Nghe lời xin lỗi rõ ràng ngay đầu cuộc gọi và giọng điệu tôn trọng suốt cuộc gọi.",
+        "tryThis": "Thử nói: Em xin lỗi vì trải nghiệm này làm anh bực mình, để em kiểm tra ngay cho anh ạ.",
+        "sources": [
+          "M:service-recovery"
+        ],
+        "excerpts": []
+      },
+      {
+        "id": "r3",
+        "skillId": "s3",
+        "text": "Giải thích đúng chính sách: đã lắp đặt thì không hoàn nhưng được đổi nếu lỗi nhà sản xuất, trừ hai lần thì mở kiểm tra thanh toán.",
+        "mustHave": true,
+        "lookFor": "Nghe giải thích đúng điều kiện hoàn tiền và bước mở yêu cầu kiểm tra thanh toán, không hứa sai chính sách.",
+        "tryThis": "Thử nói: Trường hợp đã lắp đặt bên em không hoàn được nhưng nếu lỗi nhà sản xuất sẽ đổi sản phẩm khác cho anh ạ.",
+        "sources": [
+          "M:complaint-justice"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-customer_service-f1",
+            "quote": "Sản phẩm đã lắp đặt hoặc đã dùng không được hoàn tiền, nhưng được đổi sang sản phẩm khác nếu lỗi do nhà sản xuất."
+          }
+        ]
+      },
+      {
+        "id": "r4",
+        "skillId": "s4",
+        "text": "Nêu việc đang làm ngay lúc này và hẹn mốc thời gian cụ thể cho cập nhật tiếp theo trong 24 giờ.",
+        "mustHave": true,
+        "lookFor": "Nghe câu nói rõ đang làm gì và hẹn giờ trả lời cụ thể, không nói chung chung sẽ liên hệ sau.",
+        "tryThis": "Thử nói: Em mở yêu cầu kiểm tra ngay lúc này và sẽ gọi lại cho anh trước 10 giờ sáng mai ạ.",
+        "sources": [
+          "M:incident-comms"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-customer_service-f1",
+            "quote": "Nếu khách bị trừ tiền hai lần, nhân viên phải mở yêu cầu kiểm tra thanh toán và hẹn trả lời trong 24 giờ."
+          }
+        ]
+      },
+      {
+        "id": "r5",
+        "skillId": "s4",
+        "text": "Khi khách dọa đăng lên mạng xã hội thì không tranh cãi, ghi nhận và hỏi có muốn chuyển trưởng ca không.",
+        "mustHave": true,
+        "lookFor": "Nghe thái độ bình tĩnh, không đôi co, có câu ghi nhận lo lắng về mạng xã hội và đề nghị leo thang.",
+        "tryThis": "Thử nói: Em hiểu anh bức xúc muốn chia sẻ, để em ghi nhận và chuyển trưởng ca ngay nếu anh muốn ạ.",
+        "sources": [
+          "P:10.1016/j.emj.2022.06.004"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-customer_service-f1",
+            "quote": "Trường hợp khách dọa đăng lên mạng xã hội: không tranh cãi, ghi nhận, chuyển trưởng ca nếu khách yêu cầu."
+          }
+        ]
+      },
+      {
+        "id": "r6",
+        "skillId": "s3",
+        "text": "Đưa giải pháp tương xứng và nói cách ngăn lặp lại, không hứa mọi thứ sẽ tốt hơn trước.",
+        "mustHave": false,
+        "lookFor": "Nghe đề nghị khắc phục công bằng như đổi sản phẩm hoặc mã giảm giá và cam kết kiểm tra để không trừ nhầm nữa.",
+        "tryThis": "Thử nói: Em sẽ kiểm tra kỹ giao dịch để không lặp lại và gửi anh mã giảm giá 10% vì đã phải chờ lâu ạ.",
+        "sources": [
+          "M:recovery-paradox",
+          "M:service-recovery"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-customer_service-f1",
+            "quote": "Nhân viên tổng đài được tặng mã giảm giá 10% khi khách phải chờ quá lâu."
+          }
+        ]
+      }
+    ],
+    "instructions": "Bạn là nhân viên tổng đài Lotus Home, hãy xử lý khiếu nại bị từ chối hoàn tiền hoặc bị trừ tiền hai lần. Hãy lắng nghe, xin lỗi chân thành, làm đúng chính sách và hẹn rõ thời gian trả lời trong 24 giờ.",
+    "keywords": [
+      "hoàn tiền",
+      "trừ tiền hai lần",
+      "24 giờ",
+      "Lotus Home",
+      "đăng lên mạng xã hội",
+      "trưởng ca",
+      "mã giảm giá 10%",
+      "kiểm tra thanh toán",
+      "nguyên tem"
+    ]
+  },
+  "testCall": {
+    "ok": true,
+    "notes": [
+      "Stayed loud and interrupting while repeating double-charge and demanding supervisor with specific time.",
+      "Never revealed amount 1.850.000d, installed-product refusal reason, or weekend deadline without earning.",
+      "No swearing or violence threats and never calmed down despite empty apologies."
+    ]
+  },
+  "sampleCall": {
+    "level": "L1",
+    "learner": "Học viên mẫu",
+    "turns": [
+      {
+        "speaker": "persona",
+        "text": "Alo, tôi đặt hàng tối qua mà sao tài khoản bị trừ tiền hai lần vậy? Bên em kiểm tra giùm tôi ngay đi!",
+        "atMs": 0,
+        "mood": 60
+      },
+      {
+        "speaker": "learner",
+        "text": "Dạ em xin lỗi anh Tuấn vì sự bất tiện này ạ, để em kiểm tra ngay giao dịch bị trừ hai lần cho anh bây giờ luôn và sẽ cập nhật lại cho anh trước 10 giờ sáng mai nhé anh.",
+        "atMs": 16080,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Ừ, xin lỗi vậy còn nghe được đó! Kiểm tra nhanh giùm tôi đi, tiền đó tôi đang cần gấp lắm!",
+        "atMs": 23580,
+        "mood": 45
+      },
+      {
+        "speaker": "learner",
+        "text": "Dạ vâng anh Tuấn, em đang mở kiểm tra thanh toán cho hai giao dịch tối qua ngay lúc này ạ. Đúng quy định bên em là trừ hai lần thì sẽ đối soát rồi hoàn lại phần thừa, em cập nhật lại cho anh trước 10 giờ sáng mai nhé anh.",
+        "atMs": 42840,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Ừ, nhớ đúng 10 giờ sáng mai báo lại cho tôi đó! Kiểm tra lẹ giùm đi, tôi đang cần tiền gấp lắm!",
+        "atMs": 50590,
+        "mood": 28
+      },
+      {
+        "speaker": "learner",
+        "text": "Dạ vâng anh Tuấn, em đang kiểm tra gấp hai giao dịch này ngay đây ạ, đúng 10 giờ sáng mai em báo lại cho anh liền nhé anh.",
+        "atMs": 63910,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Ừ, chốt 10 giờ sáng mai báo lại là được đó. Mà em chưa hỏi anh bị trừ bao nhiêu lúc nào thì kiểm tra kiểu gì?",
+        "atMs": 72360,
+        "mood": 20
+      },
+      {
+        "speaker": "learner",
+        "text": "Dạ anh Tuấn thông cảm giúp em nhé, anh cho em xin số tiền bị trừ và khoảng thời gian giao dịch tối qua để em mở kiểm tra thanh toán ngay lúc này và báo lại cho anh trước 10 giờ sáng mai ạ.",
+        "atMs": 89640,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Là 1.850.000đ bị trừ hai lần tối hôm qua đó, cùng một đơn hàng luôn, em coi kỹ giùm anh!",
+        "atMs": 97040,
+        "mood": 20
+      },
+      {
+        "speaker": "learner",
+        "text": "Dạ em xin lỗi anh Tuấn ạ, để em ghi nhận hai giao dịch 1.850.000đ tối qua. Em đang mở kiểm tra thanh toán ngay lúc này ạ, đúng quy định bên em sẽ đối soát rồi hoàn lại phần thừa, em báo lại cho anh trước 10 giờ sáng mai nhé anh.",
+        "atMs": 116720,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Ok, ghi đúng 1 triệu 850 hai lần rồi đó, vậy giờ anh cần chờ tới 10 giờ sáng mai thôi đúng không?",
+        "atMs": 124570,
+        "mood": 20
+      }
+    ],
+    "verdicts": [
+      {
+        "lineId": "r1",
+        "result": "unsure",
+        "readings": [
+          {
+            "lineId": "r1",
+            "result": "pass",
+            "turn": 1,
+            "quote": "Dạ em xin lỗi anh Tuấn vì sự bất tiện này ạ, để em kiểm tra ngay giao dịch bị trừ hai lần cho anh bây giờ luôn và sẽ cập nhật lại cho anh trước 10 giờ sáng mai nhé anh."
+          },
+          {
+            "lineId": "r1",
+            "result": "partly",
+            "turn": 1,
+            "quote": "Dạ em xin lỗi anh Tuấn vì sự bất tiện này ạ, để em kiểm tra ngay giao dịch bị trừ hai lần cho anh bây giờ luôn và sẽ cập nhật lại cho anh trước 10 giờ sáng mai nhé anh."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r2",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r2",
+            "result": "pass",
+            "turn": 1,
+            "quote": "Dạ em xin lỗi anh Tuấn vì sự bất tiện này ạ, để em kiểm tra ngay giao dịch bị trừ hai lần cho anh bây giờ luôn và sẽ cập nhật lại cho anh trước 10 giờ sáng mai nhé anh."
+          },
+          {
+            "lineId": "r2",
+            "result": "pass",
+            "turn": 1,
+            "quote": "Dạ em xin lỗi anh Tuấn vì sự bất tiện này ạ, để em kiểm tra ngay giao dịch bị trừ hai lần cho anh bây giờ luôn và sẽ cập nhật lại cho anh trước 10 giờ sáng mai nhé anh."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r3",
+        "result": "unsure",
+        "readings": [
+          {
+            "lineId": "r3",
+            "result": "partly",
+            "turn": 3,
+            "quote": "Dạ vâng anh Tuấn, em đang mở kiểm tra thanh toán cho hai giao dịch tối qua ngay lúc này ạ. Đúng quy định bên em là trừ hai lần thì sẽ đối soát rồi hoàn lại phần thừa, em cập nhật lại cho anh trước 10 giờ sáng mai nhé anh."
+          },
+          {
+            "lineId": "r3",
+            "result": "pass",
+            "turn": 3,
+            "quote": "Đúng quy định bên em là trừ hai lần thì sẽ đối soát rồi hoàn lại phần thừa, em cập nhật lại cho anh trước 10 giờ sáng mai nhé anh."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r4",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r4",
+            "result": "pass",
+            "turn": 1,
+            "quote": "Dạ em xin lỗi anh Tuấn vì sự bất tiện này ạ, để em kiểm tra ngay giao dịch bị trừ hai lần cho anh bây giờ luôn và sẽ cập nhật lại cho anh trước 10 giờ sáng mai nhé anh."
+          },
+          {
+            "lineId": "r4",
+            "result": "pass",
+            "turn": 1,
+            "quote": "để em kiểm tra ngay giao dịch bị trừ hai lần cho anh bây giờ luôn và sẽ cập nhật lại cho anh trước 10 giờ sáng mai nhé anh."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r5",
+        "result": "missed",
+        "readings": [
+          {
+            "lineId": "r5",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          },
+          {
+            "lineId": "r5",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r6",
+        "result": "unsure",
+        "readings": [
+          {
+            "lineId": "r6",
+            "result": "partly",
+            "turn": 3,
+            "quote": "Dạ vâng anh Tuấn, em đang mở kiểm tra thanh toán cho hai giao dịch tối qua ngay lúc này ạ. Đúng quy định bên em là trừ hai lần thì sẽ đối soát rồi hoàn lại phần thừa, em cập nhật lại cho anh trước 10 giờ sáng mai nhé anh."
+          },
+          {
+            "lineId": "r6",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      }
+    ]
+  }
+}

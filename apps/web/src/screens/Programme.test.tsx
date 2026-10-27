@@ -66,6 +66,12 @@ describe('Programme', () => {
     expect(screen.getByRole('link', { name: /L1/ })).toHaveAttribute('href', '#/call/v1/L1')
   })
 
+  it('ready-built programmes link to their sample debrief', async () => {
+    mockFetch({ 'GET /api/programmes/:id': () => detail({ readyBuilt: true, status: 'published', sampleCallId: 'lib-outage_call-sample', versions: [{ id: 'v1', hash: 'aaaaaaaaaaaa', published: 1 }] }) })
+    render(<Programme id="p1" />)
+    expect(await screen.findByRole('link', { name: /See a sample debrief/ })).toHaveAttribute('href', '#/debrief/lib-outage_call-sample')
+  })
+
   it('shows the grounding mix and what research did not find', async () => {
     mockFetch({ 'GET /api/programmes/:id': () => detail() })
     render(<Programme id="p1" />)

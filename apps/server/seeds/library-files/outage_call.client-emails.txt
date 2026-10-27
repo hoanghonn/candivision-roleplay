@@ -1,0 +1,16 @@
+FICTIONAL SAMPLE MATERIAL - made up for the CandiVision Roleplay demo. All names are invented.
+
+From: Head of Operations, Kumo Logistics
+To: Account team
+Subject: Again??
+
+Our three warehouses stopped for two hours this morning. My team stood idle and trucks left half empty.
+This is the second time this month. Last time your engineer spent ten minutes explaining "replication" to me and never told us when it would be fixed.
+I do not need the technical details. I need to know what is affected, what you are doing, and when I will hear from you next.
+If this happens again I will have to take it to our CEO.
+
+From: Account team
+To: Head of Operations, Kumo Logistics
+Subject: RE: Again??
+
+We understand. Our on-call engineer will call you now.

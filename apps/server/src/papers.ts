@@ -1,9 +1,11 @@
 import type { Source } from '@roleplay/core'
 
-export type Paper = { doi: string; title: string; authors: string; year: number | null; abstract: string; link: string }
+export type Paper = { doi: string; title: string; authors: string; year: number | null; abstract: string; link: string; citations: number }
 type Deps = { fetch?: typeof fetch }
 
 const MAX_ABSTRACT = 1200
+/** Only works other researchers have cited at least this often: keeps out obscure and predatory venues. */
+export const MIN_CITATIONS = 10
 const cleanDoi = (d: string) => d.replace(/^https?:\/\/(dx\.)?doi\.org\//i, '').trim().toLowerCase()
 const stripTags = (s: string) => s.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim()
 
@@ -15,7 +17,7 @@ function fromInverted(index: Record<string, number[]> | null | undefined): strin
 }
 
 async function openAlex(f: typeof fetch, query: string): Promise<Paper[]> {
-  const url = `https://api.openalex.org/works?search=${encodeURIComponent(query)}&filter=has_doi:true,type:article&per-page=5&select=doi,title,authorships,publication_year,abstract_inverted_index&mailto=support@candivision.com`
+  const url = `https://api.openalex.org/works?search=${encodeURIComponent(query)}&filter=has_doi:true,type:article,cited_by_count:>${MIN_CITATIONS - 1}&per-page=5&select=doi,title,authorships,publication_year,abstract_inverted_index,cited_by_count&mailto=support@candivision.com`
   const res = await f(url, { signal: AbortSignal.timeout(6000) })
   if (!res.ok) throw new Error(`openalex ${res.status}`)
   const body: any = await res.json()
@@ -30,17 +32,19 @@ async function openAlex(f: typeof fetch, query: string): Promise<Paper[]> {
         year: w.publication_year ?? null,
         abstract: stripTags(fromInverted(w.abstract_inverted_index)).slice(0, MAX_ABSTRACT),
         link: `https://doi.org/${doi}`,
+        citations: Number(w.cited_by_count ?? 0),
       }
     })
 }
 
 async function crossref(f: typeof fetch, query: string): Promise<Paper[]> {
-  const url = `https://api.crossref.org/works?query=${encodeURIComponent(query)}&rows=5&select=DOI,title,author,issued,abstract`
+  const url = `https://api.crossref.org/works?query=${encodeURIComponent(query)}&rows=10&select=DOI,title,author,issued,abstract,is-referenced-by-count`
   const res = await f(url, { signal: AbortSignal.timeout(6000) })
   if (!res.ok) throw new Error(`crossref ${res.status}`)
   const body: any = await res.json()
   return (body.message?.items ?? [])
-    .filter((w: any) => w.DOI && w.title?.[0])
+    .filter((w: any) => w.DOI && w.title?.[0] && Number(w['is-referenced-by-count'] ?? 0) >= MIN_CITATIONS)
+    .slice(0, 5)
     .map((w: any) => {
       const doi = cleanDoi(w.DOI)
       return {
@@ -50,6 +54,7 @@ async function crossref(f: typeof fetch, query: string): Promise<Paper[]> {
         year: w.issued?.['date-parts']?.[0]?.[0] ?? null,
         abstract: stripTags(String(w.abstract ?? '')).slice(0, MAX_ABSTRACT),
         link: `https://doi.org/${doi}`,
+        citations: Number(w['is-referenced-by-count'] ?? 0),
       }
     })
 }

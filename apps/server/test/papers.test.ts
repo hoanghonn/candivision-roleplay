@@ -34,7 +34,7 @@ describe('searchPapers', () => {
     const fake = async (url: string | URL | Request) => {
       calls.push(String(url))
       if (String(url).includes('openalex')) return json({}, 500)
-      return json({ message: { items: [{ DOI: '10.1/ABC', title: ['A paper'], author: [{ given: 'Ann', family: 'Lee' }], issued: { 'date-parts': [[2020]] }, abstract: '<jats:p>Short <b>text</b></jats:p>' }] } })
+      return json({ message: { items: [{ DOI: '10.1/ABC', title: ['A paper'], author: [{ given: 'Ann', family: 'Lee' }], issued: { 'date-parts': [[2020]] }, abstract: '<jats:p>Short <b>text</b></jats:p>', 'is-referenced-by-count': 25 }] } })
     }
     const res = await searchPapers('x y', { fetch: fake as typeof fetch })
     expect(calls.some((c) => c.includes('crossref'))).toBe(true)
@@ -44,6 +44,28 @@ describe('searchPapers', () => {
   it('returns [] when both fail', async () => {
     const res = await searchPapers('x', { fetch: (async () => { throw new Error('down') }) as typeof fetch })
     expect(res).toEqual([])
+  })
+})
+
+describe('citation floor', () => {
+  it('asks OpenAlex for works cited at least 10 times and passes the count on', async () => {
+    const urls: string[] = []
+    const [p] = await searchPapers('apology', { fetch: (async (u: string) => { urls.push(String(u)); return json({ results: [{ ...openAlexHit.results[0], cited_by_count: 812 }] }) }) as typeof fetch })
+    expect(urls[0]).toContain('cited_by_count:>9')
+    expect(p.citations).toBe(812)
+  })
+
+  it('drops Crossref hits cited fewer than 10 times', async () => {
+    const fake = async (url: string | URL | Request) => {
+      if (String(url).includes('openalex')) return json({ results: [] })
+      return json({ message: { items: [
+        { DOI: '10.1/low', title: ['Barely cited'], 'is-referenced-by-count': 3 },
+        { DOI: '10.1/high', title: ['Well cited'], 'is-referenced-by-count': 140 },
+      ] } })
+    }
+    const res = await searchPapers('x', { fetch: fake as typeof fetch })
+    expect(res.map((p) => p.doi)).toEqual(['10.1/high'])
+    expect(String(res[0].citations)).toBe('140')
   })
 })
 
@@ -59,7 +81,7 @@ describe('doiResolves', () => {
 
 describe('paperSource', () => {
   it('builds a P: source', () => {
-    const s = paperSource({ doi: '10.1/x', title: 'T', authors: 'A', year: 2000, abstract: '', link: 'https://doi.org/10.1/x' }, 'our words')
+    const s = paperSource({ doi: '10.1/x', title: 'T', authors: 'A', year: 2000, abstract: '', link: 'https://doi.org/10.1/x', citations: 50 }, 'our words')
     expect(s).toMatchObject({ id: 'P:10.1/x', kind: 'paper', summary: 'our words' })
   })
 })

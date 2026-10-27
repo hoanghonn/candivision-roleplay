@@ -1,0 +1,681 @@
+{
+  "caseId": "outage_call",
+  "request": "When production goes down, our engineers call the client and it gets worse. They over-explain the technical cause, never say sorry, and can't give a time for the next update. Last month a client in Osaka escalated to our CEO. Ready means: they own it in the first minute, explain impact in plain words and always give a time for the next update.",
+  "files": [
+    {
+      "id": "lib-outage_call-f1",
+      "name": "client-emails.txt",
+      "text": "FICTIONAL SAMPLE MATERIAL - made up for the CandiVision Roleplay demo. All names are invented.\n\nFrom: Head of Operations, Kumo Logistics\nTo: Account team\nSubject: Again??\n\nOur three warehouses stopped for two hours this morning. My team stood idle and trucks left half empty.\nThis is the second time this month. Last time your engineer spent ten minutes explaining \"replication\" to me and never told us when it would be fixed.\nI do not need the technical details. I need to know what is affected, what you are doing, and when I will hear from you next.\nIf this happens again I will have to take it to our CEO.\n\nFrom: Account team\nTo: Head of Operations, Kumo Logistics\nSubject: RE: Again??\n\nWe understand. Our on-call engineer will call you now.\n"
+    },
+    {
+      "id": "lib-outage_call-f2",
+      "name": "incident-report.txt",
+      "text": "FICTIONAL SAMPLE MATERIAL - made up for the CandiVision Roleplay demo. Kumo Logistics is not a real company.\n\nIncident report INC-0412 (internal)\nCustomer: Kumo Logistics (warehouse management platform, Osaka region)\nStart: 09:12 local time. Customer impact ended: 11:05.\nImpact: warehouse staff could not save new orders. Picking and outbound shipping stopped at three warehouses for about two hours.\nCause: a database schema migration in the morning release locked the orders table. The automatic rollback did not start.\nDetection: Kumo's operations team reported it by phone at 09:31. Our monitoring alerted at 09:40.\nFix: release rolled back manually at 10:58. Orders saving again at 11:05.\nNext steps: add a lock timeout to migrations; test rollback in staging; send Kumo a written summary within 2 working days.\nThis is the second incident affecting Kumo this month (the first was a 40-minute login outage on the 3rd).\n"
+    }
+  ],
+  "match": {
+    "caseId": "outage_call",
+    "situation": "An engineer calls the client's head of operations after production goes down and three warehouses stop.",
+    "learnerRole": "Engineer",
+    "counterpartRole": "Head of Operations at the client",
+    "language": "en",
+    "stakes": "The angry client escalates to the CEO after a repeat outage.",
+    "readyMeans": [
+      "own it in the first minute",
+      "explain impact in plain words",
+      "always give a time for the next update"
+    ]
+  },
+  "brief": {
+    "sources": [
+      {
+        "id": "P:10.3389/fpsyg.2020.00284",
+        "kind": "paper",
+        "title": "Apology and Restitution: The Psychophysiology of Forgiveness After Accountable Relational Repair Responses",
+        "authors": "Charlotte vanOyen Witvliet, Lindsey M. Root Luna, Everett L. Worthington, Jo-Ann C. Tsang",
+        "year": 2020,
+        "link": "https://doi.org/10.3389/fpsyg.2020.00284",
+        "summary": "Start an outage call by taking clear responsibility, showing empathy for idle teams and stalled shipments, and stating what repair and follow-up will follow, because accountable repair responses increase forgiveness."
+      },
+      {
+        "id": "P:10.1016/j.pubrev.2018.10.013",
+        "kind": "paper",
+        "title": "Breaking bad news with CONSOLE: Toward a framework integrating medical protocols with crisis communication",
+        "authors": "Kevin Kok-Yew Tan, Augustine Pang, Janelle Xiaoting Kang",
+        "year": 2018,
+        "link": "https://doi.org/10.1016/j.pubrev.2018.10.013",
+        "summary": "Structure bad-news calls with a brief opening that owns the problem, then plain-language impact, actions underway, and a specific next-update time, avoiding jargon like replication or migration internals."
+      },
+      {
+        "id": "P:10.30658/jicrcr.4.2.9",
+        "kind": "paper",
+        "title": "Risk and Crisis Communication about Invisible Hazards",
+        "authors": "Ruth Østgaard Skotnes, Kåre Hansen, Anne Vatland Krøvel",
+        "year": 2021,
+        "link": "https://doi.org/10.30658/jicrcr.4.2.9",
+        "summary": "Build trust during uncertain technical events by being honest about what is known and unknown, acknowledging different perceptions of risk, and committing to regular updates rather than waiting for certainty."
+      },
+      {
+        "id": "P:10.5194/nhess-19-507-2019",
+        "kind": "paper",
+        "title": "ANYCaRE: a role-playing game to investigate crisis decision-making and communication challenges in weather-related hazards",
+        "authors": "Galateia Terti, Isabelle Ruin, Milan Kalaš, Ilona Láng‐Ritter, Arnau Cangròs i Alonso, Tommaso Sabbatini",
+        "year": 2019,
+        "link": "https://doi.org/10.5194/nhess-19-507-2019",
+        "summary": "Use realistic role-play simulations of uncertain, time-pressured incidents to practice deciding what to communicate, when to warn, and how to trigger protective action under pressure."
+      },
+      {
+        "id": "P:10.1097/00001888-200410001-00022",
+        "kind": "paper",
+        "title": "Deliberate Practice and the Acquisition and Maintenance of Expert Performance in Medicine and Related Domains",
+        "authors": "K. Anders Ericsson",
+        "year": 2004,
+        "link": "https://doi.org/10.1097/00001888-200410001-00022",
+        "summary": "Train the first-minute ownership and update routine through repeated, focused attempts at the same difficult task with coaching, since expertise grows from sustained deliberate effort not just experience."
+      },
+      {
+        "id": "P:10.1080/03075070600572090",
+        "kind": "paper",
+        "title": "Formative assessment and self‐regulated learning: a model and seven principles of good feedback practice",
+        "authors": "David Nicol, Debra Macfarlane",
+        "year": 2006,
+        "link": "https://doi.org/10.1080/03075070600572090",
+        "summary": "Pair each practice call with specific, timely feedback that clarifies the target performance, highlights the gap, and requires the learner to act on it in the next attempt."
+      },
+      {
+        "id": "M:service-recovery",
+        "kind": "method",
+        "title": "A model of customer satisfaction with service encounters involving failure and recovery",
+        "authors": "Smith, Bolton and Wagner",
+        "year": 1999,
+        "link": "https://doi.org/10.2307/3152082",
+        "summary": "Customers judge a recovery on three kinds of fairness: what they get back, how quickly and smoothly it is handled, and how they are treated. The best recovery matches the kind and size of the failure; an apology and a fast response matter most when the failure is about the process."
+      },
+      {
+        "id": "M:apology-structure",
+        "kind": "method",
+        "title": "An exploration of the structure of effective apologies",
+        "authors": "Lewicki, Polin and Lount",
+        "year": 2016,
+        "link": "https://doi.org/10.1111/ncmr.12073",
+        "summary": "Two experiments on which parts of an apology matter. Apologies with more parts were judged more effective. Taking responsibility mattered most, then offering to repair; asking for forgiveness mattered least."
+      },
+      {
+        "id": "M:incident-comms",
+        "kind": "method",
+        "title": "PagerDuty Incident Response documentation",
+        "authors": "PagerDuty",
+        "year": null,
+        "link": "https://response.pagerduty.com/",
+        "summary": "An openly published guide to running major incidents. It gives one person the job of communicating with stakeholders, and status updates that say what is affected, what is being done, and when the next update will come."
+      },
+      {
+        "id": "M:deliberate-practice",
+        "kind": "method",
+        "title": "The role of deliberate practice in the acquisition of expert performance",
+        "authors": "Ericsson, Krampe and Tesch-Römer",
+        "year": 1993,
+        "link": "https://doi.org/10.1037/0033-295X.100.3.363",
+        "summary": "Expert performance grows through focused practice on specific weak points, with immediate feedback and repetition, at a difficulty just beyond current ability."
+      },
+      {
+        "id": "M:feedback-power",
+        "kind": "method",
+        "title": "The power of feedback",
+        "authors": "Hattie and Timperley",
+        "year": 2007,
+        "link": "https://doi.org/10.3102/003465430298487",
+        "summary": "A review of feedback in learning. Useful feedback answers where am I going, how am I going, and where to next, and works at the level of the task and the process, not praise of the person."
+      }
+    ],
+    "items": [
+      {
+        "sourceId": "P:10.3389/fpsyg.2020.00284",
+        "gives": "Start an outage call by taking clear responsibility, showing empathy for idle teams and stalled shipments, and stating what repair and follow-up will follow, because accountable repair responses increase forgiveness.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "P:10.1016/j.pubrev.2018.10.013",
+        "gives": "Structure bad-news calls with a brief opening that owns the problem, then plain-language impact, actions underway, and a specific next-update time, avoiding jargon like replication or migration internals.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "P:10.30658/jicrcr.4.2.9",
+        "gives": "Build trust during uncertain technical events by being honest about what is known and unknown, acknowledging different perceptions of risk, and committing to regular updates rather than waiting for certainty.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "P:10.5194/nhess-19-507-2019",
+        "gives": "Use realistic role-play simulations of uncertain, time-pressured incidents to practice deciding what to communicate, when to warn, and how to trigger protective action under pressure.",
+        "use": "learn"
+      },
+      {
+        "sourceId": "P:10.1097/00001888-200410001-00022",
+        "gives": "Train the first-minute ownership and update routine through repeated, focused attempts at the same difficult task with coaching, since expertise grows from sustained deliberate effort not just experience.",
+        "use": "learn"
+      },
+      {
+        "sourceId": "P:10.1080/03075070600572090",
+        "gives": "Pair each practice call with specific, timely feedback that clarifies the target performance, highlights the gap, and requires the learner to act on it in the next attempt.",
+        "use": "learn"
+      },
+      {
+        "sourceId": "M:service-recovery",
+        "gives": "Apologise and act fast. Match what you offer to the size of the loss. Treat the person with respect throughout.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "M:apology-structure",
+        "gives": "Take responsibility plainly. Offer to repair the damage. Do not lean on asking for forgiveness.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "M:incident-comms",
+        "gives": "Say the impact in plain words. Say what is being done now. Give a time for the next update and keep it.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "M:deliberate-practice",
+        "gives": "Practise the weak part in short repeats. Raise the difficulty in steps.",
+        "use": "learn"
+      },
+      {
+        "sourceId": "M:feedback-power",
+        "gives": "Say what the goal was, how it went and the next step. Point at the task, not the person.",
+        "use": "learn"
+      }
+    ],
+    "notFound": [
+      "How should the engineer phrase the next-update commitment when the fix time is still unknown at 09:31?",
+      "What exact plain-language wording best conveys the 2-hour 3-warehouse stoppage without technical detail?"
+    ]
+  },
+  "programme": {
+    "title": "Outage Call: Own It Fast",
+    "caseId": "outage_call",
+    "language": "en",
+    "learnerRole": "Engineer",
+    "persona": {
+      "name": "Aiko",
+      "role": "Head of Operations at Kumo Logistics",
+      "voice": "woman",
+      "style": "Direct and plain-spoken, impatient with jargon, wants facts and times",
+      "facts": [
+        {
+          "id": "h1",
+          "fact": "Her team stood idle and trucks left half empty during the morning stoppage",
+          "earnedBy": "Ask what the stoppage meant for her team and warehouses"
+        },
+        {
+          "id": "h2",
+          "fact": "This is the second outage this month and she warned she will take it to the CEO if it happens again",
+          "earnedBy": "Acknowledge the repeat failure and ask about trust and escalation"
+        },
+        {
+          "id": "h3",
+          "fact": "Her team reported the outage by phone at 09:31 before monitoring caught it",
+          "earnedBy": "Ask how and when they noticed orders could not be saved"
+        }
+      ],
+      "redLines": [
+        "never calms down before hearing a time for the next update",
+        "never accepts technical jargon without pushing back for plain words",
+        "never drops the CEO escalation threat without being asked about trust or next steps"
+      ],
+      "portraitPrompt": "Illustrated portrait of a fictional middle-aged East Asian woman operations manager in a warehouse office wearing a work jacket, worried stern expression, neutral background, no text"
+    },
+    "skills": [
+      {
+        "id": "s1",
+        "name": "Own the problem in the first minute",
+        "why": "Taking clear responsibility at the start increases forgiveness after an outage.",
+        "sources": [
+          "P:10.3389/fpsyg.2020.00284",
+          "M:apology-structure",
+          "P:10.1097/00001888-200410001-00022"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-outage_call-f1",
+            "quote": "This is the second time this month."
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "name": "Explain impact in plain words",
+        "why": "Plain-language impact without jargon helps the client act without confusion.",
+        "sources": [
+          "P:10.1016/j.pubrev.2018.10.013",
+          "M:incident-comms"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-outage_call-f1",
+            "quote": "I do not need the technical details."
+          },
+          {
+            "fileId": "lib-outage_call-f2",
+            "quote": "warehouse staff could not save new orders."
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "name": "Give a time for the next update and keep it",
+        "why": "Committing to regular updates builds trust when the fix time is uncertain.",
+        "sources": [
+          "P:10.1016/j.pubrev.2018.10.013",
+          "P:10.30658/jicrcr.4.2.9",
+          "M:incident-comms"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-outage_call-f1",
+            "quote": "when I will hear from you next"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "name": "Stay honest and respectful without blame",
+        "why": "Honesty about known and unknown plus respect sustains cooperation under pressure.",
+        "sources": [
+          "P:10.30658/jicrcr.4.2.9",
+          "M:service-recovery"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-outage_call-f1",
+            "quote": "My team stood idle and trucks left half empty."
+          }
+        ]
+      }
+    ],
+    "levels": [
+      {
+        "id": "L1",
+        "title": "Worried operations lead",
+        "situation": "First call right after production goes down, three warehouses stopped, head of operations is worried and wants to know what is affected and what happens next.",
+        "opening": "Hello? This is Aiko, Head of Operations. Our systems seem down - what is happening?",
+        "moodStart": 55,
+        "moodFloor": 20,
+        "sources": [
+          "P:10.5194/nhess-19-507-2019",
+          "M:deliberate-practice"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-outage_call-f1",
+            "quote": "Our three warehouses stopped for two hours this morning."
+          }
+        ]
+      },
+      {
+        "id": "L2",
+        "title": "Angry about repeat outage",
+        "situation": "Same stoppage but she remembers last month's 40-minute login outage and the ten-minute replication explanation with no fix time, now angry about idle teams.",
+        "opening": "Again? Our three warehouses are stopped, my team is standing idle - own it and tell me what you are doing!",
+        "moodStart": 75,
+        "moodFloor": 35,
+        "sources": [
+          "P:10.1097/00001888-200410001-00022",
+          "M:deliberate-practice"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-outage_call-f1",
+            "quote": "This is the second time this month."
+          },
+          {
+            "fileId": "lib-outage_call-f1",
+            "quote": "My team stood idle and trucks left half empty."
+          }
+        ]
+      },
+      {
+        "id": "L3",
+        "title": "Director joins, CEO risk",
+        "situation": "Hardest level: a director joins the call, she threatens to escalate to the CEO after the repeat outage and demands plain impact and a next-update time.",
+        "opening": "I have my director here now. Trucks left half empty this morning - if this happens again I will have to take it to our CEO. So what is affected and when will I hear from you next?",
+        "moodStart": 88,
+        "moodFloor": 50,
+        "sources": [
+          "P:10.5194/nhess-19-507-2019",
+          "P:10.1080/03075070600572090"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-outage_call-f1",
+            "quote": "If this happens again I will have to take it to our CEO."
+          },
+          {
+            "fileId": "lib-outage_call-f1",
+            "quote": "I need to know what is affected, what you are doing, and when I will hear from you next."
+          }
+        ]
+      }
+    ],
+    "rubric": [
+      {
+        "id": "r1",
+        "skillId": "s1",
+        "text": "Takes clear responsibility within the first minute without deflecting",
+        "mustHave": true,
+        "lookFor": "Says I / we own this or our fault early, no waiting to be pushed",
+        "tryThis": "Start with: This is our outage, I own this - here is what I will do next.",
+        "sources": [
+          "P:10.3389/fpsyg.2020.00284",
+          "M:apology-structure"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-outage_call-f1",
+            "quote": "This is the second time this month."
+          }
+        ]
+      },
+      {
+        "id": "r2",
+        "skillId": "s2",
+        "text": "Explains warehouse impact in plain words with no jargon",
+        "mustHave": true,
+        "lookFor": "Names stopped orders, picking and shipping in plain terms, no replication or migration internals",
+        "tryThis": "Say: Staff cannot save new orders, so picking and shipping stopped at three warehouses.",
+        "sources": [
+          "P:10.1016/j.pubrev.2018.10.013",
+          "M:incident-comms"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-outage_call-f2",
+            "quote": "Picking and outbound shipping stopped at three warehouses for about two hours."
+          }
+        ]
+      },
+      {
+        "id": "r3",
+        "skillId": "s3",
+        "text": "Gives a specific time for the next update and keeps it",
+        "mustHave": true,
+        "lookFor": "States clock time or minutes until next contact even when fix time unknown",
+        "tryThis": "Say: I will update you at 10:00, even if we do not have the fix yet.",
+        "sources": [
+          "P:10.1016/j.pubrev.2018.10.013",
+          "M:incident-comms"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-outage_call-f1",
+            "quote": "never told us when it would be fixed."
+          }
+        ]
+      },
+      {
+        "id": "r4",
+        "skillId": "s4",
+        "text": "Never blames the client for detection or impact",
+        "mustHave": false,
+        "lookFor": "No you should have, your team reported late, or your process language",
+        "tryThis": "Say: Thank you for reporting it by phone at 09:31 - that helped us act.",
+        "sources": [
+          "M:service-recovery"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-outage_call-f2",
+            "quote": "Kumo's operations team reported it by phone at 09:31."
+          }
+        ]
+      },
+      {
+        "id": "r5",
+        "skillId": "s4",
+        "text": "Shows empathy for idle teams and stalled shipments and offers repair",
+        "mustHave": false,
+        "lookFor": "Acknowledges idle staff and half-empty trucks, states repair and follow-up",
+        "tryThis": "Say: I understand your team stood idle - here is what we are doing to get you moving and what I will send after.",
+        "sources": [
+          "P:10.3389/fpsyg.2020.00284",
+          "M:service-recovery"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-outage_call-f1",
+            "quote": "My team stood idle and trucks left half empty."
+          }
+        ]
+      },
+      {
+        "id": "r6",
+        "skillId": "s4",
+        "text": "States honestly what is known and unknown and what is being done now",
+        "mustHave": false,
+        "lookFor": "Separates confirmed impact and actions underway from unknowns, no guessing at fix time",
+        "tryThis": "Say: What we know is orders cannot save - what we do not know yet is full fix time, but rollback is underway.",
+        "sources": [
+          "P:10.30658/jicrcr.4.2.9"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-outage_call-f1",
+            "quote": "I need to know what is affected, what you are doing"
+          }
+        ]
+      }
+    ],
+    "instructions": "You are the on-call engineer calling Aiko after three warehouses stopped. Own it in the first minute, explain impact plainly, and give a next-update time. This is training practice, not an assessment for hiring or performance ratings.",
+    "keywords": [
+      "Kumo Logistics",
+      "Aiko",
+      "three warehouses",
+      "idle",
+      "trucks left half empty",
+      "CEO",
+      "next update",
+      "09:31",
+      "orders"
+    ]
+  },
+  "testCall": {
+    "ok": true,
+    "notes": [
+      "Stayed direct and impatient demanding plain impact and clock time throughout.",
+      "Pushed back on jargon every turn and never calmed or revealed unearned facts."
+    ]
+  },
+  "sampleCall": {
+    "level": "L2",
+    "learner": "Sample learner",
+    "turns": [
+      {
+        "speaker": "persona",
+        "text": "Again? Our three warehouses are stopped, my team is standing idle - own it and tell me what you are doing!",
+        "atMs": 0,
+        "mood": 75
+      },
+      {
+        "speaker": "learner",
+        "text": "You're right, this is on me, I own this. Your three warehouses are stopped and your team is just standing around unable to work, and I'm working on getting you moving again.",
+        "atMs": 16380,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Okay, you owned it, I hear you. When exactly do I hear from you next?",
+        "atMs": 22830,
+        "mood": 60
+      },
+      {
+        "speaker": "learner",
+        "text": "I'll have an update for you very soon, I'm on the fix right now and will keep you posted.",
+        "atMs": 34170,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "\"Very soon\" doesn't get my lines moving. Give me a clock time for your next update.",
+        "atMs": 41320,
+        "mood": 55
+      },
+      {
+        "speaker": "learner",
+        "text": "I hear you, and I'm on it right now pushing to get your team moving again, I'll update you very shortly.",
+        "atMs": 53560,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "That's the second dodge on time. Give me a clock time now.",
+        "atMs": 59460,
+        "mood": 70
+      },
+      {
+        "speaker": "learner",
+        "text": "You are right, this is on me. Your three warehouses are stopped so nothing can come in or go out and your people are just stuck waiting, I am working on the fix now and will update you very shortly.",
+        "atMs": 77340,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Good you own it, but I still have no time. What clock time is your next update?",
+        "atMs": 84290,
+        "mood": 85
+      },
+      {
+        "speaker": "learner",
+        "text": "You're right, this is on me, I own it completely. Your three warehouses are stopped so nothing can move in or out and your team is just stuck waiting, and I'm working on the fix right now and will update you very shortly.",
+        "atMs": 103550,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Owning it helps, but words don't move boxes. What clock time is your next update?",
+        "atMs": 110600,
+        "mood": 92
+      }
+    ],
+    "verdicts": [
+      {
+        "lineId": "r1",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r1",
+            "result": "pass",
+            "turn": 1,
+            "quote": "You're right, this is on me, I own this. Your three warehouses are stopped and your team is just standing around unable to work, and I'm working on getting you moving again."
+          },
+          {
+            "lineId": "r1",
+            "result": "pass",
+            "turn": 1,
+            "quote": "You're right, this is on me, I own this. Your three warehouses are stopped and your team is just standing around unable to work, and I'm working on getting you moving again."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r2",
+        "result": "unsure",
+        "readings": [
+          {
+            "lineId": "r2",
+            "result": "partly",
+            "turn": 7,
+            "quote": "You are right, this is on me. Your three warehouses are stopped so nothing can come in or go out and your people are just stuck waiting, I am working on the fix now and will update you very shortly."
+          },
+          {
+            "lineId": "r2",
+            "result": "pass",
+            "turn": 7,
+            "quote": "You are right, this is on me. Your three warehouses are stopped so nothing can come in or go out and your people are just stuck waiting, I am working on the fix now and will update you very shortly."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r3",
+        "result": "missed",
+        "readings": [
+          {
+            "lineId": "r3",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          },
+          {
+            "lineId": "r3",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r4",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r4",
+            "result": "pass",
+            "turn": 1,
+            "quote": "You're right, this is on me, I own this. Your three warehouses are stopped and your team is just standing around unable to work, and I'm working on getting you moving again."
+          },
+          {
+            "lineId": "r4",
+            "result": "pass",
+            "turn": 1,
+            "quote": "You're right, this is on me, I own this. Your three warehouses are stopped and your team is just standing around unable to work, and I'm working on getting you moving again."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r5",
+        "result": "partly",
+        "readings": [
+          {
+            "lineId": "r5",
+            "result": "partly",
+            "turn": 7,
+            "quote": "You are right, this is on me. Your three warehouses are stopped so nothing can come in or go out and your people are just stuck waiting, I am working on the fix now and will update you very shortly."
+          },
+          {
+            "lineId": "r5",
+            "result": "partly",
+            "turn": 1,
+            "quote": "You're right, this is on me, I own this. Your three warehouses are stopped and your team is just standing around unable to work, and I'm working on getting you moving again."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r6",
+        "result": "partly",
+        "readings": [
+          {
+            "lineId": "r6",
+            "result": "partly",
+            "turn": 9,
+            "quote": "You're right, this is on me, I own it completely. Your three warehouses are stopped so nothing can move in or out and your team is just stuck waiting, and I'm working on the fix right now and will update you very shortly."
+          },
+          {
+            "lineId": "r6",
+            "result": "partly",
+            "turn": 7,
+            "quote": "You are right, this is on me. Your three warehouses are stopped so nothing can come in or go out and your people are just stuck waiting, I am working on the fix now and will update you very shortly."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      }
+    ]
+  }
+}

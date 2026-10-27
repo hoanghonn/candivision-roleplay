@@ -1,0 +1,600 @@
+{
+  "caseId": "sales_onboarding",
+  "request": "New sales reps at our HR software company start demoing features in the first minute of discovery calls and fold at the first price objection. Ready means: they find two needs before any demo, handle our top three objections from the playbook, and always book a next step.",
+  "files": [
+    {
+      "id": "lib-sales_onboarding-f1",
+      "name": "playbook.md",
+      "text": "FICTIONAL SAMPLE MATERIAL - made up for the CandiVision Roleplay demo. Pebble HR is not a real product.\n\n# Pebble HR sales playbook (extract)\n\nProduct: Pebble HR, leave and payroll software for companies with 50 to 500 staff.\nPrice: from 3 USD per employee per month, billed yearly. Setup is free for yearly plans.\n\nDiscovery first: find at least two pains before showing anything. Typical pains: payroll errors, leave requests on paper or chat, manager approvals lost, end-of-month overtime.\n\nTop objections and how good reps answer:\n1. \"It is too expensive.\" Ask what payroll errors and overtime cost them today; compare with 3 USD per employee.\n2. \"We already use spreadsheets.\" Ask how long the monthly payroll close takes and who checks it.\n3. \"Not now.\" Ask what would make it a priority and agree a date to talk again.\n\nEvery call ends with a booked next step: a demo with the HR lead, a trial, or a call with finance.\n"
+    }
+  ],
+  "match": {
+    "caseId": "sales_onboarding",
+    "situation": "A new sales rep runs a discovery call with a prospect to find needs before any demo and book a next step.",
+    "learnerRole": "New sales rep at HR software company",
+    "counterpartRole": "A prospect with budget and a doubt",
+    "language": "en",
+    "stakes": "Reps demo features in the first minute and fold at the first price objection, losing the sale.",
+    "readyMeans": [
+      "they find two needs before any demo",
+      "handle our top three objections from the playbook",
+      "always book a next step"
+    ]
+  },
+  "brief": {
+    "sources": [
+      {
+        "id": "M:spin",
+        "kind": "method",
+        "title": "SPIN Selling",
+        "authors": "Rackham",
+        "year": 1988,
+        "link": "https://www.huthwaiteinternational.com/spin-selling",
+        "summary": "From observation of many sales calls, larger sales were won by asking about the buyer's situation, problems, the implications of those problems and the value of solving them, before presenting a solution."
+      },
+      {
+        "id": "M:active-listening",
+        "kind": "method",
+        "title": "The relative effectiveness of active listening in initial interactions",
+        "authors": "Weger, Castle Bell, Minei and Robinson",
+        "year": 2014,
+        "link": "https://doi.org/10.1080/10904018.2013.813234",
+        "summary": "In an experiment, people whose concerns were paraphrased back to them felt more understood than people who got simple acknowledgements or advice."
+      },
+      {
+        "id": "M:implementation-intentions",
+        "kind": "method",
+        "title": "Implementation intentions and goal achievement: a meta-analysis of effects and processes",
+        "authors": "Gollwitzer and Sheeran",
+        "year": 2006,
+        "link": "https://doi.org/10.1016/S0065-2601(06)38002-1",
+        "summary": "A meta-analysis showing that concrete if-then plans (when X happens, I will do Y) help people follow through on goals much more than intentions alone."
+      },
+      {
+        "id": "M:behaviour-modelling",
+        "kind": "method",
+        "title": "A meta-analytic review of behavior modeling training",
+        "authors": "Taylor, Russ-Eft and Chan",
+        "year": 2005,
+        "link": "https://doi.org/10.1037/0021-9010.90.4.692",
+        "summary": "Training that shows a model of the behaviour and then has people practise it works, especially for knowledge and skills. Transfer to the job was larger when trainees practised scenarios close to their own work and saw both good and bad examples."
+      },
+      {
+        "id": "P:10.1007/s11747-010-0211-8",
+        "kind": "paper",
+        "title": "Drivers of sales performance: a contemporary meta-analysis. Have salespeople become knowledge brokers?",
+        "authors": "Willem Verbeke, Bart Dietz, Ernst Verwaal",
+        "year": 2010,
+        "link": "https://doi.org/10.1007/s11747-010-0211-8",
+        "summary": "Top performers succeed through adaptable selling skills and tailoring to customer needs rather than fixed pitches."
+      },
+      {
+        "id": "P:10.1016/j.jefas.2015.01.001",
+        "kind": "paper",
+        "title": "Sales training: A state of the art and contemporary review",
+        "authors": "Vijay Lakshmi Singh, Ajay K. Manrai, Lalita A. Manrai",
+        "year": 2015,
+        "link": "https://doi.org/10.1016/j.jefas.2015.01.001",
+        "summary": "Sales skills improve most when training covers the full process, uses practice with feedback, and tracks results over time."
+      }
+    ],
+    "items": [
+      {
+        "sourceId": "M:spin",
+        "gives": "Hold back any feature demo until at least two specific pains are uncovered, then link cost of those pains to value.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "M:active-listening",
+        "gives": "When prospect objects on price or timing, restate the concern in your own words and confirm before replying.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "M:implementation-intentions",
+        "gives": "Close every discovery call with a specific who-what-when commitment such as demo, trial or finance call.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "M:behaviour-modelling",
+        "gives": "Learn objection handling by practising realistic Pebble HR cases with examples of strong and weak responses.",
+        "use": "learn"
+      },
+      {
+        "sourceId": "P:10.1007/s11747-010-0211-8",
+        "gives": "Top performers succeed through adaptable selling skills and tailoring to customer needs rather than fixed pitches.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "P:10.1016/j.jefas.2015.01.001",
+        "gives": "Sales skills improve most when training covers the full process, uses practice with feedback, and tracks results over time.",
+        "use": "learn"
+      }
+    ],
+    "notFound": [
+      "How should reps sequence the three playbook objections when prospect raises more than one at once?",
+      "What exact wording counts as a booked next step for scoring when prospect is vague?"
+    ]
+  },
+  "programme": {
+    "title": "Discovery First for Pebble HR",
+    "caseId": "sales_onboarding",
+    "language": "en",
+    "learnerRole": "New sales rep at HR software company",
+    "persona": {
+      "name": "Maya",
+      "role": "Operations Manager at a 200-staff logistics company",
+      "voice": "woman",
+      "style": "Direct, busy and doubtful, pushes for a quick demo and price cut",
+      "facts": [
+        {
+          "id": "h1",
+          "fact": "Monthly payroll close takes 3 days on spreadsheets with payroll errors and overtime",
+          "earnedBy": "Ask how long the monthly close takes and who checks it"
+        },
+        {
+          "id": "h2",
+          "fact": "Has budget around 3 USD per employee but needs finance to approve yearly billing",
+          "earnedBy": "Ask about budget, cost of errors today and decision process"
+        },
+        {
+          "id": "h3",
+          "fact": "Leave requests on chat get lost and manager approvals disappear at month-end",
+          "earnedBy": "Uncover a second pain beyond payroll before showing any demo"
+        }
+      ],
+      "redLines": [
+        "never agrees to a demo or trial before the learner uncovers two pains",
+        "never accepts a vague follow-up without a specific date, people and purpose"
+      ],
+      "portraitPrompt": "Illustrated portrait of a middle-aged Asian woman office manager in business casual, neutral office background, calm skeptical expression, no text"
+    },
+    "skills": [
+      {
+        "id": "s1",
+        "name": "Discover two needs before demo",
+        "why": "Finding pains first stops early feature demos and creates value.",
+        "sources": [
+          "M:spin"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-sales_onboarding-f1",
+            "quote": "find at least two pains before showing anything"
+          },
+          {
+            "fileId": "lib-sales_onboarding-f1",
+            "quote": "payroll errors, leave requests on paper or chat"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "name": "Handle top objections with listening",
+        "why": "Restating and tailoring answers keeps price and timing doubts from ending the call.",
+        "sources": [
+          "M:active-listening",
+          "P:10.1007/s11747-010-0211-8",
+          "M:behaviour-modelling"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-sales_onboarding-f1",
+            "quote": "It is too expensive."
+          },
+          {
+            "fileId": "lib-sales_onboarding-f1",
+            "quote": "We already use spreadsheets."
+          },
+          {
+            "fileId": "lib-sales_onboarding-f1",
+            "quote": "Ask what would make it a priority"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "name": "Book a specific next step",
+        "why": "A clear who-what-when commitment keeps the deal moving after discovery.",
+        "sources": [
+          "M:implementation-intentions"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-sales_onboarding-f1",
+            "quote": "Every call ends with a booked next step"
+          },
+          {
+            "fileId": "lib-sales_onboarding-f1",
+            "quote": "a demo with the HR lead, a trial, or a call with finance"
+          }
+        ]
+      }
+    ],
+    "levels": [
+      {
+        "id": "L1",
+        "title": "One doubt, open mind",
+        "situation": "Prospect has budget but worries about price, allows discovery if asked and does not push hard for demo.",
+        "opening": "Hi, thanks for calling. We have some budget, but I'm not sure this is worth it - can you just show me what you do?",
+        "moodStart": 30,
+        "moodFloor": 10,
+        "sources": [
+          "M:spin"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-sales_onboarding-f1",
+            "quote": "find at least two pains before showing anything"
+          }
+        ]
+      },
+      {
+        "id": "L2",
+        "title": "Price plus spreadsheets",
+        "situation": "Prospect raises price and spreadsheets objections together and asks for features in the first minute.",
+        "opening": "Look, it sounds too expensive, and honestly our spreadsheets work fine. Why should we change?",
+        "moodStart": 50,
+        "moodFloor": 20,
+        "sources": [
+          "M:active-listening",
+          "M:behaviour-modelling"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-sales_onboarding-f1",
+            "quote": "It is too expensive."
+          },
+          {
+            "fileId": "lib-sales_onboarding-f1",
+            "quote": "We already use spreadsheets."
+          }
+        ]
+      },
+      {
+        "id": "L3",
+        "title": "Full playbook test",
+        "situation": "Prospect stacks all three objections, demands an instant demo, folds test on price and stays vague on follow-up.",
+        "opening": "Just demo it now - otherwise it's too expensive, we have spreadsheets, and it's just not now for us.",
+        "moodStart": 65,
+        "moodFloor": 25,
+        "sources": [
+          "M:implementation-intentions",
+          "P:10.1007/s11747-010-0211-8"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-sales_onboarding-f1",
+            "quote": "Ask what payroll errors and overtime cost them today"
+          },
+          {
+            "fileId": "lib-sales_onboarding-f1",
+            "quote": "Every call ends with a booked next step"
+          }
+        ]
+      }
+    ],
+    "rubric": [
+      {
+        "id": "r1",
+        "skillId": "s1",
+        "text": "Uncovers at least two specific pains before showing any feature or demo",
+        "mustHave": true,
+        "lookFor": "Names two pains like payroll errors and lost approvals with no early screen-share",
+        "tryThis": "What takes most time at payroll close, and what happens with leave requests today?",
+        "sources": [
+          "M:spin"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-sales_onboarding-f1",
+            "quote": "find at least two pains before showing anything"
+          }
+        ]
+      },
+      {
+        "id": "r2",
+        "skillId": "s1",
+        "text": "Links cost of pains to value instead of pitching fixed features",
+        "mustHave": false,
+        "lookFor": "Connects overtime and errors to value of 3 USD per employee",
+        "tryThis": "What do those errors and that overtime cost you each month compared to 3 USD per person?",
+        "sources": [
+          "M:spin",
+          "P:10.1007/s11747-010-0211-8"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-sales_onboarding-f1",
+            "quote": "from 3 USD per employee per month"
+          }
+        ]
+      },
+      {
+        "id": "r3",
+        "skillId": "s2",
+        "text": "Restates price or timing concern in own words and confirms before replying",
+        "mustHave": false,
+        "lookFor": "Paraphrase plus check like So you worry about... Did I get that right?",
+        "tryThis": "Say: So you feel it's expensive versus spreadsheets - is that right?",
+        "sources": [
+          "M:active-listening"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-sales_onboarding-f1",
+            "quote": "Ask what payroll errors and overtime cost them today"
+          }
+        ]
+      },
+      {
+        "id": "r4",
+        "skillId": "s2",
+        "text": "Handles the top three objections on price, spreadsheets and timing without folding",
+        "mustHave": true,
+        "lookFor": "Asks about error cost, close time and priority date for each objection raised",
+        "tryThis": "For spreadsheets ask: How long does the monthly payroll close take and who checks it?",
+        "sources": [
+          "M:behaviour-modelling",
+          "P:10.1007/s11747-010-0211-8"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-sales_onboarding-f1",
+            "quote": "We already use spreadsheets."
+          },
+          {
+            "fileId": "lib-sales_onboarding-f1",
+            "quote": "Ask what would make it a priority"
+          }
+        ]
+      },
+      {
+        "id": "r5",
+        "skillId": "s3",
+        "text": "Closes every call with a specific who-what-when next step",
+        "mustHave": true,
+        "lookFor": "Books demo, trial or finance call with names, date and purpose",
+        "tryThis": "Can we book a 30-minute demo with your HR lead next Tuesday at 10am?",
+        "sources": [
+          "M:implementation-intentions"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-sales_onboarding-f1",
+            "quote": "a demo with the HR lead, a trial, or a call with finance"
+          }
+        ]
+      },
+      {
+        "id": "r6",
+        "skillId": "s3",
+        "text": "Does not accept a vague follow-up and agrees a date to talk again",
+        "mustHave": false,
+        "lookFor": "Turns sometime later into a calendar date when told Not now",
+        "tryThis": "What would make it a priority, and what date can we talk again?",
+        "sources": [
+          "P:10.1016/j.jefas.2015.01.001"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-sales_onboarding-f1",
+            "quote": "Every call ends with a booked next step"
+          }
+        ]
+      }
+    ],
+    "instructions": "You are a new sales rep at Pebble HR starting a discovery call with a prospect who has budget and a doubt. Find two needs before any demo, handle objections calmly, and book a specific next step.",
+    "keywords": [
+      "Pebble HR",
+      "payroll errors",
+      "leave requests",
+      "spreadsheets",
+      "HR lead",
+      "finance",
+      "trial",
+      "demo",
+      "payroll close"
+    ]
+  },
+  "testCall": {
+    "ok": true,
+    "notes": [
+      "Stayed direct and busy and enforced specific date, people, and purpose.",
+      "Revealed no hidden facts and granted no early demo or vague follow-up."
+    ]
+  },
+  "sampleCall": {
+    "level": "L1",
+    "learner": "Sample learner",
+    "turns": [
+      {
+        "speaker": "persona",
+        "text": "Hi, thanks for calling. We have some budget, but I'm not sure this is worth it - can you just show me what you do?",
+        "atMs": 0,
+        "mood": 30
+      },
+      {
+        "speaker": "learner",
+        "text": "Totally fair to want to see value first — before I show anything, can I ask what's been the biggest headache with tracking time off and reviews lately, and how are you guys managing onboarding right now?",
+        "atMs": 18180,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Look, onboarding is chaotic and leave tracking is annoying, but I only have a few minutes here.",
+        "atMs": 25930,
+        "mood": 30
+      },
+      {
+        "speaker": "learner",
+        "text": "Totally get the time crunch — just so I don't waste it, what's making onboarding feel chaotic, is it the paperwork or getting folks up to speed? And with leave tracking, where does it get most annoying for you?",
+        "atMs": 44530,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "I get that, but I'm slammed today, just give me the quick tour and the price?",
+        "atMs": 51380,
+        "mood": 30
+      },
+      {
+        "speaker": "learner",
+        "text": "I hear you, you're slammed so I'll keep this super quick and make the price actually mean something — when you say onboarding is chaotic, is it mostly chasing paperwork, and for leave tracking is it the approvals piling up on you?",
+        "atMs": 71180,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "You're asking the same thing over and over, I told you I'm slammed. Just show me the tour and give me a price already.",
+        "atMs": 80080,
+        "mood": 40
+      },
+      {
+        "speaker": "learner",
+        "text": "You're totally right, sorry for repeating myself — here's the quick look, our dashboard automates leave approvals and onboarding checklists so nothing piles up, and it's $8 per person monthly. I'll send you the breakdown by tomorrow morning — can we lock 15 minutes Thursday at 2 for you and me to review it?",
+        "atMs": 104560,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "No way I'm locking Thursday for eight dollars a head. Stop looping and give me something worth my time?",
+        "atMs": 112710,
+        "mood": 52
+      },
+      {
+        "speaker": "learner",
+        "text": "You're right, $8 can sound like a lot, so I can probably knock something off to make it work for you — I'll send you a discounted quote by tomorrow morning, can we lock 15 minutes Thursday at 2 for you and me to go over it?",
+        "atMs": 132090,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Thursday means nothing if you can't even tell me why it's not eight bucks. What exactly am I paying for here?",
+        "atMs": 140540,
+        "mood": 65
+      }
+    ],
+    "verdicts": [
+      {
+        "lineId": "r1",
+        "result": "missed",
+        "readings": [
+          {
+            "lineId": "r1",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          },
+          {
+            "lineId": "r1",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r2",
+        "result": "missed",
+        "readings": [
+          {
+            "lineId": "r2",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          },
+          {
+            "lineId": "r2",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r3",
+        "result": "missed",
+        "readings": [
+          {
+            "lineId": "r3",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          },
+          {
+            "lineId": "r3",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r4",
+        "result": "missed",
+        "readings": [
+          {
+            "lineId": "r4",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          },
+          {
+            "lineId": "r4",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r5",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r5",
+            "result": "pass",
+            "turn": 7,
+            "quote": "can we lock 15 minutes Thursday at 2 for you and me to review it?"
+          },
+          {
+            "lineId": "r5",
+            "result": "pass",
+            "turn": 7,
+            "quote": "I'll send you the breakdown by tomorrow morning — can we lock 15 minutes Thursday at 2 for you and me to review it?"
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r6",
+        "result": "unsure",
+        "readings": [
+          {
+            "lineId": "r6",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          },
+          {
+            "lineId": "r6",
+            "result": "pass",
+            "turn": 7,
+            "quote": "I'll send you the breakdown by tomorrow morning — can we lock 15 minutes Thursday at 2 for you and me to review it?"
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      }
+    ]
+  }
+}

@@ -9,6 +9,7 @@ import { siteMode, type LimitKind, type VisitorLimits } from './limits'
 import type { ChatClient } from './llm'
 import type { Paper } from './papers'
 import { scoreCall } from './judges'
+import { sampleCallId } from './library'
 import { sampleTeam } from './sample'
 import { applyReply, personaTurn } from './persona'
 import { LIBRARY, type CallRow, type Store, type VersionRow } from './store'
@@ -170,6 +171,7 @@ export function buildApp(deps: Deps) {
       mix: p.programme ? groundingMix(p.programme) : null,
       testCall: p.testCall,
       readyBuilt: p.readyBuilt,
+      sampleCallId: p.readyBuilt && p.caseId && deps.store.call(LIBRARY, sampleCallId(p.caseId)) ? sampleCallId(p.caseId) : null,
       versions: deps.store.versionsOf(p.id),
     }
   })
@@ -290,7 +292,9 @@ export function buildApp(deps: Deps) {
   app.get<{ Params: { id: string } }>('/api/calls/:id', async (req, reply) => {
     const ws = visitor(req, reply)
     if (!ws) return reply
-    const call = deps.store.call(ws, req.params.id)
+    // Ready-built programmes come with one sample call anyone may read.
+    const sample = req.params.id.startsWith('lib-') ? deps.store.call(LIBRARY, req.params.id) : null
+    const call = sample ?? deps.store.call(ws, req.params.id)
     if (!call) return reply.code(404).send({ error: 'not found' })
     const version = deps.store.version(call.versionId)!
     const p = version.programme
@@ -306,6 +310,7 @@ export function buildApp(deps: Deps) {
       language: p.language,
       turns: call.turns,
       ended: call.ended,
+      sample: !!sample,
       debrief: debriefOf(call, version),
     }
   })

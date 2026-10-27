@@ -65,6 +65,13 @@ describe('Debrief', () => {
     expect(await screen.findByRole('link', { name: /Start the 60-second drill/ })).toHaveAttribute('href', '#/call/v1/L2/drill/r2')
   })
 
+  it('a sample call is labelled and cannot be settled', async () => {
+    mockFetch({ 'GET /api/calls/:id': () => ({ ...call(debrief()), sample: true }) })
+    render(<Debrief callId="lib-outage_call-sample" />)
+    expect(await screen.findByText(/Sample call: an AI played the learner/)).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: /Count it as/ })).toBeNull()
+  })
+
   it('labels a fallback second judge', async () => {
     mockFetch({ 'GET /api/calls/:id': () => call(debrief({ judge2: 'muse_fallback' })) })
     render(<Debrief callId="c1" />)

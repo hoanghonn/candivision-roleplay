@@ -14,7 +14,7 @@ const match: CaseMatch = {
   readyMeans: [],
 }
 
-const paper: Paper = { doi: '10.1/real', title: 'Apologies after outages', authors: 'A. Author', year: 2020, abstract: 'An abstract.', link: 'https://doi.org/10.1/real' }
+const paper: Paper = { doi: '10.1/real', title: 'Apologies after outages', authors: 'A. Author', year: 2020, abstract: 'An abstract.', link: 'https://doi.org/10.1/real', citations: 120 }
 
 function deps(overrides: Partial<Parameters<typeof runResearch>[0]> & { client: Parameters<typeof runResearch>[0]['client'] }) {
   const events: ResearchEvent[] = []

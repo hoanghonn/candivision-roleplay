@@ -14,6 +14,7 @@ type Detail = {
   mix: 'research' | 'customer' | 'mixed' | null
   testCall: { ok: boolean; notes: string[] } | null
   readyBuilt: boolean
+  sampleCallId?: string | null
   versions: { id: string; hash: string; published: number }[]
 }
 
@@ -195,6 +196,7 @@ export default function Programme({ id }: { id: string }) {
               </a>
             ))}
             <a className="button" href={href({ name: 'report', versionId: version.versionId })}>Team report</a>
+            {d.sampleCallId && <a className="button" href={href({ name: 'debrief', callId: d.sampleCallId })}>See a sample debrief</a>}
           </div>
         </section>
       )}

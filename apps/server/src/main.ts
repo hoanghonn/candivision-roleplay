@@ -6,6 +6,7 @@ import OpenAI from 'openai'
 import { buildApp } from './app'
 import { VisitorLimits } from './limits'
 import { doiResolves, searchPapers } from './papers'
+import { loadLibrary, readSeeds, SEED_DIR } from './library'
 import { openStore } from './store'
 import { openUpstream } from './stt'
 import { Budget, metered, PRICES } from './usage'
@@ -20,6 +21,7 @@ const budget = new Budget({ dailyUsd })
 const dbPath = process.env.DB_PATH ?? 'data/roleplay.db'
 if (dbPath !== ':memory:') mkdirSync(dirname(dbPath), { recursive: true })
 const store = openStore(dbPath)
+loadLibrary(store, readSeeds(SEED_DIR))
 
 const app = buildApp({
   store,

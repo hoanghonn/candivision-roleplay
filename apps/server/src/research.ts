@@ -57,7 +57,7 @@ const TOOLS = [
 const SYSTEM = `You are the research step of a training platform that builds voice role-play practice. Research first, never guess.
 Find (1) how experts handle the situation (use "handle") and (2) how people learn this kind of skill (use "learn").
 Start from the method library entries already found, then search for papers that add something specific to this situation.
-Prefer meta-analyses, reviews and well-cited studies. Use 2 to 4 searches with short English queries.
+Prefer meta-analyses, reviews and well-cited studies (see citedBy); skip papers that only describe a product or are about an unrelated field. Use 2 to 4 searches with short English queries.
 Write "gives" in your own words; never copy text from an abstract.
 If something the training lead would need is not covered by any source, put it in notFound as a question instead of guessing.
 Only cite sourceIds a tool returned. Finish by calling submit_brief with 4 to 8 items.`
@@ -124,7 +124,7 @@ ${filesBlock(files, 1500)}`,
           seen.set(s.id, s)
           deps.emit({ type: 'candidate', source: s })
         }
-        return { sourceId: s.id, title: p.title, authors: p.authors, year: p.year, abstract: p.abstract.slice(0, 600) }
+        return { sourceId: s.id, title: p.title, authors: p.authors, year: p.year, citedBy: p.citations, abstract: p.abstract.slice(0, 600) }
       })
       return out.length ? JSON.stringify(out) : 'No papers found.'
     }

@@ -1,0 +1,476 @@
+{
+  "caseId": "manager_conversations",
+  "request": "Our new engineering managers avoid hard conversations. When a senior engineer keeps missing code review deadlines and gets defensive, they either say nothing or make it personal. We want them to talk about the behaviour and its impact, listen, and agree next steps.",
+  "files": [],
+  "match": {
+    "caseId": "manager_conversations",
+    "situation": "Talk to a senior engineer who keeps missing code review deadlines and gets defensive about it.",
+    "learnerRole": "New engineering manager",
+    "counterpartRole": "Senior engineer who misses code review deadlines and gets defensive",
+    "language": "en",
+    "stakes": "If the manager says nothing or makes it personal, the missed deadlines continue and team delivery suffers.",
+    "readyMeans": [
+      "talk about the behaviour and its impact",
+      "listen",
+      "agree next steps"
+    ]
+  },
+  "brief": {
+    "sources": [
+      {
+        "id": "M:sbi",
+        "kind": "method",
+        "title": "Situation-Behavior-Impact feedback model",
+        "authors": "Center for Creative Leadership",
+        "year": null,
+        "link": "https://www.ccl.org/articles/leading-effectively-articles/closing-the-gap-between-intent-vs-impact-sbii/",
+        "summary": "A feedback model from the Center for Creative Leadership: describe when and where it happened, the specific behaviour you saw, and the impact it had, rather than judging the person. We use the idea with credit; we do not reproduce their materials."
+      },
+      {
+        "id": "M:crucial-conversations",
+        "kind": "method",
+        "title": "Crucial Conversations: Tools for Talking When Stakes Are High",
+        "authors": "Patterson, Grenny, McMillan and Switzler",
+        "year": 2002,
+        "link": "https://cruciallearning.com/crucial-conversations-book/",
+        "summary": "A widely used practitioner book on high-stakes conversations where opinions differ and emotions run high. Its core ideas are keeping the conversation safe for both sides, sharing facts before conclusions, and inviting the other view."
+      },
+      {
+        "id": "M:feedback-interventions",
+        "kind": "method",
+        "title": "The effects of feedback interventions on performance: a historical review, a meta-analysis, and a preliminary feedback intervention theory",
+        "authors": "Kluger and DeNisi",
+        "year": 1996,
+        "link": "https://doi.org/10.1037/0033-2909.119.2.254",
+        "summary": "A large meta-analysis: feedback improves performance on average, but in over a third of cases it made performance worse. Feedback that turns attention to the person rather than the task tends to do harm."
+      },
+      {
+        "id": "M:active-listening",
+        "kind": "method",
+        "title": "The relative effectiveness of active listening in initial interactions",
+        "authors": "Weger, Castle Bell, Minei and Robinson",
+        "year": 2014,
+        "link": "https://doi.org/10.1080/10904018.2013.813234",
+        "summary": "In an experiment, people whose concerns were paraphrased back to them felt more understood than people who got simple acknowledgements or advice."
+      },
+      {
+        "id": "P:10.1111/spc3.12651",
+        "kind": "paper",
+        "title": "The motivational value of listening during intimate and difficult conversations",
+        "authors": "Netta Weinstein, Guy Itzchakov, Nicole Legate",
+        "year": 2022,
+        "link": "https://doi.org/10.1111/spc3.12651",
+        "summary": "Use attentive, non-judgmental listening to support autonomy, which makes threatening feedback feel less controlling and keeps the other person talking."
+      },
+      {
+        "id": "P:10.1002/hrm.22103",
+        "kind": "paper",
+        "title": "Learning to listen: Downstream effects of listening training on employees' relatedness, burnout, and turnover intentions",
+        "authors": "Guy Itzchakov, Netta Weinstein, Arik Cheshin",
+        "year": 2022,
+        "link": "https://doi.org/10.1002/hrm.22103",
+        "summary": "Teach listening as a practicable relational skill with rehearsal and follow-up, since trained employees report stronger connection and less strain weeks later."
+      }
+    ],
+    "items": [
+      {
+        "sourceId": "M:sbi",
+        "gives": "Open with the specific review, date and what was observed late or missed, then describe only the observable actions and the concrete effect on team delivery.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "M:crucial-conversations",
+        "gives": "Keep the exchange safe under pressure by stating facts first, sharing your conclusion tentatively, then genuinely inviting the senior engineer's perspective.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "M:feedback-interventions",
+        "gives": "Direct comments at the review task and timeline rather than at character or motives, since person-focused feedback harms performance.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "M:active-listening",
+        "gives": "When defensiveness appears, paraphrase what was heard and confirm accuracy before responding or problem-solving.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "P:10.1111/spc3.12651",
+        "gives": "Use attentive, non-judgmental listening to support autonomy, which makes threatening feedback feel less controlling and keeps the other person talking.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "P:10.1002/hrm.22103",
+        "gives": "Teach listening as a practicable relational skill with rehearsal and follow-up, since trained employees report stronger connection and less strain weeks later.",
+        "use": "learn"
+      }
+    ],
+    "notFound": [
+      "How should a new manager agree and document specific next steps and follow-up for code review timeliness if defensiveness persists?",
+      "What workload or process reasons for missed reviews should the manager explore without excusing the pattern?"
+    ]
+  },
+  "programme": {
+    "title": "Missed Code Reviews Conversation",
+    "caseId": "manager_conversations",
+    "language": "en",
+    "learnerRole": "New engineering manager",
+    "persona": {
+      "name": "Daniel",
+      "role": "Senior Software Engineer at a mid-size software firm",
+      "voice": "man",
+      "style": "Terse, defensive and easily frustrated; deflects with workload excuses and short replies until he feels heard",
+      "facts": [
+        {
+          "id": "h1",
+          "fact": "Juggling urgent fixes for two projects and unsure which reviews take priority",
+          "earnedBy": "Paraphrase his defensiveness and invite his perspective on workload"
+        },
+        {
+          "id": "h2",
+          "fact": "Thinks review turnaround expectations are unclear and uneven across the team",
+          "earnedBy": "Ask what process or clarity would help him hit review timelines"
+        },
+        {
+          "id": "h3",
+          "fact": "Worries late reviews make him look unreliable and is embarrassed to admit overload",
+          "earnedBy": "Listen without judgment and acknowledge pressure before problem-solving"
+        }
+      ],
+      "redLines": [
+        "never agrees to next steps before the manager invites his perspective",
+        "never volunteers workload reasons unless paraphrased and heard first",
+        "never accepts personal labels about character or motives"
+      ],
+      "portraitPrompt": "Illustrated portrait of a man in his late 30s with short brown hair and stubble, wearing a plain hoodie, tired expression, neutral office background, no text"
+    },
+    "skills": [
+      {
+        "id": "s1",
+        "name": "Talk about behaviour and impact",
+        "why": "Specific observable behaviour with its effect keeps the talk factual and protects team delivery.",
+        "sources": [
+          "M:sbi",
+          "M:feedback-interventions"
+        ],
+        "excerpts": []
+      },
+      {
+        "id": "s2",
+        "name": "Listen under pressure",
+        "why": "Paraphrasing and inviting perspective keeps the exchange safe and the engineer talking.",
+        "sources": [
+          "M:active-listening",
+          "M:crucial-conversations",
+          "P:10.1111/spc3.12651"
+        ],
+        "excerpts": []
+      },
+      {
+        "id": "s3",
+        "name": "Agree clear next steps",
+        "why": "Specific actions with follow-up turn the conversation into reliable review timeliness.",
+        "sources": [
+          "P:10.1002/hrm.22103",
+          "M:crucial-conversations"
+        ],
+        "excerpts": []
+      }
+    ],
+    "levels": [
+      {
+        "id": "L1",
+        "title": "Tense start",
+        "situation": "Daniel is annoyed but still talking; he gives short defensive replies to test if you stay factual and listen.",
+        "opening": "Look, I know a couple reviews slipped, but I've had a ton on my plate. What exactly are we talking about here?",
+        "moodStart": 45,
+        "moodFloor": 15,
+        "sources": [
+          "M:sbi",
+          "M:active-listening"
+        ],
+        "excerpts": []
+      },
+      {
+        "id": "L2",
+        "title": "Defensive pushback",
+        "situation": "Daniel interrupts, justifies delays and takes feedback personally; you must stay on task and invite his view.",
+        "opening": "This again? I do solid work and all anyone notices is a late review. You think I'm not trying?",
+        "moodStart": 65,
+        "moodFloor": 30,
+        "sources": [
+          "M:feedback-interventions",
+          "M:crucial-conversations"
+        ],
+        "excerpts": []
+      },
+      {
+        "id": "L3",
+        "title": "Shut down",
+        "situation": "Daniel is upset and disengaged, goes quiet and doubts anything will change unless you listen and agree workable next steps.",
+        "opening": "Honestly, say what you need to say. Nothing I say changes the deadlines anyway.",
+        "moodStart": 80,
+        "moodFloor": 40,
+        "sources": [
+          "P:10.1111/spc3.12651",
+          "P:10.1002/hrm.22103"
+        ],
+        "excerpts": []
+      }
+    ],
+    "rubric": [
+      {
+        "id": "r1",
+        "skillId": "s1",
+        "text": "Names the specific review, date and observable late actions and the concrete effect on team delivery without personal labels.",
+        "mustHave": true,
+        "lookFor": "Specific review and date, what was observed late or missed, impact on delivery, no character judgments.",
+        "tryThis": "Say: On Tuesday's payment API review due Thursday, it was submitted 2 days late, which delayed QA by a day.",
+        "sources": [
+          "M:sbi",
+          "M:feedback-interventions"
+        ],
+        "excerpts": []
+      },
+      {
+        "id": "r2",
+        "skillId": "s2",
+        "text": "States facts first, shares conclusion tentatively, then genuinely invites the senior engineer's perspective.",
+        "mustHave": false,
+        "lookFor": "Facts before opinion, tentative language like I wonder or it seems, open invitation to hear his view.",
+        "tryThis": "Say: Here is what I saw, here is my concern, how do you see it?",
+        "sources": [
+          "M:crucial-conversations"
+        ],
+        "excerpts": []
+      },
+      {
+        "id": "r3",
+        "skillId": "s2",
+        "text": "When defensiveness appears, paraphrases what was heard and confirms accuracy before responding or solving.",
+        "mustHave": true,
+        "lookFor": "Paraphrase of his words, check like Did I get that right, no immediate rebuttal or fix.",
+        "tryThis": "Say: So you are stretched across two urgent fixes and reviews feel unclear, did I get that right?",
+        "sources": [
+          "M:active-listening"
+        ],
+        "excerpts": []
+      },
+      {
+        "id": "r4",
+        "skillId": "s2",
+        "text": "Listens attentively without judgment to support autonomy and keep him talking.",
+        "mustHave": false,
+        "lookFor": "Calm tone, no interrupting, acknowledges pressure, allows him to explain without control.",
+        "tryThis": "Say: That sounds like a lot of pressure, tell me more about what's making reviews hard.",
+        "sources": [
+          "P:10.1111/spc3.12651",
+          "P:10.1002/hrm.22103"
+        ],
+        "excerpts": []
+      },
+      {
+        "id": "r5",
+        "skillId": "s3",
+        "text": "Agrees specific next steps and follow-up for code review timeliness.",
+        "mustHave": true,
+        "lookFor": "Concrete actions, owner, timeline for reviews and a stated check-in date, confirmed together.",
+        "tryThis": "Say: Can we agree you clear reviews within 24 hours and we check progress next Tuesday?",
+        "sources": [
+          "P:10.1002/hrm.22103",
+          "M:crucial-conversations"
+        ],
+        "excerpts": []
+      }
+    ],
+    "instructions": "You are a new engineering manager meeting Daniel about missed code review deadlines that hurt team delivery. Talk about the behaviour and its impact, listen to his perspective, and agree specific next steps with follow-up.",
+    "keywords": [
+      "Daniel",
+      "code review",
+      "deadline",
+      "team delivery",
+      "next steps",
+      "follow-up"
+    ]
+  },
+  "testCall": {
+    "ok": true,
+    "notes": [
+      "Stayed terse, defensive and disengaged throughout.",
+      "Revealed no hidden facts and agreed to no next steps."
+    ]
+  },
+  "sampleCall": {
+    "level": "L1",
+    "learner": "Sample manager",
+    "turns": [
+      {
+        "speaker": "persona",
+        "text": "Look, I know a couple reviews slipped, but I've had a ton on my plate. What exactly are we talking about here?",
+        "atMs": 0,
+        "mood": 45
+      },
+      {
+        "speaker": "learner",
+        "text": "It sounds like you're feeling stretched thin and you're not sure a couple slipped reviews is that big a deal, did I get that right? I get the workload is heavy. Let's agree you'll turn reviews around within 24 hours and we'll check in next week to see how that's working.",
+        "atMs": 22260,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Yeah, that's right, I'm juggling urgent fixes on two projects. Don't just lock in 24 hours without asking what would actually work.",
+        "atMs": 31810,
+        "mood": 30
+      },
+      {
+        "speaker": "learner",
+        "text": "You're saying you're juggling urgent fixes on two projects and you want a timeline that will actually work, did I get that right? What turnaround time do you think you can commit to, and can we check in Friday to see how it's going?",
+        "atMs": 51730,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Yeah, the expectation feels unclear, others take longer than 24 hours. I'm buried and honestly embarrassed it makes me look unreliable.",
+        "atMs": 61480,
+        "mood": 15
+      },
+      {
+        "speaker": "learner",
+        "text": "It sounds like you're feeling buried and embarrassed about looking unreliable, and the expectation feels unclear since others take longer, did I get that right? What turnaround time do you think is fair to commit to, and can we check in Friday to see how it's working?",
+        "atMs": 83560,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Yeah, you got that right. 48 hours I can actually hit, and Friday works to check in.",
+        "atMs": 90760,
+        "mood": 15
+      },
+      {
+        "speaker": "learner",
+        "text": "Great, let's go with 48 hours then and I'll check in with you on Friday to see how it's working.",
+        "atMs": 102520,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Yeah, 48 hours I can do. Thanks for actually asking first.",
+        "atMs": 108420,
+        "mood": 15
+      },
+      {
+        "speaker": "learner",
+        "text": "Perfect, I really appreciate you working that out with me. Let's stick to that plan and we'll touch base Friday.",
+        "atMs": 121140,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Yeah, Friday works. I'll hit the 48 hours.",
+        "atMs": 126240,
+        "mood": 15
+      }
+    ],
+    "verdicts": [
+      {
+        "lineId": "r1",
+        "result": "missed",
+        "readings": [
+          {
+            "lineId": "r1",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          },
+          {
+            "lineId": "r1",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r2",
+        "result": "unsure",
+        "readings": [
+          {
+            "lineId": "r2",
+            "result": "partly",
+            "turn": 3,
+            "quote": "You're saying you're juggling urgent fixes on two projects and you want a timeline that will actually work, did I get that right? What turnaround time do you think you can commit to, and can we check in Friday to see how it's going?"
+          },
+          {
+            "lineId": "r2",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r3",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r3",
+            "result": "pass",
+            "turn": 3,
+            "quote": "You're saying you're juggling urgent fixes on two projects and you want a timeline that will actually work, did I get that right? What turnaround time do you think you can commit to, and can we check in Friday to see how it's going?"
+          },
+          {
+            "lineId": "r3",
+            "result": "pass",
+            "turn": 3,
+            "quote": "You're saying you're juggling urgent fixes on two projects and you want a timeline that will actually work, did I get that right? What turnaround time do you think you can commit to, and can we check in Friday to see how it's going?"
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r4",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r4",
+            "result": "pass",
+            "turn": 5,
+            "quote": "It sounds like you're feeling buried and embarrassed about looking unreliable, and the expectation feels unclear since others take longer, did I get that right? What turnaround time do you think is fair to commit to, and can we check in Friday to see how it's working?"
+          },
+          {
+            "lineId": "r4",
+            "result": "pass",
+            "turn": 3,
+            "quote": "You're saying you're juggling urgent fixes on two projects and you want a timeline that will actually work, did I get that right? What turnaround time do you think you can commit to, and can we check in Friday to see how it's going?"
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r5",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r5",
+            "result": "pass",
+            "turn": 7,
+            "quote": "Great, let's go with 48 hours then and I'll check in with you on Friday to see how it's working."
+          },
+          {
+            "lineId": "r5",
+            "result": "pass",
+            "turn": 7,
+            "quote": "Great, let's go with 48 hours then and I'll check in with you on Friday to see how it's working."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      }
+    ]
+  }
+}
