@@ -84,4 +84,52 @@ describe('PushToTalk', () => {
     await ptt.start()
     expect(gum).toHaveBeenCalledTimes(1)
   })
+
+  it('a tap released before the microphone opens never starts streaming', async () => {
+    let grant!: (s: MediaStream) => void
+    const stopped: string[] = []
+    const track = { stop: () => stopped.push('track') }
+    const socket = new FakeSocket()
+    let captures = 0
+    let sockets = 0
+    const ptt = new PushToTalk({
+      wsUrl: 'ws://x/ws/stt',
+      onState: () => {},
+      onPartial: () => {},
+      onFinal: () => {},
+      getUserMedia: () => new Promise((r) => { grant = r }),
+      createSocket: () => { sockets++; return socket as unknown as WebSocket },
+      startCapture: async () => { captures++; return { stop: () => {} } },
+    })
+    const started = ptt.start()
+    ptt.stop() // released while the permission prompt / mic is still opening
+    grant({ getTracks: () => [track] } as unknown as MediaStream)
+    await started
+    expect(captures).toBe(0)
+    expect(sockets).toBe(0)
+    expect(stopped).toEqual(['track'])
+  })
+
+  it('a release while capture is starting stops the capture and ends the utterance', async () => {
+    let release!: () => void
+    const captureStops: string[] = []
+    const socket = new FakeSocket()
+    const states: PttState[] = []
+    const ptt = new PushToTalk({
+      wsUrl: 'ws://x/ws/stt',
+      onState: (s) => states.push(s),
+      onPartial: () => {},
+      onFinal: () => {},
+      getUserMedia: () => Promise.resolve({ getTracks: () => [] } as unknown as MediaStream),
+      createSocket: () => socket as unknown as WebSocket,
+      startCapture: () => new Promise((r) => { release = () => r({ stop: () => captureStops.push('capture') }) }),
+    })
+    const started = ptt.start()
+    await new Promise((r) => setTimeout(r, 0))
+    ptt.stop()
+    release()
+    await started
+    expect(captureStops).toEqual(['capture'])
+    expect(socket.sent.at(-1)).toBe(JSON.stringify({ type: 'end' }))
+  })
 })

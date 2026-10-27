@@ -86,6 +86,12 @@ export class PushToTalk {
       this.opts.onState('no-mic')
       return
     }
+    // Released while the microphone was opening (a quick tap, or the permission prompt): never start streaming.
+    if (!this.active) {
+      stream.getTracks?.().forEach((t) => t.stop())
+      this.opts.onState('idle')
+      return
+    }
     const socket = this.opts.createSocket(this.opts.wsUrl)
     socket.binaryType = 'arraybuffer'
     this.socket = socket
@@ -94,10 +100,13 @@ export class PushToTalk {
     socket.onmessage = (e: MessageEvent) => this.onMessage(String(e.data))
     socket.onclose = () => { if (this.socket === socket) this.socket = null }
     this.opts.onState('listening')
-    this.capture = await this.opts.startCapture(stream, (pcm) => {
+    const capture = await this.opts.startCapture(stream, (pcm) => {
       if (socket.readyState === 1) socket.send(pcm as Int16Array<ArrayBuffer>)
       else queue.push(pcm)
     })
+    // Released while capture was starting: stop() has already sent the end of the utterance.
+    if (!this.active) capture.stop()
+    else this.capture = capture
   }
 
   stop(): void {

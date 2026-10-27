@@ -1,5 +1,5 @@
 import { EventEmitter } from 'node:events'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { bridgeStt, type SocketLike } from '../src/stt'
 
 class FakeSocket extends EventEmitter implements SocketLike {
@@ -101,5 +101,30 @@ describe('bridgeStt', () => {
     const { browser, upstream } = setup()
     browser.close()
     expect(upstream.closed).toBe(true)
+  })
+
+  it('an utterance longer than 60 seconds is ended and closed', () => {
+    vi.useFakeTimers()
+    try {
+      const { browser, upstream } = setup()
+      upstream.emit('open')
+      handshakeOk(upstream)
+      vi.advanceTimersByTime(60_001)
+      expect(upstream.texts().at(-1)).toEqual({ type: 'endStream' })
+      vi.advanceTimersByTime(5_001)
+      expect(upstream.closed).toBe(true)
+      expect(browser.closed).toBe(true)
+    } finally {
+      vi.useRealTimers()
+    }
+  })
+
+  it('audio held before the handshake is capped at 5 seconds', () => {
+    const { browser, upstream } = setup()
+    for (let i = 0; i < 100; i++) browser.emit('message', Buffer.alloc(3840), true) // 100 x 80 ms = 8 s
+    upstream.emit('open')
+    handshakeOk(upstream)
+    const bytes = upstream.sent.filter(Buffer.isBuffer).reduce((n, b) => n + b.length, 0)
+    expect(bytes).toBeLessThanOrEqual(5 * 48000)
   })
 })

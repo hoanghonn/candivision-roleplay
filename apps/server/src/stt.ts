@@ -5,6 +5,10 @@ export const STT_URL = 'wss://api.meta.ai/v1/asr/realtime'
 export const STT_MODEL = 'muse-voice-transcribe-1.0'
 const LANGUAGE_BIAS: Record<Language, string> = { en: 'English', vi: 'Vietnamese', ja: 'Japanese' }
 export const MAX_KEYWORDS = 30
+/** One utterance is at most a minute; audio held before the handshake at most 5 seconds (24 kHz 16-bit mono). */
+export const MAX_UTTERANCE_MS = 60_000
+const MAX_PENDING_BYTES = 5 * 48000
+const CLOSE_GRACE_MS = 5_000
 
 export type SttOptions = { language: Language; keywords: string[] }
 
@@ -34,6 +38,15 @@ export function bridgeStt(browser: SocketLike, connect: () => SocketLike, apiKey
   let browserClosed = false
   let endRequested = false
 
+  let pendingBytes = 0
+  const finish = () => {
+    endRequested = true
+    if (ready) upstream.send(JSON.stringify({ type: 'endStream' }))
+  }
+  const longest = setTimeout(() => {
+    finish()
+    setTimeout(() => upstream.close(), CLOSE_GRACE_MS)
+  }, MAX_UTTERANCE_MS)
   const toBrowser = (msg: object) => { if (!browserClosed) browser.send(JSON.stringify(msg)) }
   const sendFinal = (text: string) => {
     if (finalSent) return
@@ -71,6 +84,7 @@ export function bridgeStt(browser: SocketLike, connect: () => SocketLike, apiKey
   })
 
   upstream.on('close', () => {
+    clearTimeout(longest)
     sendFinal(lastPartial.trim())
     if (!browserClosed) { browserClosed = true; browser.close() }
   })
@@ -79,15 +93,12 @@ export function bridgeStt(browser: SocketLike, connect: () => SocketLike, apiKey
   browser.on('message', (data, isBinary) => {
     if (isBinary) {
       if (ready) upstream.send(data)
-      else pending.push(data)
+      else if (pendingBytes + data.length <= MAX_PENDING_BYTES) { pending.push(data); pendingBytes += data.length }
       return
     }
     let msg: any
     try { msg = JSON.parse(data.toString()) } catch { return }
-    if (msg.type === 'end') {
-      endRequested = true
-      if (ready) upstream.send(JSON.stringify({ type: 'endStream' }))
-    }
+    if (msg.type === 'end') finish()
   })
   browser.on('close', () => {
     browserClosed = true
