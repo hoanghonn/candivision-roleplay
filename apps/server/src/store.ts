@@ -173,10 +173,10 @@ export function openStore(path: string) {
       return r ? { id: r.id, ws: r.ws, status: r.status, events: JSON.parse(r.events_json), programmeId: r.programme_id } : null
     },
 
-    createCall(ws: string, c: CallInput): string {
+    createCall(ws: string, c: CallInput, created = Date.now()): string {
       const id = randomUUID()
       db.prepare('INSERT INTO calls (id, ws, version_id, learner, level, mode, drill_line_id, mood, turns_json, revealed_json, created) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)')
-        .run(id, ws, c.versionId, c.learner, c.level, c.mode, c.drillLineId, c.mood, '[]', '[]', Date.now())
+        .run(id, ws, c.versionId, c.learner, c.level, c.mode, c.drillLineId, c.mood, '[]', '[]', created)
       return id
     },
     saveCall(ws: string, id: string, patch: Partial<Pick<CallRow, 'turns' | 'revealed' | 'verdicts' | 'mood' | 'ended'>>): void {

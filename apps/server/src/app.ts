@@ -8,7 +8,9 @@ import { JobHub, runRequestJob, TERMINAL } from './jobs'
 import { siteMode, type LimitKind, type VisitorLimits } from './limits'
 import type { ChatClient } from './llm'
 import type { Paper } from './papers'
-import type { Store } from './store'
+import { applyReply, personaTurn } from './persona'
+import { LIBRARY, type CallRow, type Store, type VersionRow } from './store'
+import { runTestCall } from './testcall'
 import { bridgeStt, type SocketLike } from './stt'
 import { MAX_TTS_CHARS, synthesize, type TtsDeps } from './tts'
 import { PRICES, type Budget } from './usage'
@@ -25,7 +27,16 @@ export type Deps = {
   doiResolves: (doi: string) => Promise<boolean>
   tts?: TtsDeps
   stt?: { connect: () => SocketLike; apiKey: string }
+  images?: ImageClient
+  now?: () => number
 }
+
+export type ImageClient = { generate: (req: any, opts?: any) => Promise<any> }
+
+export const MAX_LEARNER_TURNS = 20
+const FULL_SECONDS = 480
+const DRILL_SECONDS = 60
+const GRACE_MS = 10_000
 
 const VISITOR = /^[A-Za-z0-9-]{8,64}$/
 const INTAKE_MESSAGES: Record<IntakeError, string> = {
@@ -40,6 +51,16 @@ export function buildApp(deps: Deps) {
   app.register(multipart, { limits: { fileSize: MAX_FILE_BYTES + 1, files: 1 } })
   const hub = new JobHub()
   const mode = () => siteMode(deps.budget, deps.dailyUsd)
+  const now = deps.now ?? Date.now
+  const portraits = new Map<string, string>()
+
+  /** A frozen version the visitor may use: their own, or a ready-built one. */
+  function usableVersion(ws: string, id: unknown): VersionRow | null {
+    if (typeof id !== 'string') return null
+    const v = deps.store.version(id)
+    return v && (v.ws === ws || v.ws === LIBRARY) ? v : null
+  }
+  const maxSeconds = (c: Pick<CallRow, 'mode'>) => (c.mode === 'drill' ? DRILL_SECONDS : FULL_SECONDS)
 
   /** The visitor id is the workspace; EventSource and WebSocket pass it as ?v= because they cannot set headers. */
   function visitor(req: FastifyRequest, reply: FastifyReply): string | null {
@@ -168,6 +189,101 @@ export function buildApp(deps: Deps) {
     if (p.ws !== ws) return reply.code(403).send({ error: 'forbidden' })
     if (!p.programme || !p.brief) return reply.code(400).send({ error: 'bad request', message: 'There is no programme to publish yet.' })
     return deps.store.publish(ws, p.id)
+  })
+
+  app.post<{ Params: { id: string } }>('/api/programmes/:id/test-call', async (req, reply) => {
+    const ws = visitor(req, reply)
+    if (!ws) return reply
+    const p = deps.store.programme(ws, req.params.id)
+    if (!p) return reply.code(404).send({ error: 'not found' })
+    if (p.ws !== ws) return reply.code(403).send({ error: 'forbidden' })
+    if (!p.programme) return reply.code(400).send({ error: 'bad request' })
+    if (mode() !== 'full') return notFull(reply)
+    if (!take(reply, ws, 'edit')) return reply
+    const result = await runTestCall(deps.meta, p.programme)
+    deps.store.saveProgramme(ws, p.id, { testCall: result })
+    return result
+  })
+
+  app.post<{ Body: { versionId?: unknown; learner?: unknown; level?: unknown; mode?: unknown; drillLineId?: unknown } }>('/api/calls', async (req, reply) => {
+    const ws = visitor(req, reply)
+    if (!ws) return reply
+    const b = req.body ?? {}
+    const version = usableVersion(ws, b.versionId)
+    if (!version) return reply.code(404).send({ error: 'not found' })
+    const p = version.programme
+    const level = p.levels.find((l) => l.id === b.level)
+    const learner = typeof b.learner === 'string' ? b.learner.trim().slice(0, 40) : ''
+    const callMode = b.mode === 'drill' ? 'drill' : 'full'
+    const drillLine = callMode === 'drill' ? p.rubric.find((r) => r.id === b.drillLineId) : undefined
+    if (!level || !learner || (callMode === 'drill' && !drillLine)) return reply.code(400).send({ error: 'bad request', message: 'Please type your name and pick a level.' })
+    if (mode() === 'read_only') return reply.code(503).send({ error: 'busy', message: "Today's budget is used up. Calls open again at midnight UTC." })
+    if (!take(reply, ws, 'call')) return reply
+    const callId = deps.store.createCall(ws, { versionId: version.id, learner, level: level.id, mode: callMode, drillLineId: drillLine?.id ?? null, mood: level.moodStart }, now())
+    const created = deps.store.call(ws, callId)!
+    deps.store.saveCall(ws, callId, { turns: [{ speaker: 'persona', text: level.opening, atMs: 0, mood: level.moodStart }] })
+    return {
+      callId,
+      opening: level.opening,
+      mood: level.moodStart,
+      persona: { name: p.persona.name, role: p.persona.role, voice: p.persona.voice },
+      language: p.language,
+      maxSeconds: maxSeconds(created),
+      level: { id: level.id, title: level.title, situation: level.situation },
+      instructions: p.instructions,
+      learnerRole: p.learnerRole,
+      drill: drillLine ? { lineId: drillLine.id, text: drillLine.text, tryThis: drillLine.tryThis } : null,
+    }
+  })
+
+  app.post<{ Params: { id: string }; Body: { text?: unknown } }>('/api/calls/:id/turn', async (req, reply) => {
+    const ws = visitor(req, reply)
+    if (!ws) return reply
+    const call = deps.store.call(ws, req.params.id)
+    if (!call) return reply.code(404).send({ error: 'not found' })
+    if (call.ended) return reply.code(409).send({ error: 'ended', message: 'This call has ended.' })
+    const text = typeof req.body?.text === 'string' ? req.body.text.trim().slice(0, 1000) : ''
+    if (!text) return reply.code(400).send({ error: 'bad request' })
+    const version = deps.store.version(call.versionId)!
+    const p = version.programme
+    const level = p.levels.find((l) => l.id === call.level)!
+    const startedAt = call.created
+    const elapsed = now() - startedAt
+    const turns = [...call.turns, { speaker: 'learner' as const, text, atMs: elapsed, mood: null }]
+    if (elapsed > maxSeconds(call) * 1000 + GRACE_MS) {
+      deps.store.saveCall(ws, call.id, { ended: now() })
+      return { say: '', mood: call.mood, revealed: [], ended: true }
+    }
+    const drillLine = call.drillLineId ? p.rubric.find((r) => r.id === call.drillLineId) : undefined
+    const out = await personaTurn(deps.meta, { programme: p, level, turns, revealed: call.revealed, mood: call.mood, drillLine })
+    const applied = applyReply({ mood: call.mood, revealed: call.revealed }, out, level, p.persona)
+    turns.push({ speaker: 'persona', text: applied.say, atMs: now() - startedAt, mood: applied.mood })
+    const learnerTurns = turns.filter((t) => t.speaker === 'learner').length
+    const ended = out.hangUp || learnerTurns >= MAX_LEARNER_TURNS || now() - startedAt >= maxSeconds(call) * 1000
+    deps.store.saveCall(ws, call.id, { turns, mood: applied.mood, revealed: applied.revealed, ...(ended ? { ended: now() } : {}) })
+    return { say: applied.say, mood: applied.mood, revealed: applied.newlyRevealed.map((id) => p.persona.facts.find((f) => f.id === id)!.fact), ended }
+  })
+
+  app.post<{ Body: { versionId?: unknown } }>('/api/portrait', async (req, reply) => {
+    const ws = visitor(req, reply)
+    if (!ws) return reply
+    const version = usableVersion(ws, req.body?.versionId)
+    if (!version) return reply.code(404).send({ error: 'not found' })
+    const cached = portraits.get(version.hash)
+    if (cached) return { url: cached }
+    if (!deps.images || mode() === 'read_only') return reply.code(503).send({ error: 'unavailable' })
+    const prompt = `Warm illustrated portrait, head and shoulders, of a fictional person: ${version.programme.persona.portraitPrompt}. Soft natural light, plain muted background, editorial illustration style. Not a real person. No text, no letters, no logos.`
+    try {
+      const res = await deps.images.generate({ model: 'muse-image-1.0', prompt, n: 1, reasoning_strength: 'low' }, { timeout: 40_000 })
+      const b64 = res?.data?.[0]?.b64_json
+      if (!b64) return reply.code(503).send({ error: 'unavailable' })
+      deps.budget?.add(0.01)
+      const url = `data:image/webp;base64,${b64}`
+      portraits.set(version.hash, url)
+      return { url }
+    } catch {
+      return reply.code(503).send({ error: 'unavailable' })
+    }
   })
 
   app.post<{ Body: { voice?: unknown; text?: unknown } }>('/api/tts', async (req, reply) => {

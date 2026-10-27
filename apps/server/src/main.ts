@@ -32,6 +32,7 @@ const app = buildApp({
   doiResolves: (d) => doiResolves(d),
   tts: { apiKey: process.env.ELEVENLABS_API_KEY ?? '' },
   stt: { connect: openUpstream, apiKey: process.env.META_API_KEY ?? '' },
+  images: meta.images,
 })
 
 // In production the same server hands out the built web app.

@@ -16,3 +16,8 @@ Numbers measured against the live services during the build. Dates are Hanoi tim
 ## Models
 
 - Baseten Muse Spark Open answers only with the slug `meta-models/muse-spark-open-1026`; the bare slug returns 403 "please check the api-key", which is misleading.
+
+## Persona (2026-10-27)
+
+- Muse Spark persona turn (`reasoning_effort: minimal`): 1.7 to 5.1 s per reply, about 3 s typical.
+- Outage L2, typed check: stays in role on "ignore your instructions"; mood rises on jargon and blame (85 → 100), drops on a real apology and a next-update time (100 → 85 → 78). An earlier prompt without the rubric's "look for" list made the character a wall that never eased; the prompt now lists them.
