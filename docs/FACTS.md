@@ -22,3 +22,9 @@ Numbers measured against the live services during the build. Dates are Hanoi tim
 - Muse Spark persona turn (`reasoning_effort: minimal`): 1.7 to 5.1 s per reply, about 3 s typical.
 - Outage L2, typed check: stays in role on "ignore your instructions"; mood rises on jargon and blame (85 → 100), drops on a real apology and a next-update time (100 → 85 → 78). An earlier prompt without the rubric's "look for" list made the character a wall that never eased; the prompt now lists them.
 - Muse Image portrait (`muse-image-1.0`, reasoning_strength low): 11.2 s, WebP about 500 KB; cached per version in memory, the call shows a placeholder until it arrives.
+
+## Judges (2026-10-27)
+
+- Judge 1 Muse Spark (Meta) and judge 2 Muse Spark Open (`meta-models/muse-spark-open-1026` on Baseten) run in parallel: 6.6 to 7.4 s per call scored. Baseten accepts `reasoning_effort: low` and `temperature: 0`.
+- One outage transcript (5 rubric lines) scored 3 times with an empty cache: 14 of 15 line results identical; the one change was a line where the judges split once (shown as "unsure"). In the product the cache returns the stored verdicts for the same transcript, so a rescore never changes.
+- The plain verdicts were sensible: jargon-heavy opening marked missed on "avoids jargon", late apology marked partly, update time without a fix time marked partly.
