@@ -20,4 +20,9 @@ describe('normalize', () => {
   it('folds whitespace and strips punctuation', () => {
     expect(normalize('  Hello,\n  WORLD! ')).toBe('hello world')
   })
+
+  it('treats every apostrophe the same way', () => {
+    expect(normalize("There's")).toBe(normalize('Thereʼs'))
+    expect(normalize('There’s')).toBe('theres')
+  })
 })

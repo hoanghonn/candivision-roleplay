@@ -3,6 +3,7 @@ export function normalize(s: string): string {
   return s
     .normalize('NFC')
     .toLowerCase()
+    .replace(/['’ʼ`]/g, '')
     .replace(/[^\p{L}\p{N}\s]/gu, ' ')
     .replace(/\s+/g, ' ')
     .trim()
