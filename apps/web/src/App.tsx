@@ -1,11 +1,15 @@
 import { useEffect, useState } from 'react'
 import { parseHash, type Route } from './route'
 import Home from './screens/Home'
+import Job from './screens/Job'
+import Programme from './screens/Programme'
 import Request from './screens/Request'
 
 function Screen({ route }: { route: Route }) {
   switch (route.name) {
     case 'request': return <Request />
+    case 'job': return <Job id={route.id} />
+    case 'programme': return <Programme id={route.id} />
     default: return <Home />
   }
 }

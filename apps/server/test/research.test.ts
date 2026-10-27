@@ -39,7 +39,7 @@ describe('runResearch', () => {
     expect(brief.items.map((i) => i.sourceId)).toContain('P:10.1/real')
     expect(brief.sources.find((s) => s.id === 'P:10.1/real')?.summary).toBe('Apologise first.')
     expect(brief.notFound).toEqual(['Japanese norms'])
-    expect(events).toContainEqual({ type: 'verified', sourceId: 'P:10.1/real' })
+    expect(events).toContainEqual({ type: 'verified', sourceId: 'P:10.1/real', use: 'handle' })
     for (const item of brief.items) expect(brief.sources.some((s) => s.id === item.sourceId)).toBe(true)
   })
 

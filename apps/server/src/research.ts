@@ -6,7 +6,7 @@ import { paperSource, type Paper } from './papers'
 export type ResearchEvent =
   | { type: 'searching'; query: string }
   | { type: 'candidate'; source: Source }
-  | { type: 'verified'; sourceId: string }
+  | { type: 'verified'; sourceId: string; use: 'handle' | 'learn' }
   | { type: 'dropped'; sourceId: string; reason: string }
   | { type: 'not_found'; question: string }
 
@@ -76,7 +76,7 @@ export async function runResearch(deps: ResearchDeps, match: CaseMatch, files: F
       seen.set(s.id, s)
       deps.emit({ type: 'candidate', source: s })
       verified.add(s.id)
-      deps.emit({ type: 'verified', sourceId: s.id })
+      deps.emit({ type: 'verified', sourceId: s.id, use: m.use })
     }
     return m
   }
@@ -187,7 +187,7 @@ ${filesBlock(files, 1500)}`,
         dropped.add(item.sourceId)
         continue
       }
-      if (!verified.has(item.sourceId)) { verified.add(item.sourceId); deps.emit({ type: 'verified', sourceId: item.sourceId }) }
+      if (!verified.has(item.sourceId)) { verified.add(item.sourceId); deps.emit({ type: 'verified', sourceId: item.sourceId, use: item.use }) }
     }
     kept.push(item)
   }
