@@ -1,6 +1,6 @@
 import multipart from '@fastify/multipart'
 import websocket from '@fastify/websocket'
-import { groundingMix, LanguageSchema, VoiceIdSchema, type Language } from '@roleplay/core'
+import { buildDebrief, groundingMix, LanguageSchema, LineResultSchema, settle, VoiceIdSchema, type Language } from '@roleplay/core'
 import Fastify, { type FastifyReply, type FastifyRequest } from 'fastify'
 import { editProgramme, MAX_INSTRUCTION } from './builder'
 import { extractText, MAX_FILE_BYTES, type IntakeError } from './intake'
@@ -8,6 +8,7 @@ import { JobHub, runRequestJob, TERMINAL } from './jobs'
 import { siteMode, type LimitKind, type VisitorLimits } from './limits'
 import type { ChatClient } from './llm'
 import type { Paper } from './papers'
+import { scoreCall } from './judges'
 import { applyReply, personaTurn } from './persona'
 import { LIBRARY, type CallRow, type Store, type VersionRow } from './store'
 import { runTestCall } from './testcall'
@@ -59,6 +60,13 @@ export function buildApp(deps: Deps) {
     if (typeof id !== 'string') return null
     const v = deps.store.version(id)
     return v && (v.ws === ws || v.ws === LIBRARY) ? v : null
+  }
+  /** The debrief for a scored call, with the customer file names the programme quotes. */
+  function debriefOf(call: CallRow, version: VersionRow) {
+    if (!call.verdicts) return null
+    const owner = deps.store.programme(version.ws, version.programmeId)
+    const files = owner ? deps.store.files(owner.ws, owner.request.fileIds).map((f) => ({ id: f.id, name: f.name })) : []
+    return buildDebrief(version.programme, version.brief, files, call.turns, call.verdicts)
   }
   const maxSeconds = (c: Pick<CallRow, 'mode'>) => (c.mode === 'drill' ? DRILL_SECONDS : FULL_SECONDS)
 
@@ -262,6 +270,56 @@ export function buildApp(deps: Deps) {
     const ended = out.hangUp || learnerTurns >= MAX_LEARNER_TURNS || now() - startedAt >= maxSeconds(call) * 1000
     deps.store.saveCall(ws, call.id, { turns, mood: applied.mood, revealed: applied.revealed, ...(ended ? { ended: now() } : {}) })
     return { say: applied.say, mood: applied.mood, revealed: applied.newlyRevealed.map((id) => p.persona.facts.find((f) => f.id === id)!.fact), ended }
+  })
+
+  app.post<{ Params: { id: string } }>('/api/calls/:id/end', async (req, reply) => {
+    const ws = visitor(req, reply)
+    if (!ws) return reply
+    const call = deps.store.call(ws, req.params.id)
+    if (!call) return reply.code(404).send({ error: 'not found' })
+    const version = deps.store.version(call.versionId)!
+    if (!call.ended) deps.store.saveCall(ws, call.id, { ended: now() })
+    if (!call.verdicts) {
+      const verdicts = await scoreCall({ meta: deps.meta, open: deps.open, store: deps.store }, version, call.turns)
+      deps.store.saveCall(ws, call.id, { verdicts })
+    }
+    return debriefOf(deps.store.call(ws, call.id)!, version)
+  })
+
+  app.get<{ Params: { id: string } }>('/api/calls/:id', async (req, reply) => {
+    const ws = visitor(req, reply)
+    if (!ws) return reply
+    const call = deps.store.call(ws, req.params.id)
+    if (!call) return reply.code(404).send({ error: 'not found' })
+    const version = deps.store.version(call.versionId)!
+    const p = version.programme
+    return {
+      id: call.id,
+      learner: call.learner,
+      level: call.level,
+      mode: call.mode,
+      versionId: call.versionId,
+      programmeId: version.programmeId,
+      title: p.title,
+      persona: { name: p.persona.name, role: p.persona.role },
+      language: p.language,
+      turns: call.turns,
+      ended: call.ended,
+      debrief: debriefOf(call, version),
+    }
+  })
+
+  app.post<{ Params: { id: string }; Body: { lineId?: unknown; result?: unknown } }>('/api/calls/:id/settle', async (req, reply) => {
+    const ws = visitor(req, reply)
+    if (!ws) return reply
+    const call = deps.store.call(ws, req.params.id)
+    if (!call) return reply.code(404).send({ error: 'not found' })
+    const result = LineResultSchema.safeParse(req.body?.result)
+    const verdict = call.verdicts?.find((v) => v.lineId === req.body?.lineId)
+    if (!result.success || !verdict) return reply.code(400).send({ error: 'bad request' })
+    if (verdict.result !== 'unsure') return reply.code(409).send({ error: 'not unsure', message: 'Only lines the judges disagreed on can be settled.' })
+    deps.store.saveCall(ws, call.id, { verdicts: settle(call.verdicts!, verdict.lineId, result.data) })
+    return debriefOf(deps.store.call(ws, call.id)!, deps.store.version(call.versionId)!)
   })
 
   app.post<{ Body: { versionId?: unknown } }>('/api/portrait', async (req, reply) => {

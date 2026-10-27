@@ -108,3 +108,58 @@ describe('POST /api/programmes/:id/test-call', () => {
     expect(store.programme(A, pid)?.testCall).toEqual({ ok: true, notes: ['Stayed firm.'] })
   })
 })
+
+describe('ending a call', () => {
+  const readings = JSON.stringify({ readings: [
+    { lineId: 'r1', result: 'pass', turn: 1, quote: 'I am sorry, this is on us' },
+    { lineId: 'r2', result: 'missed', turn: null, quote: '' },
+    { lineId: 'r3', result: 'missed', turn: null, quote: '' },
+  ] })
+  const disagree = JSON.stringify({ readings: [
+    { lineId: 'r1', result: 'pass', turn: 1, quote: 'I am sorry, this is on us' },
+    { lineId: 'r2', result: 'partly', turn: 1, quote: 'I am sorry, this is on us' },
+    { lineId: 'r3', result: 'missed', turn: null, quote: '' },
+  ] })
+
+  async function talkedCall(judgeA: string, judgeB: string) {
+    const ctx = setup([ok(), judgeA, judgeB])
+    const { callId } = (await start(ctx.app, A, { versionId: ctx.versionId, learner: 'Linh', level: 'L1', mode: 'full' })).json()
+    ctx.tick(3000)
+    await ctx.app.inject({ method: 'POST', url: `/api/calls/${callId}/turn`, headers: { 'x-visitor-id': A }, payload: { text: 'I am sorry, this is on us.' } })
+    return { ...ctx, callId }
+  }
+
+  it('end scores the call and returns the debrief, and is idempotent', async () => {
+    const { app, callId, meta } = await talkedCall(readings, readings)
+    const first = await app.inject({ method: 'POST', url: `/api/calls/${callId}/end`, headers: { 'x-visitor-id': A } })
+    expect(first.json()).toMatchObject({ passed: false, drill: { lineId: 'r2' }, judge2: 'muse_fallback' })
+    const again = await app.inject({ method: 'POST', url: `/api/calls/${callId}/end`, headers: { 'x-visitor-id': A } })
+    expect(again.json()).toEqual(first.json())
+    expect(meta.calls).toHaveLength(3)
+    const got = (await app.inject({ method: 'GET', url: `/api/calls/${callId}`, headers: { 'x-visitor-id': A } })).json()
+    expect(got).toMatchObject({ learner: 'Linh', level: 'L1', debrief: { passed: false } })
+    expect(got.turns).toHaveLength(3)
+  })
+
+  it('settle turns an unsure line into the lead decision', async () => {
+    const { app, callId } = await talkedCall(readings, disagree)
+    const d = (await app.inject({ method: 'POST', url: `/api/calls/${callId}/end`, headers: { 'x-visitor-id': A } })).json()
+    expect(d.lines.find((l: any) => l.lineId === 'r2').result).toBe('unsure')
+    const settled = (await app.inject({ method: 'POST', url: `/api/calls/${callId}/settle`, headers: { 'x-visitor-id': A }, payload: { lineId: 'r2', result: 'pass' } })).json()
+    expect(settled.lines.find((l: any) => l.lineId === 'r2').result).toBe('pass')
+    expect(settled.passed).toBe(true)
+  })
+
+  it('settle on a line that is not unsure is refused', async () => {
+    const { app, callId } = await talkedCall(readings, readings)
+    await app.inject({ method: 'POST', url: `/api/calls/${callId}/end`, headers: { 'x-visitor-id': A } })
+    const res = await app.inject({ method: 'POST', url: `/api/calls/${callId}/settle`, headers: { 'x-visitor-id': A }, payload: { lineId: 'r1', result: 'missed' } })
+    expect(res.statusCode).toBe(409)
+  })
+
+  it("another visitor cannot read or end someone's call", async () => {
+    const { app, callId } = await talkedCall(readings, readings)
+    expect((await app.inject({ method: 'GET', url: `/api/calls/${callId}`, headers: { 'x-visitor-id': B } })).statusCode).toBe(404)
+    expect((await app.inject({ method: 'POST', url: `/api/calls/${callId}/end`, headers: { 'x-visitor-id': B } })).statusCode).toBe(404)
+  })
+})
