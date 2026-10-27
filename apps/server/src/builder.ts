@@ -63,6 +63,8 @@ export async function buildProgramme(client: ChatClient, input: { match: CaseMat
       if (e instanceof LlmError) return { questions: ['The programme could not be built from this request. Could you describe the conversation in a little more detail?'] }
       throw e
     }
+    // The case match decides the language and the case; the model does not get to switch them.
+    programme = { ...programme, language: input.match.language, caseId: input.match.caseId }
     problems = validateProgramme(programme, input.brief, input.files)
     if (problems.length === 0) return { programme }
     previous = JSON.stringify(programme)
@@ -93,6 +95,8 @@ Reply ONLY with JSON: {"programme": <the whole programme>, "changes": ["<each ch
     if (e instanceof LlmError) return { problems: [{ path: '', message: 'That change could not be applied. Try saying it another way.' }] }
     throw e
   }
-  const problems = validateProgramme(reply.programme, input.brief, input.files)
-  return problems.length ? { problems } : reply
+  // An edit may change the language when asked, never the case.
+  const edited = { ...reply, programme: { ...reply.programme, caseId: input.programme.caseId } }
+  const problems = validateProgramme(edited.programme, input.brief, input.files)
+  return problems.length ? { problems } : edited
 }

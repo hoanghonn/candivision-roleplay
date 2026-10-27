@@ -38,6 +38,13 @@ describe('buildProgramme', () => {
     expect('programme' in res && res.programme.levels[0].opening).toBe('Maya here - our system is down')
   })
 
+  it('language and case come from the case match, not the model', async () => {
+    const vi = { ...match, language: 'vi' as const }
+    const res = await buildProgramme(scripted([JSON.stringify({ ...outageProgramme, language: 'en', caseId: 'generic' })]), { match: vi, brief: outageBrief, files: outageFiles })
+    expect('programme' in res && res.programme.language).toBe('vi')
+    expect('programme' in res && res.programme.caseId).toBe('outage_call')
+  })
+
   it('a regeneration that fixes the problem is accepted', async () => {
     const client = scripted([JSON.stringify(ungrounded), JSON.stringify(outageProgramme)])
     expect(await buildProgramme(client, { match, brief: outageBrief, files: outageFiles })).toEqual({ programme: outageProgramme })
@@ -58,6 +65,12 @@ describe('editProgramme', () => {
     const res = await editProgramme(client, { programme: outageProgramme, brief: outageBrief, files: outageFiles, instruction: 'remove the sources' })
     expect('problems' in res && res.problems.length).toBe(3)
     expect(client.calls).toHaveLength(1)
+  })
+
+  it('an edit keeps the case id', async () => {
+    const client = scripted([JSON.stringify({ programme: { ...outageProgramme, caseId: 'generic' }, changes: [] })])
+    const res = await editProgramme(client, { programme: outageProgramme, brief: outageBrief, files: outageFiles, instruction: 'harder' })
+    expect('programme' in res && res.programme.caseId).toBe('outage_call')
   })
 
   it('edit keeps language unless asked', async () => {
