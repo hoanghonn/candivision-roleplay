@@ -72,6 +72,18 @@ describe('Debrief', () => {
     expect(screen.queryByRole('button', { name: /Count it as/ })).toBeNull()
   })
 
+  it('when a judge was unreachable it offers to score again', async () => {
+    let n = 0
+    const calls = mockFetch({
+      'GET /api/calls/:id': () => call(null),
+      'POST /api/calls/:id/end': () => (n++ === 0 ? { ...debrief(), scoredFully: false } : { ...debrief({ passed: true, waiting: 0 }), scoredFully: true }),
+    })
+    render(<Debrief callId="c1" />)
+    fireEvent.click(await screen.findByRole('button', { name: /Score again/ }))
+    expect(await screen.findByText(/Ready at the gate/)).toBeInTheDocument()
+    expect(calls.filter((c) => c.url === '/api/calls/c1/end')).toHaveLength(2)
+  })
+
   it('labels a fallback second judge', async () => {
     mockFetch({ 'GET /api/calls/:id': () => call(debrief({ judge2: 'muse_fallback' })) })
     render(<Debrief callId="c1" />)

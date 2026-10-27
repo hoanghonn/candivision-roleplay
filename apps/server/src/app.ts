@@ -63,12 +63,20 @@ export function buildApp(deps: Deps) {
     const v = deps.store.version(id)
     return v && (v.ws === ws || v.ws === LIBRARY) ? v : null
   }
+  /** A drill is judged and debriefed on its own line only; its scoring key includes that line. */
+  function scored(call: CallRow, version: VersionRow) {
+    if (call.mode !== 'drill' || !call.drillLineId) return { hash: version.hash, programme: version.programme }
+    const programme = { ...version.programme, rubric: version.programme.rubric.filter((r) => r.id === call.drillLineId) }
+    return { hash: `${version.hash}:${call.drillLineId}`, programme }
+  }
   /** The debrief for a scored call, with the customer file names the programme quotes. */
-  function debriefOf(call: CallRow, version: VersionRow) {
-    if (!call.verdicts) return null
+  function debriefOf(call: CallRow, version: VersionRow, verdicts = call.verdicts) {
+    if (!verdicts) return null
     const owner = deps.store.programme(version.ws, version.programmeId)
     const files = owner ? deps.store.files(owner.ws, owner.request.fileIds).map((f) => ({ id: f.id, name: f.name })) : []
-    return buildDebrief(version.programme, version.brief, files, call.turns, call.verdicts)
+    const debrief = buildDebrief(scored(call, version).programme, version.brief, files, call.turns, verdicts)
+    // A drill's next step is another go at the same line, never a different one.
+    return call.mode === 'drill' && debrief.drill && debrief.drill.lineId !== call.drillLineId ? { ...debrief, drill: null } : debrief
   }
   const maxSeconds = (c: Pick<CallRow, 'mode'>) => (c.mode === 'drill' ? DRILL_SECONDS : FULL_SECONDS)
 
@@ -282,11 +290,11 @@ export function buildApp(deps: Deps) {
     if (!call) return reply.code(404).send({ error: 'not found' })
     const version = deps.store.version(call.versionId)!
     if (!call.ended) deps.store.saveCall(ws, call.id, { ended: now() })
-    if (!call.verdicts) {
-      const verdicts = await scoreCall({ meta: deps.meta, open: deps.open, store: deps.store }, version, call.turns)
-      deps.store.saveCall(ws, call.id, { verdicts })
-    }
-    return debriefOf(deps.store.call(ws, call.id)!, version)
+    if (call.verdicts) return { ...debriefOf(call, version), scoredFully: true }
+    const { verdicts, complete } = await scoreCall({ meta: deps.meta, open: deps.open, store: deps.store }, scored(call, version), call.turns)
+    // A judge that could not be reached leaves lines unsure; keep nothing, so the next /end scores again.
+    if (complete) deps.store.saveCall(ws, call.id, { verdicts })
+    return { ...debriefOf(call, version, verdicts), scoredFully: complete }
   })
 
   app.get<{ Params: { id: string } }>('/api/calls/:id', async (req, reply) => {

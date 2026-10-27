@@ -25,17 +25,30 @@ export default function Debrief({ callId }: { callId: string }) {
   const [call, setCall] = useState<CallView | null>(null)
   const [error, setError] = useState('')
 
+  const [partial, setPartial] = useState(false)
+  const [scoring, setScoring] = useState(false)
+
+  /** Scores the call (or returns the stored result); a judge that could not be reached leaves it partial. */
+  async function score() {
+    setScoring(true)
+    try {
+      const d = await post<DebriefT & { scoredFully?: boolean }>(`/api/calls/${encodeURIComponent(callId)}/end`)
+      setPartial(d.scoredFully === false)
+      setCall((c) => (c ? { ...c, debrief: d } : c))
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'The call could not be scored.')
+    } finally {
+      setScoring(false)
+    }
+  }
+
   useEffect(() => {
-    let tries = 0
-    const load = () =>
-      api<CallView>(`/api/calls/${encodeURIComponent(callId)}`)
-        .then((c) => {
-          setCall(c)
-          // the judges may still be scoring if the page was opened directly
-          if (!c.debrief && !c.sample && tries++ < 3) post(`/api/calls/${encodeURIComponent(callId)}/end`).then(load).catch(() => {})
-        })
-        .catch((e) => setError(e.message))
-    void load()
+    api<CallView>(`/api/calls/${encodeURIComponent(callId)}`)
+      .then((c) => {
+        setCall(c)
+        if (!c.debrief && !c.sample) void score()
+      })
+      .catch((e) => setError(e.message))
   }, [callId])
 
   async function settleLine(lineId: string, result: LineResult) {
@@ -51,6 +64,12 @@ export default function Debrief({ callId }: { callId: string }) {
     <main className="page">
       <a className="back" href={href({ name: 'programme', id: call.programmeId })}>← {call.title}</a>
       <p className="eyebrow">Your debrief · {call.mode === 'drill' ? '60-second drill' : call.level} · {call.learner}</p>
+      {partial && (
+        <p className="banner">
+          One of the two judges could not be reached, so lines it did not read show as unsure.{' '}
+          <button className="button" disabled={scoring} onClick={() => void score()}>{scoring ? 'Scoring…' : 'Score again'}</button>
+        </p>
+      )}
       {call.sample && <p className="banner">Sample call: an AI played the learner, so you can see a debrief without taking the call. Real calls are scored the same way.</p>}
       <h1 className={`verdict ${d.passed ? 'passed' : 'notyet'}`}>
         {d.passed ? 'Ready at the gate: every must-have was done.' : d.waiting ? `Not yet, and ${d.waiting === 1 ? 'one line is' : 'some lines are'} waiting for your training lead.` : 'Not yet: one or more must-haves still to practise.'}

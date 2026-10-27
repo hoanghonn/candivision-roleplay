@@ -51,13 +51,20 @@ const missedAll = (programme: Programme, judge2: Verdict['judge2']): Verdict[] =
     return { lineId: r.id, result: 'missed', readings: [reading, reading], judge2, settled: null }
   })
 
-/** Judge 1 is Muse Spark (Meta); judge 2 is Muse Spark Open (Baseten), or a second Muse Spark pass with the other prompt. */
-export async function scoreCall(deps: { meta: ChatClient; open: ChatClient | null; store: Store }, version: { hash: string; programme: Programme }, turns: Turn[]): Promise<Verdict[]> {
+/**
+ * Judge 1 is Muse Spark (Meta); judge 2 is Muse Spark Open (Baseten), or a second Muse Spark pass with the other prompt.
+ * `complete` is false when a judge could not be reached; such results are not cached and should not be kept.
+ */
+export async function scoreCall(
+  deps: { meta: ChatClient; open: ChatClient | null; store: Store },
+  version: { hash: string; programme: Programme },
+  turns: Turn[],
+): Promise<{ verdicts: Verdict[]; complete: boolean }> {
   const { programme } = version
-  if (!turns.some((t) => t.speaker === 'learner' && t.text.trim())) return missedAll(programme, deps.open ? 'baseten' : 'muse_fallback')
+  if (!turns.some((t) => t.speaker === 'learner' && t.text.trim())) return { verdicts: missedAll(programme, deps.open ? 'baseten' : 'muse_fallback'), complete: true }
   const tHash = transcriptHash(turns)
   const cached = deps.store.cachedVerdicts(version.hash, tHash)
-  if (cached) return cached
+  if (cached) return { verdicts: cached, complete: true }
   const [a, b0] = await Promise.all([
     judgeCall(deps.meta, MUSE, { programme, turns, variant: 'a' }),
     deps.open ? judgeCall(deps.open, OPEN_JUDGE, { programme, turns, variant: 'b' }) : Promise.resolve(null),
@@ -69,6 +76,7 @@ export async function scoreCall(deps: { meta: ChatClient; open: ChatClient | nul
     b = await judgeCall(deps.meta, MUSE, { programme, turns, variant: 'b' })
   }
   const verdicts = combine(programme.rubric, turns, a, b, judge2)
-  if (a && b) deps.store.cacheVerdicts(version.hash, tHash, verdicts)
-  return verdicts
+  const complete = !!a && !!b
+  if (complete) deps.store.cacheVerdicts(version.hash, tHash, verdicts)
+  return { verdicts, complete }
 }

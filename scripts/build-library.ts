@@ -98,7 +98,7 @@ for (let i = 0; i < 5; i++) {
   turns.push({ speaker: 'persona', text: applied.say, atMs: at, mood: applied.mood })
   if (reply.hangUp) break
 }
-const verdicts = await scoreCall({ meta, open: baseten, store: openStore(':memory:') }, { hash: 'seed', programme }, turns)
+const { verdicts } = await scoreCall({ meta, open: baseten, store: openStore(':memory:') }, { hash: 'seed', programme }, turns)
 log('sample call scored', verdicts.map((v) => `${v.lineId}:${v.result}`).join(' '), verdicts[0]?.judge2)
 
 const out = { caseId, request: req.text, files, match, brief, programme, testCall, sampleCall: { level: level.id, learner: req.learner, turns, verdicts } }

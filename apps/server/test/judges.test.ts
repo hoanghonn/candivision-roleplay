@@ -45,7 +45,8 @@ describe('judgeCall', () => {
 describe('scoreCall', () => {
   it('no learner turns means all missed without model calls', async () => {
     const meta = scripted([])
-    const v = await scoreCall({ meta, open: null, store: openStore(':memory:') }, version, [turns[0]])
+    const { verdicts: v, complete } = await scoreCall({ meta, open: null, store: openStore(':memory:') }, version, [turns[0]])
+    expect(complete).toBe(true)
     expect(v.map((x) => x.result)).toEqual(['missed', 'missed', 'missed'])
     expect(meta.calls).toHaveLength(0)
   })
@@ -53,7 +54,7 @@ describe('scoreCall', () => {
   it('two agreeing judges pass the call lines', async () => {
     const meta = scripted([readings])
     const open = scripted([readings])
-    const v = await scoreCall({ meta, open, store: openStore(':memory:') }, version, turns)
+    const { verdicts: v } = await scoreCall({ meta, open, store: openStore(':memory:') }, version, turns)
     expect(v.map((x) => x.result)).toEqual(['pass', 'pass', 'missed'])
     expect(v[0].judge2).toBe('baseten')
     expect(open.calls[0].model).toBe('meta-models/muse-spark-open-1026')
@@ -64,8 +65,8 @@ describe('scoreCall', () => {
     const store = openStore(':memory:')
     const meta = scripted([readings])
     const open = scripted([readings])
-    const first = await scoreCall({ meta, open, store }, version, turns)
-    const second = await scoreCall({ meta, open, store }, version, turns)
+    const { verdicts: first } = await scoreCall({ meta, open, store }, version, turns)
+    const { verdicts: second } = await scoreCall({ meta, open, store }, version, turns)
     expect(second).toEqual(first)
     expect(meta.calls).toHaveLength(1)
     expect(open.calls).toHaveLength(1)
@@ -74,7 +75,7 @@ describe('scoreCall', () => {
   it('Baseten failure falls back to Muse variant b and labels it', async () => {
     const meta = scripted([readings, readings])
     const open = scripted([new Error('403'), new Error('403')])
-    const v = await scoreCall({ meta, open, store: openStore(':memory:') }, version, turns)
+    const { verdicts: v } = await scoreCall({ meta, open, store: openStore(':memory:') }, version, turns)
     expect(v[0].judge2).toBe('muse_fallback')
     expect(meta.calls).toHaveLength(2)
     expect(v.map((x) => x.result)).toEqual(['pass', 'pass', 'missed'])
@@ -82,7 +83,17 @@ describe('scoreCall', () => {
 
   it('no Baseten client also falls back', async () => {
     const meta = scripted([readings, readings])
-    const v = await scoreCall({ meta, open: null, store: openStore(':memory:') }, version, turns)
+    const { verdicts: v } = await scoreCall({ meta, open: null, store: openStore(':memory:') }, version, turns)
     expect(v[0].judge2).toBe('muse_fallback')
+  })
+
+  it('a judge that fails is reported as incomplete and nothing is cached', async () => {
+    const store = openStore(':memory:')
+    const meta = scripted([readings, new Error('x'), new Error('x')])
+    const { verdicts, complete } = await scoreCall({ meta, open: null, store }, version, turns)
+    expect(complete).toBe(false)
+    expect(verdicts.every((v) => v.result === 'unsure')).toBe(true)
+    const again = scripted([readings, readings])
+    expect((await scoreCall({ meta: again, open: null, store }, version, turns)).complete).toBe(true)
   })
 })

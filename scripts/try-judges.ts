@@ -18,7 +18,7 @@ const turns: Turn[] = [
 ]
 for (let run = 1; run <= 3; run++) {
   const t0 = Date.now()
-  const v = await scoreCall({ meta, open: baseten, store: openStore(':memory:') }, { hash: 'live', programme }, turns)
+  const { verdicts: v } = await scoreCall({ meta, open: baseten, store: openStore(':memory:') }, { hash: 'live', programme }, turns)
   console.log(`run ${run} ${Date.now() - t0}ms judge2=${v[0].judge2}`)
   for (const x of v) console.log(`  ${x.lineId} ${x.result.padEnd(7)} a=${x.readings[0]?.result ?? 'invalid'} b=${x.readings[1]?.result ?? 'invalid'}  ${programme.rubric.find((r) => r.id === x.lineId)!.text}`)
 }
