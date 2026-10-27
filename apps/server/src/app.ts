@@ -3,7 +3,7 @@ import websocket from '@fastify/websocket'
 import { buildDebrief, groundingMix, teamReport, LanguageSchema, LineResultSchema, settle, type Language } from '@roleplay/core'
 import Fastify, { type FastifyReply, type FastifyRequest } from 'fastify'
 import type { IncomingHttpHeaders } from 'node:http'
-import { editProgramme, MAX_INSTRUCTION } from './builder'
+import { buildProgramme, editProgramme, MAX_INSTRUCTION } from './builder'
 import { extractText, MAX_FILE_BYTES, type IntakeError } from './intake'
 import { JobHub, runRequestJob, TERMINAL } from './jobs'
 import { siteMode, type LimitKind, type VisitorLimits } from './limits'
@@ -193,6 +193,7 @@ export function buildApp(deps: Deps) {
       status: p.status,
       mix: p.programme ? groundingMix(p.programme) : null,
       testCall: p.testCall,
+      questions: p.questions,
       readyBuilt: p.readyBuilt,
       sampleCallId: p.readyBuilt && p.caseId && deps.store.call(LIBRARY, sampleCallId(p.caseId)) ? sampleCallId(p.caseId) : null,
       versions: deps.store.versionsOf(p.id),
@@ -213,6 +214,26 @@ export function buildApp(deps: Deps) {
     if ('problems' in res) return reply.code(422).send(res)
     deps.store.saveProgramme(ws, p.id, { programme: res.programme, status: 'draft', testCall: null })
     return res
+  })
+
+  /** When the builder could not ground everything, the lead answers its questions and the programme is built again. */
+  app.post<{ Params: { id: string }; Body: { answers?: unknown } }>('/api/programmes/:id/answer', async (req, reply) => {
+    const ws = visitor(req, reply)
+    if (!ws) return reply
+    const p = deps.store.programme(ws, req.params.id)
+    if (!p) return reply.code(404).send({ error: 'not found' })
+    if (p.ws !== ws) return reply.code(403).send({ error: 'forbidden' })
+    const answers = typeof req.body?.answers === 'string' ? req.body.answers.trim().slice(0, 1500) : ''
+    if (!answers || !p.match || !p.brief) return reply.code(400).send({ error: 'bad request' })
+    if (mode() !== 'full') return notFull(reply)
+    if (!take(req, reply, ws, 'edit')) return reply
+    const built = await buildProgramme(deps.meta, { match: p.match, brief: p.brief, files: deps.store.files(ws, p.request.fileIds), leadAnswers: answers })
+    if ('questions' in built) {
+      deps.store.saveProgramme(ws, p.id, { questions: built.questions })
+      return reply.code(422).send(built)
+    }
+    deps.store.saveProgramme(ws, p.id, { programme: built.programme, questions: null, status: 'draft' })
+    return built
   })
 
   app.post<{ Params: { id: string } }>('/api/programmes/:id/publish', async (req, reply) => {

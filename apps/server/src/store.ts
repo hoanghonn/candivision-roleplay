@@ -18,6 +18,8 @@ export type ProgrammeRow = {
   brief: ResearchBrief | null
   programme: Programme | null
   testCall: TestCall | null
+  /** what the builder needs from the training lead before a programme exists */
+  questions: string[] | null
   created: number
   updated: number
   readyBuilt: boolean
@@ -46,7 +48,7 @@ export function openStore(path: string) {
     PRAGMA journal_mode = WAL;
     CREATE TABLE IF NOT EXISTS files (id TEXT PRIMARY KEY, ws TEXT NOT NULL, name TEXT NOT NULL, text TEXT NOT NULL, created INTEGER NOT NULL);
     CREATE TABLE IF NOT EXISTS programmes (id TEXT PRIMARY KEY, ws TEXT NOT NULL, status TEXT NOT NULL, case_id TEXT, request_json TEXT NOT NULL,
-      match_json TEXT, brief_json TEXT, programme_json TEXT, test_call_json TEXT, created INTEGER NOT NULL, updated INTEGER NOT NULL);
+      match_json TEXT, brief_json TEXT, programme_json TEXT, test_call_json TEXT, created INTEGER NOT NULL, updated INTEGER NOT NULL, questions_json TEXT);
     CREATE TABLE IF NOT EXISTS versions (id TEXT PRIMARY KEY, programme_id TEXT NOT NULL, ws TEXT NOT NULL, hash TEXT NOT NULL,
       programme_json TEXT NOT NULL, brief_json TEXT NOT NULL, published INTEGER NOT NULL);
     CREATE TABLE IF NOT EXISTS jobs (id TEXT PRIMARY KEY, ws TEXT NOT NULL, status TEXT NOT NULL, events_json TEXT NOT NULL, programme_id TEXT);
@@ -56,6 +58,9 @@ export function openStore(path: string) {
     CREATE TABLE IF NOT EXISTS verdict_cache (version_hash TEXT NOT NULL, transcript_hash TEXT NOT NULL, verdicts_json TEXT NOT NULL,
       PRIMARY KEY (version_hash, transcript_hash));
   `)
+
+  // Databases made before builder questions were stored lack the column.
+  try { db.exec('ALTER TABLE programmes ADD COLUMN questions_json TEXT') } catch { /* already there */ }
 
   const toProgramme = (r: any): ProgrammeRow => ({
     id: r.id,
@@ -67,6 +72,7 @@ export function openStore(path: string) {
     brief: r.brief_json ? ResearchBriefSchema.parse(JSON.parse(r.brief_json)) : null,
     programme: r.programme_json ? ProgrammeSchema.parse(JSON.parse(r.programme_json)) : null,
     testCall: parse(r.test_call_json),
+    questions: parse(r.questions_json),
     created: r.created,
     updated: r.updated,
     readyBuilt: r.ws === LIBRARY,
@@ -112,8 +118,8 @@ export function openStore(path: string) {
       db.prepare('INSERT INTO programmes (id, ws, status, request_json, created, updated) VALUES (?, ?, ?, ?, ?, ?)').run(id, ws, 'draft', JSON.stringify(request), now, now)
       return id
     },
-    saveProgramme(ws: string, id: string, patch: Partial<Pick<ProgrammeRow, 'caseId' | 'match' | 'brief' | 'programme' | 'testCall' | 'status'>>): void {
-      const cols: Record<string, string> = { caseId: 'case_id', match: 'match_json', brief: 'brief_json', programme: 'programme_json', testCall: 'test_call_json', status: 'status' }
+    saveProgramme(ws: string, id: string, patch: Partial<Pick<ProgrammeRow, 'caseId' | 'match' | 'brief' | 'programme' | 'testCall' | 'status' | 'questions'>>): void {
+      const cols: Record<string, string> = { caseId: 'case_id', match: 'match_json', brief: 'brief_json', programme: 'programme_json', testCall: 'test_call_json', status: 'status', questions: 'questions_json' }
       const sets: string[] = []
       const vals: any[] = []
       for (const [k, v] of Object.entries(patch)) {

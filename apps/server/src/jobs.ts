@@ -52,6 +52,7 @@ export async function runRequestJob(deps: JobDeps, ws: string, jobId: string, re
     emit({ type: 'building' })
     const built = await buildProgramme(deps.meta, { match, brief, files })
     if ('questions' in built) {
+      deps.store.saveProgramme(ws, programmeId, { questions: built.questions })
       emit({ type: 'questions', questions: built.questions, programmeId })
     } else {
       deps.store.saveProgramme(ws, programmeId, { programme: built.programme })

@@ -44,8 +44,13 @@ ${filesBlock(input.files)}`
 
 const asQuestions = (problems: Problem[]) => problems.map((p) => `${p.message} Can you add material or a source for it, or should we drop it?`)
 
-export async function buildProgramme(client: ChatClient, input: { match: CaseMatch; brief: ResearchBrief; files: FileText[] }): Promise<{ programme: Programme } | { questions: string[] }> {
-  const user = userPrompt(input)
+export async function buildProgramme(
+  client: ChatClient,
+  input: { match: CaseMatch; brief: ResearchBrief; files: FileText[]; leadAnswers?: string },
+): Promise<{ programme: Programme } | { questions: string[] }> {
+  const user = input.leadAnswers
+    ? `${userPrompt(input)}\n\nThe training lead answered earlier questions about this programme (follow these answers):\n${input.leadAnswers}`
+    : userPrompt(input)
   let problems: Problem[] = []
   let previous = ''
   for (let attempt = 0; attempt < 2; attempt++) {

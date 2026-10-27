@@ -72,6 +72,20 @@ describe('Programme', () => {
     expect(await screen.findByRole('link', { name: /See a sample debrief/ })).toHaveAttribute('href', '#/debrief/lib-outage_call-sample')
   })
 
+  it('questions page lets the lead answer and rebuild', async () => {
+    let built = false
+    const calls = mockFetch({
+      'GET /api/programmes/:id': () => (built ? detail() : detail({ programme: null, questions: ['The skill "Next update time" has no source. Can you add material or a source for it, or should we drop it?'] })),
+      'POST /api/programmes/:id/answer': () => { built = true; return { programme: outageProgramme } },
+    })
+    render(<Programme id="p1" />)
+    expect(await screen.findByText(/has no source/)).toBeInTheDocument()
+    fireEvent.change(screen.getByLabelText(/Your answers/), { target: { value: 'Use the PagerDuty guide for it.' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Answer and rebuild' }))
+    expect(await screen.findAllByTestId('rubric-line')).toHaveLength(3)
+    expect(calls.find((c) => c.url === '/api/programmes/p1/answer')?.body).toEqual({ answers: 'Use the PagerDuty guide for it.' })
+  })
+
   it('shows the grounding mix and what research did not find', async () => {
     mockFetch({ 'GET /api/programmes/:id': () => detail() })
     render(<Programme id="p1" />)

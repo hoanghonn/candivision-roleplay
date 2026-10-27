@@ -13,6 +13,7 @@ type Detail = {
   status: 'draft' | 'published'
   mix: 'research' | 'customer' | 'mixed' | null
   testCall: { ok: boolean; notes: string[] } | null
+  questions?: string[] | null
   readyBuilt: boolean
   sampleCallId?: string | null
   versions: { id: string; hash: string; published: number }[]
@@ -36,13 +37,7 @@ export default function Programme({ id }: { id: string }) {
   if (error) return <main className="page narrow"><p className="error">{error}</p><a href={href({ name: 'home' })}>Home</a></main>
   if (!d) return <main className="page"><p className="muted">Loading…</p></main>
   if (!d.programme || !d.brief)
-    return (
-      <main className="page narrow">
-        <a className="back" href={href({ name: 'home' })}>← Home</a>
-        <h1>This programme is not ready yet</h1>
-        <p className="muted">It is still being researched, or it needs your input first.</p>
-      </main>
-    )
+    return <Questions id={id} questions={d.questions ?? null} onBuilt={load} />
 
   const p = d.programme
   const brief = d.brief
@@ -203,3 +198,50 @@ export default function Programme({ id }: { id: string }) {
     </main>
   )
 }
+
+/** The builder could not ground everything: the lead answers in plain words and the programme is built again. */
+function Questions({ id, questions, onBuilt }: { id: string; questions: string[] | null; onBuilt: () => Promise<void> }) {
+  const [answers, setAnswers] = useState('')
+  const [busy, setBusy] = useState(false)
+  const [error, setError] = useState('')
+  const [open, setOpen] = useState(questions)
+
+  async function rebuild() {
+    setBusy(true)
+    setError('')
+    try {
+      await post(`/api/programmes/${encodeURIComponent(id)}/answer`, { answers })
+      await onBuilt()
+    } catch (e) {
+      if (e instanceof ApiError && e.body?.questions) setOpen(e.body.questions)
+      else setError(e instanceof Error ? e.message : 'The programme could not be rebuilt.')
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  return (
+    <main className="page narrow">
+      <a className="back" href={href({ name: 'home' })}>← Home</a>
+      {open?.length ? (
+        <>
+          <h1>A few questions before it is ready</h1>
+          <p className="lede">The research did not cover everything, and we do not guess. Answer in plain words, or say what to drop.</p>
+          <ul className="list">{open.map((q) => <li key={q}>{q}</li>)}</ul>
+          <label className="field">
+            <span>Your answers</span>
+            <textarea rows={4} maxLength={1500} value={answers} onChange={(e) => setAnswers(e.target.value)} />
+          </label>
+          {error && <p className="error">{error}</p>}
+          <button className="button primary" disabled={!answers.trim() || busy} onClick={() => void rebuild()}>{busy ? 'Rebuilding…' : 'Answer and rebuild'}</button>
+        </>
+      ) : (
+        <>
+          <h1>This programme is not ready yet</h1>
+          <p className="muted">It is still being researched. Come back in a minute.</p>
+        </>
+      )}
+    </main>
+  )
+}
+

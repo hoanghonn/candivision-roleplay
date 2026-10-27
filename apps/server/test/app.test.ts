@@ -175,3 +175,31 @@ describe('POST /api/files', () => {
     expect(res.json()).toMatchObject({ error: 'no_text', message: expect.stringMatching(/scanned/) })
   })
 })
+
+describe('builder questions', () => {
+  const invalid = { ...outageProgramme, rubric: outageProgramme.rubric.map((r) => ({ ...r, sources: ['P:10.9/invented'] })) }
+
+  it('questions are stored on the programme and can be answered to rebuild', async () => {
+    const replies = [
+      JSON.stringify(match),
+      toolCall('submit_brief', { items: [{ sourceId: 'M:apology-structure', gives: 'Own it.', use: 'handle' }], notFound: [] }),
+      JSON.stringify(invalid),
+      JSON.stringify(invalid),
+      JSON.stringify(outageProgramme),
+    ]
+    const { app, store, meta } = setup({}, replies)
+    const { jobId } = (await app.inject({ method: 'POST', url: '/api/requests', headers: { 'x-visitor-id': A }, payload: { text: 'Our engineers make outage calls worse', fileIds: [] } })).json()
+    await waitForJob(store, A, jobId)
+    const programmeId = store.job(A, jobId)!.events.at(-1).programmeId
+    const before = (await app.inject({ method: 'GET', url: `/api/programmes/${programmeId}`, headers: { 'x-visitor-id': A } })).json()
+    expect(before.programme).toBeNull()
+    expect(before.questions.length).toBeGreaterThan(0)
+    const res = await app.inject({ method: 'POST', url: `/api/programmes/${programmeId}/answer`, headers: { 'x-visitor-id': A }, payload: { answers: 'Drop the invented line; use the incident guide.' } })
+    expect(res.statusCode).toBe(200)
+    expect(JSON.stringify(meta.calls.at(-1).messages)).toContain('Drop the invented line; use the incident guide.')
+    const after = (await app.inject({ method: 'GET', url: `/api/programmes/${programmeId}`, headers: { 'x-visitor-id': A } })).json()
+    expect(after.programme.title).toBe('The outage call')
+    expect(after.questions).toBeNull()
+  })
+})
+
