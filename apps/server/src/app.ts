@@ -1,6 +1,6 @@
 import multipart from '@fastify/multipart'
 import websocket from '@fastify/websocket'
-import { buildDebrief, groundingMix, LanguageSchema, LineResultSchema, settle, VoiceIdSchema, type Language } from '@roleplay/core'
+import { buildDebrief, groundingMix, teamReport, LanguageSchema, LineResultSchema, settle, VoiceIdSchema, type Language } from '@roleplay/core'
 import Fastify, { type FastifyReply, type FastifyRequest } from 'fastify'
 import { editProgramme, MAX_INSTRUCTION } from './builder'
 import { extractText, MAX_FILE_BYTES, type IntakeError } from './intake'
@@ -9,6 +9,7 @@ import { siteMode, type LimitKind, type VisitorLimits } from './limits'
 import type { ChatClient } from './llm'
 import type { Paper } from './papers'
 import { scoreCall } from './judges'
+import { sampleTeam } from './sample'
 import { applyReply, personaTurn } from './persona'
 import { LIBRARY, type CallRow, type Store, type VersionRow } from './store'
 import { runTestCall } from './testcall'
@@ -320,6 +321,25 @@ export function buildApp(deps: Deps) {
     if (verdict.result !== 'unsure') return reply.code(409).send({ error: 'not unsure', message: 'Only lines the judges disagreed on can be settled.' })
     deps.store.saveCall(ws, call.id, { verdicts: settle(call.verdicts!, verdict.lineId, result.data) })
     return debriefOf(deps.store.call(ws, call.id)!, deps.store.version(call.versionId)!)
+  })
+
+  app.get<{ Params: { id: string } }>('/api/versions/:id/report', async (req, reply) => {
+    const ws = visitor(req, reply)
+    if (!ws) return reply
+    const version = usableVersion(ws, req.params.id)
+    if (!version) return reply.code(404).send({ error: 'not found' })
+    const live = deps.store
+      .callsForVersion(ws, version.id)
+      .filter((c) => c.verdicts)
+      .map((c) => ({ learner: c.learner, created: c.created, mode: c.mode, verdicts: c.verdicts!, sample: false }))
+    const sample = version.ws === LIBRARY ? sampleTeam(version.programme, version.hash) : []
+    return {
+      title: version.programme.title,
+      programmeId: version.programmeId,
+      hash: version.hash,
+      published: version.published,
+      report: teamReport(version.programme, [...sample, ...live]),
+    }
   })
 
   app.post<{ Body: { versionId?: unknown } }>('/api/portrait', async (req, reply) => {
