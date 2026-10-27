@@ -1,7 +1,8 @@
 import multipart from '@fastify/multipart'
 import websocket from '@fastify/websocket'
-import { buildDebrief, groundingMix, teamReport, LanguageSchema, LineResultSchema, settle, VoiceIdSchema, type Language } from '@roleplay/core'
+import { buildDebrief, groundingMix, teamReport, LanguageSchema, LineResultSchema, settle, type Language } from '@roleplay/core'
 import Fastify, { type FastifyReply, type FastifyRequest } from 'fastify'
+import type { IncomingHttpHeaders } from 'node:http'
 import { editProgramme, MAX_INSTRUCTION } from './builder'
 import { extractText, MAX_FILE_BYTES, type IntakeError } from './intake'
 import { JobHub, runRequestJob, TERMINAL } from './jobs'
@@ -21,6 +22,8 @@ import { PRICES, type Budget } from './usage'
 export type Deps = {
   store: Store
   limits?: VisitorLimits
+  /** the same caps per client address, so fresh visitor ids cannot get around them */
+  ipLimits?: VisitorLimits
   budget?: Budget
   dailyUsd: number
   meta: ChatClient
@@ -42,6 +45,15 @@ const DRILL_SECONDS = 60
 const GRACE_MS = 10_000
 
 const VISITOR = /^[A-Za-z0-9-]{8,64}$/
+/** Each character line may be spoken at most this often (the first play and one retry). */
+const MAX_PLAYS = 2
+
+/** The client address Cloud Run's front end appended last to X-Forwarded-For; earlier entries can be forged. */
+export function clientIp(headers: IncomingHttpHeaders, fallback: string | undefined): string {
+  const xff = headers['x-forwarded-for']
+  const last = (Array.isArray(xff) ? xff.join(',') : xff ?? '').split(',').map((x) => x.trim()).filter(Boolean).at(-1)
+  return last ?? fallback ?? 'unknown'
+}
 const INTAKE_MESSAGES: Record<IntakeError, string> = {
   too_big: 'This file is over 2 MB. Please upload a smaller file or paste the important part.',
   unsupported: 'This file type is not supported. Please upload a .txt, .md, .eml or .pdf file.',
@@ -56,6 +68,8 @@ export function buildApp(deps: Deps) {
   const mode = () => siteMode(deps.budget, deps.dailyUsd)
   const now = deps.now ?? Date.now
   const portraits = new Map<string, string>()
+  const inFlight = new Set<string>()
+  const plays = new Map<string, number>()
 
   /** A frozen version the visitor may use: their own, or a ready-built one. */
   function usableVersion(ws: string, id: unknown): VersionRow | null {
@@ -89,11 +103,12 @@ export function buildApp(deps: Deps) {
     }
     return v
   }
-  function take(reply: FastifyReply, ws: string, kind: LimitKind): boolean {
-    if (!deps.limits || deps.limits.take(ws, kind)) return true
-    const what = { programme: 'three new programmes', edit: 'ten edits', call: 'ten calls' }[kind]
-    reply.code(429).send({ error: 'limit', message: `That is ${what} for today. The ready-built programmes are still open, and your limit resets at midnight UTC.` })
-    return false
+  const LIMIT_TEXT: Record<LimitKind, string> = { programme: 'new programmes', edit: 'edits', call: 'calls', speech: 'voice requests' }
+  function take(req: FastifyRequest, reply: FastifyReply, ws: string, kind: LimitKind): boolean {
+    const ip = clientIp(req.headers, req.socket?.remoteAddress)
+    const ok = (!deps.limits || deps.limits.take(ws, kind)) && (!deps.ipLimits || deps.ipLimits.take(ip, kind))
+    if (!ok) reply.code(429).send({ error: 'limit', message: `That is today's limit of ${LIMIT_TEXT[kind]}. The ready-built programmes are still open, and limits reset at midnight UTC.` })
+    return ok
   }
   const notFull = (reply: FastifyReply) =>
     reply.code(503).send({ error: 'busy', message: "Today's budget for building new programmes is used up. The ready-built programmes are still open." })
@@ -121,7 +136,7 @@ export function buildApp(deps: Deps) {
     const fileIds = Array.isArray(req.body?.fileIds) ? req.body.fileIds.filter((x): x is string => typeof x === 'string').slice(0, 5) : []
     if (text.length < 10 || text.length > 4000) return reply.code(400).send({ error: 'bad request', message: 'Please describe the problem in 10 to 4,000 characters.' })
     if (mode() !== 'full') return notFull(reply)
-    if (!take(reply, ws, 'programme')) return reply
+    if (!take(req, reply, ws, 'programme')) return reply
     const jobId = deps.store.createJob(ws)
     void runRequestJob({ ...deps, hub }, ws, jobId, { text, fileIds: deps.store.files(ws, fileIds).map((f) => f.id) })
     return reply.code(202).send({ jobId })
@@ -193,7 +208,7 @@ export function buildApp(deps: Deps) {
     const instruction = typeof req.body?.instruction === 'string' ? req.body.instruction.trim().slice(0, MAX_INSTRUCTION) : ''
     if (!instruction || !p.programme || !p.brief) return reply.code(400).send({ error: 'bad request' })
     if (mode() !== 'full') return notFull(reply)
-    if (!take(reply, ws, 'edit')) return reply
+    if (!take(req, reply, ws, 'edit')) return reply
     const res = await editProgramme(deps.meta, { programme: p.programme, brief: p.brief, files: deps.store.files(ws, p.request.fileIds), instruction })
     if ('problems' in res) return reply.code(422).send(res)
     deps.store.saveProgramme(ws, p.id, { programme: res.programme, status: 'draft', testCall: null })
@@ -218,7 +233,7 @@ export function buildApp(deps: Deps) {
     if (p.ws !== ws) return reply.code(403).send({ error: 'forbidden' })
     if (!p.programme) return reply.code(400).send({ error: 'bad request' })
     if (mode() !== 'full') return notFull(reply)
-    if (!take(reply, ws, 'edit')) return reply
+    if (!take(req, reply, ws, 'edit')) return reply
     const result = await runTestCall(deps.meta, p.programme)
     deps.store.saveProgramme(ws, p.id, { testCall: result })
     return result
@@ -237,7 +252,8 @@ export function buildApp(deps: Deps) {
     const drillLine = callMode === 'drill' ? p.rubric.find((r) => r.id === b.drillLineId) : undefined
     if (!level || !learner || (callMode === 'drill' && !drillLine)) return reply.code(400).send({ error: 'bad request', message: 'Please type your name and pick a level.' })
     if (mode() === 'read_only') return reply.code(503).send({ error: 'busy', message: "Today's budget is used up. Calls open again at midnight UTC." })
-    if (!take(reply, ws, 'call')) return reply
+    if (mode() === 'calls_only' && version.ws !== LIBRARY) return reply.code(503).send({ error: 'busy', message: "Today's budget for your own programmes is used up. The ready-built programmes are still open for calls." })
+    if (!take(req, reply, ws, 'call')) return reply
     const callId = deps.store.createCall(ws, { versionId: version.id, learner, level: level.id, mode: callMode, drillLineId: drillLine?.id ?? null, mood: level.moodStart }, now())
     const created = deps.store.call(ws, callId)!
     deps.store.saveCall(ws, callId, { turns: [{ speaker: 'persona', text: level.opening, atMs: 0, mood: level.moodStart }] })
@@ -263,6 +279,10 @@ export function buildApp(deps: Deps) {
     if (call.ended) return reply.code(409).send({ error: 'ended', message: 'This call has ended.' })
     const text = typeof req.body?.text === 'string' ? req.body.text.trim().slice(0, 1000) : ''
     if (!text) return reply.code(400).send({ error: 'bad request' })
+    // One turn at a time per call: a second one would be answered against a transcript that is about to change.
+    if (inFlight.has(call.id)) return reply.code(409).send({ error: 'busy', message: 'Wait for the reply, then speak again.' })
+    inFlight.add(call.id)
+    try {
     const version = deps.store.version(call.versionId)!
     const p = version.programme
     const level = p.levels.find((l) => l.id === call.level)!
@@ -280,7 +300,10 @@ export function buildApp(deps: Deps) {
     const learnerTurns = turns.filter((t) => t.speaker === 'learner').length
     const ended = out.hangUp || learnerTurns >= MAX_LEARNER_TURNS || now() - startedAt >= maxSeconds(call) * 1000
     deps.store.saveCall(ws, call.id, { turns, mood: applied.mood, revealed: applied.revealed, ...(ended ? { ended: now() } : {}) })
-    return { say: applied.say, mood: applied.mood, revealed: applied.newlyRevealed.map((id) => p.persona.facts.find((f) => f.id === id)!.fact), ended }
+    return { say: applied.say, mood: applied.mood, revealed: applied.newlyRevealed.map((id) => p.persona.facts.find((f) => f.id === id)!.fact), ended, turn: turns.length - 1 }
+    } finally {
+      inFlight.delete(call.id)
+    }
   })
 
   app.post<{ Params: { id: string } }>('/api/calls/:id/end', async (req, reply) => {
@@ -362,7 +385,7 @@ export function buildApp(deps: Deps) {
     if (!version) return reply.code(404).send({ error: 'not found' })
     const cached = portraits.get(version.hash)
     if (cached) return { url: cached }
-    if (!deps.images || mode() === 'read_only') return reply.code(503).send({ error: 'unavailable' })
+    if (!deps.images || mode() === 'read_only' || (mode() === 'calls_only' && version.ws !== LIBRARY)) return reply.code(503).send({ error: 'unavailable' })
     const prompt = `Warm illustrated portrait, head and shoulders, of a fictional person: ${version.programme.persona.portraitPrompt}. Soft natural light, plain muted background, editorial illustration style. Not a real person. No text, no letters, no logos.`
     try {
       const res = await deps.images.generate({ model: 'muse-image-1.0', prompt, n: 1, reasoning_strength: 'low' }, { timeout: 40_000 })
@@ -377,16 +400,24 @@ export function buildApp(deps: Deps) {
     }
   })
 
-  app.post<{ Body: { voice?: unknown; text?: unknown } }>('/api/tts', async (req, reply) => {
+  /** Speaks only what the character said in the visitor's own call, so the voice service is never an open proxy. */
+  app.post<{ Body: { callId?: unknown; turn?: unknown } }>('/api/tts', async (req, reply) => {
     const ws = visitor(req, reply)
     if (!ws) return reply
-    const voice = VoiceIdSchema.safeParse(req.body?.voice)
-    const text = req.body?.text
-    if (!voice.success || typeof text !== 'string' || !text.trim() || text.length > MAX_TTS_CHARS) return reply.code(400).send({ error: 'bad request' })
+    const { callId, turn } = req.body ?? {}
+    if (typeof callId !== 'string' || typeof turn !== 'number' || !Number.isInteger(turn)) return reply.code(400).send({ error: 'bad request' })
+    const call = deps.store.call(ws, callId)
+    if (!call) return reply.code(404).send({ error: 'not found' })
+    const line = call.turns[turn]
+    if (!line || line.speaker !== 'persona' || !line.text.trim() || line.text.length > MAX_TTS_CHARS) return reply.code(400).send({ error: 'bad request' })
     if (mode() === 'read_only' || !deps.tts) return reply.code(503).send({ error: 'voice unavailable' })
-    const audio = await synthesize(deps.tts, voice.data, text).catch(() => null)
+    const key = `${call.id}:${turn}`
+    if ((plays.get(key) ?? 0) >= MAX_PLAYS) return reply.code(429).send({ error: 'limit' })
+    plays.set(key, (plays.get(key) ?? 0) + 1)
+    const voice = deps.store.version(call.versionId)!.programme.persona.voice
+    const audio = await synthesize(deps.tts, voice, line.text).catch(() => null)
     if (!audio) return reply.code(503).send({ error: 'voice unavailable' })
-    deps.budget?.add(text.length * PRICES.ttsPerChar)
+    deps.budget?.add(line.text.length * PRICES.ttsPerChar)
     return reply.type('audio/mpeg').send(Buffer.from(audio))
   })
 
@@ -398,10 +429,15 @@ export function buildApp(deps: Deps) {
       if (!deps.stt || !ws || mode() === 'read_only') return socket.close()
       let opts: { language: Language; keywords: string[] } = { language: LanguageSchema.catch('en').parse(q.lang), keywords: [] }
       if (q.callId) {
+        // In a call: only while the call is live.
         const call = deps.store.call(ws, q.callId)
-        const version = call && deps.store.version(call.versionId)
+        const version = call && !call.ended && deps.store.version(call.versionId)
         if (!version) return socket.close()
         opts = { language: version.programme.language, keywords: version.programme.keywords }
+      } else {
+        // Speaking a request: a small daily allowance per visitor and per address.
+        const ip = clientIp(req.headers, req.socket?.remoteAddress)
+        if ((deps.limits && !deps.limits.take(ws, 'speech')) || (deps.ipLimits && !deps.ipLimits.take(ip, 'speech'))) return socket.close()
       }
       // 24 kHz 16-bit mono = 48,000 bytes per second of speech
       socket.on('message', (data: Buffer, isBinary: boolean) => {

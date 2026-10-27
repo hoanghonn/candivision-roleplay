@@ -27,7 +27,9 @@ const app = buildApp({
   store,
   budget,
   dailyUsd,
-  limits: new VisitorLimits({ programmes: 3, edits: 10, calls: 10 }),
+  limits: new VisitorLimits({ programmes: 3, edits: 10, calls: 10, speech: 20 }),
+  // Generous per-address caps: several judges may share an office network.
+  ipLimits: new VisitorLimits({ programmes: 8, edits: 30, calls: 30, speech: 60 }),
   meta: metered(meta, budget, PRICES.museSpark),
   open: open ? metered(open, budget, PRICES.museSpark) : null,
   searchPapers: (q) => searchPapers(q),

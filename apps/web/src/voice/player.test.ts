@@ -13,11 +13,11 @@ describe('voice player', () => {
     const ends: Record<string, ReturnType<typeof deferred>> = {}
     const player = createPlayer({
       playUrl: (src) => { log.push(`start ${src}`); ends[src] = deferred(); return ends[src].promise.then(() => { log.push(`end ${src}`) }) },
-      fetchTts: async (_v, text) => `blob:${text}`,
+      fetchTts: async (item) => `blob:${item.text}`,
       speak: async () => {},
     })
-    const a = player.say({ voice: 'man', text: 'one', lang: 'en' })
-    const b = player.say({ voice: 'man', text: 'two', lang: 'en' })
+    const a = player.say({ voice: 'man', text: 'one', lang: 'en', callId: 'c', turn: 0 })
+    const b = player.say({ voice: 'man', text: 'two', lang: 'en', callId: 'c', turn: 2 })
     await new Promise((r) => setTimeout(r, 0))
     expect(log).toEqual(['start blob:one'])
     ends['blob:one'].resolve()
@@ -31,7 +31,7 @@ describe('voice player', () => {
   it('falls back to the browser voice in the programme language', async () => {
     const spoken: string[] = []
     const player = createPlayer({ playUrl: async () => {}, fetchTts: async () => null, speak: async (t, lang) => { spoken.push(`${lang}:${t}`) } })
-    await player.say({ voice: 'woman', text: 'Xin chào', lang: 'vi' })
+    await player.say({ voice: 'woman', text: 'Xin chào', lang: 'vi', callId: 'c', turn: 0 })
     expect(spoken).toEqual(['vi:Xin chào'])
   })
 
@@ -39,11 +39,11 @@ describe('voice player', () => {
     const played: string[] = []
     const player = createPlayer({
       playUrl: async (src) => { if (src === 'blob:bad') throw new Error('x'); played.push(src) },
-      fetchTts: async (_v, t) => `blob:${t}`,
+      fetchTts: async (item) => `blob:${item.text}`,
       speak: async () => {},
     })
-    await player.say({ voice: 'man', text: 'bad', lang: 'en' })
-    await player.say({ voice: 'man', text: 'good', lang: 'en' })
+    await player.say({ voice: 'man', text: 'bad', lang: 'en', callId: 'c', turn: 0 })
+    await player.say({ voice: 'man', text: 'good', lang: 'en', callId: 'c', turn: 2 })
     expect(played).toEqual(['blob:good'])
   })
 })

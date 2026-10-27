@@ -14,10 +14,11 @@ const started = (over: Record<string, unknown> = {}) => ({
 function setup(routes: Record<string, any> = {}, startOver: Record<string, unknown> = {}) {
   let ptt: PttOptions | null = null
   const said: string[] = []
+  const sayTurns: number[] = []
   const calls = mockFetch({
     'POST /api/calls': () => started(startOver),
     'POST /api/portrait': () => ({ status: 503, body: { error: 'unavailable' } }),
-    'POST /api/calls/:id/turn': () => ({ say: 'When will it be fixed?', mood: 60, revealed: [], ended: false }),
+    'POST /api/calls/:id/turn': () => ({ say: 'When will it be fixed?', mood: 60, revealed: [], ended: false, turn: 2 }),
     'POST /api/calls/:id/end': () => ({ passed: false }),
     ...routes,
   })
@@ -26,10 +27,10 @@ function setup(routes: Record<string, any> = {}, startOver: Record<string, unkno
       versionId="v1"
       level="L2"
       makePtt={(o) => { ptt = o; return { start: async () => {}, stop: () => {} } }}
-      player={{ say: async (item) => { said.push(item.text) } }}
+      player={{ say: async (item) => { said.push(item.text); sayTurns.push(item.turn) } }}
     />,
   )
-  return { calls, said, ptt: () => ptt!, }
+  return { calls, said, sayTurns, ptt: () => ptt! }
 }
 
 async function begin() {
@@ -99,5 +100,20 @@ describe('Call', () => {
     setup()
     await begin()
     expect(localStorage.getItem('cvr.learner')).toBe('Linh')
+  })
+
+  it('asks the voice for lines by their place in the call', async () => {
+    const { ptt, sayTurns } = setup()
+    await begin()
+    act(() => ptt().onFinal('I am sorry.'))
+    await waitFor(() => expect(sayTurns).toEqual([0, 2]))
+  })
+
+  it('a busy reply keeps the call going', async () => {
+    const { ptt } = setup({ 'POST /api/calls/:id/turn': () => ({ status: 409, body: { error: 'busy', message: 'Wait for the reply, then speak again.' } }) })
+    await begin()
+    act(() => ptt().onFinal('hello again'))
+    expect(await screen.findByText('Wait for the reply, then speak again.')).toBeInTheDocument()
+    expect(window.location.hash).not.toBe('#/debrief/c1')
   })
 })

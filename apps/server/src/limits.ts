@@ -1,9 +1,9 @@
 import type { Budget } from './usage'
 
-export type LimitKind = 'programme' | 'edit' | 'call'
-type Opts = { programmes: number; edits: number; calls: number; now?: () => number }
+export type LimitKind = 'programme' | 'edit' | 'call' | 'speech'
+type Opts = { programmes: number; edits: number; calls: number; speech?: number; now?: () => number }
 
-/** Per-visitor daily caps for the public site; they reset at UTC midnight. */
+/** Daily caps for the public site, per visitor id or per client address; they reset at UTC midnight. */
 export class VisitorLimits {
   private day = ''
   private counts = new Map<string, number>()
@@ -13,7 +13,7 @@ export class VisitorLimits {
     const day = new Date((this.opts.now ?? Date.now)()).toISOString().slice(0, 10)
     if (day !== this.day) { this.day = day; this.counts.clear() }
     const key = `${visitor}:${kind}`
-    const max = { programme: this.opts.programmes, edit: this.opts.edits, call: this.opts.calls }[kind]
+    const max = { programme: this.opts.programmes, edit: this.opts.edits, call: this.opts.calls, speech: this.opts.speech ?? 20 }[kind]
     const n = this.counts.get(key) ?? 0
     if (n >= max) return false
     this.counts.set(key, n + 1)

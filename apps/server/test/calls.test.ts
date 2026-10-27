@@ -58,7 +58,7 @@ describe('calls', () => {
     const { callId } = (await start(app, A, { versionId, learner: 'Linh', level: 'L2', mode: 'full' })).json()
     tick(5000)
     const res = await app.inject({ method: 'POST', url: `/api/calls/${callId}/turn`, headers: { 'x-visitor-id': A }, payload: { text: 'I am sorry, this is on us.' } })
-    expect(res.json()).toEqual({ say: 'When will it be fixed?', mood: 60, revealed: [outageProgramme.persona.facts[0].fact], ended: false })
+    expect(res.json()).toEqual({ say: 'When will it be fixed?', mood: 60, revealed: [outageProgramme.persona.facts[0].fact], ended: false, turn: 2 })
   })
 
   it('call ends after 20 learner turns', async () => {

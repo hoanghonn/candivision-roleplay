@@ -1,13 +1,14 @@
 import type { VoiceId } from '@roleplay/core'
 import { visitorId } from '../api'
 
-export type SayItem = { voice: VoiceId; text: string; lang: string }
+/** A line the character said: where it sits in the call, so the server speaks only real character lines. */
+export type SayItem = { voice: VoiceId; text: string; lang: string; callId: string; turn: number }
 
 export type PlayerDeps = {
   /** Plays an audio URL; resolves when it has finished. */
   playUrl(src: string): Promise<void>
-  /** Returns a playable URL for the text, or null when the voice service is unavailable. */
-  fetchTts(voice: VoiceId, text: string): Promise<string | null>
+  /** Returns a playable URL for the line, or null when the voice service is unavailable. */
+  fetchTts(item: SayItem): Promise<string | null>
   /** The browser's own voice, used when the voice service is unavailable. */
   speak(text: string, lang: string): Promise<void>
 }
@@ -19,7 +20,7 @@ export function createPlayer(deps: PlayerDeps) {
   async function playOne(item: SayItem) {
     try {
       if (!item.text) return
-      const url = await deps.fetchTts(item.voice, item.text)
+      const url = await deps.fetchTts(item)
       if (url) await deps.playUrl(url)
       else await deps.speak(item.text, item.lang)
     } catch {
@@ -46,11 +47,11 @@ export const browserPlayer = createPlayer({
       audio.onerror = () => reject(new Error('audio failed'))
       audio.play().catch(reject)
     }),
-  fetchTts: async (voice, text) => {
+  fetchTts: async (item) => {
     const res = await fetch('/api/tts', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'x-visitor-id': visitorId() },
-      body: JSON.stringify({ voice, text }),
+      body: JSON.stringify({ callId: item.callId, turn: item.turn }),
       signal: AbortSignal.timeout(10_000),
     }).catch(() => null)
     if (!res?.ok) return null

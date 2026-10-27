@@ -49,6 +49,7 @@ export default function Call({ versionId, level, drillLineId, makePtt = (o) => n
   const ending = useRef(false)
   const callRef = useRef<Started | null>(null)
   const transcriptRef = useRef<HTMLDivElement>(null)
+  const waitingRef = useRef(false)
 
   async function start() {
     setError('')
@@ -67,7 +68,7 @@ export default function Call({ versionId, level, drillLineId, makePtt = (o) => n
         onPartial: setPartial,
         onFinal: (t) => { setPartial(''); void say(t) },
       })
-      void player.say({ voice: c.persona.voice, text: c.opening, lang: c.language })
+      void player.say({ voice: c.persona.voice, text: c.opening, lang: c.language, callId: c.callId, turn: 0 })
       post<{ url: string }>('/api/portrait', { versionId }).then((r) => setPortrait(r.url)).catch(() => {})
     } catch (e) {
       setError(e instanceof ApiError ? e.message : 'The call could not start. Please try again.')
@@ -87,19 +88,26 @@ export default function Call({ versionId, level, drillLineId, makePtt = (o) => n
     const c = callRef.current
     if (!c || ending.current || !text.trim()) return
     setTurns((t) => [...t, { speaker: 'learner', text, atMs: 0, mood: null }])
+    setError('')
     setWaiting(true)
+    waitingRef.current = true
     try {
-      const r = await post<{ say: string; mood: number; revealed: string[]; ended: boolean }>(`/api/calls/${encodeURIComponent(c.callId)}/turn`, { text })
+      const r = await post<{ say: string; mood: number; revealed: string[]; ended: boolean; turn: number }>(`/api/calls/${encodeURIComponent(c.callId)}/turn`, { text })
       if (r.say) setTurns((t) => [...t, { speaker: 'persona', text: r.say, atMs: 0, mood: r.mood }])
       setMood(r.mood)
       if (r.revealed.length) setToast(`New: ${r.revealed.join(' ')}`)
-      if (r.say) await player.say({ voice: c.persona.voice, text: r.say, lang: c.language })
+      if (r.say) await player.say({ voice: c.persona.voice, text: r.say, lang: c.language, callId: c.callId, turn: r.turn })
       if (r.ended) await end()
     } catch (e) {
-      if (e instanceof ApiError && e.status === 409) await end()
-      else setError('That turn did not go through. Please say it again.')
+      if (e instanceof ApiError && e.status === 409 && e.body?.error === 'ended') await end()
+      else {
+        // the turn did not count: take it back out of the transcript
+        setTurns((t) => t.slice(0, -1))
+        setError(e instanceof ApiError && e.body?.error === 'busy' ? e.message : 'That turn did not go through. Please say it again.')
+      }
     } finally {
       setWaiting(false)
+      waitingRef.current = false
     }
   }
 
@@ -113,7 +121,7 @@ export default function Call({ versionId, level, drillLineId, makePtt = (o) => n
   useEffect(() => { transcriptRef.current?.scrollTo?.({ top: transcriptRef.current.scrollHeight, behavior: 'smooth' }) }, [turns, partial])
   useEffect(() => {
     if (!call || typing) return
-    const down = (e: KeyboardEvent) => { if (e.code === 'Space' && !e.repeat && !(e.target instanceof HTMLTextAreaElement || e.target instanceof HTMLInputElement)) { e.preventDefault(); void pttRef.current?.start() } }
+    const down = (e: KeyboardEvent) => { if (e.code === 'Space' && !e.repeat && !waitingRef.current && !(e.target instanceof HTMLTextAreaElement || e.target instanceof HTMLInputElement)) { e.preventDefault(); void pttRef.current?.start() } }
     const up = (e: KeyboardEvent) => { if (e.code === 'Space') pttRef.current?.stop() }
     window.addEventListener('keydown', down)
     window.addEventListener('keyup', up)
