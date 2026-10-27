@@ -1,6 +1,6 @@
 import multipart from '@fastify/multipart'
 import websocket from '@fastify/websocket'
-import { groundingMix } from '@roleplay/core'
+import { groundingMix, LanguageSchema, VoiceIdSchema, type Language } from '@roleplay/core'
 import Fastify, { type FastifyReply, type FastifyRequest } from 'fastify'
 import { editProgramme, MAX_INSTRUCTION } from './builder'
 import { extractText, MAX_FILE_BYTES, type IntakeError } from './intake'
@@ -9,7 +9,9 @@ import { siteMode, type LimitKind, type VisitorLimits } from './limits'
 import type { ChatClient } from './llm'
 import type { Paper } from './papers'
 import type { Store } from './store'
-import type { Budget } from './usage'
+import { bridgeStt, type SocketLike } from './stt'
+import { MAX_TTS_CHARS, synthesize, type TtsDeps } from './tts'
+import { PRICES, type Budget } from './usage'
 
 export type Deps = {
   store: Store
@@ -21,6 +23,8 @@ export type Deps = {
   open: ChatClient | null
   searchPapers: (q: string) => Promise<Paper[]>
   doiResolves: (doi: string) => Promise<boolean>
+  tts?: TtsDeps
+  stt?: { connect: () => SocketLike; apiKey: string }
 }
 
 const VISITOR = /^[A-Za-z0-9-]{8,64}$/
@@ -164,6 +168,40 @@ export function buildApp(deps: Deps) {
     if (p.ws !== ws) return reply.code(403).send({ error: 'forbidden' })
     if (!p.programme || !p.brief) return reply.code(400).send({ error: 'bad request', message: 'There is no programme to publish yet.' })
     return deps.store.publish(ws, p.id)
+  })
+
+  app.post<{ Body: { voice?: unknown; text?: unknown } }>('/api/tts', async (req, reply) => {
+    const ws = visitor(req, reply)
+    if (!ws) return reply
+    const voice = VoiceIdSchema.safeParse(req.body?.voice)
+    const text = req.body?.text
+    if (!voice.success || typeof text !== 'string' || !text.trim() || text.length > MAX_TTS_CHARS) return reply.code(400).send({ error: 'bad request' })
+    if (mode() === 'read_only' || !deps.tts) return reply.code(503).send({ error: 'voice unavailable' })
+    const audio = await synthesize(deps.tts, voice.data, text).catch(() => null)
+    if (!audio) return reply.code(503).send({ error: 'voice unavailable' })
+    deps.budget?.add(text.length * PRICES.ttsPerChar)
+    return reply.type('audio/mpeg').send(Buffer.from(audio))
+  })
+
+  /** One utterance per socket. In a call the language and keywords come from the call's frozen version; otherwise from ?lang=. */
+  app.register(async (scoped) => {
+    scoped.get('/ws/stt', { websocket: true }, (socket, req) => {
+      const q = req.query as Record<string, string | undefined>
+      const ws = q.v && VISITOR.test(q.v) ? q.v : null
+      if (!deps.stt || !ws || mode() === 'read_only') return socket.close()
+      let opts: { language: Language; keywords: string[] } = { language: LanguageSchema.catch('en').parse(q.lang), keywords: [] }
+      if (q.callId) {
+        const call = deps.store.call(ws, q.callId)
+        const version = call && deps.store.version(call.versionId)
+        if (!version) return socket.close()
+        opts = { language: version.programme.language, keywords: version.programme.keywords }
+      }
+      // 24 kHz 16-bit mono = 48,000 bytes per second of speech
+      socket.on('message', (data: Buffer, isBinary: boolean) => {
+        if (isBinary) deps.budget?.add((data.length / 48000) * PRICES.sttPerSecond)
+      })
+      bridgeStt(socket as unknown as SocketLike, deps.stt.connect, deps.stt.apiKey, opts)
+    })
   })
 
   return Object.assign(app, { hub, mode })

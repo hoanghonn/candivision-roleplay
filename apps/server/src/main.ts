@@ -7,6 +7,7 @@ import { buildApp } from './app'
 import { VisitorLimits } from './limits'
 import { doiResolves, searchPapers } from './papers'
 import { openStore } from './store'
+import { openUpstream } from './stt'
 import { Budget, metered, PRICES } from './usage'
 
 const meta = new OpenAI({ apiKey: process.env.META_API_KEY, baseURL: 'https://api.meta.ai/v1' })
@@ -29,6 +30,8 @@ const app = buildApp({
   open: open ? metered(open, budget, PRICES.museSpark) : null,
   searchPapers: (q) => searchPapers(q),
   doiResolves: (d) => doiResolves(d),
+  tts: { apiKey: process.env.ELEVENLABS_API_KEY ?? '' },
+  stt: { connect: openUpstream, apiKey: process.env.META_API_KEY ?? '' },
 })
 
 // In production the same server hands out the built web app.
