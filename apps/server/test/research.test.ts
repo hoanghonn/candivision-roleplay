@@ -77,6 +77,36 @@ describe('runResearch', () => {
     expect(brief.notFound.join(' ')).toMatch(/paper search/i)
   })
 
+  it('a search outage is reported in the brief', async () => {
+    const client = scripted([toolCall('search_papers', { query: 'x' }), toolCall('submit_brief', { items: [], notFound: [] })])
+    const { d } = deps({ client, searchPapers: async () => null })
+    const brief = await runResearch(d, match, [])
+    expect(brief.notFound.join(' ')).toMatch(/Paper search was unavailable/)
+    expect(JSON.stringify(client.calls[1].messages)).toMatch(/unavailable/i)
+  })
+
+  it('searches asked for in one round run at the same time', async () => {
+    let running = 0
+    let most = 0
+    const slow = async () => { running++; most = Math.max(most, running); await new Promise((r) => setTimeout(r, 20)); running--; return [paper] }
+    const three = { tool_calls: ['a', 'b', 'c'].map((q, i) => ({ id: `s${i}`, type: 'function', function: { name: 'search_papers', arguments: JSON.stringify({ query: q }) } })) }
+    const client = scripted([three, toolCall('submit_brief', { items: [], notFound: [] })])
+    const { d } = deps({ client, searchPapers: slow })
+    await runResearch(d, match, [])
+    expect(most).toBe(3)
+  })
+
+  it('no new search starts with less than 13 s left', async () => {
+    let t = 0
+    let searched = 0
+    const client = scripted([toolCall('search_papers', { query: 'x' }), toolCall('submit_brief', { items: [], notFound: [] })])
+    const wrapped = { chat: { completions: { create: async (req: any, o: any) => { t += client.calls.length === 0 ? 63_000 : 1000; return client.chat.completions.create(req, o) } } } }
+    const { d } = deps({ client: wrapped, now: () => t, searchPapers: async () => { searched++; return [paper] } })
+    await runResearch(d, match, [])
+    expect(searched).toBe(0)
+    expect(JSON.stringify(client.calls[1].messages)).toMatch(/Not enough time/)
+  })
+
   it('stops at the 75 s deadline with seed items and a notFound line', async () => {
     let t = 0
     const client = scripted(Array.from({ length: 8 }, () => toolCall('search_papers', { query: 'x' })))

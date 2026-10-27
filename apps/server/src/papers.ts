@@ -59,11 +59,16 @@ async function crossref(f: typeof fetch, query: string): Promise<Paper[]> {
     })
 }
 
-/** Searches open scholarly APIs: OpenAlex first, Crossref when OpenAlex fails or finds nothing. Never throws. */
-export async function searchPapers(query: string, deps: Deps = {}): Promise<Paper[]> {
+/**
+ * Searches open scholarly APIs: OpenAlex first, Crossref when OpenAlex fails or finds nothing.
+ * Never throws; returns null only when both sources are unreachable, so the brief can say papers were unavailable.
+ */
+export async function searchPapers(query: string, deps: Deps = {}): Promise<Paper[] | null> {
   const f = deps.fetch ?? fetch
+  let openAlexUp = false
   try {
     const hits = await openAlex(f, query)
+    openAlexUp = true
     if (hits.length) return hits
   } catch {
     // fall through to Crossref
@@ -71,7 +76,7 @@ export async function searchPapers(query: string, deps: Deps = {}): Promise<Pape
   try {
     return await crossref(f, query)
   } catch {
-    return []
+    return openAlexUp ? [] : null
   }
 }
 

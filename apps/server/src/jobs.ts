@@ -25,7 +25,7 @@ export type JobDeps = {
   store: Store
   hub: JobHub
   meta: ChatClient
-  searchPapers: (q: string) => Promise<Paper[]>
+  searchPapers: (q: string) => Promise<Paper[] | null>
   doiResolves: (doi: string) => Promise<boolean>
 }
 

@@ -12,7 +12,7 @@ export type ResearchEvent =
 
 export type ResearchDeps = {
   client: ChatClient
-  searchPapers: (query: string) => Promise<Paper[]>
+  searchPapers: (query: string) => Promise<Paper[] | null>
   doiResolves: (doi: string) => Promise<boolean>
   emit: (e: ResearchEvent) => void
   now?: () => number
@@ -21,6 +21,8 @@ export type ResearchDeps = {
 const DEADLINE_MS = 75_000
 const MAX_ROUNDS = 8
 const MAX_SEARCHES = 6
+/** A search can take 12 s (OpenAlex, then Crossref); none starts unless it can finish before the deadline. */
+const MIN_SEARCH_MS = 13_000
 const OUT_OF_TIME = 'Paper search ran out of time'
 const UNAVAILABLE = 'Paper search was unavailable, so this brief uses the method library only'
 
@@ -102,6 +104,7 @@ ${filesBlock(files, 1500)}`,
   ]
 
   let searches = 0
+  let failedSearches = 0
   let submitted: { items: BriefItem[]; notFound: string[] } | null = null
   let outOfTime = false
   let modelFailed = false
@@ -109,14 +112,19 @@ ${filesBlock(files, 1500)}`,
   async function runTool(name: string, args: any): Promise<string> {
     if (name === 'search_papers') {
       if (searches >= MAX_SEARCHES) return 'Search limit reached. Submit the brief now.'
+      if (DEADLINE_MS - (now() - start) < MIN_SEARCH_MS) return 'Not enough time for another search. Submit the brief now.'
       searches++
       const query = String(args.query ?? '').slice(0, 200)
       deps.emit({ type: 'searching', query })
-      let papers: Paper[] = []
+      let papers: Paper[] | null = null
       try {
         papers = await deps.searchPapers(query)
       } catch {
-        return 'Search is unavailable. Use the method library.'
+        papers = null
+      }
+      if (!papers) {
+        failedSearches++
+        return 'Search is unavailable right now. Use the method library.'
       }
       const out = papers.map((p) => {
         const s = paperSource(p, '')
@@ -157,12 +165,14 @@ ${filesBlock(files, 1500)}`,
     const msg = res?.choices?.[0]?.message ?? {}
     const calls: any[] = msg.tool_calls ?? []
     if (calls.length === 0) break
-    const results: any[] = []
-    for (const call of calls) {
-      let args: any = {}
-      try { args = JSON.parse(call.function?.arguments || '{}') } catch { /* empty args */ }
-      results.push({ role: 'tool', tool_call_id: call.id, content: await runTool(call.function?.name, args) })
-    }
+    // The searches asked for in one round run at the same time.
+    const results = await Promise.all(
+      calls.map(async (call) => {
+        let args: any = {}
+        try { args = JSON.parse(call.function?.arguments || '{}') } catch { /* empty args */ }
+        return { role: 'tool', tool_call_id: call.id, content: await runTool(call.function?.name, args) }
+      }),
+    )
     messages.push({ role: 'assistant', content: msg.content ?? '', tool_calls: calls }, ...results)
     if (now() - start >= DEADLINE_MS && !submitted) { outOfTime = true; break }
   }
@@ -197,7 +207,7 @@ ${filesBlock(files, 1500)}`,
 
   const notFound = [...((submitted as { notFound: string[] } | null)?.notFound ?? [])]
   if (outOfTime) notFound.push(OUT_OF_TIME)
-  else if (modelFailed || !submitted) notFound.push(UNAVAILABLE)
+  else if (modelFailed || !submitted || (searches > 0 && failedSearches === searches)) notFound.push(UNAVAILABLE)
   for (const q of notFound) deps.emit({ type: 'not_found', question: q })
 
   const sources = kept.map((k) => {

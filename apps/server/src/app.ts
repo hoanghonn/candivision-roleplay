@@ -26,7 +26,7 @@ export type Deps = {
   meta: ChatClient
   /** Muse Spark Open on Baseten, for judge 2; null falls back to a second Muse Spark pass */
   open: ChatClient | null
-  searchPapers: (q: string) => Promise<Paper[]>
+  searchPapers: (q: string) => Promise<Paper[] | null>
   doiResolves: (doi: string) => Promise<boolean>
   tts?: TtsDeps
   stt?: { connect: () => SocketLike; apiKey: string }
