@@ -38,9 +38,11 @@ Our own short summaries, in our own words, with links checked by `scripts/check-
 
 Branded models such as SBI are used as ideas with credit; none of their materials are reproduced.
 
-## Six ready-built programmes
+## Nineteen ready-built programmes
 
-Made by the same pipeline (`scripts/build-library.ts`) from realistic requests and clearly fictional customer material: an outage call to an angry client, sales onboarding, a Vietnamese call-centre refund complaint, partner certification, a manager's hard conversation, and regulated medical messaging.
+Made by the same pipeline (`scripts/build-library.ts`) from realistic requests and clearly fictional customer material: an outage call to an angry client, sales onboarding, a Vietnamese call-centre refund complaint, partner certification, a manager's hard conversation, regulated medical messaging, selling insurance at a bank counter without misleading, stopping a scam at the bank counter, a site foreman stopping an unsafe shortcut, and explaining an emergency-department wait to a worried relative.
+
+The nine English programmes also have Vietnamese versions (`scripts/build-library.ts <programme> vi`), built by the same pipeline from Vietnamese requests and source files rather than translated. Each is its own programme with its own frozen version, so the judges score in the language the learner sees.
 
 ## Models
 
@@ -58,7 +60,7 @@ Needs Node 22.
 cp .env.example .env   # add META_API_KEY, BASETEN_API_KEY, ELEVENLABS_API_KEY
 npm install
 npm run dev:server     # http://localhost:8787
-npm run dev:web        # http://localhost:5173
+npm run dev:web        # http://localhost:5199
 npm test               # all workspaces
 ```
 
@@ -68,7 +70,7 @@ Deploying: see [docs/DEPLOY.md](docs/DEPLOY.md). Measured latencies and costs: [
 
 - `packages/core`: shared types and all pure logic (schemas, case templates, method library, validator, judge combining, the gate, debrief, team report).
 - `apps/server`: Fastify + SQLite. The model pipeline, voice bridge, per-visitor workspaces and daily budget.
-- `apps/web`: React. Request, live research, programme, call, debrief and team report screens.
+- `candivision-roleplay`: the React front end. Builder, live research, programme, call, debrief and team report screens, in English and Vietnamese.
 
 ## Licence
 

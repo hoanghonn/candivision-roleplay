@@ -7,3 +7,5 @@ node_modules
 *.log
 .git
 data
+reports
+research_notes

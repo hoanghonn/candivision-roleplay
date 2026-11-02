@@ -3,10 +3,10 @@
   "private": true,
   "type": "module",
   "license": "MIT",
-  "workspaces": ["packages/*", "apps/*"],
+  "workspaces": ["packages/*", "apps/*", "candivision-roleplay"],
   "scripts": {
     "test": "npm test --workspaces --if-present",
-    "dev:web": "npm run dev -w apps/web",
+    "dev:web": "npm run dev -w @roleplay/web",
     "dev:server": "npm run dev -w apps/server"
   }
 }

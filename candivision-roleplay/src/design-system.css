@@ -1,0 +1,277 @@
+/*
+  Candivision design tokens, as plain CSS so this app doesn't need Tailwind.
+  Source: cvdep-v2 frontend/css/cvdep-design-system.css and cvdep-design-system/*-utils.css
+  at commit 6094210c. Names and values match the source. Update them there first.
+  Light theme only: this app has no theme switch.
+  The block at the end of :root is derived for this app and is not in the source.
+*/
+:root {
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-gray-25: #FAFAFA;
+  --color-gray-50: #FAFAFA;
+  --color-gray-100: #F4F4F5;
+  --color-gray-200: #E4E4E7;
+  --color-gray-300: #D4D4D8;
+  --color-gray-400: #A1A1AA;
+  --color-gray-500: #71717A;
+  --color-gray-600: #52525B;
+  --color-gray-700: #3F3F46;
+  --color-gray-800: #27272A;
+  --color-gray-900: #18181B;
+  --color-gray-950: #111111;
+  --color-gray-solid: #18181B;
+  --color-gray-contrast: #FFFFFF;
+  --color-gray-muted: #E4E4E7;
+  --color-red-25: #FFFBFB;
+  --color-red-50: #FEF2F2;
+  --color-red-100: #FEE2E2;
+  --color-red-200: #FECACA;
+  --color-red-300: #FCA5A5;
+  --color-red-400: #F87171;
+  --color-red-500: #EF4444;
+  --color-red-600: #DC2626;
+  --color-red-700: #991919;
+  --color-red-800: #511111;
+  --color-red-900: #300C0C;
+  --color-red-950: #1F0808;
+  --color-green-25: #F6FEF9;
+  --color-green-50: #F0FDF4;
+  --color-green-100: #DCFCE7;
+  --color-green-200: #BBF7D0;
+  --color-green-300: #86EFAC;
+  --color-green-400: #4ADE80;
+  --color-green-500: #22C55E;
+  --color-green-600: #16A34A;
+  --color-green-700: #116932;
+  --color-green-800: #124A28;
+  --color-green-900: #042713;
+  --color-green-950: #03190C;
+  --color-yellow-25: #FFFCF5;
+  --color-yellow-50: #FEFCE8;
+  --color-yellow-100: #FEF9C3;
+  --color-yellow-200: #FEF08A;
+  --color-yellow-300: #FDE047;
+  --color-yellow-400: #FACC15;
+  --color-yellow-500: #EAB308;
+  --color-yellow-600: #CA8A04;
+  --color-yellow-700: #845209;
+  --color-yellow-800: #713F12;
+  --color-yellow-900: #422006;
+  --color-yellow-950: #281304;
+  --color-cyan-25: #F5FEFF;
+  --color-cyan-50: #ECFEFF;
+  --color-cyan-100: #CFFAFE;
+  --color-cyan-200: #A5F3FC;
+  --color-cyan-300: #67E8F9;
+  --color-cyan-400: #22D3EE;
+  --color-cyan-500: #06B6D4;
+  --color-cyan-600: #0891B2;
+  --color-cyan-700: #0C5C72;
+  --color-cyan-800: #134152;
+  --color-cyan-900: #072A38;
+  --color-cyan-950: #051b24;
+  --color-blue-25: #F5FAFF;
+  --color-blue-50: #F0F7FF;
+  --color-blue-100: #B8D7FF;
+  --color-blue-200: #8ABDFF;
+  --color-blue-300: #5CA4FF;
+  --color-blue-400: #2E8AFF;
+  --color-blue-500: #0070FF;
+  --color-blue-600: #0259D0;
+  --color-blue-700: #0344A1;
+  --color-blue-800: #033073;
+  --color-blue-900: #021C46;
+  --color-blue-950: #010A19;
+  --color-blue-solid: #0259D0;
+  --color-blue-contrast: #FFFFFF;
+  --color-blue-muted: #B8D7FF;
+  --color-purple-50: #FBFAFF;
+  --color-purple-100: #DED6FE;
+  --color-purple-200: #C2B3FC;
+  --color-purple-300: #A891F8;
+  --color-purple-400: #8E71F3;
+  --color-purple-500: #7653EC;
+  --color-purple-600: #582CE5;
+  --color-purple-700: #461CC8;
+  --color-purple-800: #3A189D;
+  --color-purple-900: #2D1474;
+  --color-purple-950: #1F0E4C;
+  --color-teal-50: #F0FDFA;
+  --color-teal-100: #CCFBF1;
+  --color-teal-200: #99F6E4;
+  --color-teal-300: #5EEAD4;
+  --color-teal-400: #2DD4BF;
+  --color-teal-500: #14B8A6;
+  --color-teal-600: #0D9488;
+  --color-teal-700: #0C5D56;
+  --color-teal-800: #114240;
+  --color-teal-900: #032726;
+  --color-teal-950: #021716;
+  --color-pink-25: #FFFAFC;
+  --color-pink-50: #FDF2F8;
+  --color-pink-100: #FCE7F3;
+  --color-pink-200: #FBCFE8;
+  --color-pink-300: #F9A8D4;
+  --color-pink-400: #F472B6;
+  --color-pink-500: #EC4899;
+  --color-pink-600: #DB2777;
+  --color-pink-700: #A41752;
+  --color-pink-800: #6D0E34;
+  --color-pink-900: #45061F;
+  --color-pink-950: #2C0514;
+  --color-orange-25: #FFF9F5;
+  --color-orange-50: #FFF7ED;
+  --color-orange-100: #FFEDD5;
+  --color-orange-200: #FED7AA;
+  --color-orange-300: #FDBA74;
+  --color-orange-400: #FB923C;
+  --color-orange-500: #F97316;
+  --color-orange-600: #EA580C;
+  --color-orange-700: #92310A;
+  --color-orange-800: #6C2710;
+  --color-orange-900: #3B1106;
+  --color-orange-950: #220A04;
+  --color-orange-solid: #EA580C;
+  --color-gray-fg: var(--color-gray-800);
+  --color-gray-subtle: var(--color-gray-100);
+  --color-gray-emphasized: var(--color-gray-300);
+  --color-gray-focus-ring: var(--color-gray-400);
+  --color-red-fg: var(--color-red-700);
+  --color-red-subtle: var(--color-red-50);
+  --color-red-muted: var(--color-red-100);
+  --color-red-emphasized: var(--color-red-300);
+  --color-red-solid: var(--color-red-600);
+  --color-red-focus-ring: var(--color-red-400);
+  --color-pink-fg: var(--color-pink-700);
+  --color-pink-subtle: var(--color-pink-100);
+  --color-pink-muted: var(--color-pink-200);
+  --color-pink-emphasized: var(--color-pink-300);
+  --color-pink-solid: var(--color-pink-600);
+  --color-pink-focus-ring: var(--color-pink-400);
+  --color-purple-contrast: #FFFFFF;
+  --color-purple-fg: var(--color-purple-700);
+  --color-purple-subtle: var(--color-purple-100);
+  --color-purple-muted: var(--color-purple-200);
+  --color-purple-emphasized: var(--color-purple-300);
+  --color-purple-solid: var(--color-purple-600);
+  --color-purple-focus-ring: var(--color-purple-400);
+  --color-cyan-fg: var(--color-cyan-700);
+  --color-cyan-subtle: var(--color-cyan-100);
+  --color-cyan-muted: var(--color-cyan-200);
+  --color-cyan-emphasized: var(--color-cyan-300);
+  --color-cyan-solid: var(--color-cyan-600);
+  --color-cyan-focus-ring: var(--color-cyan-400);
+  --color-blue-fg: var(--color-blue-700);
+  --color-blue-subtle: var(--color-blue-50);
+  --color-blue-emphasized: var(--color-blue-300);
+  --color-blue-focus-ring: var(--color-blue-400);
+  --color-teal-fg: var(--color-teal-700);
+  --color-teal-subtle: var(--color-teal-100);
+  --color-teal-muted: var(--color-teal-200);
+  --color-teal-emphasized: var(--color-teal-300);
+  --color-teal-solid: var(--color-teal-600);
+  --color-teal-focus-ring: var(--color-teal-400);
+  --color-green-fg: var(--color-green-700);
+  --color-green-subtle: var(--color-green-100);
+  --color-green-muted: var(--color-green-200);
+  --color-green-emphasized: var(--color-green-300);
+  --color-green-solid: var(--color-green-600);
+  --color-green-focus-ring: var(--color-green-400);
+  --color-yellow-contrast: #000000;
+  --color-yellow-fg: var(--color-yellow-800);
+  --color-yellow-subtle: var(--color-yellow-100);
+  --color-yellow-muted: var(--color-yellow-200);
+  --color-yellow-emphasized: var(--color-yellow-300);
+  --color-yellow-solid: var(--color-yellow-300);
+  --color-yellow-focus-ring: var(--color-yellow-400);
+  --color-orange-fg: var(--color-orange-700);
+  --color-orange-subtle: var(--color-orange-100);
+  --color-orange-muted: var(--color-orange-200);
+  --color-orange-emphasized: var(--color-orange-300);
+  --color-orange-focus-ring: var(--color-orange-400);
+
+  /* Semantic colors, from the bg-*, text-fg-* and border-* utilities */
+  --bg-default: var(--color-white);
+  --bg-subtle: var(--color-gray-50);
+  --bg-muted: var(--color-gray-100);
+  --bg-emphasized: var(--color-gray-200);
+  --bg-panel: var(--color-white);
+  --fg: var(--color-black);
+  --fg-muted: var(--color-gray-600);
+  --fg-subtle: var(--color-gray-400);
+  --fg-info: var(--color-blue-600);
+  --fg-error: var(--color-red-500);
+  --fg-warning: var(--color-yellow-600);
+  --fg-success: var(--color-green-600);
+  --border-default: var(--color-gray-200);
+  --border-subtle: var(--color-gray-50);
+  --border-muted: var(--color-gray-100);
+  --border-emphasized: var(--color-gray-300);
+
+  /* Radius, matching the Tailwind v4 steps the design system relies on */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+
+  /* Shadows */
+  --shadow-xs: 0px 1px 2px 0px rgb(0 0 0 / 10%), 0px 0px 1px 0px rgb(0 0 0 / 20%);
+  --shadow-sm: 0px 2px 4px 0px rgb(0 0 0 / 10%), 0px 0px 1px 0px rgb(0 0 0 / 30%);
+  --shadow-md: 0px 4px 8px 0px rgb(0 0 0 / 10%), 0px 0px 1px 0px rgb(0 0 0 / 30%);
+  --shadow-lg: 0px 8px 16px 0px rgb(0 0 0 / 10%), 0px 0px 1px 0px rgb(0 0 0 / 30%);
+  /* The surface from components/Card.tsx and the active item in NavItem.tsx */
+  --shadow-card: inset 0px 0px 0px 1px rgba(24, 24, 27, 0.08), 0px 1px 2px 0px rgba(24, 24, 27, 0.06);
+  /* The content panel from layout/AppLayout.tsx */
+  --shadow-panel: 0px 0px 1px 0px rgba(24, 24, 27, 0.2), 0px 1px 2px 0px rgba(24, 24, 27, 0.1);
+
+  /* Faces, from cvdep-design-system.css: --font-display for headings, --font-tag for eyebrows */
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-display: 'Be Vietnam Pro', var(--font-sans);
+  --font-tag: 'Chakra Petch', var(--font-sans);
+
+  /*
+    Derived for this app, every colour from the palette above.
+    Ink is the dark blue surface for moments of pressure: the sidebar, the call, the verdict, live research.
+    It follows the real app's dark in-call screen and its solid blue hero panels.
+  */
+  --ink-950: var(--color-blue-950);
+  --ink-900: var(--color-blue-900);
+  --ink-800: var(--color-blue-800);
+  --on-ink: var(--color-white);
+  --on-ink-muted: rgb(255 255 255 / 76%);
+  --on-ink-subtle: rgb(255 255 255 / 62%);
+  --ink-line: rgb(255 255 255 / 13%);
+  --ink-glass: rgb(255 255 255 / 6%);
+  --ink-glass-strong: rgb(255 255 255 / 11%);
+  --grad-ink: linear-gradient(140deg, var(--ink-950) 0%, var(--ink-900) 58%, var(--ink-800) 100%);
+  --grad-brand: linear-gradient(135deg, var(--color-blue-500) 0%, var(--color-blue-600) 45%, var(--color-blue-700) 100%);
+  --canvas: var(--color-blue-25);
+  --paper-line: rgb(2 28 70 / 10%);
+
+  /* Depth, tinted with the ink so shadows sit in the brand and not in grey */
+  --shadow-rest: 0 0 0 1px rgb(2 28 70 / 7%), 0 1px 2px rgb(2 28 70 / 6%);
+  --shadow-raise: 0 0 0 1px rgb(2 28 70 / 7%), 0 12px 28px -14px rgb(2 28 70 / 28%);
+  --shadow-float: 0 0 0 1px rgb(2 28 70 / 6%), 0 32px 64px -28px rgb(1 10 25 / 62%);
+  --shadow-cta: inset 0 1px 0 rgb(255 255 255 / 18%), 0 10px 22px -10px rgb(2 89 208 / 70%);
+  --radius-3xl: 24px;
+
+  /* Mood scale: five bands */
+  --mood-calm: var(--color-teal-400);
+  --mood-settling: var(--color-cyan-400);
+  --mood-tense: var(--color-yellow-400);
+  --mood-angry: var(--color-orange-500);
+  --mood-furious: var(--color-red-500);
+
+  /* Debrief results on ink */
+  --result-pass: var(--color-green-400);
+  --result-partly: var(--color-yellow-400);
+  --result-missed: var(--color-red-400);
+  --result-unsure: var(--color-purple-300);
+
+  --ease-out: cubic-bezier(.2, .8, .2, 1);
+}
