@@ -242,8 +242,9 @@ button.logo-mark-box:hover { background: var(--ink-glass-strong); }
   .nav-item[data-to="programmes"] { order: 2; }
   .start-wrap { order: 3; flex: 0 0 56px; width: 56px; display: grid; place-items: center; }
   .nav-item[data-to="calls"] { order: 4; }
-  .nav-item[data-to="create"] { order: 5; }
-  .nav-item[data-to="team"] { order: 6; }
+  /* Five slots, two either side of the call button. Create stays in the call button's menu. */
+  .nav-item[data-to="create"] { display: none; }
+  .nav-item[data-to="team"] { order: 5; }
   .nav-group, .nav-full { display: none; }
   .nav-short { display: block; font-size: 10px; line-height: 12px; }
   .nav-link, .collapsed .nav-link { flex-direction: column; justify-content: center; gap: 2px; height: 52px; padding: 2px; }
