@@ -196,6 +196,10 @@ export function openStore(path: string) {
       const r = db.prepare('SELECT * FROM calls WHERE id = ? AND ws = ?').get(id, ws)
       return r ? toCall(r) : null
     },
+    /** The visitor's own calls, newest first. */
+    callsOf(ws: string): CallRow[] {
+      return (db.prepare('SELECT * FROM calls WHERE ws = ? ORDER BY created DESC').all(ws) as any[]).map(toCall)
+    },
     callsForVersion(ws: string, versionId: string): CallRow[] {
       return (db.prepare('SELECT * FROM calls WHERE ws = ? AND version_id = ? ORDER BY created').all(ws, versionId) as any[]).map(toCall)
     },

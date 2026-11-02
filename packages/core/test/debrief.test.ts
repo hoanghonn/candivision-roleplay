@@ -23,6 +23,12 @@ describe('buildDebrief', () => {
     expect(d.drill).toMatchObject({ lineId: 'r2', seconds: 60, instruction: 'Replay just this part for 60 seconds: Say: I will call you again at 3 pm with an update.' })
   })
 
+  it('drill carries the raw tip, so a front end can phrase it in its own language', () => {
+    const d = buildDebrief(outageProgramme, outageBrief, files, turns, outageProgramme.rubric.map((r) => v(r.id, 'missed')))
+    const weak = outageProgramme.rubric.find((r) => r.id === d.drill!.lineId)!
+    expect(d.drill!.tryThis).toBe(weak.tryThis)
+  })
+
   it('no drill when everything passes', () => {
     const d = buildDebrief(outageProgramme, outageBrief, files, turns, [v('r1', 'pass', 1, 'sorry, this is on us'), v('r2', 'pass', 1, 'sorry, this is on us'), v('r3', 'pass', 1, 'sorry, this is on us')])
     expect(d.passed).toBe(true)

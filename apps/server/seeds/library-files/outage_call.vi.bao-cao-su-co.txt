@@ -1,0 +1,11 @@
+TÀI LIỆU MẪU HƯ CẤU - được tạo cho bản demo CandiVision Roleplay. Kumo Logistics không phải công ty có thật.
+
+Báo cáo sự cố INC-0412 (nội bộ)
+Khách hàng: Kumo Logistics (nền tảng quản lý kho, khu vực Osaka)
+Bắt đầu: 09:12 giờ địa phương. Khách hàng hết bị ảnh hưởng: 11:05.
+Tác động: nhân viên kho không lưu được đơn hàng mới. Việc lấy hàng và xuất hàng dừng ở ba kho trong khoảng hai tiếng.
+Nguyên nhân: một lần thay đổi cấu trúc cơ sở dữ liệu trong bản phát hành buổi sáng đã khóa bảng đơn hàng. Việc tự động hoàn tác không chạy.
+Phát hiện: đội vận hành của Kumo báo qua điện thoại lúc 09:31. Hệ thống giám sát của chúng tôi cảnh báo lúc 09:40.
+Khắc phục: hoàn tác bản phát hành thủ công lúc 10:58. Lưu được đơn hàng trở lại lúc 11:05.
+Bước tiếp theo: thêm giới hạn thời gian khóa cho việc thay đổi cấu trúc; kiểm thử hoàn tác trên môi trường thử nghiệm; gửi Kumo bản tóm tắt bằng văn bản trong vòng 2 ngày làm việc.
+Đây là sự cố thứ hai ảnh hưởng đến Kumo trong tháng này (lần đầu là 40 phút không đăng nhập được vào ngày 3).

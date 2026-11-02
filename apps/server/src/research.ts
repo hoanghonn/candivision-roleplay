@@ -7,7 +7,7 @@ export type ResearchEvent =
   | { type: 'searching'; query: string }
   | { type: 'candidate'; source: Source }
   | { type: 'verified'; sourceId: string; use: 'handle' | 'learn' }
-  | { type: 'dropped'; sourceId: string; reason: string }
+  | { type: 'dropped'; sourceId: string; code: 'not_returned' | 'doi_failed' | 'not_used'; reason: string }
   | { type: 'not_found'; question: string }
 
 export type ResearchDeps = {
@@ -23,8 +23,9 @@ const MAX_ROUNDS = 8
 const MAX_SEARCHES = 6
 /** A search can take 12 s (OpenAlex, then Crossref); none starts unless it can finish before the deadline. */
 const MIN_SEARCH_MS = 13_000
-const OUT_OF_TIME = 'Paper search ran out of time'
-const UNAVAILABLE = 'Paper search was unavailable, so this brief uses the method library only'
+// These reach the training lead beside the model's own notFound questions, so they follow the conversation's language.
+const OUT_OF_TIME = { en: 'Paper search ran out of time', vi: 'Việc tìm bài nghiên cứu đã hết thời gian', ja: 'Paper search ran out of time' }
+const UNAVAILABLE = { en: 'Paper search was unavailable, so this brief uses the method library only', vi: 'Không tìm được bài nghiên cứu lúc này, nên phần này chỉ dùng thư viện phương pháp', ja: 'Paper search was unavailable, so this brief uses the method library only' }
 
 const fn = (name: string, description: string, properties: Record<string, unknown>, required: string[]) => ({
   type: 'function',
@@ -61,7 +62,7 @@ Find (1) how experts handle the situation (use "handle") and (2) how people lear
 Start from the method library entries already found, then search for papers that add something specific to this situation.
 Prefer meta-analyses, reviews and well-cited studies (see citedBy); skip papers that only describe a product or are about an unrelated field. Use 2 to 4 searches with short English queries.
 Write "gives" in your own words; never copy text from an abstract.
-If something the training lead would need is not covered by any source, put it in notFound as a question instead of guessing.
+If something the training lead would need is not covered by any source, put it in notFound as a question instead of guessing. Write each notFound question in the language of the conversation.
 Only cite sourceIds a tool returned. Finish by calling submit_brief with 4 to 8 items.`
 
 export async function runResearch(deps: ResearchDeps, match: CaseMatch, files: FileText[]): Promise<ResearchBrief> {
@@ -86,7 +87,7 @@ export async function runResearch(deps: ResearchDeps, match: CaseMatch, files: F
   const template = CASES[match.caseId]
   const seedItems: BriefItem[] = template.methodSeeds.flatMap((slug) => {
     const m = addMethod(slug)
-    return m ? [{ sourceId: `M:${m.slug}`, gives: m.gives.join(' '), use: m.use }] : []
+    return m ? [{ sourceId: `M:${m.slug}`, gives: (match.language === 'vi' ? m.givesVi : m.gives).join(' '), use: m.use }] : []
   })
 
   const messages: any[] = [
@@ -187,13 +188,13 @@ ${filesBlock(files, 1500)}`,
   for (const item of proposed) {
     if (kept.some((k) => k.sourceId === item.sourceId)) continue
     if (!seen.has(item.sourceId)) {
-      if (!dropped.has(item.sourceId)) deps.emit({ type: 'dropped', sourceId: item.sourceId, reason: 'Not returned by the search tools' })
+      if (!dropped.has(item.sourceId)) deps.emit({ type: 'dropped', sourceId: item.sourceId, code: 'not_returned', reason: 'Not returned by the search tools' })
       dropped.add(item.sourceId)
       continue
     }
     if (item.sourceId.startsWith('P:')) {
       if (!resolved.get(item.sourceId)) {
-        if (!dropped.has(item.sourceId)) deps.emit({ type: 'dropped', sourceId: item.sourceId, reason: 'The DOI did not resolve' })
+        if (!dropped.has(item.sourceId)) deps.emit({ type: 'dropped', sourceId: item.sourceId, code: 'doi_failed', reason: 'The DOI did not resolve' })
         dropped.add(item.sourceId)
         continue
       }
@@ -202,12 +203,12 @@ ${filesBlock(files, 1500)}`,
     kept.push(item)
   }
   for (const id of seen.keys()) {
-    if (!kept.some((k) => k.sourceId === id) && !dropped.has(id)) deps.emit({ type: 'dropped', sourceId: id, reason: 'Not used: less relevant than the sources kept' })
+    if (!kept.some((k) => k.sourceId === id) && !dropped.has(id)) deps.emit({ type: 'dropped', sourceId: id, code: 'not_used', reason: 'Not used: less relevant than the sources kept' })
   }
 
   const notFound = [...((submitted as { notFound: string[] } | null)?.notFound ?? [])]
-  if (outOfTime) notFound.push(OUT_OF_TIME)
-  else if (modelFailed || !submitted || (searches > 0 && failedSearches === searches)) notFound.push(UNAVAILABLE)
+  if (outOfTime) notFound.push(OUT_OF_TIME[match.language])
+  else if (modelFailed || !submitted || (searches > 0 && failedSearches === searches)) notFound.push(UNAVAILABLE[match.language])
   for (const q of notFound) deps.emit({ type: 'not_found', question: q })
 
   const sources = kept.map((k) => {

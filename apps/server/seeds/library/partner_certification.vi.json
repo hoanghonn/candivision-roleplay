@@ -1,0 +1,562 @@
+{
+  "caseId": "partner_certification",
+  "variant": "vi",
+  "request": "Các đối tác bán lại của chúng tôi ở Đông Nam Á báo sai giá và hứa những tính năng chúng tôi không có khi giới thiệu sản phẩm sao lưu đám mây. Trước khi được bán, đối tác phải vượt qua một cuộc gọi với người mua: đúng thông tin và giá, giới thiệu phù hợp với nhu cầu của người mua, và không có khẳng định sai.",
+  "files": [
+    {
+      "id": "lib-partner_certification-vi-f1",
+      "name": "thong-tin-san-pham.md",
+      "text": "TÀI LIỆU MẪU HƯ CẤU - được tạo cho bản demo CandiVision Roleplay. Lumen Backup không phải sản phẩm có thật.\n\n# Lumen Backup: thông tin sản phẩm và quy định về giá cho đối tác\n\nSản phẩm làm được gì: sao lưu đám mây hằng ngày cho máy tính xách tay của công ty và hộp thư Microsoft 365. Khôi phục một tệp trong vài phút; khôi phục toàn bộ máy tính xách tay trong vòng một ngày làm việc.\nSản phẩm KHÔNG làm được gì: không sao lưu máy chủ tại chỗ, và không bao gồm phần mềm diệt virus.\nDữ liệu được lưu tại khu vực Singapore.\nGiá: 4 USD mỗi thiết bị mỗi tháng. Hộp thư 2 USD mỗi người dùng mỗi tháng. Đối tác được giảm giá tối đa 10% mà không cần Lumen phê duyệt.\nHợp đồng tối thiểu: 12 tháng. Không có gói miễn phí; có bản dùng thử 30 ngày.\nKhông bao giờ được hứa: sao lưu máy chủ, giảm giá không giới hạn, lưu dữ liệu tại Việt Nam.\n"
+    }
+  ],
+  "match": {
+    "caseId": "partner_certification",
+    "situation": "Cuộc gọi chứng nhận trong đó đối tác giới thiệu sản phẩm sao lưu đám mây Lumen Backup cho người mua.",
+    "learnerRole": "Đối tác bán lại",
+    "counterpartRole": "Người mua đang cân nhắc đề nghị của đối tác",
+    "language": "vi",
+    "stakes": "Các đối tác ở Đông Nam Á báo sai giá và hứa những tính năng sản phẩm không có.",
+    "readyMeans": [
+      "đúng thông tin và giá",
+      "giới thiệu phù hợp với nhu cầu của người mua",
+      "không có khẳng định sai"
+    ]
+  },
+  "brief": {
+    "sources": [
+      {
+        "id": "M:compliance-first",
+        "kind": "method",
+        "title": "IFPMA Code of Practice 2019",
+        "authors": "International Federation of Pharmaceutical Manufacturers and Associations",
+        "year": 2019,
+        "link": "https://www.ifpma.org/publications/ifpma-code-of-practice-2019/",
+        "summary": "The international industry code for how pharmaceutical companies promote medicines to health professionals: information must be accurate, balanced and consistent with the approved product information. For regulated messaging, the customer's own approved claims and the regulation they upload come first."
+      },
+      {
+        "id": "P:10.1007/s11948-018-0041-5",
+        "kind": "paper",
+        "title": "Medicines Information and the Regulation of the Promotion of Pharmaceuticals",
+        "authors": "Teresa Leonardo Alves, Joel Lexchin, Barbara J. Mintzes",
+        "year": 2018,
+        "link": "https://doi.org/10.1007/s11948-018-0041-5",
+        "summary": "Thông tin khuyến mãi sai lệch khiến người mua dùng sai sản phẩm, nên người bán cần đối chiếu từng khẳng định về tính năng và giá với nguồn chính thức."
+      },
+      {
+        "id": "P:10.1007/s11747-010-0211-8",
+        "kind": "paper",
+        "title": "Drivers of sales performance: a contemporary meta-analysis. Have salespeople become knowledge brokers?",
+        "authors": "Willem Verbeke, Bart Dietz, Ernst Verwaal",
+        "year": 2010,
+        "link": "https://doi.org/10.1007/s11747-010-0211-8",
+        "summary": "Hiệu quả bán hàng đến từ việc tìm hiểu nhu cầu rồi điều chỉnh cách giới thiệu, đồng thời nắm chắc kiến thức sản phẩm để tư vấn đúng trường hợp dùng."
+      },
+      {
+        "id": "M:training-transfer",
+        "kind": "method",
+        "title": "Transfer of training: a meta-analytic review",
+        "authors": "Blume, Ford, Baldwin and Huang",
+        "year": 2010,
+        "link": "https://doi.org/10.1177/0149206309352880",
+        "summary": "Whether training is used on the job depends on the learner's motivation and on a supportive work environment, especially for open skills like conversations, not only on the training itself."
+      },
+      {
+        "id": "P:10.1111/peps.12123",
+        "kind": "paper",
+        "title": "Does Coaching Matter? A Multilevel Model Linking Managerial Coaching Skill and Frequency to Sales Goal Attainment",
+        "authors": "Jason J. Dahling, Samantha Ritchie Taylor, Samantha Le Chau, Stephen A. Dwight",
+        "year": 2015,
+        "link": "https://doi.org/10.1111/peps.12123",
+        "summary": "Kỹ năng huấn luyện của quản lý qua việc làm mẫu hành vi, phản hồi và đặt mục tiêu giúp nhân viên bán hàng đạt chỉ tiêu tốt hơn là chỉ huấn luyện nhiều lần."
+      },
+      {
+        "id": "M:spin",
+        "kind": "method",
+        "title": "SPIN Selling",
+        "authors": "Rackham",
+        "year": 1988,
+        "link": "https://www.huthwaiteinternational.com/spin-selling",
+        "summary": "From observation of many sales calls, larger sales were won by asking about the buyer's situation, problems, the implications of those problems and the value of solving them, before presenting a solution."
+      },
+      {
+        "id": "M:behaviour-modelling",
+        "kind": "method",
+        "title": "A meta-analytic review of behavior modeling training",
+        "authors": "Taylor, Russ-Eft and Chan",
+        "year": 2005,
+        "link": "https://doi.org/10.1037/0021-9010.90.4.692",
+        "summary": "Training that shows a model of the behaviour and then has people practise it works, especially for knowledge and skills. Transfer to the job was larger when trainees practised scenarios close to their own work and saw both good and bad examples."
+      }
+    ],
+    "items": [
+      {
+        "sourceId": "M:compliance-first",
+        "gives": "Chỉ dùng tuyên bố đã được phê duyệt từ tài liệu sản phẩm và chuyển câu hỏi ngoài phạm vi sang kênh đúng thay vì suy đoán thêm.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "P:10.1007/s11948-018-0041-5",
+        "gives": "Thông tin khuyến mãi sai lệch khiến người mua dùng sai sản phẩm, nên người bán cần đối chiếu từng khẳng định về tính năng và giá với nguồn chính thức.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "P:10.1007/s11747-010-0211-8",
+        "gives": "Hiệu quả bán hàng đến từ việc tìm hiểu nhu cầu rồi điều chỉnh cách giới thiệu, đồng thời nắm chắc kiến thức sản phẩm để tư vấn đúng trường hợp dùng.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "M:training-transfer",
+        "gives": "Buộc buổi luyện tập gắn với một cột mốc thật như bài kiểm tra chứng nhận và tạo điều kiện công việc ủng hộ hành vi đúng sau khi học.",
+        "use": "learn"
+      },
+      {
+        "sourceId": "P:10.1111/peps.12123",
+        "gives": "Kỹ năng huấn luyện của quản lý qua việc làm mẫu hành vi, phản hồi và đặt mục tiêu giúp nhân viên bán hàng đạt chỉ tiêu tốt hơn là chỉ huấn luyện nhiều lần.",
+        "use": "learn"
+      },
+      {
+        "sourceId": "M:spin",
+        "gives": "Hỏi về nhu cầu trước khi giới thiệu sản phẩm. Tìm hiểu vấn đề đang khiến người mua tốn kém những gì. Để người mua tự nói ra giá trị bằng lời của họ.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "M:behaviour-modelling",
+        "gives": "Luyện tập với tình huống từ chính công việc của học viên. Cho xem cả ví dụ tốt và chưa tốt.",
+        "use": "learn"
+      }
+    ],
+    "notFound": [
+      "Làm thế nào để đối tác tự sửa lời nói sai về giá và tính năng ngay trong cuộc gọi mà không làm mất lòng tin của người mua?",
+      "Cách kiểm tra nhanh nhu cầu sao lưu laptop và mailbox Microsoft 365 của người mua trước khi báo giá theo thiết bị và người dùng như thế nào?"
+    ]
+  },
+  "programme": {
+    "title": "Chứng nhận đối tác Lumen Backup",
+    "caseId": "partner_certification",
+    "language": "vi",
+    "learnerRole": "Đối tác bán lại",
+    "persona": {
+      "name": "Linh",
+      "role": "Trưởng IT của công ty dịch vụ",
+      "voice": "woman",
+      "style": "Nói trực tiếp, lịch sự, hỏi kỹ về giá và tính năng",
+      "facts": [
+        {
+          "id": "h1",
+          "fact": "Công ty có 20 máy tính xách tay và 25 hộp thư Microsoft 365 cần sao lưu",
+          "earnedBy": "Hỏi số lượng thiết bị và người dùng trước khi báo giá"
+        },
+        {
+          "id": "h2",
+          "fact": "Từng được đối tác khác hứa lưu dữ liệu tại Việt Nam và sao lưu máy chủ tại chỗ",
+          "earnedBy": "Hỏi về lời hứa cũ hoặc lo ngại về nơi lưu trữ và phạm vi sao lưu"
+        },
+        {
+          "id": "h3",
+          "fact": "Cần khôi phục tệp gấp trong vài phút vì sếp hay xóa nhầm tài liệu",
+          "earnedBy": "Hỏi về tình huống mất dữ liệu tốn kém nhất và thời gian khôi phục mong muốn"
+        }
+      ],
+      "redLines": [
+        "Không bao giờ đồng ý mua nếu nghe hứa sai về máy chủ, diệt virus hay lưu trữ",
+        "Không bao giờ tiết lộ số lượng thiết bị và lo ngại cũ nếu học viên chưa hỏi nhu cầu"
+      ],
+      "portraitPrompt": "Illustrated portrait of a Vietnamese woman in her 30s in office attire, neutral background, calm professional expression"
+    },
+    "skills": [
+      {
+        "id": "s1",
+        "name": "Nói đúng tính năng và giá đã phê duyệt",
+        "why": "Thông tin sai khiến người mua dùng sai sản phẩm nên phải đối chiếu từng khẳng định với nguồn chính thức.",
+        "sources": [
+          "M:compliance-first",
+          "P:10.1007/s11948-018-0041-5"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-partner_certification-vi-f1",
+            "quote": "sao lưu đám mây hằng ngày cho máy tính xách tay của công ty và hộp thư Microsoft 365"
+          },
+          {
+            "fileId": "lib-partner_certification-vi-f1",
+            "quote": "Giá: 4 USD mỗi thiết bị mỗi tháng."
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "name": "Tìm hiểu nhu cầu rồi giới thiệu phù hợp",
+        "why": "Hiệu quả bán hàng đến từ việc tìm hiểu nhu cầu rồi điều chỉnh cách giới thiệu cho đúng trường hợp dùng.",
+        "sources": [
+          "P:10.1007/s11747-010-0211-8",
+          "M:spin"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-partner_certification-vi-f1",
+            "quote": "Khôi phục một tệp trong vài phút; khôi phục toàn bộ máy tính xách tay trong vòng một ngày làm việc."
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "name": "Không khẳng định sai và chuyển câu hỏi ngoài phạm vi",
+        "why": "Chỉ dùng tuyên bố đã phê duyệt và chuyển câu hỏi ngoài phạm vi sang kênh đúng thay vì suy đoán thêm.",
+        "sources": [
+          "M:compliance-first"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-partner_certification-vi-f1",
+            "quote": "Không bao giờ được hứa: sao lưu máy chủ, giảm giá không giới hạn, lưu dữ liệu tại Việt Nam."
+          }
+        ]
+      }
+    ],
+    "levels": [
+      {
+        "id": "L1",
+        "title": "Hỏi nhu cầu cơ bản",
+        "situation": "Người mua mới, hỏi nhẹ nhàng về sao lưu laptop và mailbox Microsoft 365 để xem đối tác có hỏi nhu cầu trước khi báo giá không.",
+        "opening": "Chào bạn, công ty tôi có laptop và mailbox Microsoft 365 cần sao lưu, bạn tư vấn giúp nhé?",
+        "moodStart": 25,
+        "moodFloor": 10,
+        "sources": [
+          "M:spin",
+          "M:behaviour-modelling"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-partner_certification-vi-f1",
+            "quote": "sao lưu đám mây hằng ngày cho máy tính xách tay của công ty và hộp thư Microsoft 365"
+          }
+        ]
+      },
+      {
+        "id": "L2",
+        "title": "Thử thách giới hạn sản phẩm",
+        "situation": "Người mua nhắc lại lời hứa sai cũ và đòi sao lưu máy chủ, lưu tại Việt Nam và giảm giá 20% để kiểm tra độ chính xác.",
+        "opening": "Tôi nghe nói Lumen sao lưu được máy chủ và lưu ở Việt Nam, lại còn giảm 20%, đúng không bạn?",
+        "moodStart": 45,
+        "moodFloor": 20,
+        "sources": [
+          "M:compliance-first",
+          "P:10.1007/s11948-018-0041-5"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-partner_certification-vi-f1",
+            "quote": "không sao lưu máy chủ tại chỗ"
+          },
+          {
+            "fileId": "lib-partner_certification-vi-f1",
+            "quote": "Dữ liệu được lưu tại khu vực Singapore."
+          },
+          {
+            "fileId": "lib-partner_certification-vi-f1",
+            "quote": "Đối tác được giảm giá tối đa 10% mà không cần Lumen phê duyệt."
+          }
+        ]
+      },
+      {
+        "id": "L3",
+        "title": "Chốt chứng nhận áp lực cao",
+        "situation": "Người mua bực vì từng bị báo sai giá, đòi gói miễn phí, diệt virus và giảm không giới hạn, yêu cầu chốt giá đúng theo thiết bị và người dùng.",
+        "opening": "Bên bạn báo giá lung tung quá, giờ nói rõ đi: có gói miễn phí không, có diệt virus không, giá cuối cùng bao nhiêu?",
+        "moodStart": 65,
+        "moodFloor": 30,
+        "sources": [
+          "M:compliance-first",
+          "M:training-transfer"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-partner_certification-vi-f1",
+            "quote": "Không có gói miễn phí; có bản dùng thử 30 ngày."
+          },
+          {
+            "fileId": "lib-partner_certification-vi-f1",
+            "quote": "Hợp đồng tối thiểu: 12 tháng."
+          }
+        ]
+      }
+    ],
+    "rubric": [
+      {
+        "id": "r1",
+        "skillId": "s1",
+        "text": "Báo giá đúng 4 USD mỗi thiết bị và 2 USD mỗi người dùng, hợp đồng 12 tháng, giảm tối đa 10%",
+        "mustHave": true,
+        "lookFor": "Nghe con số giá, thời hạn hợp đồng và mức giảm giá trùng tài liệu",
+        "tryThis": "Lumen Backup giá 4 USD mỗi thiết bị mỗi tháng, mailbox 2 USD mỗi người dùng mỗi tháng, hợp đồng 12 tháng, em chỉ giảm tối đa 10% mà không cần phê duyệt.",
+        "sources": [
+          "P:10.1007/s11948-018-0041-5"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-partner_certification-vi-f1",
+            "quote": "Hộp thư 2 USD mỗi người dùng mỗi tháng."
+          }
+        ]
+      },
+      {
+        "id": "r2",
+        "skillId": "s1",
+        "text": "Mô tả đúng khả năng sao lưu laptop và mailbox, khôi phục tệp trong vài phút và lưu tại Singapore",
+        "mustHave": true,
+        "lookFor": "Nghe phạm vi sao lưu đúng và vị trí lưu trữ đúng, không thêm máy chủ hay Việt Nam",
+        "tryThis": "Sản phẩm sao lưu đám mây hằng ngày cho laptop và hộp thư Microsoft 365, dữ liệu lưu tại Singapore, khôi phục tệp trong vài phút.",
+        "sources": [
+          "M:compliance-first"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-partner_certification-vi-f1",
+            "quote": "Dữ liệu được lưu tại khu vực Singapore."
+          }
+        ]
+      },
+      {
+        "id": "r3",
+        "skillId": "s2",
+        "text": "Hỏi nhu cầu sao lưu laptop và mailbox trước khi báo giá theo số thiết bị và người dùng",
+        "mustHave": true,
+        "lookFor": "Nghe câu hỏi mở về số lượng, vấn đề tốn kém và giá trị người mua tự nói ra",
+        "tryThis": "Chị có bao nhiêu laptop và mailbox cần sao lưu, và khi mất file thì tốn kém nhất điều gì ạ?",
+        "sources": [
+          "M:spin",
+          "P:10.1007/s11747-010-0211-8"
+        ],
+        "excerpts": []
+      },
+      {
+        "id": "r4",
+        "skillId": "s3",
+        "text": "Không hứa sai về máy chủ, diệt virus, lưu tại Việt Nam, giảm không giới hạn hay gói miễn phí",
+        "mustHave": true,
+        "lookFor": "Nghe lời từ chối rõ ràng và chuyển câu hỏi ngoài phạm vi sang kênh đúng",
+        "tryThis": "Dạ phần đó Lumen Backup chưa làm được, em không hứa sao lưu máy chủ hay diệt virus, để em chuyển chị sang kênh đúng nhé.",
+        "sources": [
+          "M:compliance-first"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-partner_certification-vi-f1",
+            "quote": "Không bao giờ được hứa: sao lưu máy chủ, giảm giá không giới hạn, lưu dữ liệu tại Việt Nam."
+          }
+        ]
+      },
+      {
+        "id": "r5",
+        "skillId": "s2",
+        "text": "Tóm tắt đề xuất khớp nhu cầu và mời dùng thử 30 ngày với bước tiếp theo rõ ràng",
+        "mustHave": false,
+        "lookFor": "Nghe tóm tắt lại nhu cầu bằng lời người mua và lời mời dùng thử cụ thể",
+        "tryThis": "Với số máy và mailbox của chị, em đề xuất gói này và mời chị dùng thử 30 ngày, em gửi báo giá chi tiết ngày mai nhé?",
+        "sources": [
+          "M:training-transfer",
+          "P:10.1111/peps.12123"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-partner_certification-vi-f1",
+            "quote": "Không có gói miễn phí; có bản dùng thử 30 ngày."
+          }
+        ]
+      }
+    ],
+    "instructions": "Bạn là đối tác bán lại trong cuộc gọi chứng nhận với người mua đang cân nhắc Lumen Backup. Hãy hỏi nhu cầu trước, chỉ dùng thông tin và giá đã phê duyệt, không hứa tính năng ngoài tài liệu.",
+    "keywords": [
+      "Lumen Backup",
+      "Microsoft 365",
+      "Singapore",
+      "USD",
+      "máy chủ",
+      "diệt virus",
+      "dùng thử 30 ngày",
+      "thiết bị",
+      "người dùng"
+    ]
+  },
+  "testCall": {
+    "ok": true,
+    "notes": [
+      "Nhân vật giữ giọng trực tiếp, lịch sự và kiên quyết đòi chốt giá đúng.",
+      "Không tiết lộ số thiết bị, lo ngại cũ hay nhu cầu khôi phục khi chưa được hỏi."
+    ]
+  },
+  "sampleCall": {
+    "level": "L1",
+    "learner": "Đối tác mẫu",
+    "turns": [
+      {
+        "speaker": "persona",
+        "text": "Chào bạn, công ty tôi có laptop và mailbox Microsoft 365 cần sao lưu, bạn tư vấn giúp nhé?",
+        "atMs": 0,
+        "mood": 25
+      },
+      {
+        "speaker": "learner",
+        "text": "Dạ em chào chị Linh ạ, bên em sao lưu được cả laptop và mailbox Microsoft 365, khôi phục tệp trong vài phút và dữ liệu lưu tại Singapore ạ. Chị cho em hỏi bên mình có khoảng bao nhiêu laptop và bao nhiêu mailbox cần sao lưu ạ, để em tính giá 4 USD mỗi thiết bị và 2 USD mỗi người dùng, hợp đồng 12 tháng cho mình?",
+        "atMs": 24780,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Cảm ơn em báo giá rõ ràng như vậy. Bên chị có 20 laptop và 25 mailbox cần sao lưu, em tính giúp chị nhé?",
+        "atMs": 32980,
+        "mood": 10
+      },
+      {
+        "speaker": "learner",
+        "text": "Dạ em tính cho chị nhé, 20 laptop là 80 USD mỗi tháng, 25 mailbox là 50 USD mỗi tháng, tổng là 130 USD mỗi tháng với hợp đồng 12 tháng ạ.",
+        "atMs": 47200,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Tính chuẩn rồi em, vậy còn sao lưu máy chủ tại chỗ và diệt virus thì sao?",
+        "atMs": 53850,
+        "mood": 10
+      },
+      {
+        "speaker": "learner",
+        "text": "Dạ bên em hiện chỉ hỗ trợ sao lưu laptop và mailbox thôi chị ạ, chưa có sao lưu máy chủ tại chỗ và diệt virus ạ.",
+        "atMs": 66570,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Cảm ơn em nói rõ giới hạn như vậy. Vậy bên em có mức giảm giá và dùng thử cụ thể thế nào?",
+        "atMs": 74020,
+        "mood": 10
+      },
+      {
+        "speaker": "learner",
+        "text": "Dạ bên em có chính sách giảm giá cho hợp đồng này và có bản dùng thử để chị trải nghiệm trước ạ, để em đăng ký cho bên mình dùng thử nhé chị?",
+        "atMs": 88480,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Em từ chối rõ ràng vậy là tốt, nhưng giảm giá bao nhiêu và dùng thử mấy ngày em nói cụ thể giúp chị nhé?",
+        "atMs": 96680,
+        "mood": 20
+      },
+      {
+        "speaker": "learner",
+        "text": "Dạ bên em có hỗ trợ giảm giá cho hợp đồng 12 tháng này và có bản dùng thử để chị trải nghiệm trước ạ, để em đăng ký dùng thử cho bên mình nhé chị?",
+        "atMs": 111440,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Em cứ lặp lại chung chung vậy chị khó chốt lắm. Giảm cụ thể bao nhiêu phần trăm và dùng thử mấy ngày, em báo rõ giúp chị đi?",
+        "atMs": 120640,
+        "mood": 30
+      }
+    ],
+    "verdicts": [
+      {
+        "lineId": "r1",
+        "result": "partly",
+        "readings": [
+          {
+            "lineId": "r1",
+            "result": "partly",
+            "turn": 1,
+            "quote": "để em tính giá 4 USD mỗi thiết bị và 2 USD mỗi người dùng, hợp đồng 12 tháng cho mình?"
+          },
+          {
+            "lineId": "r1",
+            "result": "partly",
+            "turn": 1,
+            "quote": "Chị cho em hỏi bên mình có khoảng bao nhiêu laptop và bao nhiêu mailbox cần sao lưu ạ, để em tính giá 4 USD mỗi thiết bị và 2 USD mỗi người dùng, hợp đồng 12 tháng cho mình?"
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r2",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r2",
+            "result": "pass",
+            "turn": 1,
+            "quote": "bên em sao lưu được cả laptop và mailbox Microsoft 365, khôi phục tệp trong vài phút và dữ liệu lưu tại Singapore ạ."
+          },
+          {
+            "lineId": "r2",
+            "result": "pass",
+            "turn": 1,
+            "quote": "Dạ em chào chị Linh ạ, bên em sao lưu được cả laptop và mailbox Microsoft 365, khôi phục tệp trong vài phút và dữ liệu lưu tại Singapore ạ. Chị cho em hỏi bên mình có khoảng bao nhiêu laptop và bao nhiêu mailbox cần sao lưu ạ, để em tính giá 4 USD mỗi thiết bị và 2 USD mỗi người dùng, hợp đồng 12 tháng cho mình?"
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r3",
+        "result": "unsure",
+        "readings": [
+          {
+            "lineId": "r3",
+            "result": "partly",
+            "turn": 1,
+            "quote": "Chị cho em hỏi bên mình có khoảng bao nhiêu laptop và bao nhiêu mailbox cần sao lưu ạ, để em tính giá 4 USD mỗi thiết bị và 2 USD mỗi người dùng, hợp đồng 12 tháng cho mình?"
+          },
+          {
+            "lineId": "r3",
+            "result": "pass",
+            "turn": 1,
+            "quote": "Chị cho em hỏi bên mình có khoảng bao nhiêu laptop và bao nhiêu mailbox cần sao lưu ạ, để em tính giá 4 USD mỗi thiết bị và 2 USD mỗi người dùng, hợp đồng 12 tháng cho mình?"
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r4",
+        "result": "unsure",
+        "readings": [
+          {
+            "lineId": "r4",
+            "result": "partly",
+            "turn": 5,
+            "quote": "Dạ bên em hiện chỉ hỗ trợ sao lưu laptop và mailbox thôi chị ạ, chưa có sao lưu máy chủ tại chỗ và diệt virus ạ."
+          },
+          {
+            "lineId": "r4",
+            "result": "pass",
+            "turn": 5,
+            "quote": "Dạ bên em hiện chỉ hỗ trợ sao lưu laptop và mailbox thôi chị ạ, chưa có sao lưu máy chủ tại chỗ và diệt virus ạ."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r5",
+        "result": "partly",
+        "readings": [
+          {
+            "lineId": "r5",
+            "result": "partly",
+            "turn": 7,
+            "quote": "Dạ bên em có chính sách giảm giá cho hợp đồng này và có bản dùng thử để chị trải nghiệm trước ạ, để em đăng ký cho bên mình dùng thử nhé chị?"
+          },
+          {
+            "lineId": "r5",
+            "result": "partly",
+            "turn": 7,
+            "quote": "Dạ bên em có chính sách giảm giá cho hợp đồng này và có bản dùng thử để chị trải nghiệm trước ạ, để em đăng ký cho bên mình dùng thử nhé chị?"
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      }
+    ]
+  }
+}

@@ -40,7 +40,7 @@ const app = buildApp({
 })
 
 // In production the same server hands out the built web app.
-const web = fileURLToPath(new URL('../../web/dist/', import.meta.url))
+const web = fileURLToPath(new URL('../../../candivision-roleplay/dist/', import.meta.url))
 if (existsSync(web)) {
   app.register(fastifyStatic, { root: web, wildcard: false })
   app.setNotFoundHandler((req, reply) =>

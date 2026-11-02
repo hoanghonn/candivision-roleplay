@@ -1,0 +1,616 @@
+{
+  "caseId": "manager_conversations",
+  "slug": "site_safety_stop",
+  "variant": "vi",
+  "request": "Tổ trưởng ở công trường của chúng tôi thấy công nhân lâu năm tháo móc dây an toàn hoặc bỏ bớt bước để kịp tiến độ, nhưng hoặc làm ngơ, hoặc quát một câu rồi đi, nên hôm sau lại làm tắt y như cũ. Tôi muốn họ luyện cách dừng việc và nói chuyện ngắn gọn để xử lý đúng lý do khiến công nhân làm tắt. Đạt yêu cầu là tổ trưởng dừng việc và làm cho khu vực an toàn trước, nói rõ hành vi và mối nguy mà không trách con người, hỏi vì sao, thống nhất một cách khắc phục có người làm và hạn xong, và không đe dọa trừ lương hay đuổi việc.",
+  "files": [
+    {
+      "id": "lib-site_safety_stop-vi-f1",
+      "name": "noi-quy-an-toan.md",
+      "text": "TÀI LIỆU MẪU HƯ CẤU - được tạo cho bản demo CandiVision Roleplay. Công ty Xây dựng Tre Xanh không có thật. Đây không phải quy định an toàn hay hướng dẫn kỹ thuật thật.\n\n# Nội quy công trường Tre Xanh: làm việc trên cao và dừng việc không an toàn\n\nLàm việc trên cao: ai làm việc ở độ cao trên 2 mét phải đeo dây an toàn toàn thân và móc vào điểm neo có đánh dấu trong suốt thời gian làm việc. Nếu điểm neo gần nhất quá xa, dừng lại và báo giám sát để lắp điểm neo di động hoặc dây cứu sinh. Không tháo móc \"một chút thôi\".\nThiết bị hỏng: dây bị sờn hoặc khóa bị nứt phải gắn thẻ \"Không sử dụng\" và đổi ở kho công trường ngay trong ngày. Báo cho cán bộ an toàn công trường.\n\nQuyền dừng việc: ai cũng được dừng việc không an toàn, và tổ trưởng, giám sát bắt buộc phải dừng. Khi thấy vi phạm:\n1. Dừng việc và làm cho khu vực an toàn trước khi nói chuyện.\n2. Nói chuyện riêng với công nhân, giọng bình tĩnh. Không quát, không trách trước mặt người khác.\n3. Nói rõ điều mình thấy và mối nguy, không nói về con người: \"Anh đang đứng mép sàn tầng 3 mà không móc dây.\"\n4. Hỏi vì sao. Làm tắt thường có lý do: thiếu dụng cụ, điểm neo xa, bị ép tiến độ.\n5. Thống nhất một cách khắc phục nguyên nhân, ai làm và làm xong lúc nào.\n6. Ghi vào nhật ký công trường và kiểm tra lại trước khi hết ca.\n\nLương: thời gian dừng việc vì an toàn vẫn được tính công và không làm giảm thưởng theo khối lượng. Nói rõ điều này nếu công nhân làm tắt vì sợ mất thưởng.\n"
+    }
+  ],
+  "match": {
+    "caseId": "manager_conversations",
+    "situation": "Tổ trưởng dừng việc công nhân lâu năm tháo móc dây an toàn hoặc bỏ bớt bước để kịp tiến độ và nói chuyện ngắn gọn để xử lý đúng lý do làm tắt.",
+    "learnerRole": "Tổ trưởng ở công trường",
+    "counterpartRole": "Công nhân lâu năm làm tắt quy trình an toàn để kịp tiến độ",
+    "language": "vi",
+    "stakes": "Nếu chỉ làm ngơ hoặc quát một câu rồi đi thì hôm sau công nhân lại làm tắt y như cũ và có thể gặp tai nạn.",
+    "readyMeans": [
+      "dừng việc và làm cho khu vực an toàn trước",
+      "nói rõ hành vi và mối nguy mà không trách con người",
+      "hỏi vì sao",
+      "thống nhất một cách khắc phục có người làm và hạn xong",
+      "không đe dọa trừ lương hay đuổi việc"
+    ]
+  },
+  "brief": {
+    "sources": [
+      {
+        "id": "M:sbi",
+        "kind": "method",
+        "title": "Situation-Behavior-Impact feedback model",
+        "authors": "Center for Creative Leadership",
+        "year": null,
+        "link": "https://www.ccl.org/articles/leading-effectively-articles/closing-the-gap-between-intent-vs-impact-sbii/",
+        "summary": "A feedback model from the Center for Creative Leadership: describe when and where it happened, the specific behaviour you saw, and the impact it had, rather than judging the person. We use the idea with credit; we do not reproduce their materials."
+      },
+      {
+        "id": "M:crucial-conversations",
+        "kind": "method",
+        "title": "Crucial Conversations: Tools for Talking When Stakes Are High",
+        "authors": "Patterson, Grenny, McMillan and Switzler",
+        "year": 2002,
+        "link": "https://cruciallearning.com/crucial-conversations-book/",
+        "summary": "A widely used practitioner book on high-stakes conversations where opinions differ and emotions run high. Its core ideas are keeping the conversation safe for both sides, sharing facts before conclusions, and inviting the other view."
+      },
+      {
+        "id": "M:active-listening",
+        "kind": "method",
+        "title": "The relative effectiveness of active listening in initial interactions",
+        "authors": "Weger, Castle Bell, Minei and Robinson",
+        "year": 2014,
+        "link": "https://doi.org/10.1080/10904018.2013.813234",
+        "summary": "In an experiment, people whose concerns were paraphrased back to them felt more understood than people who got simple acknowledgements or advice."
+      },
+      {
+        "id": "P:10.1016/j.shaw.2018.11.001",
+        "kind": "paper",
+        "title": "The Interplay Between Supervisor Safety Support and Occupational Health and Safety Vulnerability on Work Injury",
+        "authors": "Basak Yanar, A. Morgan Lay, Peter M. Smith",
+        "year": 2018,
+        "link": "https://doi.org/10.1016/j.shaw.2018.11.001",
+        "summary": "Tổ trưởng hỗ trợ an toàn tích cực, bảo vệ công nhân khỏi mối nguy thay vì bỏ qua, giúp giảm nguy cơ tai nạn khi công nhân đang phơi nhiễm nguy hiểm mà thiếu bảo vệ."
+      },
+      {
+        "id": "P:10.1136/bmjqs-2016-006399",
+        "kind": "paper",
+        "title": "Providing feedback following Leadership WalkRounds is associated with better patient safety culture, higher employee engagement and lower burnout",
+        "authors": "John Bryan Sexton, Kathryn C. Adair, Michael W. Leonard, Terri Christensen Frankel, Joshua Proulx, Sam R. Watson",
+        "year": 2017,
+        "link": "https://doi.org/10.1136/bmjqs-2016-006399",
+        "summary": "Sau khi thống nhất cách khắc phục, ghi rõ ai làm việc gì và khi nào xong, rồi quay lại phản hồi kết quả cho công nhân để củng cố văn hóa an toàn."
+      },
+      {
+        "id": "P:10.3390/ijerph16183342",
+        "kind": "paper",
+        "title": "Exerting Explanatory Accounts of Safety Behavior of Older Construction Workers within the Theory of Planned Behavior",
+        "authors": "Lu Peng, Alan H. S. Chan",
+        "year": 2019,
+        "link": "https://doi.org/10.3390/ijerph16183342",
+        "summary": "Công nhân lớn tuổi làm tắt thường do thái độ, chuẩn mực nhóm và áp lực tiến độ, nên khi luyện tập cần buộc học viên tìm nguyên nhân công việc cụ thể thay vì chỉ nhắc lại quy định."
+      },
+      {
+        "id": "M:feedback-interventions",
+        "kind": "method",
+        "title": "The effects of feedback interventions on performance: a historical review, a meta-analysis, and a preliminary feedback intervention theory",
+        "authors": "Kluger and DeNisi",
+        "year": 1996,
+        "link": "https://doi.org/10.1037/0033-2909.119.2.254",
+        "summary": "A large meta-analysis: feedback improves performance on average, but in over a third of cases it made performance worse. Feedback that turns attention to the person rather than the task tends to do harm."
+      }
+    ],
+    "items": [
+      {
+        "sourceId": "M:sbi",
+        "gives": "Dừng việc và làm an toàn khu vực trước khi nói, sau đó mô tả cụ thể hành vi quan sát được và mối nguy trực tiếp mà không đánh giá con người.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "M:crucial-conversations",
+        "gives": "Mở đầu bằng sự việc quan sát được, giữ giọng bình tĩnh để công nhân thấy an toàn khi nói, rồi chủ động hỏi và lắng nghe lý do làm tắt của họ.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "M:active-listening",
+        "gives": "Khi luyện hỏi lý do, yêu cầu học viên diễn đạt lại lý do của công nhân bằng lời của mình và xác nhận lại trước khi đề xuất cách khắc phục.",
+        "use": "learn"
+      },
+      {
+        "sourceId": "P:10.1016/j.shaw.2018.11.001",
+        "gives": "Tổ trưởng hỗ trợ an toàn tích cực, bảo vệ công nhân khỏi mối nguy thay vì bỏ qua, giúp giảm nguy cơ tai nạn khi công nhân đang phơi nhiễm nguy hiểm mà thiếu bảo vệ.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "P:10.1136/bmjqs-2016-006399",
+        "gives": "Sau khi thống nhất cách khắc phục, ghi rõ ai làm việc gì và khi nào xong, rồi quay lại phản hồi kết quả cho công nhân để củng cố văn hóa an toàn.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "P:10.3390/ijerph16183342",
+        "gives": "Công nhân lớn tuổi làm tắt thường do thái độ, chuẩn mực nhóm và áp lực tiến độ, nên khi luyện tập cần buộc học viên tìm nguyên nhân công việc cụ thể thay vì chỉ nhắc lại quy định.",
+        "use": "learn"
+      },
+      {
+        "sourceId": "M:feedback-interventions",
+        "gives": "Giữ nhận xét tập trung vào công việc. Tránh nhận xét về con người.",
+        "use": "learn"
+      }
+    ],
+    "notFound": [
+      "Làm thế nào để tổ trưởng trẻ dừng việc và nói chuyện riêng với công nhân lâu năm mà vẫn giữ tôn trọng và không gây chống đối vì thâm niên?",
+      "Diễn đạt thế nào để cam kết không trừ lương, không cắt thưởng do dừng việc vì an toàn mà công nhân tin và không làm tắt để kịp tiến độ?"
+    ]
+  },
+  "programme": {
+    "title": "Dừng việc an toàn, nói ngắn gọn",
+    "caseId": "manager_conversations",
+    "language": "vi",
+    "learnerRole": "Tổ trưởng ở công trường",
+    "persona": {
+      "name": "Bác Hùng",
+      "role": "Công nhân lâu năm làm việc trên cao ở công trường",
+      "voice": "older_man",
+      "style": "Nói ngắn, cộc lốc, hay nhắc thâm niên. Dịu lại khi được nghe và được tôn trọng.",
+      "facts": [
+        {
+          "id": "h1",
+          "fact": "Điểm neo xa quá nên tháo móc cho nhanh để kịp đổ bê tông.",
+          "earnedBy": "Hỏi vì sao rồi nghe hết câu, không ngắt lời"
+        },
+        {
+          "id": "h2",
+          "fact": "Sợ dừng việc thì mất thưởng khối lượng nên mới làm tắt.",
+          "earnedBy": "Nói rõ dừng việc vẫn tính công và không dọa trừ lương"
+        },
+        {
+          "id": "h3",
+          "fact": "Dây dự phòng bị sờn nên không muốn đổi vì ngại mất thời gian xuống kho.",
+          "earnedBy": "Hỏi về dụng cụ và chốt người đi đổi, hạn xong rõ ràng"
+        }
+      ],
+      "redLines": [
+        "Không bao giờ chửi bậy, đập phá hay bỏ khỏi khu vực khi chưa an toàn",
+        "Không bao giờ tự móc lại dây rồi làm tiếp khi chưa thống nhất cách làm"
+      ],
+      "portraitPrompt": "illustrated portrait of an older Vietnamese construction worker wearing a yellow safety helmet and work shirt, weathered face, calm defensive look, plain site background, no text"
+    },
+    "skills": [
+      {
+        "id": "s1",
+        "name": "Dừng việc và làm an toàn khu vực trước",
+        "why": "Trong tình huống này, dừng máy và che chắn mép sàn trước rồi mới nói.",
+        "sources": [
+          "M:sbi",
+          "P:10.1016/j.shaw.2018.11.001"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-site_safety_stop-vi-f1",
+            "quote": "Dừng việc và làm cho khu vực an toàn trước khi nói chuyện"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "name": "Nói rõ hành vi và mối nguy",
+        "why": "Đạt tiêu chí là chỉ nói việc thấy bằng mắt, không chê con người.",
+        "sources": [
+          "M:sbi",
+          "M:feedback-interventions"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-site_safety_stop-vi-f1",
+            "quote": "Anh đang đứng mép sàn tầng 3 mà không móc dây."
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "name": "Khai thác nhu cầu và hỏi vì sao",
+        "why": "Muốn khai thác nhu cầu thì hỏi vì sao làm tắt rồi nghe hết lý do.",
+        "sources": [
+          "M:crucial-conversations",
+          "P:10.3390/ijerph16183342"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-site_safety_stop-vi-f1",
+            "quote": "Làm tắt thường có lý do: thiếu dụng cụ, điểm neo xa, bị ép tiến độ."
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "name": "Nghe lại và xử lý từ chối",
+        "why": "Với khách hàng khó tính, nói lại ý họ rồi xử lý từ chối bằng giọng bình tĩnh.",
+        "sources": [
+          "M:active-listening"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-site_safety_stop-vi-f1",
+            "quote": "Nói chuyện riêng với công nhân, giọng bình tĩnh."
+          }
+        ]
+      },
+      {
+        "id": "s5",
+        "name": "Chốt bước tiếp theo rõ người rõ hạn",
+        "why": "Muốn chốt bước tiếp theo thì nói ai làm gì, xong lúc nào, rồi quay lại kiểm tra.",
+        "sources": [
+          "P:10.1136/bmjqs-2016-006399"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-site_safety_stop-vi-f1",
+            "quote": "Thống nhất một cách khắc phục nguyên nhân, ai làm và làm xong lúc nào."
+          }
+        ]
+      }
+    ],
+    "levels": [
+      {
+        "id": "L1",
+        "title": "Nhắc nhẹ ở mép sàn",
+        "situation": "Tình huống giờ nghỉ trưa, bác Hùng tháo móc một chút thôi, còn nghe khi được nhắc riêng.",
+        "opening": "Tôi làm hai chục năm rồi, tháo ra một chút thôi mà, có sao đâu!",
+        "moodStart": 45,
+        "moodFloor": 15,
+        "sources": [
+          "M:sbi",
+          "M:crucial-conversations"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-site_safety_stop-vi-f1",
+            "quote": "Không tháo móc \"một chút thôi\"."
+          }
+        ]
+      },
+      {
+        "id": "L2",
+        "title": "Ép tiến độ, sợ mất thưởng",
+        "situation": "Tình huống đang vội đổ bê tông, bác Hùng bực hơn, nhắc thâm niên và sợ mất thưởng.",
+        "opening": "Cậu dừng là mất buổi của cả tổ! Tôi làm tắt cho kịp tiến độ, cậu chịu không?",
+        "moodStart": 65,
+        "moodFloor": 25,
+        "sources": [
+          "P:10.3390/ijerph16183342"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-site_safety_stop-vi-f1",
+            "quote": "thời gian dừng việc vì an toàn vẫn được tính công"
+          }
+        ]
+      },
+      {
+        "id": "L3",
+        "title": "Từ chối đổi dây sờn",
+        "situation": "Tình huống dây dự phòng bị sờn, điểm neo xa, bác Hùng thủ thế và từ chối đổi dây.",
+        "opening": "Điểm neo thì xa, dây thì sờn, đổi thì mất công! Cậu thích thì tự đi mà đổi!",
+        "moodStart": 80,
+        "moodFloor": 35,
+        "sources": [
+          "P:10.1136/bmjqs-2016-006399",
+          "P:10.1016/j.shaw.2018.11.001"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-site_safety_stop-vi-f1",
+            "quote": "Không quát, không trách trước mặt người khác."
+          }
+        ]
+      }
+    ],
+    "rubric": [
+      {
+        "id": "r1",
+        "skillId": "s1",
+        "text": "Dừng việc và làm khu vực an toàn trước khi nói",
+        "mustHave": true,
+        "lookFor": "Nghe câu dừng việc, che chắn mép sàn, mời ra chỗ riêng rồi mới nói",
+        "tryThis": "Nói: Bác dừng tay một chút, mình bước lui vào trong rồi nói cho an toàn nhé.",
+        "sources": [
+          "M:sbi"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-site_safety_stop-vi-f1",
+            "quote": "Dừng việc và làm cho khu vực an toàn trước khi nói chuyện"
+          }
+        ]
+      },
+      {
+        "id": "r2",
+        "skillId": "s2",
+        "text": "Nói rõ hành vi thấy và mối nguy, không chê con người",
+        "mustHave": true,
+        "lookFor": "Nghe câu mô tả việc cụ thể và nguy ngã cao, không nói lười, ẩu, lì",
+        "tryThis": "Nói: Cháu thấy bác đứng mép sàn tầng 3 mà không móc dây, ngã là chết.",
+        "sources": [
+          "M:feedback-interventions"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-site_safety_stop-vi-f1",
+            "quote": "Anh đang đứng mép sàn tầng 3 mà không móc dây."
+          }
+        ]
+      },
+      {
+        "id": "r3",
+        "skillId": "s3",
+        "text": "Hỏi vì sao làm tắt rồi nghe hết câu",
+        "mustHave": true,
+        "lookFor": "Nghe câu hỏi mở về lý do điểm neo, dụng cụ, tiến độ",
+        "tryThis": "Nói: Bác nói giúp cháu, sao lúc nãy bác tháo móc ra vậy?",
+        "sources": [
+          "M:crucial-conversations"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-site_safety_stop-vi-f1",
+            "quote": "Làm tắt thường có lý do: thiếu dụng cụ, điểm neo xa, bị ép tiến độ."
+          }
+        ]
+      },
+      {
+        "id": "r4",
+        "skillId": "s4",
+        "text": "Nói lại lý do của bác rồi hỏi lại cho đúng",
+        "mustHave": false,
+        "lookFor": "Nghe câu nhắc lại ý bác bằng lời mình, giọng bình tĩnh",
+        "tryThis": "Nói: Ý bác là điểm neo xa quá nên với không tới, đúng không bác?",
+        "sources": [
+          "M:active-listening"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-site_safety_stop-vi-f1",
+            "quote": "Nói chuyện riêng với công nhân, giọng bình tĩnh."
+          }
+        ]
+      },
+      {
+        "id": "r5",
+        "skillId": "s5",
+        "text": "Chốt một cách sửa rõ ai làm, xong lúc nào",
+        "mustHave": true,
+        "lookFor": "Nghe tên người làm, việc làm, giờ xong, hẹn quay lại kiểm tra",
+        "tryThis": "Nói: Cháu lắp dây cứu sinh trước 2 giờ, bác chờ rồi mới làm tiếp, nhé?",
+        "sources": [
+          "P:10.1136/bmjqs-2016-006399"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-site_safety_stop-vi-f1",
+            "quote": "Thống nhất một cách khắc phục nguyên nhân, ai làm và làm xong lúc nào."
+          }
+        ]
+      },
+      {
+        "id": "r6",
+        "skillId": "s5",
+        "text": "Không dọa trừ lương, nói rõ dừng việc vẫn tính công",
+        "mustHave": true,
+        "lookFor": "Không nghe câu trừ lương, đuổi việc, cắt thưởng; nghe câu trấn an",
+        "tryThis": "Nói: Bác yên tâm, giờ dừng này vẫn tính công, không trừ thưởng đâu.",
+        "sources": [
+          "P:10.1016/j.shaw.2018.11.001"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-site_safety_stop-vi-f1",
+            "quote": "thời gian dừng việc vì an toàn vẫn được tính công"
+          }
+        ]
+      }
+    ],
+    "instructions": "Anh là tổ trưởng, thấy bác Hùng tháo móc dây ở mép sàn thì dừng việc ngay rồi mời ra nói riêng. Nói ngắn gọn, giữ tôn trọng, cuối giờ chốt bước tiếp theo cho rõ ai làm gì.",
+    "keywords": [
+      "Bác Hùng",
+      "dây an toàn",
+      "móc dây",
+      "điểm neo",
+      "mép sàn tầng 3",
+      "dừng việc",
+      "tính công",
+      "nhật ký công trường"
+    ]
+  },
+  "testCall": {
+    "ok": true,
+    "notes": [
+      "Giữ giọng ngắn cộc và nhắc thâm niên đúng vai Bác Hùng.",
+      "Không dịu xuống hay tiết lộ lý do thưởng và đổ bê tông khi learner chưa đạt điều kiện."
+    ]
+  },
+  "sampleCall": {
+    "level": "L1",
+    "learner": "Tổ trưởng mẫu",
+    "turns": [
+      {
+        "speaker": "persona",
+        "text": "Tôi làm hai chục năm rồi, tháo ra một chút thôi mà, có sao đâu!",
+        "atMs": 0,
+        "mood": 45
+      },
+      {
+        "speaker": "learner",
+        "text": "Bác Hùng ơi, dừng tay chút đã, để em căng dây lại chỗ này cho an toàn rồi mình nói tiếp. Em thấy bác vừa tháo mất cái thanh giằng của giàn giáo, chỗ này cao mà thiếu thanh giằng là dễ ngã lắm bác ạ. Sao bác lại tháo ra vậy, bác nói em nghe thử xem, rồi mình lắp lại luôn giúp em xong trước giờ nghỉ trưa nay nhé?",
+        "atMs": 24720,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Ừ, cậu nói còn nghe được đấy. Neo xa quá nên tao tháo tạm cho kịp đổ bê tông thôi.",
+        "atMs": 31820,
+        "mood": 30
+      },
+      {
+        "speaker": "learner",
+        "text": "Dạ em hiểu rồi, neo xa vướng tay đổ bê tông nên bác tháo tạm cho kịp việc bác nhỉ. Vậy giờ bác lắp lại cái thanh giằng giúp em luôn nhé, xong trước lúc mình đổ tiếp mẻ sau khoảng mười phút nữa là được bác ạ.",
+        "atMs": 50240,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Ừ, mày chốt giờ rõ ràng thì tao còn nghe được. Nhưng neo xa vướng tay thế, mày định xử sao cho kịp đổ?",
+        "atMs": 58340,
+        "mood": 20
+      },
+      {
+        "speaker": "learner",
+        "text": "Dạ vậy để em lấy cái mã neo ngắn hơn qua cho bác dễ móc, khỏi phải tháo giằng nữa. Bác lắp lại giúp em cái thanh giằng này trước mẻ đổ sau nhé, rồi em phụ bác một tay cho kịp luôn.",
+        "atMs": 75140,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Ừ, cậu phụ một tay cho kịp thì tao lắp lại ngay đây. Làm hai chục năm tao cũng không muốn ngã đâu.",
+        "atMs": 83040,
+        "mood": 15
+      },
+      {
+        "speaker": "learner",
+        "text": "Dạ em cảm ơn bác Hùng đã lắp lại ngay giúp em, quý hóa quá. Vậy giờ em phụ bác một tay mình đổ tiếp mẻ sau cho kịp luôn nhé bác.",
+        "atMs": 96720,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Ừ, cậu nói được làm được thì tao quý. Lắp lại đây rồi phụ tao một tay nhé.",
+        "atMs": 103420,
+        "mood": 15
+      },
+      {
+        "speaker": "learner",
+        "text": "Dạ vâng bác, bác lắp chắc lại giúp em cái thanh giằng này nhé, em giữ thang cho bác luôn cho vững, xong rồi hai bác cháu mình đổ tiếp mẻ sau cho kịp.",
+        "atMs": 118360,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Ừ, giữ thang chắc cho tao, tao lắp lại chặt đây.",
+        "atMs": 123760,
+        "mood": 15
+      }
+    ],
+    "verdicts": [
+      {
+        "lineId": "r1",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r1",
+            "result": "pass",
+            "turn": 1,
+            "quote": "Bác Hùng ơi, dừng tay chút đã, để em căng dây lại chỗ này cho an toàn rồi mình nói tiếp."
+          },
+          {
+            "lineId": "r1",
+            "result": "pass",
+            "turn": 1,
+            "quote": "Bác Hùng ơi, dừng tay chút đã, để em căng dây lại chỗ này cho an toàn rồi mình nói tiếp."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r2",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r2",
+            "result": "pass",
+            "turn": 1,
+            "quote": "Em thấy bác vừa tháo mất cái thanh giằng của giàn giáo, chỗ này cao mà thiếu thanh giằng là dễ ngã lắm bác ạ."
+          },
+          {
+            "lineId": "r2",
+            "result": "pass",
+            "turn": 1,
+            "quote": "Em thấy bác vừa tháo mất cái thanh giằng của giàn giáo, chỗ này cao mà thiếu thanh giằng là dễ ngã lắm bác ạ."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r3",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r3",
+            "result": "pass",
+            "turn": 1,
+            "quote": "Sao bác lại tháo ra vậy, bác nói em nghe thử xem, rồi mình lắp lại luôn giúp em xong trước giờ nghỉ trưa nay nhé?"
+          },
+          {
+            "lineId": "r3",
+            "result": "pass",
+            "turn": 1,
+            "quote": "Sao bác lại tháo ra vậy, bác nói em nghe thử xem, rồi mình lắp lại luôn giúp em xong trước giờ nghỉ trưa nay nhé?"
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r4",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r4",
+            "result": "pass",
+            "turn": 3,
+            "quote": "Dạ em hiểu rồi, neo xa vướng tay đổ bê tông nên bác tháo tạm cho kịp việc bác nhỉ."
+          },
+          {
+            "lineId": "r4",
+            "result": "pass",
+            "turn": 3,
+            "quote": "Dạ em hiểu rồi, neo xa vướng tay đổ bê tông nên bác tháo tạm cho kịp việc bác nhỉ."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r5",
+        "result": "unsure",
+        "readings": [
+          {
+            "lineId": "r5",
+            "result": "partly",
+            "turn": 3,
+            "quote": "Vậy giờ bác lắp lại cái thanh giằng giúp em luôn nhé, xong trước lúc mình đổ tiếp mẻ sau khoảng mười phút nữa là được bác ạ."
+          },
+          {
+            "lineId": "r5",
+            "result": "pass",
+            "turn": 3,
+            "quote": "Vậy giờ bác lắp lại cái thanh giằng giúp em luôn nhé, xong trước lúc mình đổ tiếp mẻ sau khoảng mười phút nữa là được bác ạ."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r6",
+        "result": "unsure",
+        "readings": [
+          {
+            "lineId": "r6",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          },
+          {
+            "lineId": "r6",
+            "result": "partly",
+            "turn": 5,
+            "quote": "Dạ vậy để em lấy cái mã neo ngắn hơn qua cho bác dễ móc, khỏi phải tháo giằng nữa."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      }
+    ]
+  }
+}

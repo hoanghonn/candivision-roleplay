@@ -1,0 +1,616 @@
+{
+  "caseId": "regulated_messaging",
+  "slug": "bank_insurance_sale",
+  "variant": "vi",
+  "request": "Nhân viên chi nhánh ngân hàng của chúng tôi bán gói bảo hiểm nhân thọ 10 năm cho khách có sổ tiết kiệm sắp đáo hạn, và rất nhiều khách hủy ngay trong năm đầu vì tưởng mình mua tiết kiệm. Nhân viên gọi đây là sản phẩm tiết kiệm, bỏ qua chuyện hủy sớm sẽ mất tiền, có khi còn ngầm nói mua thì dễ được vay hơn. Tôi muốn họ luyện tư vấn cho một khách hàng ngoài năm mươi tuổi, rất thận trọng. Đạt yêu cầu là học viên nói rõ đây là bảo hiểm chứ không phải tiền gửi, nêu mức phí mỗi năm, thời hạn 10 năm và khoản mất nếu hủy sớm, hỏi để chắc khách đóng được và sẽ không cần rút tiền, không bao giờ gắn với khoản vay, và mời khách mang hồ sơ về nhà đọc.",
+  "files": [
+    {
+      "id": "lib-bank_insurance_sale-vi-f1",
+      "name": "quy-dinh-tu-van.md",
+      "text": "TÀI LIỆU MẪU HƯ CẤU - được tạo cho bản demo CandiVision Roleplay. Ngân hàng Bến Cảng, Bảo hiểm Đèn Lồng và sản phẩm Đèn Lồng Tương Lai 10 không có thật. Nội dung này không phải hướng dẫn tuân thủ thật.\n\n# Đèn Lồng Tương Lai 10: quy định tư vấn cho nhân viên chi nhánh Ngân hàng Bến Cảng\n\nSản phẩm là gì: hợp đồng bảo hiểm nhân thọ có phần tích lũy, do Bảo hiểm Đèn Lồng phát hành và bán tại chi nhánh Ngân hàng Bến Cảng. Đây không phải tiền gửi, ngân hàng không bảo đảm, và bảo hiểm tiền gửi không chi trả.\nPhí: 30 triệu đồng mỗi năm, đóng đủ 10 năm.\nTiền nhận lại nếu khách hủy sớm (tính trên tổng phí đã đóng): năm 1: 0%; năm 2: 40%; năm 3: 60%; năm 5: 85%; năm 10: 105%. Chỉ mức năm 10 là cam kết.\nThời gian cân nhắc: khách được hủy trong 21 ngày kể từ khi nhận hợp đồng và nhận lại toàn bộ phí đã đóng.\n\nLần tư vấn nào cũng phải nói đủ các ý sau:\n- Đây là bảo hiểm, không phải tiết kiệm. Bảo hiểm Đèn Lồng là bên bảo hiểm; Ngân hàng Bến Cảng chỉ phân phối.\n- Mức phí mỗi năm và thời hạn 10 năm.\n- Hủy sớm sẽ nhận lại ít hơn số đã đóng, theo bảng trên.\n- Mọi mức lãi minh họa đều không được cam kết.\n- Mua bảo hiểm không bao giờ là điều kiện để vay hay dùng dịch vụ khác của ngân hàng.\n- Quyền hủy trong 21 ngày.\n\nPhải hỏi để biết: khách cần khoản tiền này cho việc gì, có đóng được 30 triệu đồng mỗi năm trong 10 năm không, và có thể cần rút tiền trong 10 năm tới không. Nếu có thể cần, nói rõ sản phẩm này không phù hợp.\nKhông được: gọi đây là sổ tiết kiệm, hứa lãi, gắn với khoản vay, điền hồ sơ thay khách, hay dùng mã đại lý của người khác. Nếu khách còn phân vân, mời khách mang hồ sơ về nhà đọc kỹ.\n"
+    }
+  ],
+  "match": {
+    "caseId": "regulated_messaging",
+    "situation": "Tư vấn gói bảo hiểm nhân thọ 10 năm cho khách hàng ngoài năm mươi tuổi có sổ tiết kiệm sắp đáo hạn và rất thận trọng.",
+    "learnerRole": "Nhân viên chi nhánh ngân hàng",
+    "counterpartRole": "Khách hàng ngoài năm mươi tuổi, rất thận trọng",
+    "language": "vi",
+    "stakes": "Rất nhiều khách hủy ngay trong năm đầu vì tưởng mình mua tiết kiệm và mất tiền khi hủy sớm.",
+    "readyMeans": [
+      "nói rõ đây là bảo hiểm chứ không phải tiền gửi",
+      "nêu mức phí mỗi năm, thời hạn 10 năm và khoản mất nếu hủy sớm",
+      "hỏi để chắc khách đóng được và sẽ không cần rút tiền",
+      "không bao giờ gắn với khoản vay",
+      "mời khách mang hồ sơ về nhà đọc"
+    ]
+  },
+  "brief": {
+    "sources": [
+      {
+        "id": "M:compliance-first",
+        "kind": "method",
+        "title": "IFPMA Code of Practice 2019",
+        "authors": "International Federation of Pharmaceutical Manufacturers and Associations",
+        "year": 2019,
+        "link": "https://www.ifpma.org/publications/ifpma-code-of-practice-2019/",
+        "summary": "The international industry code for how pharmaceutical companies promote medicines to health professionals: information must be accurate, balanced and consistent with the approved product information. For regulated messaging, the customer's own approved claims and the regulation they upload come first."
+      },
+      {
+        "id": "P:10.1093/cmlj/kmz002",
+        "kind": "paper",
+        "title": "Articulating the gaps in financial consumer protection and policy choices for the financial conduct authority—moving beyond the question of imposing a duty of care",
+        "authors": "Iris H‐Y Chiu, Alan Brener",
+        "year": 2019,
+        "link": "https://doi.org/10.1093/cmlj/kmz002",
+        "summary": "Ngăn bán nhầm bằng cách đặt nghĩa vụ chăm sóc khách lên trước doanh số: chủ động làm rõ rủi ro, sự không phù hợp và xung đột với tiền tiết kiệm đáo hạn."
+      },
+      {
+        "id": "P:10.1016/j.jeoa.2021.100329",
+        "kind": "paper",
+        "title": "How financial literacy shapes the demand for financial advice at older ages",
+        "authors": "Hugh Hoikwang Kim, Raimond Maurer, Olivia S. Mitchell",
+        "year": 2021,
+        "link": "https://doi.org/10.1016/j.jeoa.2021.100329",
+        "summary": "Với khách lớn tuổi thận trọng, kiểm tra hiểu biết tài chính bằng câu hỏi đơn giản rồi mới tư vấn chuyên sâu, vì nhóm này cần lời khuyên kỹ hơn khi tiền phức tạp."
+      },
+      {
+        "id": "M:behaviour-modelling",
+        "kind": "method",
+        "title": "A meta-analytic review of behavior modeling training",
+        "authors": "Taylor, Russ-Eft and Chan",
+        "year": 2005,
+        "link": "https://doi.org/10.1037/0021-9010.90.4.692",
+        "summary": "Training that shows a model of the behaviour and then has people practise it works, especially for knowledge and skills. Transfer to the job was larger when trainees practised scenarios close to their own work and saw both good and bad examples."
+      },
+      {
+        "id": "P:10.1901/jaba.1982.15-505",
+        "kind": "paper",
+        "title": "TRAINING FAMILY THERAPISTS: AN EXPERIMENTAL ANALYSIS",
+        "authors": "Christine D. Isaacs, Lynne H. Embry, Donald M. Baer",
+        "year": 1982,
+        "link": "https://doi.org/10.1901/jaba.1982.15-505",
+        "summary": "Dạy quy trình tuân thủ bằng kết hợp tài liệu viết, video mẫu, diễn tập và phản hồi hiệu suất để người học dùng được từ ngữ giải thích và hỏi nhu cầu đúng chuẩn."
+      },
+      {
+        "id": "M:spaced-practice",
+        "kind": "method",
+        "title": "Distributed practice in verbal recall tasks: a review and quantitative synthesis",
+        "authors": "Cepeda, Pashler, Vul, Wixted and Rohrer",
+        "year": 2006,
+        "link": "https://doi.org/10.1037/0033-2909.132.3.354",
+        "summary": "Spreading practice over time leads to better long-term recall than massing it in one session."
+      }
+    ],
+    "items": [
+      {
+        "sourceId": "M:compliance-first",
+        "gives": "Truyền đạt đúng nguyên văn thông điệp bắt buộc, không thêm cam kết lãi hay ví von thành sổ tiết kiệm, và chuyển hướng câu hỏi ngoài phạm vi về tài liệu chính thức.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "P:10.1093/cmlj/kmz002",
+        "gives": "Ngăn bán nhầm bằng cách đặt nghĩa vụ chăm sóc khách lên trước doanh số: chủ động làm rõ rủi ro, sự không phù hợp và xung đột với tiền tiết kiệm đáo hạn.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "P:10.1016/j.jeoa.2021.100329",
+        "gives": "Với khách lớn tuổi thận trọng, kiểm tra hiểu biết tài chính bằng câu hỏi đơn giản rồi mới tư vấn chuyên sâu, vì nhóm này cần lời khuyên kỹ hơn khi tiền phức tạp.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "M:behaviour-modelling",
+        "gives": "Học kỹ năng tư vấn qua làm mẫu hành vi: xem video mẫu tốt, diễn tập đóng vai và nhận phản hồi ngay về từng câu chữ bắt buộc.",
+        "use": "learn"
+      },
+      {
+        "sourceId": "P:10.1901/jaba.1982.15-505",
+        "gives": "Dạy quy trình tuân thủ bằng kết hợp tài liệu viết, video mẫu, diễn tập và phản hồi hiệu suất để người học dùng được từ ngữ giải thích và hỏi nhu cầu đúng chuẩn.",
+        "use": "learn"
+      },
+      {
+        "sourceId": "M:spaced-practice",
+        "gives": "Chia các lần luyện lại ra nhiều ngày thay vì một buổi.",
+        "use": "learn"
+      }
+    ],
+    "notFound": [
+      "Làm sao diễn đạt mức lãi minh họa không cam kết và bảng hủy sớm cho khách ngoài 50 tuổi ít hiểu tài chính mà vẫn không gây sợ và không hứa hẹn?",
+      "Khi nào nên kết luận sổ tiết kiệm sắp đáo hạn không phù hợp để đóng phí 10 năm và nên từ chối bán như thế nào cho khéo?"
+    ]
+  },
+  "programme": {
+    "title": "Nói rõ: Bảo hiểm không phải tiết kiệm",
+    "caseId": "regulated_messaging",
+    "language": "vi",
+    "learnerRole": "Nhân viên chi nhánh ngân hàng",
+    "persona": {
+      "name": "Hòa",
+      "role": "Khách hàng ngoài năm mươi tuổi có sổ tiết kiệm sắp đáo hạn",
+      "voice": "older_man",
+      "style": "Nói chậm, câu ngắn, hỏi lại nhiều lần. Rất thận trọng, sợ mất tiền.",
+      "facts": [
+        {
+          "id": "h1",
+          "fact": "Sổ tiết kiệm đáo hạn trong hai tuần tới, tính dùng tiền đó đóng phí năm đầu.",
+          "earnedBy": "Khi bạn hỏi sổ khi nào đáo hạn và định dùng tiền đó làm gì"
+        },
+        {
+          "id": "h2",
+          "fact": "Nghe người quen hủy năm đầu mất hết tiền nên rất sợ bị giống vậy.",
+          "earnedBy": "Khi bạn nói rõ bảng hủy sớm năm 1 nhận lại bao nhiêu"
+        },
+        {
+          "id": "h3",
+          "fact": "Có thể cần tiền cho con trong 3 năm tới nên dễ phải rút sớm.",
+          "earnedBy": "Khi bạn hỏi có cần dùng tiền này trong 10 năm tới không"
+        },
+        {
+          "id": "h4",
+          "fact": "Nghe nói mua bảo hiểm thì vay tiền dễ hơn nên muốn hỏi cho rõ.",
+          "earnedBy": "Khi bạn giải thích mua bảo hiểm có phải điều kiện vay không"
+        }
+      ],
+      "redLines": [
+        "Không bao giờ đồng ý mua ngay trong buổi đầu",
+        "Không bao giờ thôi hỏi về lãi cam kết nếu chưa nghe câu trả lời rõ",
+        "Không bao giờ ký thay hay để ai điền hồ sơ giúp"
+      ],
+      "portraitPrompt": "Illustrated portrait of a Vietnamese person over fifty, short grey hair, wearing simple shirt, calm cautious face, plain light background, no text"
+    },
+    "skills": [
+      {
+        "id": "s1",
+        "name": "Nói rõ bảo hiểm, không phải tiết kiệm",
+        "why": "Nói đúng ngay từ đầu để khách không tưởng là sổ tiết kiệm. Đây là tiêu chí đầu tiên.",
+        "sources": [
+          "M:compliance-first"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-bank_insurance_sale-vi-f1",
+            "quote": "Đây là bảo hiểm, không phải tiết kiệm."
+          },
+          {
+            "fileId": "lib-bank_insurance_sale-vi-f1",
+            "quote": "Đây không phải tiền gửi, ngân hàng không bảo đảm, và bảo hiểm tiền gửi không chi trả."
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "name": "Nêu phí, thời hạn và mất tiền khi hủy sớm",
+        "why": "Khách thận trọng cần biết đóng bao nhiêu, bao lâu, hủy thì mất gì.",
+        "sources": [
+          "P:10.1093/cmlj/kmz002"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-bank_insurance_sale-vi-f1",
+            "quote": "30 triệu đồng mỗi năm, đóng đủ 10 năm."
+          },
+          {
+            "fileId": "lib-bank_insurance_sale-vi-f1",
+            "quote": "Hủy sớm sẽ nhận lại ít hơn số đã đóng, theo bảng trên."
+          },
+          {
+            "fileId": "lib-bank_insurance_sale-vi-f1",
+            "quote": "Mọi mức lãi minh họa đều không được cam kết."
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "name": "Khai thác nhu cầu và chốt khéo",
+        "why": "Khai thác nhu cầu kỹ rồi xử lý từ chối nhẹ nhàng, mời mang về đọc.",
+        "sources": [
+          "P:10.1016/j.jeoa.2021.100329",
+          "P:10.1901/jaba.1982.15-505"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-bank_insurance_sale-vi-f1",
+            "quote": "có đóng được 30 triệu đồng mỗi năm trong 10 năm không"
+          },
+          {
+            "fileId": "lib-bank_insurance_sale-vi-f1",
+            "quote": "Mua bảo hiểm không bao giờ là điều kiện để vay hay dùng dịch vụ khác của ngân hàng."
+          },
+          {
+            "fileId": "lib-bank_insurance_sale-vi-f1",
+            "quote": "mời khách mang hồ sơ về nhà đọc kỹ."
+          }
+        ]
+      }
+    ],
+    "levels": [
+      {
+        "id": "L1",
+        "title": "Nghe thử, còn ngại",
+        "situation": "tình huống mở: Bác mới nghe, hỏi ít, nói chậm. Bạn tập nói rõ bảo hiểm và hỏi đơn giản.",
+        "opening": "Nghe nói cái này lãi cao hơn sổ tiết kiệm hả cháu? Bác ngoài năm mươi rồi, sợ mất tiền lắm.",
+        "moodStart": 25,
+        "moodFloor": 10,
+        "sources": [
+          "P:10.1016/j.jeoa.2021.100329",
+          "M:behaviour-modelling"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-bank_insurance_sale-vi-f1",
+            "quote": "Đây là bảo hiểm, không phải tiết kiệm."
+          }
+        ]
+      },
+      {
+        "id": "L2",
+        "title": "Hỏi lãi và vay",
+        "situation": "tình huống khó hơn: Bác hỏi lãi mấy phần trăm, có cam kết không, mua thì vay có dễ không.",
+        "opening": "Lãi cam kết mấy phần trăm? Năm nào cũng có lãi hả? Mua cái này thì sau vay dễ hơn đúng không?",
+        "moodStart": 40,
+        "moodFloor": 15,
+        "sources": [
+          "M:compliance-first"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-bank_insurance_sale-vi-f1",
+            "quote": "Mọi mức lãi minh họa đều không được cam kết."
+          },
+          {
+            "fileId": "lib-bank_insurance_sale-vi-f1",
+            "quote": "Mua bảo hiểm không bao giờ là điều kiện để vay hay dùng dịch vụ khác của ngân hàng."
+          }
+        ]
+      },
+      {
+        "id": "L3",
+        "title": "Sợ kẹt tiền, muốn rút sớm",
+        "situation": "Bác thành khách hàng khó tính: hỏi hủy năm 1, năm 2 lấy lại bao nhiêu, sợ kẹt tiền cho con. Cần xử lý từ chối khéo và chốt bước tiếp theo là mang hồ sơ về.",
+        "opening": "Lỡ năm 1, năm 2 bác cần tiền thì lấy lại được bao nhiêu? Sổ bác sắp đáo hạn rồi, bác không muốn kẹt 10 năm đâu.",
+        "moodStart": 55,
+        "moodFloor": 20,
+        "sources": [
+          "P:10.1093/cmlj/kmz002"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-bank_insurance_sale-vi-f1",
+            "quote": "năm 1: 0%; năm 2: 40%; năm 3: 60%; năm 5: 85%; năm 10: 105%."
+          },
+          {
+            "fileId": "lib-bank_insurance_sale-vi-f1",
+            "quote": "khách được hủy trong 21 ngày kể từ khi nhận hợp đồng và nhận lại toàn bộ phí đã đóng."
+          }
+        ]
+      }
+    ],
+    "rubric": [
+      {
+        "id": "r1",
+        "skillId": "s1",
+        "text": "Nói rõ đây là bảo hiểm, không phải tiền gửi.",
+        "mustHave": true,
+        "lookFor": "Nghe đúng chữ bảo hiểm, không phải tiết kiệm, nói ai là bên bảo hiểm.",
+        "tryThis": "Nói: Đây là bảo hiểm, không phải tiết kiệm. Bên bảo hiểm là Bảo hiểm Đèn Lồng.",
+        "sources": [
+          "M:compliance-first"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-bank_insurance_sale-vi-f1",
+            "quote": "Đây là bảo hiểm, không phải tiết kiệm."
+          }
+        ]
+      },
+      {
+        "id": "r2",
+        "skillId": "s2",
+        "text": "Nêu mức phí mỗi năm và thời hạn 10 năm.",
+        "mustHave": true,
+        "lookFor": "Nghe đủ số 30 triệu mỗi năm và đóng đủ 10 năm.",
+        "tryThis": "Nói: Mỗi năm đóng 30 triệu, đóng đủ 10 năm, bác nhé.",
+        "sources": [
+          "P:10.1093/cmlj/kmz002"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-bank_insurance_sale-vi-f1",
+            "quote": "30 triệu đồng mỗi năm, đóng đủ 10 năm."
+          }
+        ]
+      },
+      {
+        "id": "r3",
+        "skillId": "s2",
+        "text": "Nêu hủy sớm nhận lại ít hơn đã đóng, đọc số năm 1, năm 2 và nói lãi không cam kết.",
+        "mustHave": true,
+        "lookFor": "Nghe số năm 1 là 0%, năm 2 là 40%, và câu lãi không cam kết.",
+        "tryThis": "Nói: Hủy năm 1 được 0%, năm 2 được 40% số đã đóng. Mọi lãi minh họa đều không cam kết.",
+        "sources": [
+          "M:compliance-first"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-bank_insurance_sale-vi-f1",
+            "quote": "Hủy sớm sẽ nhận lại ít hơn số đã đóng, theo bảng trên."
+          },
+          {
+            "fileId": "lib-bank_insurance_sale-vi-f1",
+            "quote": "Mọi mức lãi minh họa đều không được cam kết."
+          }
+        ]
+      },
+      {
+        "id": "r4",
+        "skillId": "s3",
+        "text": "Khai thác nhu cầu: hỏi đóng được 30 triệu mỗi năm không và có cần rút tiền trong 10 năm không.",
+        "mustHave": true,
+        "lookFor": "Nghe hai câu hỏi: đóng nổi không, có cần tiền gấp không.",
+        "tryThis": "Hỏi: Mỗi năm 30 triệu, nhà mình có đóng nổi 10 năm không? Có cần dùng tiền này không?",
+        "sources": [
+          "P:10.1016/j.jeoa.2021.100329"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-bank_insurance_sale-vi-f1",
+            "quote": "có đóng được 30 triệu đồng mỗi năm trong 10 năm không"
+          }
+        ]
+      },
+      {
+        "id": "r5",
+        "skillId": "s3",
+        "text": "Nói mua bảo hiểm không phải điều kiện vay, đưa câu hỏi lạ về tài liệu chính thức.",
+        "mustHave": true,
+        "lookFor": "Nghe câu không gắn với vay, không hứa lãi, không ví thành sổ.",
+        "tryThis": "Nói: Mua hay không, vay vẫn vậy. Cháu không hứa lãi, bác xem giúp cháu tờ này.",
+        "sources": [
+          "M:compliance-first"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-bank_insurance_sale-vi-f1",
+            "quote": "Mua bảo hiểm không bao giờ là điều kiện để vay hay dùng dịch vụ khác của ngân hàng."
+          }
+        ]
+      },
+      {
+        "id": "r6",
+        "skillId": "s3",
+        "text": "Mời mang hồ sơ về nhà đọc và chốt bước tiếp theo, nhắc quyền hủy 21 ngày.",
+        "mustHave": true,
+        "lookFor": "Nghe lời mời mang về đọc, hẹn ngày trả lời, nhắc 21 ngày.",
+        "tryThis": "Nói: Bác mang hồ sơ về nhà đọc kỹ giúp cháu. Mấy hôm nữa cháu gọi lại, bác nhé?",
+        "sources": [
+          "P:10.1901/jaba.1982.15-505"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-bank_insurance_sale-vi-f1",
+            "quote": "mời khách mang hồ sơ về nhà đọc kỹ."
+          },
+          {
+            "fileId": "lib-bank_insurance_sale-vi-f1",
+            "quote": "khách được hủy trong 21 ngày kể từ khi nhận hợp đồng và nhận lại toàn bộ phí đã đóng."
+          }
+        ]
+      }
+    ],
+    "instructions": "Bạn là nhân viên chi nhánh. Trước giờ gọi, xem lại tiêu chí, vào tình huống thì khai thác nhu cầu kỹ, xử lý từ chối nhẹ nhàng, và chốt bước tiếp theo rõ ràng cho khách hàng khó tính.",
+    "keywords": [
+      "Đèn Lồng Tương Lai 10",
+      "Bảo hiểm Đèn Lồng",
+      "Ngân hàng Bến Cảng",
+      "30 triệu",
+      "10 năm",
+      "hủy sớm",
+      "21 ngày",
+      "không phải tiết kiệm",
+      "lãi minh họa",
+      "khoản vay"
+    ]
+  },
+  "testCall": {
+    "ok": true,
+    "notes": [
+      "Bác Hòa nói ngắn, hỏi lại nhiều lần về hủy năm 1-2 và lãi đúng vai thận trọng.",
+      "Không tiết lộ chi tiết hai tuần, mất hết tiền hay vay dễ hơn khi learner chưa khai thác.",
+      "Vẫn ép trả lời rõ ràng, không đồng ý mua và không dịu đi."
+    ]
+  },
+  "sampleCall": {
+    "level": "L1",
+    "learner": "Học viên mẫu",
+    "turns": [
+      {
+        "speaker": "persona",
+        "text": "Nghe nói cái này lãi cao hơn sổ tiết kiệm hả cháu? Bác ngoài năm mươi rồi, sợ mất tiền lắm.",
+        "atMs": 0,
+        "mood": 25
+      },
+      {
+        "speaker": "learner",
+        "text": "Dạ bác Hòa ơi, cái này là bảo hiểm chứ không phải tiền gửi tiết kiệm đâu ạ, phí là 30 triệu mỗi năm và mình phải đóng duy trì trong 10 năm bác nhé. Nếu hủy sớm thì bác sẽ nhận lại ít hơn số đã đóng, ví dụ năm 1 chỉ còn khoảng 5 triệu, năm 2 khoảng 18 triệu, với lại lãi thì không cam kết đâu ạ, mà không biết mức 30 triệu một năm thì bác có đóng thoải mái không và trong 10 năm tới bác có cần rút tiền ra dùng không? Bác cứ mang bộ hồ sơ này về nhà đọc kỹ rồi mai cháu hẹn bác quay lại làm bước tiếp nhé, trong 21 ngày đầu bác vẫn được hủy nếu đổi ý ạ.",
+        "atMs": 39120,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Cháu nói bảo hiểm, ba mươi triệu mười năm, lãi không chắc, bác nghe rồi. Mà năm một còn năm triệu à, ba năm tới con bác cần tiền thì sao?",
+        "atMs": 48970,
+        "mood": 15
+      },
+      {
+        "speaker": "learner",
+        "text": "Dạ đúng rồi bác, năm 1 chỉ còn khoảng 5 triệu thôi, mà nếu 3 năm tới bác cần tiền cho con thì gói đóng 10 năm này e là không hợp đâu ạ. Bác cứ mang hồ sơ về nhà đọc kỹ với gia đình rồi mai cháu hẹn bác quay lại để mình xem phương án ngắn hơn nhé.",
+        "atMs": 69730,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Ừ, năm một mất gần hết bác sợ lắm. Năm hai còn được bao nhiêu, lãi có chắc không cháu?",
+        "atMs": 77030,
+        "mood": 10
+      },
+      {
+        "speaker": "learner",
+        "text": "Dạ năm 2 nếu hủy thì bác nhận lại khoảng 18 triệu thôi ạ, thấp hơn nhiều so với số đã đóng, mà lãi thì không cam kết đâu bác nhé.",
+        "atMs": 90770,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Cháu nói không phải tiết kiệm, bác nhớ rồi. Năm hai là bốn mươi phần trăm phải không cháu?",
+        "atMs": 98270,
+        "mood": 10
+      },
+      {
+        "speaker": "learner",
+        "text": "Dạ không phải bốn mươi phần trăm đâu bác, năm 2 nếu hủy bác nhận lại khoảng 18 triệu thôi, thấp hơn nhiều so với số đã đóng ạ. Lãi thì cũng không cam kết đâu bác, nên bác cứ mang hồ sơ về nhà đọc kỹ với gia đình giúp cháu nhé.",
+        "atMs": 117830,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Cháu nói mười tám triệu, bác không hiểu. Năm hai bốn mươi phần trăm đúng không cháu?",
+        "atMs": 125030,
+        "mood": 22
+      },
+      {
+        "speaker": "learner",
+        "text": "Dạ không phải bốn mươi phần trăm đâu bác, năm 2 nếu hủy thì bác chỉ nhận lại khoảng 18 triệu thôi ạ, tức là thấp hơn nhiều so với số đã đóng, mà lãi thì cũng không cam kết đâu bác nhé.",
+        "atMs": 142070,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Bác sợ mất tiền lắm, cháu nói lại đi. Năm hai là bốn mươi phần trăm, đúng không?",
+        "atMs": 149070,
+        "mood": 35
+      }
+    ],
+    "verdicts": [
+      {
+        "lineId": "r1",
+        "result": "unsure",
+        "readings": [
+          {
+            "lineId": "r1",
+            "result": "partly",
+            "turn": 1,
+            "quote": "Dạ bác Hòa ơi, cái này là bảo hiểm chứ không phải tiền gửi tiết kiệm đâu ạ"
+          },
+          {
+            "lineId": "r1",
+            "result": "pass",
+            "turn": 1,
+            "quote": "Dạ bác Hòa ơi, cái này là bảo hiểm chứ không phải tiền gửi tiết kiệm đâu ạ, phí là 30 triệu mỗi năm và mình phải đóng duy trì trong 10 năm bác nhé. Nếu hủy sớm thì bác sẽ nhận lại ít hơn số đã đóng, ví dụ năm 1 chỉ còn khoảng 5 triệu, năm 2 khoảng 18 triệu, với lại lãi thì không cam kết đâu ạ, mà không biết mức 30 triệu một năm thì bác có đóng thoải mái không và trong 10 năm tới bác có cần rút tiền ra dùng không? Bác cứ mang bộ hồ sơ này về nhà đọc kỹ rồi mai cháu hẹn bác quay lại làm bước tiếp nhé, trong 21 ngày đầu bác vẫn được hủy nếu đổi ý ạ."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r2",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r2",
+            "result": "pass",
+            "turn": 1,
+            "quote": "phí là 30 triệu mỗi năm và mình phải đóng duy trì trong 10 năm bác nhé."
+          },
+          {
+            "lineId": "r2",
+            "result": "pass",
+            "turn": 1,
+            "quote": "phí là 30 triệu mỗi năm và mình phải đóng duy trì trong 10 năm bác nhé."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r3",
+        "result": "partly",
+        "readings": [
+          {
+            "lineId": "r3",
+            "result": "partly",
+            "turn": 1,
+            "quote": "Nếu hủy sớm thì bác sẽ nhận lại ít hơn số đã đóng, ví dụ năm 1 chỉ còn khoảng 5 triệu, năm 2 khoảng 18 triệu, với lại lãi thì không cam kết đâu ạ"
+          },
+          {
+            "lineId": "r3",
+            "result": "partly",
+            "turn": 5,
+            "quote": "Dạ năm 2 nếu hủy thì bác nhận lại khoảng 18 triệu thôi ạ, thấp hơn nhiều so với số đã đóng, mà lãi thì không cam kết đâu bác nhé."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r4",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r4",
+            "result": "pass",
+            "turn": 1,
+            "quote": "mà không biết mức 30 triệu một năm thì bác có đóng thoải mái không và trong 10 năm tới bác có cần rút tiền ra dùng không?"
+          },
+          {
+            "lineId": "r4",
+            "result": "pass",
+            "turn": 1,
+            "quote": "mà không biết mức 30 triệu một năm thì bác có đóng thoải mái không và trong 10 năm tới bác có cần rút tiền ra dùng không?"
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r5",
+        "result": "missed",
+        "readings": [
+          {
+            "lineId": "r5",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          },
+          {
+            "lineId": "r5",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r6",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r6",
+            "result": "pass",
+            "turn": 1,
+            "quote": "Bác cứ mang bộ hồ sơ này về nhà đọc kỹ rồi mai cháu hẹn bác quay lại làm bước tiếp nhé, trong 21 ngày đầu bác vẫn được hủy nếu đổi ý ạ."
+          },
+          {
+            "lineId": "r6",
+            "result": "pass",
+            "turn": 1,
+            "quote": "Bác cứ mang bộ hồ sơ này về nhà đọc kỹ rồi mai cháu hẹn bác quay lại làm bước tiếp nhé, trong 21 ngày đầu bác vẫn được hủy nếu đổi ý ạ."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      }
+    ]
+  }
+}

@@ -31,6 +31,7 @@ Numbers measured against the live services during the build. Dates are Hanoi tim
 
 ## Ready-built programmes (2026-10-27)
 
+- Five Vietnamese versions (2026-11-01), built in parallel: 88.5 to 120.9 s each, all valid and passing their test call on the first try, with no English in their rubric lines, tips, evidence notes, openings or sample calls.
 - Six programmes built by `scripts/build-library.ts` with the real pipeline: 72 to 90 s each (case match, research, programme, test call, a sample call by an AI learner, two judges). All six passed their test call.
 - Paper search keeps only works cited 10 or more times (OpenAlex `cited_by_count`, Crossref `is-referenced-by-count`). Without that floor the first build cited low-quality venues; with it the programmes cite meta-analyses and reviews (for example a 2010 sales-performance meta-analysis and a 2015 sales-training review).
 - Live typed outage call on the production-style server: the persona eased 75 → 60 → 45 after an apology and a plain impact statement and kept asking for a clock time; ending the call scored it with both judges (Baseten as judge 2) in 9.8 s; "next update time" came back missed and the drill targeted it.

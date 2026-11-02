@@ -45,3 +45,9 @@ describe('method library', () => {
     expect(s.kind).toBe('method')
   })
 })
+
+describe('Vietnamese method notes', () => {
+  it('every method has them, one for each English note', () => {
+    for (const m of METHODS) expect(m.givesVi.length, m.slug).toBe(m.gives.length)
+  })
+})

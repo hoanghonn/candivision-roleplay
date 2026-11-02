@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { buildApp, type Deps } from '../src/app'
 import { LIBRARY, openStore } from '../src/store'
+import { VisitorLimits } from '../src/limits'
 import { Budget } from '../src/usage'
 import { outageBrief, outageProgramme as withExcerpts } from '../../../packages/core/test/fixtures/outage'
 import { scripted } from './helpers'
@@ -174,6 +175,54 @@ describe('ending a call', () => {
     const second = (await ctx.app.inject({ method: 'POST', url: `/api/calls/${callId}/end`, headers: { 'x-visitor-id': A } })).json()
     expect(second.scoredFully).toBe(true)
     expect(second.lines.find((l: any) => l.lineId === 'r1').result).toBe('pass')
+  })
+
+  it('lists only the visitor\'s own calls, newest first, with a result that never exposes transcripts', async () => {
+    const readings = JSON.stringify({ readings: outageProgramme.rubric.map((r) => ({ lineId: r.id, result: 'missed', turn: null, quote: '' })) })
+    const ctx = setup([readings, readings])
+    const first = (await start(ctx.app, A, { versionId: ctx.versionId, learner: 'Linh', level: 'L1', mode: 'full' })).json().callId
+    ctx.tick(1000)
+    const second = (await start(ctx.app, A, { versionId: ctx.versionId, learner: 'Linh', level: 'L2', mode: 'full' })).json().callId
+    await start(ctx.app, B, { versionId: ctx.versionId, learner: 'Minh', level: 'L1', mode: 'full' })
+    await ctx.app.inject({ method: 'POST', url: `/api/calls/${first}/end`, headers: { 'x-visitor-id': A } })
+
+    const res = await ctx.app.inject({ method: 'GET', url: '/api/calls', headers: { 'x-visitor-id': A } })
+    expect(res.statusCode).toBe(200)
+    const list = res.json()
+    expect(list.map((c: any) => c.id)).toEqual([second, first])
+    expect(list[0]).toMatchObject({ title: outageProgramme.title, programmeId: ctx.pid, versionId: ctx.versionId, level: 'L2', mode: 'full', status: 'unscored', ended: null })
+    expect(list[1]).toMatchObject({ level: 'L1', status: 'not_yet' })
+    expect(list[1].turns).toBeUndefined()
+    expect(list[1].verdicts).toBeUndefined()
+    expect((await ctx.app.inject({ method: 'GET', url: '/api/calls' })).statusCode).toBe(400)
+  })
+
+  it('error replies carry a stable code as well as the English message', async () => {
+    const ctx = setup()
+    const noName = await start(ctx.app, A, { versionId: ctx.versionId, learner: '', level: 'L1', mode: 'full' })
+    expect(noName.json()).toMatchObject({ code: 'name_and_level', message: expect.any(String) })
+    const { callId } = (await start(ctx.app, A, { versionId: ctx.versionId, learner: 'Linh', level: 'L1', mode: 'full' })).json()
+    await ctx.app.inject({ method: 'POST', url: `/api/calls/${callId}/end`, headers: { 'x-visitor-id': A } })
+    const late = await ctx.app.inject({ method: 'POST', url: `/api/calls/${callId}/turn`, headers: { 'x-visitor-id': A }, payload: { text: 'hello' } })
+    expect(late.statusCode).toBe(409)
+    expect(late.json()).toMatchObject({ error: 'ended', code: 'call_ended', message: expect.any(String) })
+    const short = await ctx.app.inject({ method: 'POST', url: '/api/requests', headers: { 'x-visitor-id': A }, payload: { text: 'hi' } })
+    expect(short.json()).toMatchObject({ code: 'request_length', message: expect.any(String) })
+  })
+
+  it('a limit reply names which limit, as a code', async () => {
+    const limits = new VisitorLimits({ programmes: 0, edits: 0, calls: 0, speech: 0 })
+    const ctx = setup([], { limits })
+    const res = await start(ctx.app, A, { versionId: ctx.versionId, learner: 'Linh', level: 'L1', mode: 'full' })
+    expect(res.statusCode).toBe(429)
+    expect(res.json()).toMatchObject({ error: 'limit', code: 'limit_call', message: expect.any(String) })
+  })
+
+  it('the call list says which language each call was in', async () => {
+    const ctx = setup()
+    await start(ctx.app, A, { versionId: ctx.versionId, learner: 'Linh', level: 'L1', mode: 'full' })
+    const list = (await ctx.app.inject({ method: 'GET', url: '/api/calls', headers: { 'x-visitor-id': A } })).json()
+    expect(list[0].language).toBe(outageProgramme.language)
   })
 
   it('a drill is judged and debriefed on its own line only', async () => {

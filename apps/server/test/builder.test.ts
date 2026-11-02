@@ -24,6 +24,36 @@ describe('buildProgramme', () => {
     expect(prompt).toContain('gives an update time within 2 minutes')
   })
 
+  it('asks in Vietnamese when the conversation is in Vietnamese, naming the part that failed', async () => {
+    const res = await buildProgramme(scripted([JSON.stringify(ungrounded), JSON.stringify(ungrounded)]), { match: { ...match, language: 'vi' }, brief: outageBrief, files: outageFiles })
+    const questions = 'questions' in res ? res.questions : []
+    expect(questions.length).toBeGreaterThan(0)
+    expect(questions[0]).toContain(ungrounded.rubric[0].text)
+    expect(questions[0]).toContain('Bạn có thể bổ sung tài liệu')
+    expect(questions[0]).not.toContain('Can you add')
+  })
+
+  it('a Vietnamese programme gets its edit problems in Vietnamese', async () => {
+    const vi = { ...outageProgramme, language: 'vi' as const }
+    const reply = JSON.stringify({ programme: { ...ungrounded, language: 'vi' }, changes: ['x'] })
+    const res = await editProgramme(scripted([reply]), { programme: vi, brief: outageBrief, files: outageFiles, instruction: 'đổi' })
+    expect('problems' in res && res.problems[0].message).toContain('chưa có nguồn')
+    const failed = await editProgramme(scripted(['not json', 'not json', 'not json']), { programme: vi, brief: outageBrief, files: outageFiles, instruction: 'đổi' })
+    expect('problems' in failed && failed.problems[0].message).toContain('Không áp dụng được')
+  })
+
+  it('tells the model to write Vietnamese as trainers speak it, not as a translation', async () => {
+    const client = scripted([JSON.stringify(outageProgramme)])
+    await buildProgramme(client, { match, brief: outageBrief, files: outageFiles })
+    expect(client.calls[0].messages[0].content).toContain('not a translation from English')
+  })
+
+  it('asks the model to report edits in the programme language', async () => {
+    const client = scripted([JSON.stringify({ programme: outageProgramme, changes: ['x'] })])
+    await editProgramme(client, { programme: outageProgramme, brief: outageBrief, files: outageFiles, instruction: 'x' })
+    expect(client.calls[0].messages[0].content).toContain("in the programme's language")
+  })
+
   it('regenerates once then asks', async () => {
     const client = scripted([JSON.stringify(ungrounded), JSON.stringify(ungrounded)])
     const res = await buildProgramme(client, { match, brief: outageBrief, files: outageFiles })

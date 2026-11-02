@@ -9,6 +9,10 @@ export const SEED_DIR = fileURLToPath(new URL('../seeds/library/', import.meta.u
 /** A ready-built programme made by the real pipeline (scripts/build-library.ts) and committed as JSON. */
 export const SeedSchema = z.object({
   caseId: z.string(),
+  /** The programme's own name, for a seed that shares its case type with another seed. Defaults to caseId. */
+  slug: z.string().regex(/^[a-z0-9_]+$/).optional(),
+  /** A language version of a case, such as 'vi'. Each one is its own programme with its own frozen version. */
+  variant: z.string().optional(),
   request: z.string(),
   files: z.array(z.object({ id: z.string(), name: z.string(), text: z.string() })),
   match: CaseMatchSchema,
@@ -26,18 +30,18 @@ export function readSeeds(dir: string): Seed[] {
     .map((f) => SeedSchema.parse(JSON.parse(readFileSync(`${dir}/${f}`, 'utf8'))))
 }
 
-export const libraryId = (caseId: string) => `lib-${caseId}`
-export const sampleCallId = (caseId: string) => `lib-${caseId}-sample`
+export const libraryId = (caseId: string, variant?: string) => `lib-${caseId}${variant ? `-${variant}` : ''}`
+export const sampleCallId = (programmeId: string) => `${programmeId}-sample`
 
 /** Loads every seed into the shared library workspace and publishes it; safe to run on every boot. */
 export function loadLibrary(store: Store, seeds: Seed[]): void {
   for (const s of seeds) {
-    const id = libraryId(s.caseId)
+    const id = libraryId(s.slug ?? s.caseId, s.variant)
     for (const f of s.files as FileText[]) store.addFile(LIBRARY, f.name, f.text, f.id)
     if (!store.programme(LIBRARY, id)) store.createProgramme(LIBRARY, { text: s.request, fileIds: s.files.map((f) => f.id) }, id)
     store.saveProgramme(LIBRARY, id, { caseId: s.caseId as CaseId, match: s.match, brief: s.brief, programme: s.programme, testCall: s.testCall })
     const { versionId } = store.publish(LIBRARY, id)
-    const callId = sampleCallId(s.caseId)
+    const callId = sampleCallId(id)
     const existing = store.call(LIBRARY, callId)
     if (existing && existing.versionId === versionId) continue
     store.deleteCall(LIBRARY, callId)

@@ -1,0 +1,669 @@
+{
+  "caseId": "customer_service",
+  "slug": "er_wait_relative",
+  "request": "In our emergency department, relatives come to the nurses' desk angry that their family member has waited an hour while others walked straight in. Our nurses and reception staff answer 'just wait' or 'that's the rule', and some situations turn into shouting or worse. I want them to practise calming a worried relative. Ready means the learner acknowledges the worry, explains in plain words that the sickest patients are seen first and that their relative has been assessed, asks whether anything has changed and escalates if it has, promises a specific time for the next update instead of a doctor's time, and never gives a diagnosis or says 'it's nothing serious'.",
+  "files": [
+    {
+      "id": "lib-er_wait_relative-f1",
+      "name": "waiting-policy.md",
+      "text": "FICTIONAL SAMPLE MATERIAL - made up for the CandiVision Roleplay demo. Riverbend General Hospital is not real, and nothing here is real clinical guidance.\n\n# Riverbend General Hospital emergency department: talking with waiting families\n\nHow patients are seen: every patient is assessed by a triage nurse on arrival and seen by how urgent their condition is, not by arrival time. Red: at once. Orange: within 15 minutes. Yellow: within 60 minutes. Green: within 2 hours.\n\nWhen a family member asks why their relative is still waiting:\n1. Listen first, and say what you see: \"You've been waiting a long time and you're worried about your father.\"\n2. Explain in plain words that the sickest patients are seen first, and that their relative has already been assessed.\n3. Do not give a medical opinion, a diagnosis or reassurance such as \"it's nothing serious\". You are not the doctor for this patient.\n4. Never promise when the doctor will come. Promise what you control: \"I'll come back and update you within 30 minutes.\"\n5. Ask whether anything has changed since the patient was assessed: more pain, trouble breathing, fainting, confusion. If yes, tell the triage nurse at once so the patient is assessed again.\n6. If the family member stays upset, offer to fetch the charge nurse. Call security only if someone is threatened.\n7. Never argue, and never say \"that's the rule\" without explaining it.\n"
+    }
+  ],
+  "match": {
+    "caseId": "customer_service",
+    "situation": "Calm a worried and angry relative whose family member has waited an hour in the emergency department while others walked straight in.",
+    "learnerRole": "nurse / reception staff",
+    "counterpartRole": "worried and angry relative of a waiting patient",
+    "language": "en",
+    "stakes": "Answering 'just wait' or 'that's the rule' turns the situation into shouting or worse.",
+    "readyMeans": [
+      "acknowledges the worry",
+      "explains in plain words that the sickest patients are seen first and that their relative has been assessed",
+      "asks whether anything has changed and escalates if it has",
+      "promises a specific time for the next update instead of a doctor's time",
+      "never gives a diagnosis or says 'it's nothing serious'"
+    ]
+  },
+  "brief": {
+    "sources": [
+      {
+        "id": "M:active-listening",
+        "kind": "method",
+        "title": "The relative effectiveness of active listening in initial interactions",
+        "authors": "Weger, Castle Bell, Minei and Robinson",
+        "year": 2014,
+        "link": "https://doi.org/10.1080/10904018.2013.813234",
+        "summary": "In an experiment, people whose concerns were paraphrased back to them felt more understood than people who got simple acknowledgements or advice."
+      },
+      {
+        "id": "M:service-recovery",
+        "kind": "method",
+        "title": "A model of customer satisfaction with service encounters involving failure and recovery",
+        "authors": "Smith, Bolton and Wagner",
+        "year": 1999,
+        "link": "https://doi.org/10.2307/3152082",
+        "summary": "Customers judge a recovery on three kinds of fairness: what they get back, how quickly and smoothly it is handled, and how they are treated. The best recovery matches the kind and size of the failure; an apology and a fast response matter most when the failure is about the process."
+      },
+      {
+        "id": "P:10.1016/j.ienj.2018.07.002",
+        "kind": "paper",
+        "title": "Information and communication in the emergency department",
+        "authors": "Joanna Blackburn, Karen J. Ousey, Emma Goodwin",
+        "year": 2018,
+        "link": "https://doi.org/10.1016/j.ienj.2018.07.002",
+        "summary": "Explain triage priority and what has already happened in plain language and keep giving information during the wait to reduce anger."
+      },
+      {
+        "id": "P:10.3389/fpsyt.2022.856153",
+        "kind": "paper",
+        "title": "Effectiveness of De-Escalation in Reducing Aggression and Coercion in Acute Psychiatric Units. A Cluster Randomized Study",
+        "authors": "Andreja Čelofiga, Blanka Kores Plesničar, Jure Koprivšek, Miha Moškon, Dominik Benkovič, Hojka Gregorič Kumperščak",
+        "year": 2022,
+        "link": "https://doi.org/10.3389/fpsyt.2022.856153",
+        "summary": "Use calm verbal and non-verbal de-escalation first to lower aggression and avoid coercive measures."
+      },
+      {
+        "id": "P:10.1186/s12245-020-00290-0",
+        "kind": "paper",
+        "title": "A qualitative study of workplace violence among healthcare providers in emergency departments in India",
+        "authors": "Kevin Davey, Veda Ravishankar, Nikita Mehta, Tania Ahluwalia, Janice Blanchard, Jeffrey P. Smith",
+        "year": 2020,
+        "link": "https://doi.org/10.1186/s12245-020-00290-0",
+        "summary": "Do not argue about rules or fairness; listen, offer a senior clinician review, and reserve security for threats."
+      },
+      {
+        "id": "P:10.1080/01612840.2024.2429712",
+        "kind": "paper",
+        "title": "Virtual Reality Training to Reduce Workplace Violence in Healthcare",
+        "authors": "Casey J. Clay, Jonathan M. Hochmuth, Oliver Wirth",
+        "year": 2025,
+        "link": "https://doi.org/10.1080/01612840.2024.2429712",
+        "summary": "Practise spotting escalation signs and rehearsing de-escalation responses in realistic simulations with feedback."
+      },
+      {
+        "id": "P:10.3389/fcomp.2020.00028",
+        "kind": "paper",
+        "title": "A Technical and Conceptual Framework for Serious Role-Playing Games in the Area of Social Skill Training",
+        "authors": "Julia Othlinghaus, H. Ulrich Hoppe",
+        "year": 2020,
+        "link": "https://doi.org/10.3389/fcomp.2020.00028",
+        "summary": "Use repeated chatbot role-plays so learners can try different calming and explaining strategies safely and compare what works."
+      },
+      {
+        "id": "M:complaint-justice",
+        "kind": "method",
+        "title": "Customer evaluations of service complaint experiences: implications for relationship marketing",
+        "authors": "Tax, Brown and Chandrashekaran",
+        "year": 1998,
+        "link": "https://doi.org/10.1177/002224299806200205",
+        "summary": "A study of how customers judge the handling of their complaints. They look at a fair outcome, a fair process (timely, flexible, easy to follow) and fair treatment (courtesy, honesty, empathy, effort). All three shape trust and commitment afterwards."
+      },
+      {
+        "id": "M:recovery-paradox",
+        "kind": "method",
+        "title": "Service recovery paradox: a meta-analysis",
+        "authors": "de Matos, Henrique and Rossi",
+        "year": 2007,
+        "link": "https://doi.org/10.1177/1094670507303012",
+        "summary": "Pooling many studies, a very good recovery can lift satisfaction above what it would have been with no failure, but it does not reliably lift loyalty, repurchase or word of mouth. A strong recovery helps; it does not make a failure worthwhile."
+      }
+    ],
+    "items": [
+      {
+        "sourceId": "M:active-listening",
+        "gives": "Start by naming what you see and paraphrasing the worry back before any explanation, then check you got it right.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "M:service-recovery",
+        "gives": "Acknowledge the wait quickly and respectfully and offer something concrete you control, like a recheck and a timed update.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "P:10.1016/j.ienj.2018.07.002",
+        "gives": "Explain triage priority and what has already happened in plain language and keep giving information during the wait to reduce anger.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "P:10.3389/fpsyt.2022.856153",
+        "gives": "Use calm verbal and non-verbal de-escalation first to lower aggression and avoid coercive measures.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "P:10.1186/s12245-020-00290-0",
+        "gives": "Do not argue about rules or fairness; listen, offer a senior clinician review, and reserve security for threats.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "P:10.1080/01612840.2024.2429712",
+        "gives": "Practise spotting escalation signs and rehearsing de-escalation responses in realistic simulations with feedback.",
+        "use": "learn"
+      },
+      {
+        "sourceId": "P:10.3389/fcomp.2020.00028",
+        "gives": "Use repeated chatbot role-plays so learners can try different calming and explaining strategies safely and compare what works.",
+        "use": "learn"
+      },
+      {
+        "sourceId": "M:complaint-justice",
+        "gives": "Explain what will happen and when. Be honest and courteous, and show effort. Make the outcome fair for the loss.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "M:recovery-paradox",
+        "gives": "Do not promise that things will be better than before. Focus on preventing a repeat.",
+        "use": "handle"
+      }
+    ],
+    "notFound": [
+      "How should staff ask about changed symptoms and trigger urgent re-assessment without giving a diagnosis or saying it's nothing serious?",
+      "What exact promise for the next update time works best when you cannot promise when the doctor will come?"
+    ]
+  },
+  "programme": {
+    "title": "Calming the ED Wait",
+    "caseId": "customer_service",
+    "language": "en",
+    "learnerRole": "nurse / reception staff in the emergency department",
+    "persona": {
+      "name": "Daniel",
+      "role": "son of a waiting patient",
+      "voice": "man",
+      "style": "Worried, fast, gets loud when he feels dismissed. Short accusing sentences.",
+      "facts": [
+        {
+          "id": "h1",
+          "fact": "His 76-year-old father came with chest tightness and now seems to breathe faster.",
+          "earnedBy": "Asking directly whether anything has changed since assessment"
+        },
+        {
+          "id": "h2",
+          "fact": "He saw two people who arrived later walk straight in and thinks older patients are ignored.",
+          "earnedBy": "Naming what you see and paraphrasing his worry about fairness before explaining"
+        },
+        {
+          "id": "h3",
+          "fact": "He must leave for childcare in 40 minutes and is afraid to leave his father alone.",
+          "earnedBy": "Promising a specific timed update and asking what support he needs"
+        }
+      ],
+      "redLines": [
+        "Never calms down if he hears just wait or that's the rule without an explanation",
+        "Never accepts a diagnosis or reassurance from reception staff",
+        "Never becomes physically threatening, never needs security unless threatened"
+      ],
+      "portraitPrompt": "Illustrated portrait of a worried middle-aged man in a grey jacket in a hospital waiting area, tense expression, neutral illustration style, no text"
+    },
+    "skills": [
+      {
+        "id": "s1",
+        "name": "Acknowledge worry first",
+        "why": "Naming what you see lowers anger before any explanation.",
+        "sources": [
+          "M:active-listening",
+          "M:service-recovery"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-er_wait_relative-f1",
+            "quote": "You've been waiting a long time and you're worried about your father."
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "name": "Explain triage in plain words",
+        "why": "Clear information about priority reduces anger during waiting.",
+        "sources": [
+          "P:10.1016/j.ienj.2018.07.002",
+          "M:complaint-justice"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-er_wait_relative-f1",
+            "quote": "seen by how urgent their condition is, not by arrival time"
+          },
+          {
+            "fileId": "lib-er_wait_relative-f1",
+            "quote": "the sickest patients are seen first"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "name": "Check for change and escalate",
+        "why": "Asking about new symptoms keeps the patient safe and shows effort.",
+        "sources": [
+          "P:10.1080/01612840.2024.2429712",
+          "P:10.1186/s12245-020-00290-0"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-er_wait_relative-f1",
+            "quote": "more pain, trouble breathing, fainting, confusion"
+          },
+          {
+            "fileId": "lib-er_wait_relative-f1",
+            "quote": "tell the triage nurse at once so the patient is assessed again"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "name": "Promise a timed update without diagnosing",
+        "why": "A concrete update you control builds trust without false promises.",
+        "sources": [
+          "M:service-recovery",
+          "M:recovery-paradox"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-er_wait_relative-f1",
+            "quote": "I'll come back and update you within 30 minutes"
+          },
+          {
+            "fileId": "lib-er_wait_relative-f1",
+            "quote": "Never promise when the doctor will come"
+          }
+        ]
+      }
+    ],
+    "levels": [
+      {
+        "id": "L1",
+        "title": "Worried questions",
+        "situation": "Relative is worried after one hour and asks why others went first. He listens if acknowledged.",
+        "opening": "Excuse me, my dad has waited an hour and two people who came after us just walked straight in. What's happening to him?",
+        "moodStart": 55,
+        "moodFloor": 15,
+        "sources": [
+          "M:active-listening",
+          "P:10.1016/j.ienj.2018.07.002"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-er_wait_relative-f1",
+            "quote": "You've been waiting a long time and you're worried about your father."
+          }
+        ]
+      },
+      {
+        "id": "L2",
+        "title": "Angry about fairness",
+        "situation": "Same wait but he interrupts, rejects just wait and demands a doctor time.",
+        "opening": "This is not fair! An hour! Don't tell me just wait - when will the doctor come? Tell me now!",
+        "moodStart": 72,
+        "moodFloor": 25,
+        "sources": [
+          "M:service-recovery",
+          "P:10.1186/s12245-020-00290-0"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-er_wait_relative-f1",
+            "quote": "Never argue, and never say"
+          },
+          {
+            "fileId": "lib-er_wait_relative-f1",
+            "quote": "offer to fetch the charge nurse"
+          }
+        ]
+      },
+      {
+        "id": "L3",
+        "title": "New symptom plus pressure",
+        "situation": "He shouts, presses for a diagnosis and mentions his father is breathing faster while others are seen first.",
+        "opening": "Listen! He's breathing faster now! Tell me it's nothing serious or get a doctor! Why are you ignoring us?!",
+        "moodStart": 85,
+        "moodFloor": 35,
+        "sources": [
+          "P:10.3389/fpsyt.2022.856153",
+          "P:10.3389/fcomp.2020.00028"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-er_wait_relative-f1",
+            "quote": "Ask whether anything has changed since the patient was assessed"
+          },
+          {
+            "fileId": "lib-er_wait_relative-f1",
+            "quote": "Do not give a medical opinion, a diagnosis or reassurance"
+          }
+        ]
+      }
+    ],
+    "rubric": [
+      {
+        "id": "r1",
+        "skillId": "s1",
+        "text": "Names what you see and paraphrases the worry before explaining and checks you got it right.",
+        "mustHave": true,
+        "lookFor": "Listens first, says worried about father and long wait, asks is that right.",
+        "tryThis": "I can see you are worried - you've waited an hour for your dad. Did I get that right?",
+        "sources": [
+          "M:active-listening"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-er_wait_relative-f1",
+            "quote": "You've been waiting a long time and you're worried about your father."
+          }
+        ]
+      },
+      {
+        "id": "r2",
+        "skillId": "s2",
+        "text": "Explains in plain words that sickest are seen first and relative was already assessed.",
+        "mustHave": true,
+        "lookFor": "Says assessed on arrival, seen by urgency not arrival time, no jargon.",
+        "tryThis": "He was assessed on arrival. We see the sickest patients first, not in arrival order.",
+        "sources": [
+          "P:10.1016/j.ienj.2018.07.002"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-er_wait_relative-f1",
+            "quote": "the sickest patients are seen first"
+          },
+          {
+            "fileId": "lib-er_wait_relative-f1",
+            "quote": "that their relative has already been assessed"
+          }
+        ]
+      },
+      {
+        "id": "r3",
+        "skillId": "s3",
+        "text": "Asks whether anything has changed and triggers urgent re-assessment if it has.",
+        "mustHave": true,
+        "lookFor": "Asks about more pain, breathing, fainting, confusion and offers to tell triage nurse at once.",
+        "tryThis": "Has anything changed - more pain, trouble breathing, fainting, confusion? If so I will get the triage nurse now.",
+        "sources": [
+          "M:service-recovery"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-er_wait_relative-f1",
+            "quote": "more pain, trouble breathing, fainting, confusion"
+          },
+          {
+            "fileId": "lib-er_wait_relative-f1",
+            "quote": "tell the triage nurse at once so the patient is assessed again"
+          }
+        ]
+      },
+      {
+        "id": "r4",
+        "skillId": "s4",
+        "text": "Promises a specific time for next update you control, never promises doctor time.",
+        "mustHave": true,
+        "lookFor": "Gives minute promise like 20 or 30 minutes, does not promise when doctor comes.",
+        "tryThis": "I can't promise when the doctor will come, but I'll come back and update you within 30 minutes.",
+        "sources": [
+          "M:service-recovery",
+          "M:complaint-justice"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-er_wait_relative-f1",
+            "quote": "I'll come back and update you within 30 minutes"
+          },
+          {
+            "fileId": "lib-er_wait_relative-f1",
+            "quote": "Never promise when the doctor will come"
+          }
+        ]
+      },
+      {
+        "id": "r5",
+        "skillId": "s4",
+        "text": "Gives no diagnosis and never says it's nothing serious.",
+        "mustHave": true,
+        "lookFor": "No medical opinion, no reassurance about seriousness, refers to clinical team.",
+        "tryThis": "I'm not the doctor for him so I can't diagnose, but I will make sure he is rechecked.",
+        "sources": [
+          "M:recovery-paradox"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-er_wait_relative-f1",
+            "quote": "Do not give a medical opinion, a diagnosis or reassurance"
+          },
+          {
+            "fileId": "lib-er_wait_relative-f1",
+            "quote": "it's nothing serious"
+          }
+        ]
+      },
+      {
+        "id": "r6",
+        "skillId": "s3",
+        "text": "Does not argue about rules and offers senior review instead of threats.",
+        "mustHave": false,
+        "lookFor": "Calm voice, no that's the rule, offers charge nurse if still upset.",
+        "tryThis": "I hear this feels unfair. Would you like me to fetch the charge nurse to review this with you?",
+        "sources": [
+          "P:10.1186/s12245-020-00290-0",
+          "P:10.3389/fpsyt.2022.856153"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-er_wait_relative-f1",
+            "quote": "offer to fetch the charge nurse"
+          }
+        ]
+      }
+    ],
+    "instructions": "You are the ED nurse at Riverbend General talking to a relative whose father has waited an hour. Calm him, explain triage and safety checks, and own the next update.",
+    "keywords": [
+      "Daniel",
+      "triage",
+      "triage nurse",
+      "charge nurse",
+      "sickest first",
+      "update within 30 minutes",
+      "trouble breathing"
+    ]
+  },
+  "testCall": {
+    "ok": true,
+    "notes": [
+      "Stayed loud, fast and accusatory without breaking style or red lines.",
+      "Never calmed, accepted reassurance, or revealed age, fairness detail, or childcare pressure."
+    ]
+  },
+  "sampleCall": {
+    "level": "L1",
+    "learner": "Sample learner",
+    "turns": [
+      {
+        "speaker": "persona",
+        "text": "Excuse me, my dad has waited an hour and two people who came after us just walked straight in. What's happening to him?",
+        "atMs": 0,
+        "mood": 55
+      },
+      {
+        "speaker": "learner",
+        "text": "You look really frustrated, and I think you're worried your dad's been forgotten — did I get that right? He's already been assessed at triage, and we bring in the sickest people first so others can go ahead even if they came later. I'll come back to you in 15 minutes with an update on where he is in the queue.",
+        "atMs": 24660,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Okay, thanks for getting it. Those two walked straight in after us, are old people just ignored here?",
+        "atMs": 32710,
+        "mood": 35
+      },
+      {
+        "speaker": "learner",
+        "text": "It sounds like you're upset, and you're worried older patients get left behind here — have I got that right? No one is ignored because of age, we always take the sickest first after triage, and your dad stays in that queue. I'll check back with you in 10 minutes with another update.",
+        "atMs": 55690,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Alright, thanks for the ten minutes, I appreciate that. But who decides who's sicker, you haven't even looked at him?",
+        "atMs": 64540,
+        "mood": 15
+      },
+      {
+        "speaker": "learner",
+        "text": "You sound frustrated, and I guess you're worried the decision isn't fair — did I get that right? The triage nurse who first saw your dad decides using vital signs and symptoms, so the sickest are brought in first. I'll come back in 10 minutes to update you on where he is in the queue.",
+        "atMs": 87640,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Okay, fine, the nurse decides. But no one's looked at him for an hour, who is watching him now?",
+        "atMs": 95390,
+        "mood": 15
+      },
+      {
+        "speaker": "learner",
+        "text": "You look really anxious, and I think you're worried no one is keeping an eye on your dad right now — did I get that right? He's already been assessed at triage and stays in the queue, and we bring in the sickest people first. I'll come back to you in 10 minutes with another update on where he is in the queue.",
+        "atMs": 119990,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Thanks for the update, I hear you. But who's watching him right now, no one's looked in an hour?",
+        "atMs": 127790,
+        "mood": 20
+      },
+      {
+        "speaker": "learner",
+        "text": "You look really worried, and I think you're afraid your dad's just sitting here with no one watching him — did I get that right? He's already been checked in at triage and stays in our queue, and we always bring the sickest people in first. I'll come back to you in 10 minutes with another update on where he is.",
+        "atMs": 152510,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Okay thanks for coming back, I hear you. But nobody's asked if he's got worse - he's breathing faster now!",
+        "atMs": 160810,
+        "mood": 15
+      }
+    ],
+    "verdicts": [
+      {
+        "lineId": "r1",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r1",
+            "result": "pass",
+            "turn": 1,
+            "quote": "You look really frustrated, and I think you're worried your dad's been forgotten — did I get that right?"
+          },
+          {
+            "lineId": "r1",
+            "result": "pass",
+            "turn": 1,
+            "quote": "You look really frustrated, and I think you're worried your dad's been forgotten — did I get that right?"
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r2",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r2",
+            "result": "pass",
+            "turn": 1,
+            "quote": "He's already been assessed at triage, and we bring in the sickest people first so others can go ahead even if they came later."
+          },
+          {
+            "lineId": "r2",
+            "result": "pass",
+            "turn": 1,
+            "quote": "He's already been assessed at triage, and we bring in the sickest people first so others can go ahead even if they came later."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r3",
+        "result": "missed",
+        "readings": [
+          {
+            "lineId": "r3",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          },
+          {
+            "lineId": "r3",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r4",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r4",
+            "result": "pass",
+            "turn": 1,
+            "quote": "I'll come back to you in 15 minutes with an update on where he is in the queue."
+          },
+          {
+            "lineId": "r4",
+            "result": "pass",
+            "turn": 1,
+            "quote": "I'll come back to you in 15 minutes with an update on where he is in the queue."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r5",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r5",
+            "result": "pass",
+            "turn": 5,
+            "quote": "The triage nurse who first saw your dad decides using vital signs and symptoms, so the sickest are brought in first."
+          },
+          {
+            "lineId": "r5",
+            "result": "pass",
+            "turn": 5,
+            "quote": "The triage nurse who first saw your dad decides using vital signs and symptoms, so the sickest are brought in first."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r6",
+        "result": "partly",
+        "readings": [
+          {
+            "lineId": "r6",
+            "result": "partly",
+            "turn": 3,
+            "quote": "No one is ignored because of age, we always take the sickest first after triage, and your dad stays in that queue."
+          },
+          {
+            "lineId": "r6",
+            "result": "partly",
+            "turn": 1,
+            "quote": "He's already been assessed at triage, and we bring in the sickest people first so others can go ahead even if they came later."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      }
+    ]
+  }
+}

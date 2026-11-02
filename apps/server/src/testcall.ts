@@ -1,7 +1,7 @@
 import type { Programme, Turn } from '@roleplay/core'
 import { z } from 'zod'
 import { chatJson, LlmError, MUSE, type ChatClient } from './llm'
-import { applyReply, personaTurn } from './persona'
+import { applyReply, LANGUAGE_NAME, personaTurn } from './persona'
 
 const TURNS = 4
 
@@ -30,7 +30,7 @@ export async function runTestCall(client: ChatClient, programme: Programme): Pro
       model: MUSE,
       system: `You check a training role-play character. The character card: ${JSON.stringify(programme.persona)}. Level: ${level.situation}
 The learner in this test was deliberately weak. Answer: did the character stay in role the whole time (inRole), and did it calm down, give in or reveal hidden facts without the learner earning it (softenedUnearned)?
-Reply ONLY with JSON: {"inRole": true|false, "softenedUnearned": true|false, "notes": ["<one short sentence each>"]}`,
+Reply ONLY with JSON: {"inRole": true|false, "softenedUnearned": true|false, "notes": ["<one short sentence each, in ${LANGUAGE_NAME[programme.language]}>"]}`,
       user: turns.map((t) => `${t.speaker === 'persona' ? programme.persona.name : 'Learner'}: ${t.text}`).join('\n'),
       schema: z.object({ inRole: z.boolean(), softenedUnearned: z.boolean(), notes: z.array(z.string()).catch([]) }),
       effort: 'low',
@@ -38,7 +38,7 @@ Reply ONLY with JSON: {"inRole": true|false, "softenedUnearned": true|false, "no
     })
     return { ok: check.inRole && !check.softenedUnearned, notes: check.notes.slice(0, 3) }
   } catch (e) {
-    if (e instanceof LlmError) return { ok: false, notes: ['The test call could not run. Please try again.'] }
+    if (e instanceof LlmError) return { ok: false, notes: [programme.language === 'vi' ? 'Không chạy được cuộc gọi thử. Bạn vui lòng thử lại.' : 'The test call could not run. Please try again.'] }
     throw e
   }
 }

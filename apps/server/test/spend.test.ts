@@ -140,6 +140,22 @@ describe('speech recognition needs a live call or the request-screen allowance',
     expect(upstreams()).toBe(1)
   })
 
+  it('a page on another site cannot open speech recognition', async () => {
+    const { app, upstreams } = setup()
+    await app.ready()
+    const open = async (headers: Record<string, string>) => {
+      const ws = await (app as any).injectWS(`/ws/stt?v=${A}&lang=en`, { headers })
+      await new Promise((r) => setTimeout(r, 10))
+      ws.terminate()
+    }
+    await open({ origin: 'https://evil.example', host: 'platform.candivision.co' })
+    expect(upstreams()).toBe(0)
+    await open({ origin: 'not a url', host: 'platform.candivision.co' })
+    expect(upstreams()).toBe(0)
+    await open({ origin: 'https://platform.candivision.co', host: 'platform.candivision.co' })
+    expect(upstreams()).toBe(1)
+  })
+
   it('an ended call cannot open speech recognition', async () => {
     const { app, store, library, upstreams } = setup()
     const { callId } = (await startCall(app, A, library)).json()

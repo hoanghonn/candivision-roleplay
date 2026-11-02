@@ -16,7 +16,7 @@ export type Debrief = {
   passed: boolean
   waiting: number
   lines: DebriefLine[]
-  drill: { lineId: string; text: string; instruction: string; seconds: 60; why: string } | null
+  drill: { lineId: string; text: string; tryThis: string; instruction: string; seconds: 60; why: string } | null
   judge2: Verdict['judge2']
 }
 
@@ -52,7 +52,7 @@ export function buildDebrief(programme: Programme, brief: ResearchBrief, files: 
     waiting,
     lines,
     drill: weak
-      ? { lineId: weak.id, text: weak.text, instruction: `Replay just this part for 60 seconds: ${weak.tryThis}`, seconds: 60, why: 'Short repeats on the weak part build the skill fastest (deliberate practice, Ericsson, Krampe and Tesch-Römer 1993).' }
+      ? { lineId: weak.id, text: weak.text, tryThis: weak.tryThis, instruction: `Replay just this part for 60 seconds: ${weak.tryThis}`, seconds: 60, why: 'Short repeats on the weak part build the skill fastest (deliberate practice, Ericsson, Krampe and Tesch-Römer 1993).' }
       : null,
     judge2: verdicts[0]?.judge2 ?? 'baseten',
   }

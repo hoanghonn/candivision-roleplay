@@ -60,7 +60,7 @@ export async function runRequestJob(deps: JobDeps, ws: string, jobId: string, re
     }
     deps.store.finishJob(jobId, 'done', programmeId)
   } catch {
-    emit({ type: 'failed', message: 'Something went wrong while researching and building. Please try again in a minute.' })
+    emit({ type: 'failed', code: 'build_failed', message: 'Something went wrong while researching and building. Please try again in a minute.' })
     deps.store.finishJob(jobId, 'failed', programmeId)
   }
 }

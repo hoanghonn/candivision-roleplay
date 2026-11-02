@@ -1,0 +1,592 @@
+{
+  "caseId": "customer_service",
+  "slug": "er_wait_relative",
+  "variant": "vi",
+  "request": "Ở khoa cấp cứu của chúng tôi, người nhà thường đến quầy điều dưỡng bức xúc vì người thân chờ cả tiếng mà người khác đến sau lại được vào trước. Điều dưỡng và nhân viên tiếp đón chỉ nói 'chờ đi' hoặc 'quy định là vậy', và có lúc thành to tiếng hoặc tệ hơn. Tôi muốn họ luyện cách làm dịu một người nhà đang lo lắng. Đạt yêu cầu là học viên ghi nhận nỗi lo, giải thích bằng lời dễ hiểu rằng người bệnh nặng nhất được khám trước và người thân của họ đã được phân loại, hỏi xem tình trạng có gì thay đổi và báo ngay nếu có, hẹn một giờ cụ thể để quay lại báo tin thay vì hứa giờ bác sĩ đến, và không chẩn đoán hay nói 'không sao đâu'.",
+  "files": [
+    {
+      "id": "lib-er_wait_relative-vi-f1",
+      "name": "quy-dinh-cho-kham.md",
+      "text": "TÀI LIỆU MẪU HƯ CẤU - được tạo cho bản demo CandiVision Roleplay. Bệnh viện Đa khoa Bến Sông không có thật. Nội dung này không phải hướng dẫn chuyên môn y tế thật.\n\n# Khoa Cấp cứu Bệnh viện Đa khoa Bến Sông: trao đổi với người nhà đang chờ\n\nThứ tự khám: mọi người bệnh đều được điều dưỡng phân loại ngay khi đến, và được khám theo mức độ khẩn cấp chứ không theo thứ tự đến. Đỏ: khám ngay. Cam: trong 15 phút. Vàng: trong 60 phút. Xanh: trong 2 giờ.\n\nKhi người nhà hỏi vì sao người bệnh vẫn phải chờ:\n1. Nghe trước, rồi nói ra điều mình thấy: \"Anh chờ lâu rồi và đang rất lo cho bố.\"\n2. Giải thích bằng lời dễ hiểu rằng người bệnh nặng nhất được khám trước, và người nhà của họ đã được phân loại rồi.\n3. Không đưa ra ý kiến chuyên môn, chẩn đoán hay trấn an kiểu \"không sao đâu\". Bạn không phải bác sĩ điều trị cho người bệnh này.\n4. Không hứa giờ bác sĩ đến. Chỉ hứa điều mình làm được: \"Trong 30 phút nữa em sẽ quay lại báo cho anh.\"\n5. Hỏi xem từ lúc được phân loại đến giờ có gì thay đổi không: đau hơn, khó thở, ngất, lú lẫn. Nếu có, báo ngay điều dưỡng phân loại để đánh giá lại.\n6. Nếu người nhà vẫn bức xúc, đề nghị mời điều dưỡng trưởng ca. Chỉ gọi bảo vệ khi có người bị đe dọa.\n7. Không tranh cãi, và không nói \"quy định là vậy\" mà không giải thích.\n"
+    }
+  ],
+  "match": {
+    "caseId": "customer_service",
+    "situation": "Làm dịu người nhà đang bức xúc tại quầy điều dưỡng cấp cứu vì chờ cả tiếng mà người đến sau lại được vào trước.",
+    "learnerRole": "Điều dưỡng và nhân viên tiếp đón khoa cấp cứu",
+    "counterpartRole": "Người nhà bệnh nhân đang lo lắng và bức xúc",
+    "language": "vi",
+    "stakes": "Nếu xử lý kém, trao đổi thành to tiếng hoặc tệ hơn tại quầy điều dưỡng.",
+    "readyMeans": [
+      "ghi nhận nỗi lo",
+      "giải thích bằng lời dễ hiểu rằng người bệnh nặng nhất được khám trước và người thân của họ đã được phân loại",
+      "hỏi xem tình trạng có gì thay đổi và báo ngay nếu có",
+      "hẹn một giờ cụ thể để quay lại báo tin thay vì hứa giờ bác sĩ đến",
+      "không chẩn đoán hay nói 'không sao đâu'"
+    ]
+  },
+  "brief": {
+    "sources": [
+      {
+        "id": "M:active-listening",
+        "kind": "method",
+        "title": "The relative effectiveness of active listening in initial interactions",
+        "authors": "Weger, Castle Bell, Minei and Robinson",
+        "year": 2014,
+        "link": "https://doi.org/10.1080/10904018.2013.813234",
+        "summary": "In an experiment, people whose concerns were paraphrased back to them felt more understood than people who got simple acknowledgements or advice."
+      },
+      {
+        "id": "M:complaint-justice",
+        "kind": "method",
+        "title": "Customer evaluations of service complaint experiences: implications for relationship marketing",
+        "authors": "Tax, Brown and Chandrashekaran",
+        "year": 1998,
+        "link": "https://doi.org/10.1177/002224299806200205",
+        "summary": "A study of how customers judge the handling of their complaints. They look at a fair outcome, a fair process (timely, flexible, easy to follow) and fair treatment (courtesy, honesty, empathy, effort). All three shape trust and commitment afterwards."
+      },
+      {
+        "id": "M:service-recovery",
+        "kind": "method",
+        "title": "A model of customer satisfaction with service encounters involving failure and recovery",
+        "authors": "Smith, Bolton and Wagner",
+        "year": 1999,
+        "link": "https://doi.org/10.2307/3152082",
+        "summary": "Customers judge a recovery on three kinds of fairness: what they get back, how quickly and smoothly it is handled, and how they are treated. The best recovery matches the kind and size of the failure; an apology and a fast response matter most when the failure is about the process."
+      },
+      {
+        "id": "P:10.5811/westjem.2011.9.6864",
+        "kind": "paper",
+        "title": "Verbal De-escalation of the Agitated Patient: Consensus Statement of the American Association for Emergency Psychiatry Project BETA De-escalation Workgroup",
+        "authors": "Janet S. Richmond, Jon S. Berlin, Avrim B. Fishkind, Garland Holloman, Scott L. Zeller, Michael P. Wilson",
+        "year": 2012,
+        "link": "https://doi.org/10.5811/westjem.2011.9.6864",
+        "summary": "Tiếp cận người đang kích động bằng lời nói bình tĩnh, tôn trọng không gian và cùng tìm giải pháp thay vì ra lệnh hay trấn áp."
+      },
+      {
+        "id": "P:10.1371/journal.pone.0227729",
+        "kind": "paper",
+        "title": "The effect of waiting on aggressive tendencies toward emergency department staff: Providing information can help but may also backfire",
+        "authors": "Dorit Efrat‐Treister, Hadar Moriah, Anat Rafaeli",
+        "year": 2020,
+        "link": "https://doi.org/10.1371/journal.pone.0227729",
+        "summary": "Chờ lâu làm tăng cảm giác thiếu công bằng và nguy cơ gây hấn, nên cần giải thích vì sao người nặng được vào trước nhưng phải diễn đạt cẩn thận để không phản tác dụng."
+      },
+      {
+        "id": "P:10.55729/2000-9666.1189",
+        "kind": "paper",
+        "title": "Prevalence of Workplace Violence and Effects of De-escalation Training Among Hospitalists: A pilot study",
+        "authors": "Ishaan Gupta, Shaker M. Eid, Ché Matthew Harris, Regina Kauffman, Catherine A. Washburn, Amteshwar Singh",
+        "year": 2023,
+        "link": "https://doi.org/10.55729/2000-9666.1189",
+        "summary": "Luyện tập xử lý tình huống gây hấn qua mô phỏng và phản hồi giúp nhân viên y tế tự tin hơn khi đối mặt người nhà bức xúc."
+      },
+      {
+        "id": "M:recovery-paradox",
+        "kind": "method",
+        "title": "Service recovery paradox: a meta-analysis",
+        "authors": "de Matos, Henrique and Rossi",
+        "year": 2007,
+        "link": "https://doi.org/10.1177/1094670507303012",
+        "summary": "Pooling many studies, a very good recovery can lift satisfaction above what it would have been with no failure, but it does not reliably lift loyalty, repurchase or word of mouth. A strong recovery helps; it does not make a failure worthwhile."
+      }
+    ],
+    "items": [
+      {
+        "sourceId": "M:active-listening",
+        "gives": "Lặp lại ngắn gọn nỗi lo và sự chờ đợi của người nhà trước khi giải thích để họ thấy mình được nghe.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "M:complaint-justice",
+        "gives": "Giải thích rõ điều gì sẽ xảy ra và khi nào, giữ thái độ lịch sự và cho thấy mình đang nỗ lực giúp.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "M:service-recovery",
+        "gives": "Nhận lỗi về trải nghiệm chờ đợi và hành động nhanh bằng việc nhỏ làm được ngay thay vì hứa hẹn lớn.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "P:10.5811/westjem.2011.9.6864",
+        "gives": "Tiếp cận người đang kích động bằng lời nói bình tĩnh, tôn trọng không gian và cùng tìm giải pháp thay vì ra lệnh hay trấn áp.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "P:10.1371/journal.pone.0227729",
+        "gives": "Chờ lâu làm tăng cảm giác thiếu công bằng và nguy cơ gây hấn, nên cần giải thích vì sao người nặng được vào trước nhưng phải diễn đạt cẩn thận để không phản tác dụng.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "P:10.55729/2000-9666.1189",
+        "gives": "Luyện tập xử lý tình huống gây hấn qua mô phỏng và phản hồi giúp nhân viên y tế tự tin hơn khi đối mặt người nhà bức xúc.",
+        "use": "learn"
+      },
+      {
+        "sourceId": "M:recovery-paradox",
+        "gives": "Đừng hứa rằng mọi thứ sẽ tốt hơn trước. Tập trung vào việc ngăn sự cố lặp lại.",
+        "use": "handle"
+      }
+    ],
+    "notFound": [
+      "Làm sao để hỏi về thay đổi triệu chứng và đánh giá lại phân loại mà không đưa ra chẩn đoán hay trấn an sai?",
+      "Khi nào và bằng cách nào nên mời điều dưỡng trưởng ca hoặc gọi bảo vệ khi người nhà tiếp tục to tiếng tại quầy?"
+    ]
+  },
+  "programme": {
+    "title": "Trực quầy cấp cứu giờ đông",
+    "caseId": "customer_service",
+    "language": "vi",
+    "learnerRole": "Điều dưỡng và nhân viên tiếp đón khoa cấp cứu",
+    "persona": {
+      "name": "Tuấn",
+      "role": "Người nhà bệnh nhân tại quầy điều dưỡng cấp cứu",
+      "voice": "man",
+      "style": "Nói to, câu ngắn. Lặp lại giờ chờ. Cắt lời khi nghe lời dài dòng.",
+      "facts": [
+        {
+          "id": "h1",
+          "fact": "Bố 65 tuổi đau ngực từ sáng, đã được phân loại Vàng cách đây hơn 50 phút",
+          "earnedBy": "Ghi nhận nỗi lo rồi hỏi nhẹ bố vào lúc nào và có giấy phân loại chưa"
+        },
+        {
+          "id": "h2",
+          "fact": "Thấy hai người đến sau được gọi vào trước nên nghĩ nhà mình bị bỏ quên",
+          "earnedBy": "Hỏi đã thấy gì làm mình lo nhất lúc ngồi chờ"
+        },
+        {
+          "id": "h3",
+          "fact": "Sợ bố trở nặng như người quen cũ nên muốn gặp bác sĩ ngay",
+          "earnedBy": "Hỏi từ lúc phân loại đến giờ bố có gì khác không rồi lắng nghe"
+        }
+      ],
+      "redLines": [
+        "không hạ giọng khi chưa nghe giờ cụ thể quay lại báo tin",
+        "không đánh người, không chửi tục, không bỏ đi khỏi quầy",
+        "không chịu chờ khi chưa nghe câu người bệnh nặng nhất được khám trước"
+      ],
+      "portraitPrompt": "illustrated portrait of a middle-aged Vietnamese man in plain shirt, tired worried face, standing at hospital counter, no text"
+    },
+    "skills": [
+      {
+        "id": "s1",
+        "name": "Ghi nhận nỗi lo",
+        "why": "Người nhà thấy mình được nghe thì mới chịu nghe tiếp.",
+        "sources": [
+          "M:active-listening"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-er_wait_relative-vi-f1",
+            "quote": "Anh chờ lâu rồi và đang rất lo cho bố."
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "name": "Giải thích dễ hiểu",
+        "why": "Lời dễ hiểu làm bớt cảm giác chờ không công bằng.",
+        "sources": [
+          "P:10.1371/journal.pone.0227729"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-er_wait_relative-vi-f1",
+            "quote": "người bệnh nặng nhất được khám trước"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "name": "Khai thác nhu cầu về dấu hiệu mới",
+        "why": "Hỏi thay đổi để kịp báo phân loại lại mà không đoán bệnh.",
+        "sources": [
+          "M:service-recovery"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-er_wait_relative-vi-f1",
+            "quote": "báo ngay điều dưỡng phân loại để đánh giá lại."
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "name": "Chốt bước tiếp theo",
+        "why": "Hẹn giờ báo tin rõ ràng giúp người nhà yên tâm chờ.",
+        "sources": [
+          "M:complaint-justice",
+          "M:recovery-paradox"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-er_wait_relative-vi-f1",
+            "quote": "Trong 30 phút nữa em sẽ quay lại báo cho anh."
+          }
+        ]
+      }
+    ],
+    "levels": [
+      {
+        "id": "L1",
+        "title": "Chờ 40 phút, hỏi lớn",
+        "situation": "tình huống đầu giờ: khách hàng khó tính chờ 40 phút, hỏi lớn sao chưa tới lượt.",
+        "opening": "Cô ơi! Nhà tôi chờ 40 phút rồi! Bao giờ mới tới bố tôi?",
+        "moodStart": 60,
+        "moodFloor": 20,
+        "sources": [
+          "M:active-listening",
+          "P:10.1371/journal.pone.0227729"
+        ],
+        "excerpts": []
+      },
+      {
+        "id": "L2",
+        "title": "Chờ cả tiếng, thấy vào sau ra trước",
+        "situation": "tình huống nặng hơn: chờ cả tiếng, thấy người đến sau vào trước. Bạn cần khai thác nhu cầu lo nhất là gì rồi mới nói.",
+        "opening": "Vô lý quá! Tôi đến trước cả tiếng! Sao hai người vào sau lại được vào trước?",
+        "moodStart": 78,
+        "moodFloor": 32,
+        "sources": [
+          "P:10.5811/westjem.2011.9.6864"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-er_wait_relative-vi-f1",
+            "quote": "được khám theo mức độ khẩn cấp chứ không theo thứ tự đến."
+          }
+        ]
+      },
+      {
+        "id": "L3",
+        "title": "To tiếng, đòi gặp bác sĩ ngay",
+        "situation": "tình huống đông nhất: to tiếng tại quầy, đòi cho bố vào ngay. Bạn cần xử lý từ chối cho vào ngay mà vẫn giữ lịch sự.",
+        "opening": "Không chờ nữa! Cho tôi gặp bác sĩ ngay! Có gì thì ai chịu?",
+        "moodStart": 88,
+        "moodFloor": 42,
+        "sources": [
+          "M:complaint-justice",
+          "M:service-recovery"
+        ],
+        "excerpts": []
+      }
+    ],
+    "rubric": [
+      {
+        "id": "r1",
+        "skillId": "s1",
+        "text": "Nói lại nỗi lo và giờ chờ trước khi giải thích",
+        "mustHave": true,
+        "lookFor": "Nghe câu lặp lại chờ bao lâu và lo cho ai",
+        "tryThis": "Nói: Em thấy anh chờ cả tiếng rồi, anh rất lo cho bố.",
+        "sources": [
+          "M:active-listening"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-er_wait_relative-vi-f1",
+            "quote": "Anh chờ lâu rồi và đang rất lo cho bố."
+          }
+        ]
+      },
+      {
+        "id": "r2",
+        "skillId": "s2",
+        "text": "Nói dễ hiểu: người nặng nhất vào trước, bố đã được phân loại",
+        "mustHave": true,
+        "lookFor": "Nghe lời ngắn, rõ, không nói quy định khô khan",
+        "tryThis": "Nói: Ở đây ai nặng nhất được vào trước, bố anh đã được phân loại rồi.",
+        "sources": [
+          "P:10.1371/journal.pone.0227729"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-er_wait_relative-vi-f1",
+            "quote": "người bệnh nặng nhất được khám trước"
+          }
+        ]
+      },
+      {
+        "id": "r3",
+        "skillId": "s3",
+        "text": "Hỏi có gì mới không: đau hơn, khó thở, ngất, lú lẫn, dặn báo ngay",
+        "mustHave": true,
+        "lookFor": "Nghe câu hỏi thay đổi và câu dặn báo ngay",
+        "tryThis": "Hỏi: Từ lúc phân loại đến giờ bố có gì khác không? Có gì báo ngay cho em.",
+        "sources": [
+          "M:service-recovery"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-er_wait_relative-vi-f1",
+            "quote": "báo ngay điều dưỡng phân loại để đánh giá lại."
+          }
+        ]
+      },
+      {
+        "id": "r4",
+        "skillId": "s4",
+        "text": "Chốt bước tiếp theo với giờ cụ thể quay lại báo tin, không hứa giờ bác sĩ đến",
+        "mustHave": true,
+        "lookFor": "Nghe giờ cụ thể, việc mình làm được, không hứa suông",
+        "tryThis": "Nói: 15 phút nữa em quay lại báo cho anh, anh ngồi gần quầy giúp em.",
+        "sources": [
+          "M:complaint-justice",
+          "M:recovery-paradox"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-er_wait_relative-vi-f1",
+            "quote": "Không hứa giờ bác sĩ đến."
+          }
+        ]
+      },
+      {
+        "id": "r5",
+        "skillId": "s3",
+        "text": "Không đoán bệnh, không nói không sao đâu",
+        "mustHave": true,
+        "lookFor": "Không có câu đoán bệnh hay trấn an sai",
+        "tryThis": "Tránh nói không sao đâu, chỉ nói em chuyển lời cho điều dưỡng phân loại.",
+        "sources": [
+          "P:10.55729/2000-9666.1189"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-er_wait_relative-vi-f1",
+            "quote": "Không đưa ra ý kiến chuyên môn, chẩn đoán hay trấn an kiểu"
+          }
+        ]
+      },
+      {
+        "id": "r6",
+        "skillId": "s4",
+        "text": "Giữ giọng bình tĩnh, mời điều dưỡng trưởng ca khi còn to tiếng",
+        "mustHave": false,
+        "lookFor": "Nghe giọng đều, lịch sự, có câu mời người hỗ trợ",
+        "tryThis": "Nói: Em mời điều dưỡng trưởng ca ra gặp anh ngay, anh chờ em một phút.",
+        "sources": [
+          "P:10.5811/westjem.2011.9.6864"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-er_wait_relative-vi-f1",
+            "quote": "Chỉ gọi bảo vệ khi có người bị đe dọa."
+          }
+        ]
+      }
+    ],
+    "instructions": "Bạn là điều dưỡng trực quầy cấp cứu. Tiêu chí đạt là làm dịu và chốt bước tiếp theo với giờ báo tin rõ ràng.",
+    "keywords": [
+      "phân loại",
+      "cấp cứu",
+      "điều dưỡng trưởng ca",
+      "khó thở",
+      "Tuấn",
+      "chờ cả tiếng",
+      "báo ngay"
+    ]
+  },
+  "testCall": {
+    "ok": true,
+    "notes": [
+      "Nói to câu ngắn và lặp lại giờ chờ đúng vai.",
+      "Không tiết lộ h1 h2 h3 khi học viên chưa hỏi đúng.",
+      "Không hạ giọng và không chịu chờ đúng redLines."
+    ]
+  },
+  "sampleCall": {
+    "level": "L1",
+    "learner": "Học viên mẫu",
+    "turns": [
+      {
+        "speaker": "persona",
+        "text": "Cô ơi! Nhà tôi chờ 40 phút rồi! Bao giờ mới tới bố tôi?",
+        "atMs": 0,
+        "mood": 60
+      },
+      {
+        "speaker": "learner",
+        "text": "Dạ em hiểu anh sốt ruột lắm, nhà mình chờ tới 40 phút rồi ạ. Ở cấp cứu thì người nặng nhất được vào trước, bố mình đã được phân loại rồi nên vẫn đang trong danh sách theo dõi ạ. 15 phút nữa, tầm 10 giờ 20 em quay lại báo tin cho anh nhé.",
+        "atMs": 20220,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Ừ! Nhớ 10 giờ 20 quay lại báo đó! Mà sao hai người tới sau lại được vào trước?",
+        "atMs": 27120,
+        "mood": 45
+      },
+      {
+        "speaker": "learner",
+        "text": "Dạ em hiểu anh thắc mắc sao hai người tới sau lại được vào trước ạ. Ở cấp cứu thì ai nặng nhất được vào trước chứ không theo thứ tự tới, bố mình vẫn trong danh sách chờ nên đúng 10 giờ 20 em quay lại báo tin cho anh nhé.",
+        "atMs": 46320,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Nhớ 10 giờ 20 quay lại đó! 40 phút rồi bố tôi sao chưa ai ngó tới?",
+        "atMs": 52620,
+        "mood": 30
+      },
+      {
+        "speaker": "learner",
+        "text": "Dạ em hiểu anh lo vì chờ 40 phút mà chưa thấy ai tới xem bố ạ. Ở cấp cứu thì người nặng nhất được vào trước, bố mình đã được phân loại và vẫn trong danh sách theo dõi, nên đúng 10 giờ 20 em quay lại báo tin cho anh nhé.",
+        "atMs": 71760,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Ừ! Nhớ 10 giờ 20 quay lại báo đó! Chờ 40 phút rồi, sao chưa ai ngó tới?",
+        "atMs": 78310,
+        "mood": 20
+      },
+      {
+        "speaker": "learner",
+        "text": "Dạ em hiểu anh sốt ruột vì chờ tới 40 phút mà chưa thấy ai tới xem bố ạ. Ở cấp cứu thì người nặng nhất được vào trước, bố mình đã được phân loại và vẫn đang trong danh sách theo dõi, nên đúng 10 giờ 20 em quay lại báo tin cho anh nhé.",
+        "atMs": 98350,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Ừ! 10 giờ 20 nhớ quay lại báo! Chờ 40 phút rồi, ai ngó bố tôi cái đã!",
+        "atMs": 104800,
+        "mood": 20
+      },
+      {
+        "speaker": "learner",
+        "text": "Dạ em hiểu anh sốt ruột vì chờ 40 phút mà muốn có người tới xem bố ngay ạ. Ở cấp cứu thì người nặng nhất được vào trước, bố mình đã được phân loại và vẫn trong danh sách theo dõi, nên đúng 10 giờ 20 em quay lại báo tin cho anh nhé.",
+        "atMs": 124660,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "40 phút rồi! Hỏi bố tôi vào lúc nào, giấy tờ đâu đi!",
+        "atMs": 130260,
+        "mood": 32
+      }
+    ],
+    "verdicts": [
+      {
+        "lineId": "r1",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r1",
+            "result": "pass",
+            "turn": 5,
+            "quote": "Dạ em hiểu anh lo vì chờ 40 phút mà chưa thấy ai tới xem bố ạ."
+          },
+          {
+            "lineId": "r1",
+            "result": "pass",
+            "turn": 1,
+            "quote": "Dạ em hiểu anh sốt ruột lắm, nhà mình chờ tới 40 phút rồi ạ."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r2",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r2",
+            "result": "pass",
+            "turn": 1,
+            "quote": "Ở cấp cứu thì người nặng nhất được vào trước, bố mình đã được phân loại rồi nên vẫn đang trong danh sách theo dõi ạ."
+          },
+          {
+            "lineId": "r2",
+            "result": "pass",
+            "turn": 1,
+            "quote": "Ở cấp cứu thì người nặng nhất được vào trước, bố mình đã được phân loại rồi nên vẫn đang trong danh sách theo dõi ạ."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r3",
+        "result": "missed",
+        "readings": [
+          {
+            "lineId": "r3",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          },
+          {
+            "lineId": "r3",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r4",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r4",
+            "result": "pass",
+            "turn": 1,
+            "quote": "15 phút nữa, tầm 10 giờ 20 em quay lại báo tin cho anh nhé."
+          },
+          {
+            "lineId": "r4",
+            "result": "pass",
+            "turn": 1,
+            "quote": "15 phút nữa, tầm 10 giờ 20 em quay lại báo tin cho anh nhé."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r5",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r5",
+            "result": "pass",
+            "turn": 1,
+            "quote": "Dạ em hiểu anh sốt ruột lắm, nhà mình chờ tới 40 phút rồi ạ."
+          },
+          {
+            "lineId": "r5",
+            "result": "pass",
+            "turn": 1,
+            "quote": "Dạ em hiểu anh sốt ruột lắm, nhà mình chờ tới 40 phút rồi ạ. Ở cấp cứu thì người nặng nhất được vào trước, bố mình đã được phân loại rồi nên vẫn đang trong danh sách theo dõi ạ. 15 phút nữa, tầm 10 giờ 20 em quay lại báo tin cho anh nhé."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r6",
+        "result": "partly",
+        "readings": [
+          {
+            "lineId": "r6",
+            "result": "partly",
+            "turn": 1,
+            "quote": "Dạ em hiểu anh sốt ruột lắm, nhà mình chờ tới 40 phút rồi ạ."
+          },
+          {
+            "lineId": "r6",
+            "result": "partly",
+            "turn": 1,
+            "quote": "Dạ em hiểu anh sốt ruột lắm, nhà mình chờ tới 40 phút rồi ạ."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      }
+    ]
+  }
+}

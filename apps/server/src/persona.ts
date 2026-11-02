@@ -11,7 +11,7 @@ const ReplySchema = z.object({
   hangUp: z.boolean().catch(false),
 })
 
-const LANGUAGE_NAME = { en: 'English', vi: 'Vietnamese', ja: 'Japanese' } as const
+export const LANGUAGE_NAME = { en: 'English', vi: 'Vietnamese', ja: 'Japanese' } as const
 export const HOLDING_LINE = {
   en: 'Sorry, the line broke up. Can you say that again?',
   vi: 'Xin lỗi, đường truyền bị ngắt. Bạn nói lại được không?',

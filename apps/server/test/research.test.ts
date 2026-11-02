@@ -77,6 +77,16 @@ describe('runResearch', () => {
     expect(brief.notFound.join(' ')).toMatch(/paper search/i)
   })
 
+  it('a Vietnamese brief keeps seed methods in Vietnamese, and reports outages in Vietnamese', async () => {
+    const client = scripted([toolCall('search_papers', { query: 'x' }), toolCall('submit_brief', { items: [], notFound: [] })])
+    const { d } = deps({ client, searchPapers: async () => null })
+    const brief = await runResearch(d, { ...match, language: 'vi' }, [])
+    const seed = brief.items.find((i) => i.sourceId === 'M:service-recovery')
+    expect(seed?.gives).toContain('Xin lỗi và hành động nhanh.')
+    expect(brief.notFound.join(' ')).toContain('Không tìm được bài nghiên cứu')
+    expect(brief.notFound.join(' ')).not.toMatch(/Paper search/)
+  })
+
   it('a search outage is reported in the brief', async () => {
     const client = scripted([toolCall('search_papers', { query: 'x' }), toolCall('submit_brief', { items: [], notFound: [] })])
     const { d } = deps({ client, searchPapers: async () => null })

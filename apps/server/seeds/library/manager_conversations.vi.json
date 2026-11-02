@@ -1,0 +1,505 @@
+{
+  "caseId": "manager_conversations",
+  "variant": "vi",
+  "request": "Các quản lý kỹ thuật mới của chúng tôi né tránh những cuộc trò chuyện khó. Khi một kỹ sư cấp cao liên tục trễ hạn review code và tỏ ra phòng thủ, họ hoặc im lặng hoặc biến chuyện thành vấn đề cá nhân. Chúng tôi muốn họ nói về hành vi và tác động của nó, lắng nghe, và thống nhất các bước tiếp theo.",
+  "files": [],
+  "match": {
+    "caseId": "manager_conversations",
+    "situation": "Quản lý kỹ thuật mới trò chuyện khó với kỹ sư cấp cao liên tục trễ hạn review code và tỏ ra phòng thủ.",
+    "learnerRole": "Quản lý kỹ thuật mới",
+    "counterpartRole": "Kỹ sư cấp cao liên tục trễ hạn review code và tỏ ra phòng thủ",
+    "language": "vi",
+    "stakes": "Nếu quản lý im lặng hoặc biến chuyện thành vấn đề cá nhân thì việc trễ review code tiếp diễn và ảnh hưởng cả nhóm.",
+    "readyMeans": [
+      "nói về hành vi và tác động của nó",
+      "lắng nghe",
+      "thống nhất các bước tiếp theo"
+    ]
+  },
+  "brief": {
+    "sources": [
+      {
+        "id": "M:sbi",
+        "kind": "method",
+        "title": "Situation-Behavior-Impact feedback model",
+        "authors": "Center for Creative Leadership",
+        "year": null,
+        "link": "https://www.ccl.org/articles/leading-effectively-articles/closing-the-gap-between-intent-vs-impact-sbii/",
+        "summary": "A feedback model from the Center for Creative Leadership: describe when and where it happened, the specific behaviour you saw, and the impact it had, rather than judging the person. We use the idea with credit; we do not reproduce their materials."
+      },
+      {
+        "id": "M:crucial-conversations",
+        "kind": "method",
+        "title": "Crucial Conversations: Tools for Talking When Stakes Are High",
+        "authors": "Patterson, Grenny, McMillan and Switzler",
+        "year": 2002,
+        "link": "https://cruciallearning.com/crucial-conversations-book/",
+        "summary": "A widely used practitioner book on high-stakes conversations where opinions differ and emotions run high. Its core ideas are keeping the conversation safe for both sides, sharing facts before conclusions, and inviting the other view."
+      },
+      {
+        "id": "M:feedback-interventions",
+        "kind": "method",
+        "title": "The effects of feedback interventions on performance: a historical review, a meta-analysis, and a preliminary feedback intervention theory",
+        "authors": "Kluger and DeNisi",
+        "year": 1996,
+        "link": "https://doi.org/10.1037/0033-2909.119.2.254",
+        "summary": "A large meta-analysis: feedback improves performance on average, but in over a third of cases it made performance worse. Feedback that turns attention to the person rather than the task tends to do harm."
+      },
+      {
+        "id": "P:10.1111/spc3.12651",
+        "kind": "paper",
+        "title": "The motivational value of listening during intimate and difficult conversations",
+        "authors": "Netta Weinstein, Guy Itzchakov, Nicole Legate",
+        "year": 2022,
+        "link": "https://doi.org/10.1111/spc3.12651",
+        "summary": "Lắng nghe chất lượng cao giúp người đối diện cảm thấy được tôn trọng quyền tự chủ nên bớt phòng thủ và cởi mở hơn trong các cuộc trò chuyện khó."
+      },
+      {
+        "id": "M:feedback-power",
+        "kind": "method",
+        "title": "The power of feedback",
+        "authors": "Hattie and Timperley",
+        "year": 2007,
+        "link": "https://doi.org/10.3102/003465430298487",
+        "summary": "A review of feedback in learning. Useful feedback answers where am I going, how am I going, and where to next, and works at the level of the task and the process, not praise of the person."
+      },
+      {
+        "id": "P:10.1177/1046878197282002",
+        "kind": "paper",
+        "title": "Computer-Based Role-Playing for Interpersonal Skills Training",
+        "authors": "Geralien A. Holsbrink-Engels",
+        "year": 1997,
+        "link": "https://doi.org/10.1177/1046878197282002",
+        "summary": "Người mới nên luyện hội thoại khó qua nhập vai đơn giản hóa từng bước trước khi vào vai đầy đủ, kèm phản hồi chuyên gia lặp lại nhiều lần để hình thành kỹ năng."
+      },
+      {
+        "id": "P:10.1002/pits.22835",
+        "kind": "paper",
+        "title": "Communicating for workplace connection: A longitudinal study of the outcomes of listening training on teachers' autonomy, psychological safety, and relational climate",
+        "authors": "Guy Itzchakov, Netta Weinstein, Eli Vinokur, Avinoam Yomtovian",
+        "year": 2022,
+        "link": "https://doi.org/10.1002/pits.22835",
+        "summary": "Huấn luyện lắng nghe cho quản lý giúp cải thiện cảm giác an toàn tâm lý và quan hệ trong nhóm, là điều kiện để duy trì thay đổi sau buổi nói chuyện."
+      },
+      {
+        "id": "M:active-listening",
+        "kind": "method",
+        "title": "The relative effectiveness of active listening in initial interactions",
+        "authors": "Weger, Castle Bell, Minei and Robinson",
+        "year": 2014,
+        "link": "https://doi.org/10.1080/10904018.2013.813234",
+        "summary": "In an experiment, people whose concerns were paraphrased back to them felt more understood than people who got simple acknowledgements or advice."
+      }
+    ],
+    "items": [
+      {
+        "sourceId": "M:sbi",
+        "gives": "Mô tả đúng tình huống, hành vi trễ review cụ thể có thể quan sát được, rồi nêu tác động tới tiến độ và cả nhóm thay vì đánh giá con người.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "M:crucial-conversations",
+        "gives": "Giữ cuộc trò chuyện an toàn bằng cách mở đầu từ dữ kiện đã thống nhất, nói rõ quan điểm của mình rồi thật sự mời và lắng nghe góc nhìn của kỹ sư cấp cao.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "M:feedback-interventions",
+        "gives": "Giữ phản hồi tập trung vào nhiệm vụ review code và mục tiêu chung, tránh bình luận về tính cách hay năng lực để không kích hoạt phản ứng phòng thủ.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "P:10.1111/spc3.12651",
+        "gives": "Lắng nghe chất lượng cao giúp người đối diện cảm thấy được tôn trọng quyền tự chủ nên bớt phòng thủ và cởi mở hơn trong các cuộc trò chuyện khó.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "M:feedback-power",
+        "gives": "Khép cuộc trò chuyện bằng ba điểm: mục tiêu review mong đợi là gì, thực tế đang ra sao và bước tiếp theo cụ thể ai làm gì khi nào.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "P:10.1177/1046878197282002",
+        "gives": "Người mới nên luyện hội thoại khó qua nhập vai đơn giản hóa từng bước trước khi vào vai đầy đủ, kèm phản hồi chuyên gia lặp lại nhiều lần để hình thành kỹ năng.",
+        "use": "learn"
+      },
+      {
+        "sourceId": "P:10.1002/pits.22835",
+        "gives": "Huấn luyện lắng nghe cho quản lý giúp cải thiện cảm giác an toàn tâm lý và quan hệ trong nhóm, là điều kiện để duy trì thay đổi sau buổi nói chuyện.",
+        "use": "learn"
+      },
+      {
+        "sourceId": "M:active-listening",
+        "gives": "Diễn đạt lại mối lo của họ trước khi trả lời. Kiểm tra xem bạn đã hiểu đúng chưa.",
+        "use": "handle"
+      }
+    ],
+    "notFound": [
+      "Làm sao để thống nhất mức thời hạn review code hợp lý với kỹ sư cấp cao bận nhiều việc mà tài liệu không nêu?",
+      "Khi kỹ sư cấp cao tiếp tục trễ hạn sau khi đã cam kết thì quản lý mới nên xử lý bước tiếp theo thế nào?"
+    ]
+  },
+  "programme": {
+    "title": "Chuyện khó với kỹ sư trễ review",
+    "caseId": "manager_conversations",
+    "language": "vi",
+    "learnerRole": "Quản lý kỹ thuật mới",
+    "persona": {
+      "name": "Huy",
+      "role": "Kỹ sư cấp cao tại công ty phần mềm",
+      "voice": "man",
+      "style": "Nói ngắn gọn, khô khan, hay ngắt lời và phòng thủ khi bị góp ý",
+      "facts": [
+        {
+          "id": "h1",
+          "fact": "Đang quá tải vì phải gánh thêm hai dự án khác nên luôn để review code xuống cuối danh sách",
+          "earnedBy": "Lắng nghe và hỏi mở về khối lượng công việc hiện tại"
+        },
+        {
+          "id": "h2",
+          "fact": "Nghĩ quy trình review hiện tại rườm rà và không rõ mức ưu tiên nên nản, muốn bỏ qua",
+          "earnedBy": "Diễn đạt lại mối lo của anh ấy và mời nêu góc nhìn về quy trình"
+        },
+        {
+          "id": "h3",
+          "fact": "Sẵn sàng thử khung giờ review cố định mỗi ngày nếu được thống nhất rõ ai làm gì khi nào",
+          "earnedBy": "Đề xuất mục tiêu rõ ràng và cùng thống nhất bước tiếp theo cụ thể"
+        }
+      ],
+      "redLines": [
+        "Không bao giờ dịu xuống nếu bị chê tính cách hay năng lực",
+        "Không bao giờ đồng ý bước tiếp theo nếu chưa được lắng nghe trước"
+      ],
+      "portraitPrompt": "Illustrated portrait of a Vietnamese male senior engineer in his thirties, wearing glasses and a dark hoodie, tired defensive expression, laptop office background, neutral soft lighting, no text"
+    },
+    "skills": [
+      {
+        "id": "s1",
+        "name": "Nói về hành vi và tác động",
+        "why": "Mô tả đúng việc trễ review giúp tránh phòng thủ và giữ tập trung vào công việc chung.",
+        "sources": [
+          "M:sbi",
+          "M:feedback-interventions"
+        ],
+        "excerpts": []
+      },
+      {
+        "id": "s2",
+        "name": "Lắng nghe và giữ an toàn",
+        "why": "Lắng nghe chất lượng cao giúp kỹ sư bớt phòng thủ và cởi mở chia sẻ khó khăn thật.",
+        "sources": [
+          "M:crucial-conversations",
+          "P:10.1111/spc3.12651",
+          "M:active-listening"
+        ],
+        "excerpts": []
+      },
+      {
+        "id": "s3",
+        "name": "Thống nhất bước tiếp theo",
+        "why": "Chốt rõ mục tiêu, thực tế và ai làm gì khi nào giúp việc review không tái diễn.",
+        "sources": [
+          "M:feedback-power",
+          "P:10.1002/pits.22835"
+        ],
+        "excerpts": []
+      }
+    ],
+    "levels": [
+      {
+        "id": "L1",
+        "title": "Bắt đầu còn cởi mở",
+        "situation": "Anh Huy hơi phòng thủ nhưng vẫn trả lời, phù hợp để luyện mở đầu bằng dữ kiện và mời chia sẻ.",
+        "opening": "Chào anh, em muốn trao đổi nhanh về mấy cái review code tuần rồi. Anh có vài phút không?",
+        "moodStart": 45,
+        "moodFloor": 15,
+        "sources": [
+          "P:10.1177/1046878197282002",
+          "M:crucial-conversations"
+        ],
+        "excerpts": []
+      },
+      {
+        "id": "L2",
+        "title": "Phòng thủ và đổ lỗi",
+        "situation": "Anh Huy ngắt lời, cho rằng mình bận và quy trình rườm rà, đòi hỏi giữ bình tĩnh và diễn đạt lại mối lo.",
+        "opening": "Lại chuyện review à? Em cũng thấy anh bận cỡ nào mà, cả team ai cũng trễ chứ riêng gì anh.",
+        "moodStart": 65,
+        "moodFloor": 25,
+        "sources": [
+          "M:active-listening",
+          "M:feedback-interventions"
+        ],
+        "excerpts": []
+      },
+      {
+        "id": "L3",
+        "title": "Im lặng và thách thức",
+        "situation": "Anh Huy im lặng, trả lời cụt lủn và thách thức chốt thời hạn, cần nói rõ tác động và thống nhất bước tiếp theo cụ thể.",
+        "opening": "Ừ, anh nghe đây. Em muốn sao? Nói luôn đi, anh đang bận lắm.",
+        "moodStart": 80,
+        "moodFloor": 30,
+        "sources": [
+          "M:sbi",
+          "M:feedback-power"
+        ],
+        "excerpts": []
+      }
+    ],
+    "rubric": [
+      {
+        "id": "r1",
+        "skillId": "s1",
+        "text": "Mô tả hành vi trễ review cụ thể có thể quan sát được, không đánh giá con người",
+        "mustHave": true,
+        "lookFor": "Nghe thấy thời điểm, số lần trễ, tên pull request cụ thể thay vì từ chê bai chung chung",
+        "tryThis": "Hãy thử nói: 3 pull request tuần rồi quá 2 ngày mới được review, cụ thể là...",
+        "sources": [
+          "M:sbi"
+        ],
+        "excerpts": []
+      },
+      {
+        "id": "r2",
+        "skillId": "s1",
+        "text": "Nêu rõ tác động của việc trễ review tới tiến độ và cả nhóm",
+        "mustHave": true,
+        "lookFor": "Nghe thấy liên hệ giữa hành vi trễ và hậu quả cho tiến độ, đồng nghiệp phải chờ",
+        "tryThis": "Hãy thử nói: Khi review trễ 2 ngày thì bạn An phải dừng lại và release bị lùi...",
+        "sources": [
+          "M:sbi",
+          "M:feedback-interventions"
+        ],
+        "excerpts": []
+      },
+      {
+        "id": "r3",
+        "skillId": "s2",
+        "text": "Mở đầu từ dữ kiện đã thống nhất và thật sự mời góc nhìn của kỹ sư",
+        "mustHave": false,
+        "lookFor": "Nghe thấy câu hỏi mở mời chia sẻ lý do, khó khăn, không ngắt lời hay áp đặt",
+        "tryThis": "Hãy thử nói: Anh thấy sao về mấy cái review tuần rồi, phía anh đang vướng gì nhất?",
+        "sources": [
+          "M:crucial-conversations"
+        ],
+        "excerpts": []
+      },
+      {
+        "id": "r4",
+        "skillId": "s2",
+        "text": "Diễn đạt lại mối lo của kỹ sư trước khi trả lời và kiểm tra đã hiểu đúng chưa",
+        "mustHave": true,
+        "lookFor": "Nghe thấy nhắc lại ý của kỹ sư bằng lời mình rồi hỏi lại có đúng không",
+        "tryThis": "Hãy thử nói: Ý anh là anh đang quá tải 2 dự án nên phải ưu tiên code của mình, đúng không anh?",
+        "sources": [
+          "M:active-listening",
+          "P:10.1111/spc3.12651"
+        ],
+        "excerpts": []
+      },
+      {
+        "id": "r5",
+        "skillId": "s3",
+        "text": "Khép lại bằng thống nhất cụ thể ai làm gì khi nào cho review tới",
+        "mustHave": true,
+        "lookFor": "Nghe thấy mục tiêu mong đợi, thực tế hiện tại và cam kết rõ người, việc, thời hạn",
+        "tryThis": "Hãy thử nói: Mình chốt là review trong 24 giờ, anh Huy xác nhận trước 5 giờ chiều mai nhé?",
+        "sources": [
+          "M:feedback-power",
+          "P:10.1002/pits.22835"
+        ],
+        "excerpts": []
+      }
+    ],
+    "instructions": "Bạn là quản lý kỹ thuật mới, hãy trò chuyện khó với anh Huy về việc trễ hạn review code. Hãy giữ bình tĩnh, nói về hành vi và tác động, lắng nghe rồi cùng thống nhất bước tiếp theo rõ ràng.",
+    "keywords": [
+      "Huy",
+      "review code",
+      "trễ hạn",
+      "pull request",
+      "deadline",
+      "tiến độ",
+      "cả nhóm"
+    ]
+  },
+  "testCall": {
+    "ok": true,
+    "notes": [
+      "Giữ đúng giọng ngắn gọn, khô khan và thách thức chốt cụ thể suốt buổi.",
+      "Không dịu xuống, không đồng ý bước tiếp theo và không lộ facts h1-h3 khi chưa được lắng nghe."
+    ]
+  },
+  "sampleCall": {
+    "level": "L1",
+    "learner": "Quản lý mẫu",
+    "turns": [
+      {
+        "speaker": "persona",
+        "text": "Chào anh, em muốn trao đổi nhanh về mấy cái review code tuần rồi. Anh có vài phút không?",
+        "atMs": 0,
+        "mood": 45
+      },
+      {
+        "speaker": "learner",
+        "text": "Ừ có anh đây, anh cũng để ý tuần rồi có 2 cái PR của tụi em phải chờ hơn 2 ngày anh mới review xong, nên làm chậm tiến độ và khiến cả nhóm phải đợi. Lần tới anh sẽ ưu tiên review trước 10 giờ sáng mai, còn em cứ nhắn nhắc anh nếu quá giờ nhé, chốt vậy được không?",
+        "atMs": 21780,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Ừ, hai PR chờ hai ngày thì đúng. Nhưng em chốt luôn mà chưa hỏi anh câu nào à?",
+        "atMs": 28680,
+        "mood": 30
+      },
+      {
+        "speaker": "learner",
+        "text": "Ừ anh xin lỗi, anh vội chốt quá. Tuần rồi 2 cái PR để chờ hơn 2 ngày mới review xong nên chậm tiến độ cả nhóm. Ý em là em muốn anh hỏi trước xem anh có đang kẹt gì không rồi mới thống nhất, anh hiểu vậy có đúng không?",
+        "atMs": 47700,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Ừ, đúng ý đó. Thật ra anh đang gánh thêm hai dự án nữa nên toàn đẩy review xuống cuối.",
+        "atMs": 55000,
+        "mood": 15
+      },
+      {
+        "speaker": "learner",
+        "text": "À anh hiểu rồi, ý anh là đang ôm thêm hai dự án nên review toàn bị đẩy xuống cuối, anh hiểu vậy có đúng không? Tuần rồi đúng là 2 cái PR chờ hơn 2 ngày anh mới review xong, vậy lần tới anh sẽ ưu tiên review trước 10 giờ sáng, em nhắc anh nếu quá giờ nhé?",
+        "atMs": 76240,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Ừ, nghe vậy còn được. Nếu rõ ai làm gì lúc nào thì anh thử khung giờ cố định xem sao.",
+        "atMs": 83490,
+        "mood": 15
+      },
+      {
+        "speaker": "learner",
+        "text": "Ừ đúng rồi, tuần rồi 2 cái PR chờ hơn 2 ngày anh mới review xong nên chậm tiến độ và cả nhóm phải đợi, anh rút kinh nghiệm. Vậy mình chốt nhé, trước 10 giờ sáng mai anh review xong, còn em khoảng 9 rưỡi nhắn nhắc anh một cái nếu chưa thấy nhé?",
+        "atMs": 104070,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Ừ, chốt 10 giờ, 9 rưỡi em nhắn anh. Mà em còn chưa hỏi anh đang kẹt chỗ nào đâu đấy.",
+        "atMs": 111270,
+        "mood": 15
+      },
+      {
+        "speaker": "learner",
+        "text": "Ừ đúng rồi, tuần rồi 2 cái PR để chờ hơn 2 ngày mới xong, ý anh là đang ôm hai dự án nên quá tải, anh hiểu vậy có đúng không? Anh đang kẹt nhất chỗ nào nói em nghe thử xem? Còn chốt cũ vẫn giữ nhé, trước 10 giờ mai anh review xong, 9 rưỡi em nhắc anh.",
+        "atMs": 132330,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Ừ, kẹt nhất là review dồn cuối ngày, toàn bị dí. Mà mai 10 giờ thì... để anh cố sắp xếp.",
+        "atMs": 139730,
+        "mood": 15
+      }
+    ],
+    "verdicts": [
+      {
+        "lineId": "r1",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r1",
+            "result": "pass",
+            "turn": 1,
+            "quote": "tuần rồi có 2 cái PR của tụi em phải chờ hơn 2 ngày anh mới review xong"
+          },
+          {
+            "lineId": "r1",
+            "result": "pass",
+            "turn": 1,
+            "quote": "tuần rồi có 2 cái PR của tụi em phải chờ hơn 2 ngày anh mới review xong"
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r2",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r2",
+            "result": "pass",
+            "turn": 1,
+            "quote": "nên làm chậm tiến độ và khiến cả nhóm phải đợi."
+          },
+          {
+            "lineId": "r2",
+            "result": "pass",
+            "turn": 1,
+            "quote": "nên làm chậm tiến độ và khiến cả nhóm phải đợi."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r3",
+        "result": "partly",
+        "readings": [
+          {
+            "lineId": "r3",
+            "result": "partly",
+            "turn": 9,
+            "quote": "Anh đang kẹt nhất chỗ nào nói em nghe thử xem?"
+          },
+          {
+            "lineId": "r3",
+            "result": "partly",
+            "turn": 9,
+            "quote": "Anh đang kẹt nhất chỗ nào nói em nghe thử xem?"
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r4",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r4",
+            "result": "pass",
+            "turn": 3,
+            "quote": "Ý em là em muốn anh hỏi trước xem anh có đang kẹt gì không rồi mới thống nhất, anh hiểu vậy có đúng không?"
+          },
+          {
+            "lineId": "r4",
+            "result": "pass",
+            "turn": 3,
+            "quote": "Ý em là em muốn anh hỏi trước xem anh có đang kẹt gì không rồi mới thống nhất, anh hiểu vậy có đúng không?"
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r5",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r5",
+            "result": "pass",
+            "turn": 7,
+            "quote": "trước 10 giờ sáng mai anh review xong, còn em khoảng 9 rưỡi nhắn nhắc anh một cái nếu chưa thấy nhé?"
+          },
+          {
+            "lineId": "r5",
+            "result": "pass",
+            "turn": 7,
+            "quote": "trước 10 giờ sáng mai anh review xong, còn em khoảng 9 rưỡi nhắn nhắc anh một cái nếu chưa thấy nhé?"
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      }
+    ]
+  }
+}

@@ -1,0 +1,599 @@
+{
+  "caseId": "manager_conversations",
+  "slug": "site_safety_stop",
+  "request": "Our site foremen see experienced workers unclipping their harness or skipping a step to finish on time, and they either say nothing or shout and walk off, so the same shortcut happens again the next day. I want them to practise stopping the work and having a short conversation that fixes the reason behind the shortcut. Ready means the foreman stops the task and makes it safe first, describes the exact behaviour and the risk without blaming the person, asks why it happened, agrees one fix with an owner and a time, and never threatens the worker's pay or job.",
+  "files": [
+    {
+      "id": "lib-site_safety_stop-f1",
+      "name": "site-safety-rules.md",
+      "text": "FICTIONAL SAMPLE MATERIAL - made up for the CandiVision Roleplay demo. Bamboo Build is not a real company, and these are not real safety rules or engineering guidance.\n\n# Bamboo Build site rules: working at height and stopping unsafe work\n\nWorking at height: anyone above 2 metres wears a full harness clipped to a marked anchor point at all times. If the nearest anchor is too far, stop and ask the supervisor for a mobile anchor or a lifeline. Never work unclipped \"for a minute\".\nDamaged gear: a frayed lanyard or a cracked buckle is tagged \"Do not use\" and swapped at the site store the same day. Report it to the site safety officer.\n\nStop-work: anyone may stop unsafe work, and a supervisor must. When you see it:\n1. Stop the task and make the area safe before talking.\n2. Talk to the worker in private and calmly. No shouting, no public blame.\n3. Describe what you saw and the risk, not the person: \"You were unclipped on the edge of level 3.\"\n4. Ask why it happened. Shortcuts usually have a cause: a missing tool, a far anchor, time pressure.\n5. Agree one fix for the cause, and who does it by when.\n6. Write it in the daily site log and check again before the end of the shift.\n\nPay: time lost to a safety stop is paid and does not reduce the per-unit bonus. Tell the worker this if pay is the reason for the shortcut.\n"
+    }
+  ],
+  "match": {
+    "caseId": "manager_conversations",
+    "situation": "A site foreman must stop an experienced worker who unclipped his harness or skipped a step to finish on time and have a short conversation that fixes the reason behind the shortcut.",
+    "learnerRole": "site foreman",
+    "counterpartRole": "experienced worker who took the shortcut",
+    "language": "en",
+    "stakes": "If the foreman says nothing or just shouts and walks off, the same shortcut happens again the next day and someone could fall.",
+    "readyMeans": [
+      "stops the task and makes it safe first",
+      "describes the exact behaviour and the risk without blaming the person",
+      "asks why it happened",
+      "agrees one fix with an owner and a time",
+      "never threatens the worker's pay or job"
+    ]
+  },
+  "brief": {
+    "sources": [
+      {
+        "id": "M:sbi",
+        "kind": "method",
+        "title": "Situation-Behavior-Impact feedback model",
+        "authors": "Center for Creative Leadership",
+        "year": null,
+        "link": "https://www.ccl.org/articles/leading-effectively-articles/closing-the-gap-between-intent-vs-impact-sbii/",
+        "summary": "A feedback model from the Center for Creative Leadership: describe when and where it happened, the specific behaviour you saw, and the impact it had, rather than judging the person. We use the idea with credit; we do not reproduce their materials."
+      },
+      {
+        "id": "M:crucial-conversations",
+        "kind": "method",
+        "title": "Crucial Conversations: Tools for Talking When Stakes Are High",
+        "authors": "Patterson, Grenny, McMillan and Switzler",
+        "year": 2002,
+        "link": "https://cruciallearning.com/crucial-conversations-book/",
+        "summary": "A widely used practitioner book on high-stakes conversations where opinions differ and emotions run high. Its core ideas are keeping the conversation safe for both sides, sharing facts before conclusions, and inviting the other view."
+      },
+      {
+        "id": "M:feedback-interventions",
+        "kind": "method",
+        "title": "The effects of feedback interventions on performance: a historical review, a meta-analysis, and a preliminary feedback intervention theory",
+        "authors": "Kluger and DeNisi",
+        "year": 1996,
+        "link": "https://doi.org/10.1037/0033-2909.119.2.254",
+        "summary": "A large meta-analysis: feedback improves performance on average, but in over a third of cases it made performance worse. Feedback that turns attention to the person rather than the task tends to do harm."
+      },
+      {
+        "id": "M:active-listening",
+        "kind": "method",
+        "title": "The relative effectiveness of active listening in initial interactions",
+        "authors": "Weger, Castle Bell, Minei and Robinson",
+        "year": 2014,
+        "link": "https://doi.org/10.1080/10904018.2013.813234",
+        "summary": "In an experiment, people whose concerns were paraphrased back to them felt more understood than people who got simple acknowledgements or advice."
+      },
+      {
+        "id": "P:10.3390/su12187458",
+        "kind": "paper",
+        "title": "Speaking Up about Workplace Safety: An Experimental Study on Safety Leadership",
+        "authors": "Andrea Bazzoli, Matteo Curcuruto, James I. Morgan, Margherita Brondino, Margherita Pasini",
+        "year": 2020,
+        "link": "https://doi.org/10.3390/su12187458",
+        "summary": "Lead with visible commitment to safety and explicitly invite ideas, because supportive supervisor style makes workers more willing to raise safety issues."
+      },
+      {
+        "id": "P:10.1108/ecam-02-2022-0122",
+        "kind": "paper",
+        "title": "Workers' relational identification with supervisors influences safety behaviour in construction projects",
+        "authors": "Hassan Ashraf, Alishbah Ali, Riza Yosia Sunindijo, Ahsen Maqsoom, Shoeb Ahmed Memon, Muhammad Usman Hassan",
+        "year": 2022,
+        "link": "https://doi.org/10.1108/ecam-02-2022-0122",
+        "summary": "Treat the worker with respectful engagement to strengthen trust in the foreman, which supports consistent safe behaviour after the talk."
+      },
+      {
+        "id": "P:10.1136/vr.105646",
+        "kind": "paper",
+        "title": "Training in motivational interviewing improves cattle veterinarians’ communication skills for herd health management",
+        "authors": "C. Svensson, Hans Wickström, Ulf Emanuelson, Alison Bard, Kristen K. Reyher, Lars Forsberg",
+        "year": 2020,
+        "link": "https://doi.org/10.1136/vr.105646",
+        "summary": "Build skill through repeated short practice rounds with feedback, since workshop-style rehearsal measurably improves ability to guide behaviour change."
+      }
+    ],
+    "items": [
+      {
+        "sourceId": "M:sbi",
+        "gives": "Name the moment, state the observed unclipped work or skipped step in concrete terms, then spell out the fall risk so the talk stays on facts.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "M:crucial-conversations",
+        "gives": "Open calmly in private, share facts first, then invite the experienced worker to explain what pushed the shortcut while keeping the exchange respectful.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "M:feedback-interventions",
+        "gives": "Direct all comment at the task and safety risk and avoid personal blame or threats to pay or job, which harms future compliance.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "M:active-listening",
+        "gives": "Ask why it happened and paraphrase the cause back before problem-solving, so the worker feels heard and the real barrier surfaces.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "P:10.3390/su12187458",
+        "gives": "Lead with visible commitment to safety and explicitly invite ideas, because supportive supervisor style makes workers more willing to raise safety issues.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "P:10.1108/ecam-02-2022-0122",
+        "gives": "Treat the worker with respectful engagement to strengthen trust in the foreman, which supports consistent safe behaviour after the talk.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "P:10.1136/vr.105646",
+        "gives": "Build skill through repeated short practice rounds with feedback, since workshop-style rehearsal measurably improves ability to guide behaviour change.",
+        "use": "learn"
+      }
+    ],
+    "notFound": [
+      "How should the foreman word the reassurance that stop-work time is paid and does not cut the bonus, in a way the worker believes?",
+      "What is a brief closing line that locks one fix with a named owner and check-back time without sounding like paperwork?"
+    ]
+  },
+  "programme": {
+    "title": "Stop the Shortcut, Keep Him Safe",
+    "caseId": "manager_conversations",
+    "language": "en",
+    "learnerRole": "site foreman",
+    "persona": {
+      "name": "Derek",
+      "role": "experienced formworker at a building site",
+      "voice": "older_man",
+      "style": "short, gruff, defensive at first; softens only if spoken to calmly in private",
+      "facts": [
+        {
+          "id": "h1",
+          "fact": "the nearest marked anchor was too far to reach the edge, so he unclipped for a minute to finish",
+          "earnedBy": "describe the exact unclipped behaviour and ask why calmly"
+        },
+        {
+          "id": "h2",
+          "fact": "he rushed because he thinks any stop-work time cuts his per-unit bonus",
+          "earnedBy": "reassure about pay without threats and ask about time pressure"
+        },
+        {
+          "id": "h3",
+          "fact": "his lanyard felt short yesterday and he did not report it to the store",
+          "earnedBy": "paraphrase his reason back and invite his idea for a fix"
+        }
+      ],
+      "redLines": [
+        "never mentions the far anchor or bonus worry unless the foreman asks why it happened calmly",
+        "never agrees to a fix unless it names who does it and when you check back",
+        "never calms down if shouted at, blamed in public, or threatened about pay or job"
+      ],
+      "portraitPrompt": "illustrated portrait of a man in his 50s, weathered face, dusty yellow hard hat and orange high-visibility vest, blurred construction scaffold background, neutral tired expression, no text"
+    },
+    "skills": [
+      {
+        "id": "s1",
+        "name": "Stop work and make safe first",
+        "why": "Stopping the task before talking prevents a fall the next minute.",
+        "sources": [],
+        "excerpts": [
+          {
+            "fileId": "lib-site_safety_stop-f1",
+            "quote": "Stop the task and make the area safe before talking."
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "name": "Name behaviour and risk, not blame",
+        "why": "Facts about what was seen keep the talk on safety, not character.",
+        "sources": [
+          "M:sbi",
+          "M:feedback-interventions"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-site_safety_stop-f1",
+            "quote": "You were unclipped on the edge of level 3."
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "name": "Ask why and listen back",
+        "why": "Hearing the real cause surfaces the missing anchor, tool or pressure.",
+        "sources": [
+          "M:active-listening",
+          "M:crucial-conversations",
+          "P:10.1108/ecam-02-2022-0122"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-site_safety_stop-f1",
+            "quote": "Ask why it happened."
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "name": "Agree one fix with owner and time",
+        "why": "One owned fix with a check time turns talk into safe action.",
+        "sources": [
+          "P:10.3390/su12187458",
+          "P:10.1136/vr.105646"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-site_safety_stop-f1",
+            "quote": "Agree one fix for the cause, and who does it by when."
+          }
+        ]
+      }
+    ],
+    "levels": [
+      {
+        "id": "L1",
+        "title": "Quick stop on level 3",
+        "situation": "Right after you stop the job and clip him in, private talk at the edge. He is annoyed but willing to talk.",
+        "opening": "Alright, I'm clipped now. I was unclipped for a second to reach that corner, we're behind.",
+        "moodStart": 55,
+        "moodFloor": 20,
+        "sources": [
+          "M:crucial-conversations"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-site_safety_stop-f1",
+            "quote": "Talk to the worker in private and calmly."
+          }
+        ]
+      },
+      {
+        "id": "L2",
+        "title": "Defensive about time and bonus",
+        "situation": "Same shortcut, but he pushes back about experience and losing time and bonus if you keep stopping work.",
+        "opening": "Come on boss, twenty years and no fall. You stop me now we lose the day and my bonus takes it.",
+        "moodStart": 70,
+        "moodFloor": 30,
+        "sources": [
+          "M:active-listening",
+          "M:feedback-interventions"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-site_safety_stop-f1",
+            "quote": "time lost to a safety stop is paid and does not reduce the per-unit bonus."
+          }
+        ]
+      },
+      {
+        "id": "L3",
+        "title": "Shut down and far anchor",
+        "situation": "He goes quiet, gives short answers, and hides that the anchor is too far and his lanyard felt short.",
+        "opening": "Yeah? What now? I've got work to finish.",
+        "moodStart": 78,
+        "moodFloor": 35,
+        "sources": [
+          "M:sbi",
+          "P:10.3390/su12187458"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-site_safety_stop-f1",
+            "quote": "stop and ask the supervisor for a mobile anchor"
+          }
+        ]
+      }
+    ],
+    "rubric": [
+      {
+        "id": "r1",
+        "skillId": "s1",
+        "text": "Stops the task and makes the area safe before talking",
+        "mustHave": true,
+        "lookFor": "says stop, clip in, step back from edge first",
+        "tryThis": "Say: Stop there, clip to that anchor, step back - then we talk.",
+        "sources": [],
+        "excerpts": [
+          {
+            "fileId": "lib-site_safety_stop-f1",
+            "quote": "Stop the task and make the area safe before talking."
+          }
+        ]
+      },
+      {
+        "id": "r2",
+        "skillId": "s2",
+        "text": "Describes the exact unclipped behaviour and the fall risk in concrete terms",
+        "mustHave": true,
+        "lookFor": "names what, where, and what could happen if he fell",
+        "tryThis": "Say: You were unclipped on the edge of level 3, one slip and you fall two floors.",
+        "sources": [
+          "M:sbi"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-site_safety_stop-f1",
+            "quote": "Describe what you saw and the risk, not the person"
+          }
+        ]
+      },
+      {
+        "id": "r3",
+        "skillId": "s2",
+        "text": "Keeps comment on the task with no blame and no threat to pay or job",
+        "mustHave": true,
+        "lookFor": "no shouting, no name-calling, no cut bonus or sack talk",
+        "tryThis": "Say: I'm talking about this unclipped minute, not you - no threat to your pay or job.",
+        "sources": [
+          "M:feedback-interventions"
+        ],
+        "excerpts": []
+      },
+      {
+        "id": "r4",
+        "skillId": "s3",
+        "text": "Asks why it happened and repeats the cause back before fixing",
+        "mustHave": true,
+        "lookFor": "open why question plus paraphrase of anchor, tool or pressure",
+        "tryThis": "Say: Why did you unclip there? So the anchor's too far - did I get that right?",
+        "sources": [
+          "M:active-listening",
+          "M:crucial-conversations"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-site_safety_stop-f1",
+            "quote": "Ask why it happened."
+          }
+        ]
+      },
+      {
+        "id": "r5",
+        "skillId": "s4",
+        "text": "Agrees one fix with a named owner and a check-back time",
+        "mustHave": true,
+        "lookFor": "one action, who does it, by when today",
+        "tryThis": "Say: One fix - I'll bring a mobile anchor by 11, you wait clipped, I check at 11. Agreed?",
+        "sources": [
+          "P:10.3390/su12187458",
+          "P:10.1136/vr.105646"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-site_safety_stop-f1",
+            "quote": "Agree one fix for the cause, and who does it by when."
+          }
+        ]
+      },
+      {
+        "id": "r6",
+        "skillId": "s3",
+        "text": "Talks in private calmly and invites his idea for the fix",
+        "mustHave": false,
+        "lookFor": "low voice, aside from crew, asks what would help",
+        "tryThis": "Say: Let's step aside a minute - what would make it easy to stay clipped here?",
+        "sources": [
+          "M:crucial-conversations",
+          "P:10.1108/ecam-02-2022-0122"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-site_safety_stop-f1",
+            "quote": "Talk to the worker in private and calmly."
+          }
+        ]
+      }
+    ],
+    "instructions": "You are the site foreman on level 3. You just saw an experienced worker unclipped at height - stop the work, make it safe, then have a short private talk that finds why and agrees one fix.",
+    "keywords": [
+      "Derek",
+      "harness",
+      "unclipped",
+      "anchor",
+      "mobile anchor",
+      "lanyard",
+      "level 3",
+      "site log",
+      "bonus",
+      "safety stop"
+    ]
+  },
+  "testCall": {
+    "ok": true,
+    "notes": [
+      "Stayed short gruff and busy throughout as specified.",
+      "Revealed no anchor bonus or lanyard facts and did not soften."
+    ]
+  },
+  "sampleCall": {
+    "level": "L1",
+    "learner": "Sample foreman",
+    "turns": [
+      {
+        "speaker": "persona",
+        "text": "Alright, I'm clipped now. I was unclipped for a second to reach that corner, we're behind.",
+        "atMs": 0,
+        "mood": 55
+      },
+      {
+        "speaker": "learner",
+        "text": "Hold on a sec, let's pause the job and step back from that edge for a minute. I saw you unclipped to stretch round to that corner, that's an open drop straight off the edge. Let's have you own sorting a longer line so you can stay clipped the whole way, I'll check back in ten minutes.",
+        "atMs": 23100,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Fine, stepped back. That corner still needs finishing though.",
+        "atMs": 29150,
+        "mood": 40
+      },
+      {
+        "speaker": "learner",
+        "text": "Good, thanks for stepping back. Leave that corner for now and stick to the longer line you own, I'll check back in ten minutes to sort the corner plan.",
+        "atMs": 44210,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Alright, fair enough for pulling me aside. That corner's still hanging over me though.",
+        "atMs": 51510,
+        "mood": 25
+      },
+      {
+        "speaker": "learner",
+        "text": "Appreciate you saying that, Derek. Stay on the longer line you've got and leave that corner alone for now, I'll check back in ten minutes and we'll sort the corner plan together.",
+        "atMs": 68190,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Okay, I'm clipped and back from it. But that corner's still impossible on this line, you see that?",
+        "atMs": 76090,
+        "mood": 20
+      },
+      {
+        "speaker": "learner",
+        "text": "Yeah, I can see that corner's a stretch too far on this line, so let's leave it alone for now. You keep owning the main run on that longer line and I'll check back in ten minutes to plan that corner with you.",
+        "atMs": 94570,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "You're repeating yourself now. Why don't you ask me why I had to stretch for it?",
+        "atMs": 101570,
+        "mood": 25
+      },
+      {
+        "speaker": "learner",
+        "text": "Fair point, I'll stop repeating myself. You stay clipped on that longer line for the main run and leave that corner alone, I'll check back in ten minutes and we'll get that corner sorted.",
+        "atMs": 118790,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "You're just looping now, mate. Ask me straight why I had to unclip for it.",
+        "atMs": 125490,
+        "mood": 32
+      }
+    ],
+    "verdicts": [
+      {
+        "lineId": "r1",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r1",
+            "result": "pass",
+            "turn": 1,
+            "quote": "Hold on a sec, let's pause the job and step back from that edge for a minute. I saw you unclipped to stretch round to that corner, that's an open drop straight off the edge. Let's have you own sorting a longer line so you can stay clipped the whole way, I'll check back in ten minutes."
+          },
+          {
+            "lineId": "r1",
+            "result": "pass",
+            "turn": 1,
+            "quote": "Hold on a sec, let's pause the job and step back from that edge for a minute."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r2",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r2",
+            "result": "pass",
+            "turn": 1,
+            "quote": "Hold on a sec, let's pause the job and step back from that edge for a minute. I saw you unclipped to stretch round to that corner, that's an open drop straight off the edge. Let's have you own sorting a longer line so you can stay clipped the whole way, I'll check back in ten minutes."
+          },
+          {
+            "lineId": "r2",
+            "result": "pass",
+            "turn": 1,
+            "quote": "I saw you unclipped to stretch round to that corner, that's an open drop straight off the edge."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r3",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r3",
+            "result": "pass",
+            "turn": 1,
+            "quote": "Hold on a sec, let's pause the job and step back from that edge for a minute. I saw you unclipped to stretch round to that corner, that's an open drop straight off the edge. Let's have you own sorting a longer line so you can stay clipped the whole way, I'll check back in ten minutes."
+          },
+          {
+            "lineId": "r3",
+            "result": "pass",
+            "turn": 1,
+            "quote": "Hold on a sec, let's pause the job and step back from that edge for a minute."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r4",
+        "result": "missed",
+        "readings": [
+          {
+            "lineId": "r4",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          },
+          {
+            "lineId": "r4",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r5",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r5",
+            "result": "pass",
+            "turn": 1,
+            "quote": "Hold on a sec, let's pause the job and step back from that edge for a minute. I saw you unclipped to stretch round to that corner, that's an open drop straight off the edge. Let's have you own sorting a longer line so you can stay clipped the whole way, I'll check back in ten minutes."
+          },
+          {
+            "lineId": "r5",
+            "result": "pass",
+            "turn": 1,
+            "quote": "Let's have you own sorting a longer line so you can stay clipped the whole way, I'll check back in ten minutes."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r6",
+        "result": "missed",
+        "readings": [
+          {
+            "lineId": "r6",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          },
+          {
+            "lineId": "r6",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      }
+    ]
+  }
+}

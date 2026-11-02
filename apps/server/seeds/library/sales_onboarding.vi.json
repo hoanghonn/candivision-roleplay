@@ -1,0 +1,583 @@
+{
+  "caseId": "sales_onboarding",
+  "variant": "vi",
+  "request": "Nhân viên bán hàng mới tại công ty phần mềm nhân sự của chúng tôi bắt đầu demo tính năng ngay trong phút đầu của cuộc gọi tìm hiểu nhu cầu, và chịu thua ngay khi khách phản đối về giá. Đạt nghĩa là: họ tìm ra hai nhu cầu trước khi demo, xử lý được ba phản đối hàng đầu trong sổ tay bán hàng, và luôn chốt được bước tiếp theo.",
+  "files": [
+    {
+      "id": "lib-sales_onboarding-vi-f1",
+      "name": "so-tay-ban-hang.md",
+      "text": "TÀI LIỆU MẪU HƯ CẤU - được tạo cho bản demo CandiVision Roleplay. Pebble HR không phải sản phẩm có thật.\n\n# Sổ tay bán hàng Pebble HR (trích)\n\nSản phẩm: Pebble HR, phần mềm quản lý nghỉ phép và tính lương cho công ty có 50 đến 500 nhân viên.\nGiá: từ 3 USD mỗi nhân viên mỗi tháng, thanh toán theo năm. Miễn phí triển khai với gói năm.\n\nTìm hiểu nhu cầu trước: tìm ra ít nhất hai vấn đề của khách trước khi giới thiệu bất cứ thứ gì. Các vấn đề thường gặp: sai sót khi tính lương, đơn xin nghỉ bằng giấy hoặc qua tin nhắn, thất lạc phê duyệt của quản lý, tăng ca cuối tháng.\n\nCác phản đối thường gặp và cách nhân viên giỏi trả lời:\n1. \"Đắt quá.\" Hỏi hiện nay sai sót tính lương và tăng ca đang tốn của họ bao nhiêu; so sánh với 3 USD mỗi nhân viên.\n2. \"Chúng tôi đã dùng bảng tính rồi.\" Hỏi việc chốt lương hằng tháng mất bao lâu và ai kiểm tra.\n3. \"Để sau đi.\" Hỏi điều gì sẽ khiến việc này trở nên ưu tiên và thống nhất một ngày để trao đổi lại.\n\nMọi cuộc gọi đều kết thúc bằng một bước tiếp theo đã được chốt: demo với trưởng phòng nhân sự, dùng thử, hoặc cuộc gọi với bộ phận tài chính.\n"
+    }
+  ],
+  "match": {
+    "caseId": "sales_onboarding",
+    "situation": "Thực hành cuộc gọi tìm hiểu nhu cầu với khách hàng tiềm năng để tìm ra nhu cầu trước khi demo, xử lý phản đối và chốt bước tiếp theo.",
+    "learnerRole": "Nhân viên bán hàng mới tại công ty phần mềm nhân sự",
+    "counterpartRole": "Khách hàng tiềm năng có ngân sách và còn băn khoăn về giá",
+    "language": "vi",
+    "stakes": "Nhân viên mới bắt đầu demo tính năng ngay trong phút đầu của cuộc gọi tìm hiểu nhu cầu và chịu thua ngay khi khách phản đối về giá.",
+    "readyMeans": [
+      "tìm ra hai nhu cầu trước khi demo",
+      "xử lý được ba phản đối hàng đầu trong sổ tay bán hàng",
+      "luôn chốt được bước tiếp theo"
+    ]
+  },
+  "brief": {
+    "sources": [
+      {
+        "id": "M:spin",
+        "kind": "method",
+        "title": "SPIN Selling",
+        "authors": "Rackham",
+        "year": 1988,
+        "link": "https://www.huthwaiteinternational.com/spin-selling",
+        "summary": "From observation of many sales calls, larger sales were won by asking about the buyer's situation, problems, the implications of those problems and the value of solving them, before presenting a solution."
+      },
+      {
+        "id": "M:active-listening",
+        "kind": "method",
+        "title": "The relative effectiveness of active listening in initial interactions",
+        "authors": "Weger, Castle Bell, Minei and Robinson",
+        "year": 2014,
+        "link": "https://doi.org/10.1080/10904018.2013.813234",
+        "summary": "In an experiment, people whose concerns were paraphrased back to them felt more understood than people who got simple acknowledgements or advice."
+      },
+      {
+        "id": "M:implementation-intentions",
+        "kind": "method",
+        "title": "Implementation intentions and goal achievement: a meta-analysis of effects and processes",
+        "authors": "Gollwitzer and Sheeran",
+        "year": 2006,
+        "link": "https://doi.org/10.1016/S0065-2601(06)38002-1",
+        "summary": "A meta-analysis showing that concrete if-then plans (when X happens, I will do Y) help people follow through on goals much more than intentions alone."
+      },
+      {
+        "id": "M:behaviour-modelling",
+        "kind": "method",
+        "title": "A meta-analytic review of behavior modeling training",
+        "authors": "Taylor, Russ-Eft and Chan",
+        "year": 2005,
+        "link": "https://doi.org/10.1037/0021-9010.90.4.692",
+        "summary": "Training that shows a model of the behaviour and then has people practise it works, especially for knowledge and skills. Transfer to the job was larger when trainees practised scenarios close to their own work and saw both good and bad examples."
+      },
+      {
+        "id": "P:10.1016/j.indmarman.2019.01.009",
+        "kind": "paper",
+        "title": "Sales communication competence in international B2B solution selling",
+        "authors": "Jonna Pauliina Koponen, Saara Julkunen, Akiko Asai",
+        "year": 2019,
+        "link": "https://doi.org/10.1016/j.indmarman.2019.01.009",
+        "summary": "Rèn năng lực giao tiếp bán giải pháp B2B là linh hoạt điều chỉnh câu hỏi và cách giải thích theo vai trò và mối quan tâm của từng người nghe."
+      },
+      {
+        "id": "P:10.1007/s12186-022-09301-y",
+        "kind": "paper",
+        "title": "Expertise Development in the Workplace Through Deliberate Practice and Progressive Problem Solving: Insights from Business-to-Business Sales Departments",
+        "authors": "Daniel Köhler, Andreas Rausch",
+        "year": 2022,
+        "link": "https://doi.org/10.1007/s12186-022-09301-y",
+        "summary": "Phát triển tay nghề bán hàng qua luyện tập có chủ đích lặp đi lặp lại trên các vấn đề công việc khó dần kèm phản hồi để tiến bộ ổn định."
+      }
+    ],
+    "items": [
+      {
+        "sourceId": "M:spin",
+        "gives": "Hỏi về tình hình và khó khăn hiện tại để tìm ra ít nhất hai nhu cầu cụ thể trước khi giới thiệu bất kỳ tính năng nào, và gợi mở để khách tự nói chi phí của sai sót tính lương và tăng ca.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "M:active-listening",
+        "gives": "Khi khách phản đối về giá hoặc bảng tính, diễn đạt lại băn khoăn bằng lời của mình và xác nhận đã hiểu đúng trước khi trả lời theo gợi ý sổ tay.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "M:implementation-intentions",
+        "gives": "Kết thúc mọi cuộc gọi bằng một bước tiếp theo cụ thể đã chốt rõ ai làm gì và khi nào như demo với trưởng phòng nhân sự, dùng thử hoặc gọi với tài chính.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "M:behaviour-modelling",
+        "gives": "Luyện tập trên tình huống gọi tìm hiểu nhu cầu thật của Pebble HR với cả ví dụ tốt và chưa tốt để người mới bắt chước cách làm đúng.",
+        "use": "learn"
+      },
+      {
+        "sourceId": "P:10.1016/j.indmarman.2019.01.009",
+        "gives": "Rèn năng lực giao tiếp bán giải pháp B2B là linh hoạt điều chỉnh câu hỏi và cách giải thích theo vai trò và mối quan tâm của từng người nghe.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "P:10.1007/s12186-022-09301-y",
+        "gives": "Phát triển tay nghề bán hàng qua luyện tập có chủ đích lặp đi lặp lại trên các vấn đề công việc khó dần kèm phản hồi để tiến bộ ổn định.",
+        "use": "learn"
+      }
+    ],
+    "notFound": [
+      "Cách trả lời chính xác từng câu chữ cho ba phản đối trong sổ tay Pebble HR khi khách dồn dập hoặc kết hợp cả ba cùng lúc thì nên ưu tiên xử lý phản đối nào trước?",
+      "Mức chiết khấu hoặc giới hạn giá nào nhân viên mới được phép cam kết ngay trên cuộc gọi khi khách ép giá mà vẫn giữ đúng chính sách giá?"
+    ]
+  },
+  "programme": {
+    "title": "Hỏi nhu cầu trước khi demo",
+    "caseId": "sales_onboarding",
+    "language": "vi",
+    "learnerRole": "Nhân viên bán hàng mới tại công ty phần mềm nhân sự",
+    "persona": {
+      "name": "Lan",
+      "role": "Trưởng phòng hành chính nhân sự tại công ty sản xuất 200 nhân viên",
+      "voice": "woman",
+      "style": "Nói nhanh, thực tế, hay ngắt lời khi nghe demo sớm và băn khoăn nhiều về giá",
+      "facts": [
+        {
+          "id": "h1",
+          "fact": "Mỗi tháng mất 3 ngày chốt lương vì đơn xin nghỉ bằng giấy và tin nhắn rời rạc",
+          "earnedBy": "Hỏi kỹ về cách xin nghỉ và chốt lương hiện tại"
+        },
+        {
+          "id": "h2",
+          "fact": "Tháng trước tính sai tiền tăng ca cuối tháng nên nhân viên phàn nàn",
+          "earnedBy": "Gợi mở để khách tự nói chi phí của sai sót và tăng ca"
+        },
+        {
+          "id": "h3",
+          "fact": "Đã có ngân sách cho phần mềm nhưng cần lý do thuyết phục sếp và trưởng phòng nhân sự đi demo cùng",
+          "earnedBy": "Lắng nghe, xác nhận băn khoăn về giá rồi hỏi điều gì khiến việc này thành ưu tiên"
+        }
+      ],
+      "redLines": [
+        "không chửi thề hay nổi giận cá nhân, chỉ sốt ruột khi bị demo quá sớm",
+        "không đồng ý demo hay dùng thử nếu chưa được hỏi ít nhất hai nhu cầu",
+        "không tiết lộ chuyện ngân sách đã có trừ khi được lắng nghe và hỏi kỹ về chi phí sai sót"
+      ],
+      "portraitPrompt": "illustrated portrait of a Vietnamese female HR manager in her 30s, short black hair, wearing light office shirt, calm but busy expression, plain office background, no text"
+    },
+    "skills": [
+      {
+        "id": "s1",
+        "name": "Hỏi tìm hiểu nhu cầu trước khi demo",
+        "why": "Hỏi về tình hình và khó khăn hiện tại giúp tìm ra nhu cầu thật trước khi giới thiệu tính năng.",
+        "sources": [
+          "M:spin"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-sales_onboarding-vi-f1",
+            "quote": "tìm ra ít nhất hai vấn đề của khách trước khi giới thiệu bất cứ thứ gì."
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "name": "Lắng nghe và xử lý phản đối giá",
+        "why": "Diễn đạt lại băn khoăn và xác nhận đã hiểu giúp trả lời đúng trọng tâm theo sổ tay.",
+        "sources": [
+          "M:active-listening"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-sales_onboarding-vi-f1",
+            "quote": "sai sót tính lương và tăng ca đang tốn của họ bao nhiêu"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "name": "Chốt bước tiếp theo cụ thể",
+        "why": "Mọi cuộc gọi đều cần chốt rõ ai làm gì và khi nào để không trôi cơ hội.",
+        "sources": [
+          "M:implementation-intentions"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-sales_onboarding-vi-f1",
+            "quote": "Mọi cuộc gọi đều kết thúc bằng một bước tiếp theo đã được chốt"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "name": "Điều chỉnh cách hỏi theo người nghe",
+        "why": "Linh hoạt câu hỏi theo vai trò giúp khách thấy mình được hiểu và dễ chia sẻ hơn.",
+        "sources": [
+          "P:10.1016/j.indmarman.2019.01.009"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-sales_onboarding-vi-f1",
+            "quote": "demo với trưởng phòng nhân sự"
+          }
+        ]
+      }
+    ],
+    "levels": [
+      {
+        "id": "L1",
+        "title": "Hỏi hai nhu cầu",
+        "situation": "Khách còn thời gian và cởi mở, chỉ nhắc chuyện bảng tính, cần luyện không demo vội và hỏi ra hai nhu cầu.",
+        "opening": "Alo chị Lan đây, em giới thiệu nhanh phần mềm bên em đi, nhưng chị chỉ có mười phút thôi.",
+        "moodStart": 25,
+        "moodFloor": 5,
+        "sources": [
+          "M:spin",
+          "M:behaviour-modelling"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-sales_onboarding-vi-f1",
+            "quote": "đơn xin nghỉ bằng giấy hoặc qua tin nhắn"
+          }
+        ]
+      },
+      {
+        "id": "L2",
+        "title": "Đắt quá và bảng tính",
+        "situation": "Khách bận hơn và phản đối rõ về giá và bảng tính, cần diễn đạt lại rồi mới trả lời theo sổ tay.",
+        "opening": "Chị nói thật nhé, nghe là thấy đắt quá, bên chị đã dùng bảng tính rồi, em tính sao?",
+        "moodStart": 45,
+        "moodFloor": 15,
+        "sources": [
+          "M:active-listening"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-sales_onboarding-vi-f1",
+            "quote": "Chúng tôi đã dùng bảng tính rồi."
+          }
+        ]
+      },
+      {
+        "id": "L3",
+        "title": "Để sau đi và chốt lịch",
+        "situation": "Khách dồn dập cả ba phản đối và muốn để sau, cần ưu tiên lắng nghe, giữ bình tĩnh và vẫn chốt được bước tiếp theo.",
+        "opening": "Thôi để sau đi em, vừa đắt vừa mất công đổi từ bảng tính, chị đang tăng ca cuối tháng rối lắm.",
+        "moodStart": 60,
+        "moodFloor": 20,
+        "sources": [
+          "M:implementation-intentions",
+          "P:10.1007/s12186-022-09301-y"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-sales_onboarding-vi-f1",
+            "quote": "thất lạc phê duyệt của quản lý"
+          }
+        ]
+      }
+    ],
+    "rubric": [
+      {
+        "id": "r1",
+        "skillId": "s1",
+        "text": "Hỏi về tình hình và khó khăn hiện tại để tìm ra ít nhất hai nhu cầu cụ thể trước khi giới thiệu tính năng nào.",
+        "mustHave": true,
+        "lookFor": "Nghe hai vấn đề cụ thể như sai sót lương, nghỉ phép, phê duyệt, tăng ca trước khi demo.",
+        "tryThis": "Chị hiện chốt lương và duyệt nghỉ thế nào, khó nhất ở bước nào ạ?",
+        "sources": [
+          "M:spin"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-sales_onboarding-vi-f1",
+            "quote": "tìm ra ít nhất hai vấn đề của khách trước khi giới thiệu bất cứ thứ gì."
+          }
+        ]
+      },
+      {
+        "id": "r2",
+        "skillId": "s2",
+        "text": "Khi khách nói đắt quá thì diễn đạt lại băn khoăn rồi hỏi chi phí sai sót và tăng ca để so với giá 3 USD.",
+        "mustHave": true,
+        "lookFor": "Paraphrase lo lắng về giá và câu hỏi về tốn kém hiện tại trước khi nói giá.",
+        "tryThis": "Em hiểu chị lo chi phí tăng thêm, hiện sai sót và tăng ca đang tốn bên mình khoảng bao nhiêu ạ?",
+        "sources": [
+          "M:active-listening"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-sales_onboarding-vi-f1",
+            "quote": "sai sót tính lương và tăng ca đang tốn của họ bao nhiêu"
+          }
+        ]
+      },
+      {
+        "id": "r3",
+        "skillId": "s2",
+        "text": "Khi khách nói đã dùng bảng tính thì diễn đạt lại rồi hỏi thời gian chốt lương và ai kiểm tra.",
+        "mustHave": true,
+        "lookFor": "Không chê bảng tính, chỉ hỏi thời gian và người kiểm tra chốt lương.",
+        "tryThis": "Em hiểu bảng tính quen thuộc rồi, mỗi tháng chốt lương mất bao lâu và ai kiểm tra lại ạ?",
+        "sources": [
+          "M:active-listening"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-sales_onboarding-vi-f1",
+            "quote": "Hỏi việc chốt lương hằng tháng mất bao lâu và ai kiểm tra."
+          }
+        ]
+      },
+      {
+        "id": "r4",
+        "skillId": "s2",
+        "text": "Khi khách nói để sau đi thì diễn đạt lại rồi hỏi điều gì khiến việc này thành ưu tiên và hẹn ngày trao đổi lại.",
+        "mustHave": true,
+        "lookFor": "Xác nhận lý do trì hoãn và đề xuất ngày cụ thể để nói tiếp.",
+        "tryThis": "Em hiểu đợt này chị bận, điều gì sẽ khiến việc này thành ưu tiên và mình hẹn lại ngày nào tiện ạ?",
+        "sources": [
+          "M:active-listening"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-sales_onboarding-vi-f1",
+            "quote": "Hỏi điều gì sẽ khiến việc này trở nên ưu tiên"
+          }
+        ]
+      },
+      {
+        "id": "r5",
+        "skillId": "s3",
+        "text": "Kết thúc bằng một bước tiếp theo cụ thể đã chốt rõ ai làm gì và khi nào.",
+        "mustHave": true,
+        "lookFor": "Nghe chốt demo với trưởng phòng nhân sự, dùng thử hoặc gọi với tài chính kèm thời gian.",
+        "tryThis": "Vậy chốt sáng thứ Ba mình demo với trưởng phòng nhân sự, em gửi link cho chị nhé?",
+        "sources": [
+          "M:implementation-intentions"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-sales_onboarding-vi-f1",
+            "quote": "demo với trưởng phòng nhân sự"
+          }
+        ]
+      },
+      {
+        "id": "r6",
+        "skillId": "s4",
+        "text": "Giữ giọng bình tĩnh và điều chỉnh câu hỏi theo vai trò nhân sự, không demo dồn dập trong phút đầu.",
+        "mustHave": false,
+        "lookFor": "Hỏi theo mối quan tâm của nhân sự và chờ khách nói hết trước khi đáp.",
+        "tryThis": "Với vai trò của chị, phần nào mất thời gian nhất để em hỏi kỹ hơn ạ?",
+        "sources": [
+          "P:10.1016/j.indmarman.2019.01.009"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-sales_onboarding-vi-f1",
+            "quote": "tăng ca cuối tháng."
+          }
+        ]
+      }
+    ],
+    "instructions": "Bạn là nhân viên bán hàng mới của Pebble HR đang thực hành cuộc gọi tìm hiểu nhu cầu, hãy hỏi kỹ trước khi demo bất kỳ tính năng nào. Đây là buổi luyện tập an toàn để thử và sửa sai, mục tiêu của bạn là tìm hai nhu cầu, xử lý phản đối theo sổ tay và chốt bước tiếp theo rõ ràng.",
+    "keywords": [
+      "Pebble HR",
+      "tính lương",
+      "nghỉ phép",
+      "tăng ca",
+      "bảng tính",
+      "trưởng phòng nhân sự",
+      "dùng thử",
+      "tài chính"
+    ]
+  },
+  "testCall": {
+    "ok": true,
+    "notes": [
+      "Lan giữ giọng nhanh, thực tế, sốt ruột vì rối tăng ca mà không chửi thề cá nhân.",
+      "Lan không tiết lộ 3 ngày chốt lương, sai sót tăng ca hay ngân sách và không đồng ý demo."
+    ]
+  },
+  "sampleCall": {
+    "level": "L1",
+    "learner": "Học viên mẫu",
+    "turns": [
+      {
+        "speaker": "persona",
+        "text": "Alo chị Lan đây, em giới thiệu nhanh phần mềm bên em đi, nhưng chị chỉ có mười phút thôi.",
+        "atMs": 0,
+        "mood": 25
+      },
+      {
+        "speaker": "learner",
+        "text": "Dạ em cảm ơn chị Lan đã dành thời gian, để dùng đúng 10 phút hiệu quả thì cho em hỏi nhanh hiện tại bên mình đang chấm công tính lương ra sao và khó khăn nhất là ở đâu ạ?",
+        "atMs": 16200,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Bên chị vẫn bảng tính thôi, mỗi tháng mất 3 ngày chốt lương vì đơn nghỉ giấy với tin nhắn rời rạc. Em định xử lý cái đó thế nào?",
+        "atMs": 25600,
+        "mood": 25
+      },
+      {
+        "speaker": "learner",
+        "text": "Dạ em hiểu là bên mình vẫn dùng bảng tính nên mỗi tháng mất tới 3 ngày chốt lương vì đơn giấy với tin nhắn rời rạc đúng không chị? Cho em hỏi thêm là 3 ngày đó ai là người tổng hợp và kiểm tra lại, với ngoài chậm thì mình còn hay gặp sai sót nào nữa không ạ?",
+        "atMs": 47080,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Ừ đúng rồi, chị với kế toán kiểm qua lại mà tháng trước vẫn tính sai tiền tăng ca, công nhân phàn nàn quá trời.",
+        "atMs": 55630,
+        "mood": 12
+      },
+      {
+        "speaker": "learner",
+        "text": "Dạ em hiểu, mất 3 ngày tổng hợp mà vẫn sai tăng ca bị phàn nàn thì áp lực lắm ạ. Bên em có cho công nhân xin nghỉ và chấm công ngay trên điện thoại, đơn tự đổ về một chỗ và tiền tăng ca tự tính theo ca nên không phải cộng tay từ giấy với tin nhắn nữa chị ạ.",
+        "atMs": 77050,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Khoan khoan, em nói tự tính là sao? Nói nghe hay lắm nhưng giá bao nhiêu, chị sợ tốn tiền lắm.",
+        "atMs": 84750,
+        "mood": 20
+      },
+      {
+        "speaker": "learner",
+        "text": "Dạ em hiểu chị lo tốn tiền, làm gì cũng phải cân nhắc ngân sách cho kỹ đúng không ạ? Cho em hỏi vụ tính sai tăng ca tháng trước với 3 ngày chốt lương đó thì bên mình mất thêm khoảng bao nhiêu tiền sửa sai và tăng ca ạ, để em so thử với mức bên em chỉ 3 USD một người một tháng xem có hợp lý không chị?",
+        "atMs": 108810,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Ừ vụ sai tăng ca tháng rồi sửa mệt lắm, nhưng em khoan báo giá đã, hỏi chị vì sao sếp còn chần chừ đi?",
+        "atMs": 116910,
+        "mood": 15
+      },
+      {
+        "speaker": "learner",
+        "text": "Dạ em hiểu sếp mình còn đang chần chừ chưa quyết ạ, cho em hỏi thêm là sếp đang lo nhất về chi phí, ngại thay đổi cách làm quen, hay chưa chắc hiệu quả thực tế mang lại ạ?",
+        "atMs": 133170,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Ừ sếp chị ngại đổi quy trình, sợ công nhân không theo phải đào tạo lại. Mà em hỏi vậy rồi sao nữa, chị còn có vài phút thôi.",
+        "atMs": 142370,
+        "mood": 5
+      }
+    ],
+    "verdicts": [
+      {
+        "lineId": "r1",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r1",
+            "result": "pass",
+            "turn": 3,
+            "quote": "Dạ em hiểu là bên mình vẫn dùng bảng tính nên mỗi tháng mất tới 3 ngày chốt lương vì đơn giấy với tin nhắn rời rạc đúng không chị? Cho em hỏi thêm là 3 ngày đó ai là người tổng hợp và kiểm tra lại, với ngoài chậm thì mình còn hay gặp sai sót nào nữa không ạ?"
+          },
+          {
+            "lineId": "r1",
+            "result": "pass",
+            "turn": 3,
+            "quote": "Dạ em hiểu là bên mình vẫn dùng bảng tính nên mỗi tháng mất tới 3 ngày chốt lương vì đơn giấy với tin nhắn rời rạc đúng không chị? Cho em hỏi thêm là 3 ngày đó ai là người tổng hợp và kiểm tra lại, với ngoài chậm thì mình còn hay gặp sai sót nào nữa không ạ?"
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r2",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r2",
+            "result": "pass",
+            "turn": 7,
+            "quote": "Dạ em hiểu chị lo tốn tiền, làm gì cũng phải cân nhắc ngân sách cho kỹ đúng không ạ? Cho em hỏi vụ tính sai tăng ca tháng trước với 3 ngày chốt lương đó thì bên mình mất thêm khoảng bao nhiêu tiền sửa sai và tăng ca ạ, để em so thử với mức bên em chỉ 3 USD một người một tháng xem có hợp lý không chị?"
+          },
+          {
+            "lineId": "r2",
+            "result": "pass",
+            "turn": 7,
+            "quote": "Dạ em hiểu chị lo tốn tiền, làm gì cũng phải cân nhắc ngân sách cho kỹ đúng không ạ? Cho em hỏi vụ tính sai tăng ca tháng trước với 3 ngày chốt lương đó thì bên mình mất thêm khoảng bao nhiêu tiền sửa sai và tăng ca ạ, để em so thử với mức bên em chỉ 3 USD một người một tháng xem có hợp lý không chị?"
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r3",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r3",
+            "result": "pass",
+            "turn": 3,
+            "quote": "Dạ em hiểu là bên mình vẫn dùng bảng tính nên mỗi tháng mất tới 3 ngày chốt lương vì đơn giấy với tin nhắn rời rạc đúng không chị? Cho em hỏi thêm là 3 ngày đó ai là người tổng hợp và kiểm tra lại, với ngoài chậm thì mình còn hay gặp sai sót nào nữa không ạ?"
+          },
+          {
+            "lineId": "r3",
+            "result": "pass",
+            "turn": 3,
+            "quote": "Dạ em hiểu là bên mình vẫn dùng bảng tính nên mỗi tháng mất tới 3 ngày chốt lương vì đơn giấy với tin nhắn rời rạc đúng không chị? Cho em hỏi thêm là 3 ngày đó ai là người tổng hợp và kiểm tra lại, với ngoài chậm thì mình còn hay gặp sai sót nào nữa không ạ?"
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r4",
+        "result": "missed",
+        "readings": [
+          {
+            "lineId": "r4",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          },
+          {
+            "lineId": "r4",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r5",
+        "result": "missed",
+        "readings": [
+          {
+            "lineId": "r5",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          },
+          {
+            "lineId": "r5",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r6",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r6",
+            "result": "pass",
+            "turn": 1,
+            "quote": "Dạ em cảm ơn chị Lan đã dành thời gian, để dùng đúng 10 phút hiệu quả thì cho em hỏi nhanh hiện tại bên mình đang chấm công tính lương ra sao và khó khăn nhất là ở đâu ạ?"
+          },
+          {
+            "lineId": "r6",
+            "result": "pass",
+            "turn": 1,
+            "quote": "Dạ em cảm ơn chị Lan đã dành thời gian, để dùng đúng 10 phút hiệu quả thì cho em hỏi nhanh hiện tại bên mình đang chấm công tính lương ra sao và khó khăn nhất là ở đâu ạ?"
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      }
+    ]
+  }
+}

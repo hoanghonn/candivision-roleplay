@@ -1,0 +1,593 @@
+{
+  "caseId": "regulated_messaging",
+  "variant": "vi",
+  "request": "Trình dược viên của chúng tôi trao đổi với bác sĩ về một loại thuốc huyết áp. Bác sĩ thường hỏi về việc dùng thuốc ngoài chỉ định được duyệt, và trình dược viên tự ứng biến. Họ phải bám sát các thông tin được duyệt, nêu thông tin an toàn mỗi khi nói về lợi ích, và chuyển các câu hỏi ngoài chỉ định cho bộ phận Thông tin Y khoa.",
+  "files": [
+    {
+      "id": "lib-regulated_messaging-vi-f1",
+      "name": "thong-diep-duoc-duyet.md",
+      "text": "TÀI LIỆU MẪU HƯ CẤU - được tạo cho bản demo CandiVision Roleplay. Corvenol không phải thuốc có thật.\n\n# Corvenol 10 mg: thông điệp được duyệt cho trình dược viên\n\nChỉ định được duyệt: điều trị tăng huyết áp ở người lớn.\nThông tin được phép nói:\n- Corvenol làm giảm huyết áp ở người lớn bị tăng huyết áp, như đã nêu trong thông tin sản phẩm được duyệt.\n- Corvenol được uống một lần mỗi ngày.\nThông tin an toàn bắt buộc phải nêu mỗi khi nói về lợi ích: chóng mặt và sưng mắt cá chân là các tác dụng phụ thường gặp; không được dùng Corvenol khi mang thai.\nKhông được duyệt: dùng cho trẻ em, dùng cho suy tim, mọi khẳng định rằng thuốc tốt hơn các thuốc khác.\nNếu bác sĩ hỏi về việc dùng ngoài chỉ định được duyệt: nói rằng bạn chỉ có thể trao đổi về chỉ định được duyệt, và đề nghị chuyển câu hỏi cho bộ phận Thông tin Y khoa.\n"
+    }
+  ],
+  "match": {
+    "caseId": "regulated_messaging",
+    "situation": "Trình dược viên trao đổi với bác sĩ về một loại thuốc huyết áp và xử lý các câu hỏi về dùng thuốc ngoài chỉ định được duyệt.",
+    "learnerRole": "Trình dược viên",
+    "counterpartRole": "Bác sĩ hỏi về việc dùng thuốc ngoài chỉ định được duyệt",
+    "language": "vi",
+    "stakes": "Trình dược viên tự ứng biến khi bị hỏi ngoài chỉ định gây rủi ro tuân thủ.",
+    "readyMeans": [
+      "bám sát các thông tin được duyệt",
+      "nêu thông tin an toàn mỗi khi nói về lợi ích",
+      "chuyển các câu hỏi ngoài chỉ định cho bộ phận Thông tin Y khoa"
+    ]
+  },
+  "brief": {
+    "sources": [
+      {
+        "id": "M:compliance-first",
+        "kind": "method",
+        "title": "IFPMA Code of Practice 2019",
+        "authors": "International Federation of Pharmaceutical Manufacturers and Associations",
+        "year": 2019,
+        "link": "https://www.ifpma.org/publications/ifpma-code-of-practice-2019/",
+        "summary": "The international industry code for how pharmaceutical companies promote medicines to health professionals: information must be accurate, balanced and consistent with the approved product information. For regulated messaging, the customer's own approved claims and the regulation they upload come first."
+      },
+      {
+        "id": "M:spaced-practice",
+        "kind": "method",
+        "title": "Distributed practice in verbal recall tasks: a review and quantitative synthesis",
+        "authors": "Cepeda, Pashler, Vul, Wixted and Rohrer",
+        "year": 2006,
+        "link": "https://doi.org/10.1037/0033-2909.132.3.354",
+        "summary": "Spreading practice over time leads to better long-term recall than massing it in one session."
+      },
+      {
+        "id": "P:10.1371/journal.pmed.1000431",
+        "kind": "paper",
+        "title": "Strategies and Practices in Off-Label Marketing of Pharmaceuticals: A Retrospective Analysis of Whistleblower Complaints",
+        "authors": "Aaron Seth Kesselheim, Michelle M. Mello, David M. Studdert",
+        "year": 2011,
+        "link": "https://doi.org/10.1371/journal.pmed.1000431",
+        "summary": "Tránh các chiêu trò quảng bá ngoài chỉ định thường gặp như gợi ý công dụng chưa duyệt hay dùng câu chuyện cá nhân để lách luật, vì đó là nguồn rủi ro tuân thủ lớn nhất."
+      },
+      {
+        "id": "P:10.1007/s11948-018-0041-5",
+        "kind": "paper",
+        "title": "Medicines Information and the Regulation of the Promotion of Pharmaceuticals",
+        "authors": "Teresa Leonardo Alves, Joel Lexchin, Barbara J. Mintzes",
+        "year": 2018,
+        "link": "https://doi.org/10.1007/s11948-018-0041-5",
+        "summary": "Thông tin khuyến mại dễ làm lệch kê đơn nên trình dược viên cần cung cấp thông tin cân bằng, trung thực và phân biệt rõ khuyến mại với thông tin y khoa độc lập."
+      },
+      {
+        "id": "P:10.1093/schbul/12.4.631",
+        "kind": "paper",
+        "title": "Training Skills in the Psychiatrically Disabled: Learning Coping and Competence",
+        "authors": "Robert Paul Liberman, Kim T. Mueser, Charles J. Wallace, Harvey E. Jacobs, Thad A. Eckman, H. Keith Massel",
+        "year": 1986,
+        "link": "https://doi.org/10.1093/schbul/12.4.631",
+        "summary": "Dạy kỹ năng tuân thủ hiệu quả bằng cách chia nhỏ hành vi mục tiêu, làm mẫu, luyện đóng vai có phản hồi và kiểm tra lại sau đó."
+      },
+      {
+        "id": "M:behaviour-modelling",
+        "kind": "method",
+        "title": "A meta-analytic review of behavior modeling training",
+        "authors": "Taylor, Russ-Eft and Chan",
+        "year": 2005,
+        "link": "https://doi.org/10.1037/0021-9010.90.4.692",
+        "summary": "Training that shows a model of the behaviour and then has people practise it works, especially for knowledge and skills. Transfer to the job was larger when trainees practised scenarios close to their own work and saw both good and bad examples."
+      }
+    ],
+    "items": [
+      {
+        "sourceId": "M:compliance-first",
+        "gives": "Chỉ trình bày nội dung đã được duyệt, luôn kèm thông tin an toàn khi đề cập lợi ích và chuyển câu hỏi ngoài chỉ định cho kênh y khoa phù hợp.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "M:spaced-practice",
+        "gives": "Chia buổi luyện thành nhiều lần ngắn cách nhau theo ngày để nhớ vững thông điệp được duyệt thay vì học dồn một lần.",
+        "use": "learn"
+      },
+      {
+        "sourceId": "P:10.1371/journal.pmed.1000431",
+        "gives": "Tránh các chiêu trò quảng bá ngoài chỉ định thường gặp như gợi ý công dụng chưa duyệt hay dùng câu chuyện cá nhân để lách luật, vì đó là nguồn rủi ro tuân thủ lớn nhất.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "P:10.1007/s11948-018-0041-5",
+        "gives": "Thông tin khuyến mại dễ làm lệch kê đơn nên trình dược viên cần cung cấp thông tin cân bằng, trung thực và phân biệt rõ khuyến mại với thông tin y khoa độc lập.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "P:10.1093/schbul/12.4.631",
+        "gives": "Dạy kỹ năng tuân thủ hiệu quả bằng cách chia nhỏ hành vi mục tiêu, làm mẫu, luyện đóng vai có phản hồi và kiểm tra lại sau đó.",
+        "use": "learn"
+      },
+      {
+        "sourceId": "M:behaviour-modelling",
+        "gives": "Luyện tập với tình huống từ chính công việc của học viên. Cho xem cả ví dụ tốt và chưa tốt.",
+        "use": "learn"
+      }
+    ],
+    "notFound": [
+      "Khi bác sĩ gây sức ép đòi câu trả lời ngay về dùng ngoài chỉ định thì trình dược viên nên nói câu nào để vừa giữ quan hệ vừa không vi phạm?",
+      "Làm sao luyện việc nêu thông tin an toàn một cách tự nhiên mỗi khi nói về lợi ích mà không nghe như đọc thuộc lòng?"
+    ]
+  },
+  "programme": {
+    "title": "Trao đổi đúng chuẩn về Corvenol",
+    "caseId": "regulated_messaging",
+    "language": "vi",
+    "learnerRole": "Trình dược viên",
+    "persona": {
+      "name": "Hà",
+      "role": "Bác sĩ nội tổng quát tại phòng khám tư nhân",
+      "voice": "woman",
+      "style": "Nói nhanh, bận rộn, thẳng thắn hỏi xoáy vào ca thực tế và muốn câu trả lời ngay",
+      "facts": [
+        {
+          "id": "h1",
+          "fact": "Muốn dùng Corvenol cho bé 14 tuổi bị tăng huyết áp",
+          "earnedBy": "Hỏi rõ độ tuổi và tình trạng bệnh nhân mà bác sĩ đang quan tâm"
+        },
+        {
+          "id": "h2",
+          "fact": "Có bệnh nhân suy tim nghe đồng nghiệp kể dùng Corvenol tốt lên",
+          "earnedBy": "Không đưa khẳng định ngoài duyệt và gợi ý chuyển kênh y khoa để xác minh"
+        },
+        {
+          "id": "h3",
+          "fact": "Muốn biết Corvenol có tốt hơn thuốc huyết áp khác không để chốt kê đơn",
+          "earnedBy": "Chỉ nhắc lại lợi ích được duyệt và từ chối so sánh hơn thua"
+        }
+      ],
+      "redLines": [
+        "Không bao giờ chấp nhận câu trả lời ứng biến ngoài thông điệp được duyệt",
+        "Không bao giờ tự bỏ yêu cầu ngoài chỉ định nếu chưa được đề nghị chuyển cho Thông tin Y khoa"
+      ],
+      "portraitPrompt": "Illustrated portrait of a middle-aged Vietnamese female doctor in white coat with stethoscope, busy clinic background, direct probing expression, no text"
+    },
+    "skills": [
+      {
+        "id": "s1",
+        "name": "Bám sát thông điệp được duyệt",
+        "why": "Chỉ nói nội dung đã duyệt giúp tránh rủi ro tuân thủ khi bị hỏi xoáy.",
+        "sources": [
+          "M:compliance-first",
+          "P:10.1371/journal.pmed.1000431"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-regulated_messaging-vi-f1",
+            "quote": "điều trị tăng huyết áp ở người lớn"
+          },
+          {
+            "fileId": "lib-regulated_messaging-vi-f1",
+            "quote": "Corvenol được uống một lần mỗi ngày"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "name": "Nêu thông tin an toàn kèm lợi ích",
+        "why": "Luôn kèm an toàn khi nói lợi ích giúp bác sĩ kê đơn cân bằng và đúng chuẩn.",
+        "sources": [
+          "M:compliance-first"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-regulated_messaging-vi-f1",
+            "quote": "chóng mặt và sưng mắt cá chân là các tác dụng phụ thường gặp"
+          },
+          {
+            "fileId": "lib-regulated_messaging-vi-f1",
+            "quote": "không được dùng Corvenol khi mang thai"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "name": "Chuyển câu hỏi ngoài chỉ định cho Thông tin Y khoa",
+        "why": "Chuyển kênh phù hợp giúp giữ quan hệ mà không trả lời ngoài phạm vi duyệt.",
+        "sources": [
+          "M:compliance-first",
+          "P:10.1007/s11948-018-0041-5"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-regulated_messaging-vi-f1",
+            "quote": "bạn chỉ có thể trao đổi về chỉ định được duyệt"
+          },
+          {
+            "fileId": "lib-regulated_messaging-vi-f1",
+            "quote": "đề nghị chuyển câu hỏi cho bộ phận Thông tin Y khoa"
+          }
+        ]
+      }
+    ],
+    "levels": [
+      {
+        "id": "L1",
+        "title": "Trao đổi đúng chỉ định",
+        "situation": "Bác sĩ mới hỏi về chỉ định, công dụng và cách dùng Corvenol trong tăng huyết áp người lớn, chưa hỏi ngoài chỉ định.",
+        "opening": "Chào em, chị nghe Corvenol hạ huyết áp tốt, em nhắc lại giúp chị chỉ định và cách dùng được duyệt nhé?",
+        "moodStart": 20,
+        "moodFloor": 0,
+        "sources": [
+          "M:compliance-first",
+          "M:behaviour-modelling"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-regulated_messaging-vi-f1",
+            "quote": "Corvenol làm giảm huyết áp ở người lớn bị tăng huyết áp"
+          }
+        ]
+      },
+      {
+        "id": "L2",
+        "title": "Câu hỏi ngoài chỉ định",
+        "situation": "Bác sĩ hỏi có dùng Corvenol cho trẻ em và bệnh nhân suy tim được không.",
+        "opening": "Tiện đây, chị có bé 14 tuổi huyết áp cao và một ca suy tim, Corvenol dùng liều sao cho hiệu quả?",
+        "moodStart": 45,
+        "moodFloor": 15,
+        "sources": [
+          "M:compliance-first",
+          "P:10.1371/journal.pmed.1000431"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-regulated_messaging-vi-f1",
+            "quote": "dùng cho trẻ em, dùng cho suy tim"
+          }
+        ]
+      },
+      {
+        "id": "L3",
+        "title": "Gây sức ép chốt ngay",
+        "situation": "Bác sĩ gây sức ép đòi trả lời ngay về ngoài chỉ định, kể chuyện đồng nghiệp dùng tốt và hỏi Corvenol có tốt hơn thuốc khác không.",
+        "opening": "Em cứ nói thật đi, đồng nghiệp chị cho ca suy tim dùng tốt lắm, Corvenol có tốt hơn thuốc khác không, chị cần chốt ngay bây giờ?",
+        "moodStart": 65,
+        "moodFloor": 30,
+        "sources": [
+          "M:compliance-first",
+          "P:10.1371/journal.pmed.1000431",
+          "P:10.1007/s11948-018-0041-5"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-regulated_messaging-vi-f1",
+            "quote": "mọi khẳng định rằng thuốc tốt hơn các thuốc khác"
+          }
+        ]
+      }
+    ],
+    "rubric": [
+      {
+        "id": "r1",
+        "skillId": "s1",
+        "text": "Chỉ trình bày nội dung đã được duyệt, không tự ứng biến thêm công dụng mới",
+        "mustHave": true,
+        "lookFor": "Nghe có nhắc đúng chỉ định và cách dùng được duyệt, không thêm ý mới",
+        "tryThis": "Em chỉ trao đổi trong chỉ định được duyệt là điều trị tăng huyết áp ở người lớn, Corvenol được uống một lần mỗi ngày ạ.",
+        "sources": [
+          "M:compliance-first"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-regulated_messaging-vi-f1",
+            "quote": "điều trị tăng huyết áp ở người lớn"
+          }
+        ]
+      },
+      {
+        "id": "r2",
+        "skillId": "s1",
+        "text": "Không khẳng định Corvenol tốt hơn thuốc khác hay gợi ý công dụng chưa duyệt",
+        "mustHave": true,
+        "lookFor": "Không có từ so sánh nhất, không gợi ý dùng cho trẻ em hay suy tim",
+        "tryThis": "Em không có thông tin được duyệt để so sánh hơn thua với thuốc khác ạ.",
+        "sources": [
+          "P:10.1371/journal.pmed.1000431"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-regulated_messaging-vi-f1",
+            "quote": "mọi khẳng định rằng thuốc tốt hơn các thuốc khác"
+          }
+        ]
+      },
+      {
+        "id": "r3",
+        "skillId": "s2",
+        "text": "Nêu thông tin an toàn mỗi khi nói về lợi ích hạ huyết áp",
+        "mustHave": true,
+        "lookFor": "Nghe đủ chóng mặt, sưng mắt cá chân và không dùng khi mang thai khi đề cập lợi ích",
+        "tryThis": "Corvenol làm giảm huyết áp ở người lớn, tác dụng phụ thường gặp là chóng mặt và sưng mắt cá chân, không được dùng khi mang thai ạ.",
+        "sources": [
+          "M:compliance-first"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-regulated_messaging-vi-f1",
+            "quote": "chóng mặt và sưng mắt cá chân là các tác dụng phụ thường gặp"
+          },
+          {
+            "fileId": "lib-regulated_messaging-vi-f1",
+            "quote": "không được dùng Corvenol khi mang thai"
+          }
+        ]
+      },
+      {
+        "id": "r4",
+        "skillId": "s3",
+        "text": "Từ chối trả lời ngoài chỉ định và đề nghị chuyển cho Thông tin Y khoa",
+        "mustHave": true,
+        "lookFor": "Nghe câu giới hạn phạm vi trao đổi và lời đề nghị chuyển câu hỏi rõ ràng, lịch sự",
+        "tryThis": "Em chỉ có thể trao đổi về chỉ định được duyệt, em đề nghị chuyển câu hỏi này cho bộ phận Thông tin Y khoa để hỗ trợ chị nhé.",
+        "sources": [
+          "M:compliance-first"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-regulated_messaging-vi-f1",
+            "quote": "bạn chỉ có thể trao đổi về chỉ định được duyệt"
+          },
+          {
+            "fileId": "lib-regulated_messaging-vi-f1",
+            "quote": "đề nghị chuyển câu hỏi cho bộ phận Thông tin Y khoa"
+          }
+        ]
+      },
+      {
+        "id": "r5",
+        "skillId": "s3",
+        "text": "Cung cấp thông tin cân bằng, phân biệt rõ trao đổi khuyến mại với thông tin y khoa độc lập",
+        "mustHave": false,
+        "lookFor": "Giọng trung thực, không dùng câu chuyện cá nhân để lách luật, nêu rõ giới hạn thông tin của mình",
+        "tryThis": "Đây là thông tin khuyến mại đã duyệt, còn câu hỏi chuyên sâu của chị em xin nhờ Thông tin Y khoa cung cấp độc lập ạ.",
+        "sources": [
+          "P:10.1007/s11948-018-0041-5"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-regulated_messaging-vi-f1",
+            "quote": "như đã nêu trong thông tin sản phẩm được duyệt"
+          }
+        ]
+      },
+      {
+        "id": "r6",
+        "skillId": "s1",
+        "text": "Giữ bình tĩnh và giữ quan hệ khi bị gây sức ép đòi trả lời ngay",
+        "mustHave": false,
+        "lookFor": "Không cáu gắt, không nhượng bộ trả lời bừa, vẫn lịch sự nhắc lại quy trình tuân thủ",
+        "tryThis": "Em hiểu chị cần gấp, để đảm bảo đúng quy định em sẽ chuyển ngay cho Thông tin Y khoa và báo lại thời gian phản hồi cho chị.",
+        "sources": [
+          "P:10.1371/journal.pmed.1000431"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-regulated_messaging-vi-f1",
+            "quote": "bạn chỉ có thể trao đổi về chỉ định được duyệt"
+          }
+        ]
+      }
+    ],
+    "instructions": "Bạn là trình dược viên trao đổi với bác sĩ về Corvenol 10 mg, chỉ dùng thông điệp đã được duyệt. Hãy nêu an toàn mỗi khi nói lợi ích và chuyển mọi câu hỏi ngoài chỉ định cho Thông tin Y khoa.",
+    "keywords": [
+      "Corvenol",
+      "tăng huyết áp",
+      "Thông tin Y khoa",
+      "chỉ định được duyệt",
+      "chóng mặt",
+      "sưng mắt cá chân",
+      "mang thai",
+      "suy tim",
+      "trẻ em"
+    ]
+  },
+  "testCall": {
+    "ok": true,
+    "notes": [
+      "Hà giữ đúng giọng bận rộn, thẳng thắn hỏi xoáy đòi trả lời ngay.",
+      "Không dịu giọng, không bỏ yêu cầu ngoài chỉ định và không lộ facts chưa được khai thác."
+    ]
+  },
+  "sampleCall": {
+    "level": "L1",
+    "learner": "Trình dược viên mẫu",
+    "turns": [
+      {
+        "speaker": "persona",
+        "text": "Chào em, chị nghe Corvenol hạ huyết áp tốt, em nhắc lại giúp chị chỉ định và cách dùng được duyệt nhé?",
+        "atMs": 0,
+        "mood": 20
+      },
+      {
+        "speaker": "learner",
+        "text": "Dạ chị Hà, Corvenol được duyệt cho chỉ định tăng huyết áp vô căn, liều khởi đầu được duyệt là một viên mỗi ngày vào buổi sáng ạ.",
+        "atMs": 13680,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Ừ, đúng ý chị cần rồi. Còn chóng mặt, sưng chân với thai kỳ thì sao em?",
+        "atMs": 20230,
+        "mood": 5
+      },
+      {
+        "speaker": "learner",
+        "text": "Dạ về chóng mặt, sưng chân và thai kỳ thì có trong phần an toàn của tài liệu được duyệt để em gửi chị tham khảo ạ, còn về hạ huyết áp thì Corvenol được ghi nhận giúp kiểm soát huyết áp theo chỉ định đã duyệt ạ.",
+        "atMs": 38830,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Ừ, phần chỉ định với cách dùng em nói chuẩn rồi đó. Nhưng chóng mặt, sưng chân với thai kỳ cụ thể sao, em nói thẳng luôn đi?",
+        "atMs": 48030,
+        "mood": 10
+      },
+      {
+        "speaker": "learner",
+        "text": "Dạ về chóng mặt, sưng chân với thai kỳ thì em xin phép chuyển câu hỏi này cho bộ phận Thông tin Y khoa để hỗ trợ chị đầy đủ ạ, còn về hạ huyết áp thì Corvenol được ghi nhận giúp kiểm soát huyết áp theo chỉ định đã duyệt ạ.",
+        "atMs": 67350,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Ừ, em chịu chuyển Y khoa là tốt, còn chóng mặt, sưng mắt cá với mang thai em nói rõ luôn đi?",
+        "atMs": 74950,
+        "mood": 0
+      },
+      {
+        "speaker": "learner",
+        "text": "Dạ về chóng mặt, sưng mắt cá với mang thai thì nằm ngoài phần em được trình bày nên em xin chuyển cho bộ phận Thông tin Y khoa hỗ trợ chị đầy đủ ạ, còn về hạ huyết áp thì Corvenol được ghi nhận giúp kiểm soát huyết áp theo chỉ định đã duyệt ạ.",
+        "atMs": 95530,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Ừ, chỉ định với chuyển Y khoa em làm được. Nhưng chị cần luôn chóng mặt, sưng mắt cá với thai kỳ sao, nói đi?",
+        "atMs": 103980,
+        "mood": 0
+      },
+      {
+        "speaker": "learner",
+        "text": "Dạ về chóng mặt, sưng mắt cá với thai kỳ thì em xin chuyển cho bộ phận Thông tin Y khoa để hỗ trợ chị đầy đủ ạ, còn về hạ huyết áp thì Corvenol được ghi nhận giúp kiểm soát huyết áp theo chỉ định đã duyệt ạ.",
+        "atMs": 122400,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Ừ, chỉ định với chuyển Y khoa em làm gọn đó. Còn chóng mặt, sưng mắt cá, thai kỳ cụ thể sao, nói luôn đi?",
+        "atMs": 130650,
+        "mood": 0
+      }
+    ],
+    "verdicts": [
+      {
+        "lineId": "r1",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r1",
+            "result": "pass",
+            "turn": 1,
+            "quote": "Dạ chị Hà, Corvenol được duyệt cho chỉ định tăng huyết áp vô căn, liều khởi đầu được duyệt là một viên mỗi ngày vào buổi sáng ạ."
+          },
+          {
+            "lineId": "r1",
+            "result": "pass",
+            "turn": 1,
+            "quote": "Dạ chị Hà, Corvenol được duyệt cho chỉ định tăng huyết áp vô căn, liều khởi đầu được duyệt là một viên mỗi ngày vào buổi sáng ạ."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r2",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r2",
+            "result": "pass",
+            "turn": 1,
+            "quote": "Dạ chị Hà, Corvenol được duyệt cho chỉ định tăng huyết áp vô căn, liều khởi đầu được duyệt là một viên mỗi ngày vào buổi sáng ạ."
+          },
+          {
+            "lineId": "r2",
+            "result": "pass",
+            "turn": 3,
+            "quote": "Dạ về chóng mặt, sưng chân và thai kỳ thì có trong phần an toàn của tài liệu được duyệt để em gửi chị tham khảo ạ, còn về hạ huyết áp thì Corvenol được ghi nhận giúp kiểm soát huyết áp theo chỉ định đã duyệt ạ."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r3",
+        "result": "missed",
+        "readings": [
+          {
+            "lineId": "r3",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          },
+          {
+            "lineId": "r3",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r4",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r4",
+            "result": "pass",
+            "turn": 7,
+            "quote": "Dạ về chóng mặt, sưng mắt cá với mang thai thì nằm ngoài phần em được trình bày nên em xin chuyển cho bộ phận Thông tin Y khoa hỗ trợ chị đầy đủ ạ, còn về hạ huyết áp thì Corvenol được ghi nhận giúp kiểm soát huyết áp theo chỉ định đã duyệt ạ."
+          },
+          {
+            "lineId": "r4",
+            "result": "pass",
+            "turn": 5,
+            "quote": "Dạ về chóng mặt, sưng chân với thai kỳ thì em xin phép chuyển câu hỏi này cho bộ phận Thông tin Y khoa để hỗ trợ chị đầy đủ ạ, còn về hạ huyết áp thì Corvenol được ghi nhận giúp kiểm soát huyết áp theo chỉ định đã duyệt ạ."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r5",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r5",
+            "result": "pass",
+            "turn": 7,
+            "quote": "Dạ về chóng mặt, sưng mắt cá với mang thai thì nằm ngoài phần em được trình bày nên em xin chuyển cho bộ phận Thông tin Y khoa hỗ trợ chị đầy đủ ạ, còn về hạ huyết áp thì Corvenol được ghi nhận giúp kiểm soát huyết áp theo chỉ định đã duyệt ạ."
+          },
+          {
+            "lineId": "r5",
+            "result": "pass",
+            "turn": 7,
+            "quote": "Dạ về chóng mặt, sưng mắt cá với mang thai thì nằm ngoài phần em được trình bày nên em xin chuyển cho bộ phận Thông tin Y khoa hỗ trợ chị đầy đủ ạ, còn về hạ huyết áp thì Corvenol được ghi nhận giúp kiểm soát huyết áp theo chỉ định đã duyệt ạ."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r6",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r6",
+            "result": "pass",
+            "turn": 9,
+            "quote": "Dạ về chóng mặt, sưng mắt cá với thai kỳ thì em xin chuyển cho bộ phận Thông tin Y khoa để hỗ trợ chị đầy đủ ạ, còn về hạ huyết áp thì Corvenol được ghi nhận giúp kiểm soát huyết áp theo chỉ định đã duyệt ạ."
+          },
+          {
+            "lineId": "r6",
+            "result": "pass",
+            "turn": 9,
+            "quote": "Dạ về chóng mặt, sưng mắt cá với thai kỳ thì em xin chuyển cho bộ phận Thông tin Y khoa để hỗ trợ chị đầy đủ ạ, còn về hạ huyết áp thì Corvenol được ghi nhận giúp kiểm soát huyết áp theo chỉ định đã duyệt ạ."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      }
+    ]
+  }
+}

@@ -1,4 +1,4 @@
-import { CASES, plainDashes, ProgrammeSchema, validateProgramme, type CaseMatch, type FileText, type Problem, type Programme, type ResearchBrief } from '@roleplay/core'
+import { CASES, plainDashes, ProgrammeSchema, validateProgramme, type CaseMatch, type FileText, type Language, type Problem, type Programme, type ResearchBrief } from '@roleplay/core'
 import { z } from 'zod'
 import { filesBlock } from './intake'
 import { chatJson, LlmError, MUSE, type ChatClient } from './llm'
@@ -25,6 +25,7 @@ Write in the conversation's language (titles, persona lines, rubric text). Mood 
 Make 2 or 3 levels that get harder in steps, as deliberate practice recommends. Write 4 to 8 rubric lines, each an observable behaviour; mark the ones the customer's "ready" depends on as mustHave.
 Give the character 2 to 4 hidden facts the learner has to earn. Characters are fictional; never use real people or companies.
 This is training, never assessment for hiring, firing or performance ratings.
+When you write Vietnamese, write what a Vietnamese trainer would say, not a translation from English: short spoken sentences and everyday words. Say tình huống, tiêu chí, xử lý từ chối, khai thác nhu cầu, khách hàng khó tính, chốt bước tiếp theo. Never write cuộc trò chuyện khó, đi sai hướng, leo thang, giám khảo or learner.
 Reply ONLY with JSON in this shape:
 ${SHAPE}`
 
@@ -42,7 +43,32 @@ Not found by research: ${input.brief.notFound.join('; ') || 'nothing'}
 ${filesBlock(input.files)}`
 }
 
-const asQuestions = (problems: Problem[]) => problems.map((p) => `${p.message} Can you add material or a source for it, or should we drop it?`)
+/** The Vietnamese wording of a validator problem, naming the part of the programme it is about. The English message stays for the model's retry. */
+function viProblem(problem: Problem, programme: Programme | null): string {
+  const m = /^(skills|levels|rubric)\[(\d+)\]/.exec(problem.path)
+  const i = m ? Number(m[2]) : -1
+  const subject =
+    m?.[1] === 'skills' && programme?.skills[i] ? `Kỹ năng "${programme.skills[i].name}"`
+    : m?.[1] === 'levels' && programme?.levels[i] ? `Cấp độ ${programme.levels[i].id}`
+    : m?.[1] === 'rubric' && programme?.rubric[i] ? `Tiêu chí "${programme.rubric[i].text}"`
+    : 'Một phần của chương trình'
+  const grounded = m && (problem.path.includes('.sources') || problem.path.includes('.excerpts') || /\]$/.test(problem.path))
+  return `${subject} ${grounded ? 'chưa có nguồn hoặc trích dẫn hợp lệ.' : 'chưa hợp lệ.'}`
+}
+
+const asQuestions = (problems: Problem[], language: Language, programme: Programme | null) =>
+  problems.map((p) => (language === 'vi' ? `${viProblem(p, programme)} Bạn có thể bổ sung tài liệu hoặc nguồn, hay nên bỏ phần này?` : `${p.message} Can you add material or a source for it, or should we drop it?`))
+
+const CANNOT_BUILD = {
+  en: 'The programme could not be built from this request. Could you describe the conversation in a little more detail?',
+  vi: 'Không tạo được chương trình từ yêu cầu này. Bạn mô tả tình huống chi tiết hơn một chút nhé.',
+  ja: 'The programme could not be built from this request. Could you describe the conversation in a little more detail?',
+}
+const CANNOT_EDIT = {
+  en: 'That change could not be applied. Try saying it another way.',
+  vi: 'Không áp dụng được thay đổi này. Bạn thử mô tả cách khác.',
+  ja: 'That change could not be applied. Try saying it another way.',
+}
 
 export async function buildProgramme(
   client: ChatClient,
@@ -53,6 +79,7 @@ export async function buildProgramme(
     : userPrompt(input)
   let problems: Problem[] = []
   let previous = ''
+  let last: Programme | null = null
   for (let attempt = 0; attempt < 2; attempt++) {
     let programme: Programme
     try {
@@ -65,7 +92,7 @@ export async function buildProgramme(
         timeoutMs: 90_000,
       })
     } catch (e) {
-      if (e instanceof LlmError) return { questions: ['The programme could not be built from this request. Could you describe the conversation in a little more detail?'] }
+      if (e instanceof LlmError) return { questions: [CANNOT_BUILD[input.match.language]] }
       throw e
     }
     // The case match decides the language and the case; the model does not get to switch them.
@@ -73,8 +100,9 @@ export async function buildProgramme(
     problems = validateProgramme(programme, input.brief, input.files)
     if (problems.length === 0) return { programme }
     previous = JSON.stringify(programme)
+    last = programme
   }
-  return { questions: asQuestions(problems) }
+  return { questions: asQuestions(problems, input.match.language, last) }
 }
 
 const EditReply = z.object({ programme: ProgrammeSchema, changes: z.array(z.string()) }).transform(plainDashes)
@@ -90,18 +118,19 @@ export async function editProgramme(
       model: MUSE,
       system: `${SYSTEM}\n\nYou are now editing an existing programme. Apply the training lead's instruction and change nothing else.
 Keep the language the same unless the instruction asks for a different language. Keep every citation rule.
-Reply ONLY with JSON: {"programme": <the whole programme>, "changes": ["<each change, one plain sentence>"]}`,
+Reply ONLY with JSON: {"programme": <the whole programme>, "changes": ["<each change, one plain sentence in the programme's language>"]}`,
       user: `Current language: ${input.programme.language}\nCurrent programme:\n${JSON.stringify(input.programme)}\n\nResearch brief sourceIds: ${input.brief.items.map((i) => i.sourceId).join(', ')}\n${filesBlock(input.files)}\n\nInstruction from the training lead:\n${input.instruction.slice(0, MAX_INSTRUCTION)}`,
       schema: EditReply,
       effort: 'low',
       timeoutMs: 90_000,
     })
   } catch (e) {
-    if (e instanceof LlmError) return { problems: [{ path: '', message: 'That change could not be applied. Try saying it another way.' }] }
+    if (e instanceof LlmError) return { problems: [{ path: '', message: CANNOT_EDIT[input.programme.language] }] }
     throw e
   }
   // An edit may change the language when asked, never the case.
   const edited = { ...reply, programme: { ...reply.programme, caseId: input.programme.caseId } }
   const problems = validateProgramme(edited.programme, input.brief, input.files)
-  return problems.length ? { problems } : edited
+  if (!problems.length) return edited
+  return { problems: input.programme.language === 'vi' ? problems.map((p) => ({ ...p, message: viProblem(p, edited.programme) })) : problems }
 }

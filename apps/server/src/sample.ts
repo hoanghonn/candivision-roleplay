@@ -25,7 +25,7 @@ export function sampleTeam(programme: Programme, seed: string): CallSummary[] {
     })
   const day = 24 * 3600 * 1000
   return Array.from({ length: 12 }, (_, i) => {
-    const learner = `Learner ${String(i + 1).padStart(2, '0')}`
+    const learner = `${programme.language === 'vi' ? 'Học viên' : 'Learner'} ${String(i + 1).padStart(2, '0')}`
     return [
       { learner, created: i * 1000, mode: 'full' as const, verdicts: verdicts(0.35), sample: true },
       { learner, created: 7 * day + i * 1000, mode: 'full' as const, verdicts: verdicts(0.82), sample: true },

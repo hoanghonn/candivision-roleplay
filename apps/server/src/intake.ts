@@ -38,7 +38,7 @@ export function filesBlock(files: FileText[], perFile = 8000): string {
 
 const SYSTEM = `You read a training request from a company's training lead and classify it for a voice role-play training platform.
 The platform trains employees in conversations. It never screens, ranks, scores or selects job candidates or employees for hiring, firing or performance ratings.
-If the request is really about screening, ranking or selecting candidates or employees, reply ONLY with {"declined":"screening","reason":"<one plain sentence>"}.
+If the request is really about screening, ranking or selecting candidates or employees, reply ONLY with {"declined":"screening","reason":"<one plain sentence, in the language of the request>"}.
 
 Otherwise pick the closest case:
 ${CASE_IDS.map((id) => `- ${id}: ${CASES[id].name}. Counterpart: ${CASES[id].counterpart}`).join('\n')}

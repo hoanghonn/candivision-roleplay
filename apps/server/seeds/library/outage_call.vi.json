@@ -1,0 +1,629 @@
+{
+  "caseId": "outage_call",
+  "variant": "vi",
+  "request": "Khi hệ thống gặp sự cố, kỹ sư của chúng tôi gọi cho khách hàng và mọi chuyện càng tệ hơn. Họ giải thích nguyên nhân kỹ thuật quá dài, không hề xin lỗi, và không đưa ra được thời điểm cập nhật tiếp theo. Tháng trước một khách hàng ở Osaka đã báo thẳng lên giám đốc điều hành của chúng tôi. Đạt nghĩa là: họ nhận trách nhiệm ngay trong phút đầu, giải thích tác động bằng lời đơn giản và luôn đưa ra thời điểm cập nhật tiếp theo. Toàn bộ cuộc gọi diễn ra bằng tiếng Việt.",
+  "files": [
+    {
+      "id": "lib-outage_call-vi-f1",
+      "name": "bao-cao-su-co.txt",
+      "text": "TÀI LIỆU MẪU HƯ CẤU - được tạo cho bản demo CandiVision Roleplay. Kumo Logistics không phải công ty có thật.\n\nBáo cáo sự cố INC-0412 (nội bộ)\nKhách hàng: Kumo Logistics (nền tảng quản lý kho, khu vực Osaka)\nBắt đầu: 09:12 giờ địa phương. Khách hàng hết bị ảnh hưởng: 11:05.\nTác động: nhân viên kho không lưu được đơn hàng mới. Việc lấy hàng và xuất hàng dừng ở ba kho trong khoảng hai tiếng.\nNguyên nhân: một lần thay đổi cấu trúc cơ sở dữ liệu trong bản phát hành buổi sáng đã khóa bảng đơn hàng. Việc tự động hoàn tác không chạy.\nPhát hiện: đội vận hành của Kumo báo qua điện thoại lúc 09:31. Hệ thống giám sát của chúng tôi cảnh báo lúc 09:40.\nKhắc phục: hoàn tác bản phát hành thủ công lúc 10:58. Lưu được đơn hàng trở lại lúc 11:05.\nBước tiếp theo: thêm giới hạn thời gian khóa cho việc thay đổi cấu trúc; kiểm thử hoàn tác trên môi trường thử nghiệm; gửi Kumo bản tóm tắt bằng văn bản trong vòng 2 ngày làm việc.\nĐây là sự cố thứ hai ảnh hưởng đến Kumo trong tháng này (lần đầu là 40 phút không đăng nhập được vào ngày 3).\n"
+    },
+    {
+      "id": "lib-outage_call-vi-f2",
+      "name": "email-khach-hang.txt",
+      "text": "TÀI LIỆU MẪU HƯ CẤU - được tạo cho bản demo CandiVision Roleplay. Mọi tên đều là tên giả.\n\nTừ: Trưởng phòng Vận hành, Kumo Logistics\nĐến: Nhóm phụ trách khách hàng\nTiêu đề: Lại nữa à??\n\nSáng nay ba kho của chúng tôi dừng hoạt động hai tiếng. Nhân viên phải ngồi không và xe tải chạy đi khi còn trống một nửa.\nĐây là lần thứ hai trong tháng này. Lần trước kỹ sư của các anh mất mười phút giải thích \"replication\" cho tôi mà không hề nói khi nào sửa xong.\nTôi không cần chi tiết kỹ thuật. Tôi cần biết cái gì bị ảnh hưởng, các anh đang làm gì, và khi nào tôi sẽ nhận được tin tiếp theo.\nNếu chuyện này lặp lại, tôi sẽ phải báo lên giám đốc điều hành của chúng tôi.\n\nTừ: Nhóm phụ trách khách hàng\nĐến: Trưởng phòng Vận hành, Kumo Logistics\nTiêu đề: TL: Lại nữa à??\n\nChúng tôi hiểu. Kỹ sư trực của chúng tôi sẽ gọi cho chị ngay bây giờ.\n"
+    }
+  ],
+  "match": {
+    "caseId": "outage_call",
+    "situation": "Gọi cho Trưởng phòng Vận hành của Kumo Logistics đang bức xúc về sự cố dừng hoạt động ở ba kho để xin lỗi và cập nhật tình hình",
+    "learnerRole": "Kỹ sư trực gọi cho khách hàng khi hệ thống gặp sự cố",
+    "counterpartRole": "Trưởng phòng Vận hành của khách hàng Kumo Logistics",
+    "language": "vi",
+    "stakes": "Nếu cuộc gọi tệ đi, khách hàng ở Osaka sẽ báo thẳng lên giám đốc điều hành",
+    "readyMeans": [
+      "nhận trách nhiệm ngay trong phút đầu",
+      "giải thích tác động bằng lời đơn giản",
+      "luôn đưa ra thời điểm cập nhật tiếp theo"
+    ]
+  },
+  "brief": {
+    "sources": [
+      {
+        "id": "M:apology-structure",
+        "kind": "method",
+        "title": "An exploration of the structure of effective apologies",
+        "authors": "Lewicki, Polin and Lount",
+        "year": 2016,
+        "link": "https://doi.org/10.1111/ncmr.12073",
+        "summary": "Two experiments on which parts of an apology matter. Apologies with more parts were judged more effective. Taking responsibility mattered most, then offering to repair; asking for forgiveness mattered least."
+      },
+      {
+        "id": "M:incident-comms",
+        "kind": "method",
+        "title": "PagerDuty Incident Response documentation",
+        "authors": "PagerDuty",
+        "year": null,
+        "link": "https://response.pagerduty.com/",
+        "summary": "An openly published guide to running major incidents. It gives one person the job of communicating with stakeholders, and status updates that say what is affected, what is being done, and when the next update will come."
+      },
+      {
+        "id": "M:service-recovery",
+        "kind": "method",
+        "title": "A model of customer satisfaction with service encounters involving failure and recovery",
+        "authors": "Smith, Bolton and Wagner",
+        "year": 1999,
+        "link": "https://doi.org/10.2307/3152082",
+        "summary": "Customers judge a recovery on three kinds of fairness: what they get back, how quickly and smoothly it is handled, and how they are treated. The best recovery matches the kind and size of the failure; an apology and a fast response matter most when the failure is about the process."
+      },
+      {
+        "id": "M:complaint-justice",
+        "kind": "method",
+        "title": "Customer evaluations of service complaint experiences: implications for relationship marketing",
+        "authors": "Tax, Brown and Chandrashekaran",
+        "year": 1998,
+        "link": "https://doi.org/10.1177/002224299806200205",
+        "summary": "A study of how customers judge the handling of their complaints. They look at a fair outcome, a fair process (timely, flexible, easy to follow) and fair treatment (courtesy, honesty, empathy, effort). All three shape trust and commitment afterwards."
+      },
+      {
+        "id": "P:10.1177/1096348006297292",
+        "kind": "paper",
+        "title": "Providing an Explanation for Service Failure: Context, Content, and Customer Responses",
+        "authors": "Beverley Sparks, Liz Fredline",
+        "year": 2007,
+        "link": "https://doi.org/10.1177/1096348006297292",
+        "summary": "Khi giải thích nguyên nhân sự cố, đưa lời giải thích đầy đủ và có cấu trúc rõ ràng vì cách giải thích ảnh hưởng trực tiếp đến hài lòng và tin tưởng tiếp tục hợp tác."
+      },
+      {
+        "id": "P:10.1177/1046878197282002",
+        "kind": "paper",
+        "title": "Computer-Based Role-Playing for Interpersonal Skills Training",
+        "authors": "Geralien A. Holsbrink-Engels",
+        "year": 1997,
+        "link": "https://doi.org/10.1177/1046878197282002",
+        "summary": "Luyện kỹ năng giao tiếp khó qua mô phỏng vai trò trên máy tính với tình huống đơn giản hóa trước, rồi mới chuyển sang vai trò trực tiếp phức tạp."
+      },
+      {
+        "id": "P:10.1109/mis.2026.3726701",
+        "kind": "paper",
+        "title": "Social Skill Training With Large Language Models",
+        "authors": "Diyi Yang, Caleb Ziems, William Held, Omar Shaikh, Michael S. Bernstein, John C. Mitchell",
+        "year": 2026,
+        "link": "https://doi.org/10.1109/mis.2026.3726701",
+        "summary": "Tập luyện theo khung đối tác AI để thực hành hội thoại và cố vấn AI để nhận phản hồi ngay, giúp người học lặp lại nhiều lần tình huống căng thẳng một cách an toàn."
+      },
+      {
+        "id": "M:deliberate-practice",
+        "kind": "method",
+        "title": "The role of deliberate practice in the acquisition of expert performance",
+        "authors": "Ericsson, Krampe and Tesch-Römer",
+        "year": 1993,
+        "link": "https://doi.org/10.1037/0033-295X.100.3.363",
+        "summary": "Expert performance grows through focused practice on specific weak points, with immediate feedback and repetition, at a difficulty just beyond current ability."
+      },
+      {
+        "id": "M:feedback-power",
+        "kind": "method",
+        "title": "The power of feedback",
+        "authors": "Hattie and Timperley",
+        "year": 2007,
+        "link": "https://doi.org/10.3102/003465430298487",
+        "summary": "A review of feedback in learning. Useful feedback answers where am I going, how am I going, and where to next, and works at the level of the task and the process, not praise of the person."
+      }
+    ],
+    "items": [
+      {
+        "sourceId": "M:apology-structure",
+        "gives": "Nhận trách nhiệm rõ ràng ngay đầu cuộc gọi và nêu hướng khắc phục cụ thể, không vòng vo hay xin tha thứ chung chung.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "M:incident-comms",
+        "gives": "Nói tác động bằng lời đơn giản theo ngôn ngữ vận hành của khách hàng, nêu việc đang làm hiện tại và chốt giờ cập nhật tiếp theo rồi giữ đúng hẹn.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "M:service-recovery",
+        "gives": "Xin lỗi nhanh, ứng xử tôn trọng suốt cuộc gọi và đưa biện pháp bù đắp tương xứng với thiệt hại dừng ba kho hai tiếng.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "M:complaint-justice",
+        "gives": "Giải thích ngắn gọn điều gì sẽ xảy ra và khi nào, thể hiện nỗ lực và sự trung thực thay vì dùng thuật ngữ kỹ thuật như lần trước.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "P:10.1177/1096348006297292",
+        "gives": "Khi giải thích nguyên nhân sự cố, đưa lời giải thích đầy đủ và có cấu trúc rõ ràng vì cách giải thích ảnh hưởng trực tiếp đến hài lòng và tin tưởng tiếp tục hợp tác.",
+        "use": "handle"
+      },
+      {
+        "sourceId": "P:10.1177/1046878197282002",
+        "gives": "Luyện kỹ năng giao tiếp khó qua mô phỏng vai trò trên máy tính với tình huống đơn giản hóa trước, rồi mới chuyển sang vai trò trực tiếp phức tạp.",
+        "use": "learn"
+      },
+      {
+        "sourceId": "P:10.1109/mis.2026.3726701",
+        "gives": "Tập luyện theo khung đối tác AI để thực hành hội thoại và cố vấn AI để nhận phản hồi ngay, giúp người học lặp lại nhiều lần tình huống căng thẳng một cách an toàn.",
+        "use": "learn"
+      },
+      {
+        "sourceId": "M:deliberate-practice",
+        "gives": "Luyện phần còn yếu bằng những lần lặp ngắn. Tăng độ khó theo từng bước.",
+        "use": "learn"
+      },
+      {
+        "sourceId": "M:feedback-power",
+        "gives": "Nói rõ mục tiêu là gì, kết quả ra sao và bước tiếp theo. Tập trung vào công việc, không phải con người.",
+        "use": "learn"
+      }
+    ],
+    "notFound": [
+      "Làm thế nào để lấy lại niềm tin khi đây là sự cố thứ hai trong cùng một tháng và khách hàng đã dọa báo lên giám đốc điều hành?",
+      "Nên xử lý ra sao khi khách hàng ngắt lời, lớn tiếng hoặc yêu cầu cam kết không tái diễn mà kỹ sư trực không có thẩm quyền hứa?"
+    ]
+  },
+  "programme": {
+    "title": "Xin lỗi sự cố dừng ba kho",
+    "caseId": "outage_call",
+    "language": "vi",
+    "learnerRole": "Kỹ sư trực gọi cho khách hàng khi hệ thống gặp sự cố",
+    "persona": {
+      "name": "Naoko",
+      "role": "Trưởng phòng Vận hành của công ty logistics",
+      "voice": "woman",
+      "style": "Nói ngắn, sốt ruột, ngắt lời khi nghe thuật ngữ kỹ thuật, cần giờ giấc cụ thể",
+      "facts": [
+        {
+          "id": "h1",
+          "fact": "Xe tải đã chạy đi khi còn trống một nửa và nhân viên kho phải ngồi không hai tiếng",
+          "earnedBy": "Hỏi rõ tác động vận hành cụ thể ở kho bằng lời đơn giản"
+        },
+        {
+          "id": "h2",
+          "fact": "Đây là sự cố thứ hai trong tháng, lần đầu mất 40 phút không đăng nhập được",
+          "earnedBy": "Thừa nhận lịch sử sự cố và hỏi về lần trước một cách tôn trọng"
+        },
+        {
+          "id": "h3",
+          "fact": "Nếu chuyện tệ đi, khách hàng ở Osaka sẽ báo thẳng lên giám đốc điều hành",
+          "earnedBy": "Hỏi về điều khách hàng lo nhất tiếp theo và cách giữ niềm tin"
+        },
+        {
+          "id": "h4",
+          "fact": "Đội vận hành của Kumo đã phải tự gọi báo lúc 09:31 trước khi hệ thống giám sát phát hiện",
+          "earnedBy": "Hỏi ai phát hiện sự cố và xin lỗi vì phát hiện muộn"
+        }
+      ],
+      "redLines": [
+        "không bao giờ hạ giọng trước khi nghe giờ cập nhật tiếp theo cụ thể",
+        "không bao giờ chấp nhận lời hứa không tái diễn chung chung khi chưa có hành động cụ thể",
+        "không bao giờ tiếp tục nghe nếu bị đổ lỗi là do thao tác của kho"
+      ],
+      "portraitPrompt": "Illustrated portrait of a middle-aged East Asian woman operations manager wearing a headset in a warehouse office, worried stern expression, neutral background, no text"
+    },
+    "skills": [
+      {
+        "id": "s1",
+        "name": "Nhận trách nhiệm ngay phút đầu",
+        "why": "Xin lỗi rõ ràng đầu cuộc gọi giúp giảm giận và giữ niềm tin khi dừng ba kho.",
+        "sources": [
+          "M:apology-structure"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-outage_call-vi-f2",
+            "quote": "ba kho của chúng tôi dừng hoạt động hai tiếng"
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "name": "Giải thích tác động bằng lời đơn giản",
+        "why": "Nói theo ngôn ngữ vận hành của khách hàng giúp họ hiểu và ra quyết định nhanh.",
+        "sources": [
+          "M:incident-comms",
+          "M:complaint-justice"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-outage_call-vi-f2",
+            "quote": "Tôi cần biết cái gì bị ảnh hưởng"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "name": "Chốt giờ cập nhật tiếp theo",
+        "why": "Đưa giờ hẹn cụ thể và giữ đúng hẹn giúp khách hàng yên tâm chờ.",
+        "sources": [
+          "M:incident-comms"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-outage_call-vi-f2",
+            "quote": "khi nào tôi sẽ nhận được tin tiếp theo"
+          }
+        ]
+      },
+      {
+        "id": "s4",
+        "name": "Ứng xử tôn trọng và không đổ lỗi",
+        "why": "Giữ thái độ tôn trọng và đưa bù đắp tương xứng giúp phục hồi quan hệ sau sự cố thứ hai.",
+        "sources": [
+          "M:service-recovery"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-outage_call-vi-f1",
+            "quote": "nhân viên kho không lưu được đơn hàng mới"
+          }
+        ]
+      }
+    ],
+    "levels": [
+      {
+        "id": "L1",
+        "title": "Lo lắng cần thông tin",
+        "situation": "Trưởng phòng Vận hành lo lắng, hỏi cái gì bị ảnh hưởng và khi nào xong, cho học viên luyện câu mở đầu đơn giản.",
+        "opening": "Alo, ba kho của chúng tôi đang dừng hết, anh nói nhanh giúp tôi chuyện gì đang xảy ra vậy?",
+        "moodStart": 45,
+        "moodFloor": 10,
+        "sources": [
+          "P:10.1177/1046878197282002",
+          "M:deliberate-practice"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-outage_call-vi-f2",
+            "quote": "Tôi cần biết cái gì bị ảnh hưởng"
+          }
+        ]
+      },
+      {
+        "id": "L2",
+        "title": "Tức giận vì lần thứ hai",
+        "situation": "Khách hàng tức giận, ngắt lời khi nghe thuật ngữ kỹ thuật, nhắc đây là lần thứ hai và đòi giờ cập nhật cụ thể.",
+        "opening": "Lại nữa à? Sáng nay ba kho dừng hai tiếng rồi, lần trước anh mất mười phút nói thuật ngữ mà không nói khi nào xong!",
+        "moodStart": 72,
+        "moodFloor": 30,
+        "sources": [
+          "M:incident-comms",
+          "M:deliberate-practice"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-outage_call-vi-f1",
+            "quote": "Đây là sự cố thứ hai ảnh hưởng đến Kumo trong tháng này"
+          }
+        ]
+      },
+      {
+        "id": "L3",
+        "title": "Giám đốc cùng dự họp",
+        "situation": "Có thêm giám đốc dự cùng, khách hàng lớn tiếng, yêu cầu cam kết không tái diễn và dọa báo lên giám đốc điều hành.",
+        "opening": "Giám đốc chúng tôi đang ngồi đây, anh giải thích đi, nếu không rõ khi nào xong thì tôi sẽ phải báo lên giám đốc điều hành!",
+        "moodStart": 88,
+        "moodFloor": 45,
+        "sources": [
+          "P:10.1109/mis.2026.3726701",
+          "M:deliberate-practice"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-outage_call-vi-f2",
+            "quote": "tôi sẽ phải báo lên giám đốc điều hành của chúng tôi"
+          }
+        ]
+      }
+    ],
+    "rubric": [
+      {
+        "id": "r1",
+        "skillId": "s1",
+        "text": "Nhận trách nhiệm rõ ràng trong phút đầu mà không vòng vo hay đổ lỗi",
+        "mustHave": true,
+        "lookFor": "Nghe lời xin lỗi rõ ràng về dừng ba kho ngay đầu cuộc gọi",
+        "tryThis": "Thử nói: Tôi xin nhận trách nhiệm về việc ba kho dừng hai tiếng, và tôi sẽ cập nhật cho chị ngay bây giờ.",
+        "sources": [
+          "M:apology-structure"
+        ],
+        "excerpts": []
+      },
+      {
+        "id": "r2",
+        "skillId": "s2",
+        "text": "Nói tác động ba kho bằng lời vận hành đơn giản, không dùng thuật ngữ kỹ thuật",
+        "mustHave": true,
+        "lookFor": "Nghe mô tả nhân viên không lưu được đơn hàng, dừng lấy và xuất hàng, không nói replication hay database",
+        "tryThis": "Thử nói: Nhân viên kho không lưu được đơn hàng mới nên việc lấy và xuất hàng dừng ở ba kho.",
+        "sources": [
+          "M:incident-comms",
+          "M:complaint-justice"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-outage_call-vi-f1",
+            "quote": "Việc lấy hàng và xuất hàng dừng ở ba kho trong khoảng hai tiếng"
+          }
+        ]
+      },
+      {
+        "id": "r3",
+        "skillId": "s3",
+        "text": "Nêu việc đang làm hiện tại và chốt giờ cụ thể cho cập nhật tiếp theo",
+        "mustHave": true,
+        "lookFor": "Nghe câu chốt giờ hẹn rõ ràng, ví dụ 30 phút nữa gọi lại",
+        "tryThis": "Thử nói: Chúng tôi đang hoàn tác bản phát hành, tôi sẽ gọi lại cho chị lúc 11 giờ 30 với tiến triển mới.",
+        "sources": [
+          "M:incident-comms"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-outage_call-vi-f2",
+            "quote": "các anh đang làm gì, và khi nào tôi sẽ nhận được tin tiếp theo"
+          }
+        ]
+      },
+      {
+        "id": "r4",
+        "skillId": "s4",
+        "text": "Giữ giọng tôn trọng suốt cuộc gọi, không ngắt lời và không đổ lỗi cho khách hàng",
+        "mustHave": true,
+        "lookFor": "Nghe giọng bình tĩnh, lắng nghe hết câu, không nói tại kho làm sai",
+        "tryThis": "Thử nói: Tôi hiểu chị phải cho xe chạy khi còn trống một nửa, tôi rất tiếc về điều đó.",
+        "sources": [
+          "M:service-recovery"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-outage_call-vi-f2",
+            "quote": "xe tải chạy đi khi còn trống một nửa"
+          }
+        ]
+      },
+      {
+        "id": "r5",
+        "skillId": "s2",
+        "text": "Giải thích ngắn gọn điều gì sẽ xảy ra và khi nào với cấu trúc rõ ràng",
+        "mustHave": false,
+        "lookFor": "Nghe ba phần: việc đã xong, việc đang làm, việc tiếp theo và thời gian",
+        "tryThis": "Thử nói: Hiện đã lưu được đơn trở lại, tiếp theo chúng tôi gửi bản tóm tắt bằng văn bản trong 2 ngày làm việc.",
+        "sources": [
+          "P:10.1177/1096348006297292"
+        ],
+        "excerpts": [
+          {
+            "fileId": "lib-outage_call-vi-f1",
+            "quote": "gửi Kumo bản tóm tắt bằng văn bản trong vòng 2 ngày làm việc"
+          }
+        ]
+      },
+      {
+        "id": "r6",
+        "skillId": "s4",
+        "text": "Nêu rõ mục tiêu, kết quả hiện tại và bước bù đắp tiếp theo cho dừng ba kho hai tiếng",
+        "mustHave": false,
+        "lookFor": "Nghe đề xuất bù đắp và bước ngăn lặp lại, tập trung vào việc không phải vào người",
+        "tryThis": "Thử nói: Mục tiêu của tôi là kho chạy lại ổn định, hiện đã xong, bước tiếp theo tôi đề xuất hỗ trợ bù đắp và báo cáo ngăn lặp lại.",
+        "sources": [
+          "M:feedback-power",
+          "M:service-recovery"
+        ],
+        "excerpts": []
+      }
+    ],
+    "instructions": "Bạn là kỹ sư trực, hãy gọi xin lỗi Trưởng phòng Vận hành Kumo Logistics về sự cố dừng ba kho. Hãy nhận trách nhiệm ngay, nói tác động đơn giản và luôn chốt giờ cập nhật tiếp theo.",
+    "keywords": [
+      "Kumo Logistics",
+      "Osaka",
+      "INC-0412",
+      "ba kho",
+      "giám đốc điều hành",
+      "bản tóm tắt bằng văn bản",
+      "cập nhật tiếp theo"
+    ]
+  },
+  "testCall": {
+    "ok": true,
+    "notes": [
+      "Giữ đúng phong cách ngắn, sốt ruột và đòi giờ cụ thể",
+      "Ngắt lời ngay khi nghe thuật ngữ hạ tầng chồng chéo",
+      "Không tiết lộ các thông tin ẩn khi học viên chưa đạt điều kiện"
+    ]
+  },
+  "sampleCall": {
+    "level": "L2",
+    "learner": "Học viên mẫu",
+    "turns": [
+      {
+        "speaker": "persona",
+        "text": "Lại nữa à? Sáng nay ba kho dừng hai tiếng rồi, lần trước anh mất mười phút nói thuật ngữ mà không nói khi nào xong!",
+        "atMs": 0,
+        "mood": 72
+      },
+      {
+        "speaker": "learner",
+        "text": "Em xin lỗi chị Naoko, đây là trách nhiệm của bên em, để ba kho của mình phải dừng mất hai tiếng sáng nay. Hiện cả ba kho đều chưa cho hàng ra vào được, đội em đang kiểm tra để mở lại, có gì em sẽ báo chị ngay ạ.",
+        "atMs": 18660,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Ừ, câu xin lỗi nghe được rồi. Nhưng mấy giờ anh gọi lại cho tôi, nói giờ cụ thể đi!",
+        "atMs": 25810,
+        "mood": 58
+      },
+      {
+        "speaker": "learner",
+        "text": "Dạ vâng, đội em đang cho người kiểm tra từng kho để mở lại cho hàng ra vào, có tiến triển gì em báo chị ngay ạ.",
+        "atMs": 38470,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Đừng có \"báo ngay\" nữa! Chốt cho tôi mấy giờ gọi lại, nói con số đi!",
+        "atMs": 44870,
+        "mood": 68
+      },
+      {
+        "speaker": "learner",
+        "text": "Dạ em hiểu rồi ạ, đội em đang kiểm tra từng kho để cho hàng ra vào lại bình thường, có tiến triển gì em báo chị liền ạ.",
+        "atMs": 58010,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Anh đừng lặp lại chữ kiểm tra nữa! Nói con số đi, mấy giờ gọi lại?",
+        "atMs": 64310,
+        "mood": 78
+      },
+      {
+        "speaker": "learner",
+        "text": "Dạ em hiểu chị đang sốt ruột ạ, cả ba kho mình hiện vẫn chưa cho hàng ra vào được. Đội em đang mở lại từng kho để hàng đi lại bình thường, có tiến triển em báo chị liền ạ.",
+        "atMs": 80570,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Tôi không cần nghe mở lại nữa! Chốt đi, 30 phút nữa hay mấy giờ anh gọi?",
+        "atMs": 87170,
+        "mood": 88
+      },
+      {
+        "speaker": "learner",
+        "text": "Dạ em hiểu chị đang sốt ruột lắm ạ, cả ba kho mình hiện vẫn chưa cho hàng ra vào được. Đội em đang mở lại từng kho để hàng đi lại bình thường, có tiến triển là em báo chị liền ạ.",
+        "atMs": 103850,
+        "mood": null
+      },
+      {
+        "speaker": "persona",
+        "text": "Anh đừng vòng vo nữa! Nói một số thôi, mấy giờ anh gọi lại?",
+        "atMs": 109800,
+        "mood": 95
+      }
+    ],
+    "verdicts": [
+      {
+        "lineId": "r1",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r1",
+            "result": "pass",
+            "turn": 1,
+            "quote": "Em xin lỗi chị Naoko, đây là trách nhiệm của bên em, để ba kho của mình phải dừng mất hai tiếng sáng nay. Hiện cả ba kho đều chưa cho hàng ra vào được, đội em đang kiểm tra để mở lại, có gì em sẽ báo chị ngay ạ."
+          },
+          {
+            "lineId": "r1",
+            "result": "pass",
+            "turn": 1,
+            "quote": "Em xin lỗi chị Naoko, đây là trách nhiệm của bên em, để ba kho của mình phải dừng mất hai tiếng sáng nay."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r2",
+        "result": "unsure",
+        "readings": [
+          {
+            "lineId": "r2",
+            "result": "partly",
+            "turn": 1,
+            "quote": "Hiện cả ba kho đều chưa cho hàng ra vào được, đội em đang kiểm tra để mở lại, có gì em sẽ báo chị ngay ạ."
+          },
+          {
+            "lineId": "r2",
+            "result": "pass",
+            "turn": 1,
+            "quote": "Hiện cả ba kho đều chưa cho hàng ra vào được, đội em đang kiểm tra để mở lại, có gì em sẽ báo chị ngay ạ."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r3",
+        "result": "missed",
+        "readings": [
+          {
+            "lineId": "r3",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          },
+          {
+            "lineId": "r3",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r4",
+        "result": "pass",
+        "readings": [
+          {
+            "lineId": "r4",
+            "result": "pass",
+            "turn": 7,
+            "quote": "Dạ em hiểu chị đang sốt ruột ạ, cả ba kho mình hiện vẫn chưa cho hàng ra vào được. Đội em đang mở lại từng kho để hàng đi lại bình thường, có tiến triển em báo chị liền ạ."
+          },
+          {
+            "lineId": "r4",
+            "result": "pass",
+            "turn": 1,
+            "quote": "Em xin lỗi chị Naoko, đây là trách nhiệm của bên em, để ba kho của mình phải dừng mất hai tiếng sáng nay. Hiện cả ba kho đều chưa cho hàng ra vào được, đội em đang kiểm tra để mở lại, có gì em sẽ báo chị ngay ạ."
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r5",
+        "result": "missed",
+        "readings": [
+          {
+            "lineId": "r5",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          },
+          {
+            "lineId": "r5",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      },
+      {
+        "lineId": "r6",
+        "result": "missed",
+        "readings": [
+          {
+            "lineId": "r6",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          },
+          {
+            "lineId": "r6",
+            "result": "missed",
+            "turn": null,
+            "quote": ""
+          }
+        ],
+        "judge2": "baseten",
+        "settled": null
+      }
+    ]
+  }
+}

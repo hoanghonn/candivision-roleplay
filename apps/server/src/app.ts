@@ -1,6 +1,6 @@
 import multipart from '@fastify/multipart'
 import websocket from '@fastify/websocket'
-import { buildDebrief, groundingMix, teamReport, LanguageSchema, LineResultSchema, settle, type Language } from '@roleplay/core'
+import { buildDebrief, gate, groundingMix, teamReport, LanguageSchema, LineResultSchema, settle, type Language } from '@roleplay/core'
 import Fastify, { type FastifyReply, type FastifyRequest } from 'fastify'
 import type { IncomingHttpHeaders } from 'node:http'
 import { buildProgramme, editProgramme, MAX_INSTRUCTION } from './builder'
@@ -54,6 +54,16 @@ export function clientIp(headers: IncomingHttpHeaders, fallback: string | undefi
   const last = (Array.isArray(xff) ? xff.join(',') : xff ?? '').split(',').map((x) => x.trim()).filter(Boolean).at(-1)
   return last ?? fallback ?? 'unknown'
 }
+/** Browsers always send Origin on a WebSocket; a page on another site must not spend this site's speech budget. */
+export function sameOrigin(headers: IncomingHttpHeaders): boolean {
+  const origin = headers.origin
+  if (!origin) return true
+  try {
+    return new URL(origin).host === headers.host
+  } catch {
+    return false
+  }
+}
 const INTAKE_MESSAGES: Record<IntakeError, string> = {
   too_big: 'This file is over 2 MB. Please upload a smaller file or paste the important part.',
   unsupported: 'This file type is not supported. Please upload a .txt, .md, .eml or .pdf file.',
@@ -98,7 +108,7 @@ export function buildApp(deps: Deps) {
   function visitor(req: FastifyRequest, reply: FastifyReply): string | null {
     const v = req.headers['x-visitor-id'] ?? (req.query as any)?.v
     if (typeof v !== 'string' || !VISITOR.test(v)) {
-      reply.code(400).send({ error: 'bad request', message: 'Missing visitor id.' })
+      reply.code(400).send({ error: 'bad request', code: 'no_visitor', message: 'Missing visitor id.' })
       return null
     }
     return v
@@ -107,11 +117,11 @@ export function buildApp(deps: Deps) {
   function take(req: FastifyRequest, reply: FastifyReply, ws: string, kind: LimitKind): boolean {
     const ip = clientIp(req.headers, req.socket?.remoteAddress)
     const ok = (!deps.limits || deps.limits.take(ws, kind)) && (!deps.ipLimits || deps.ipLimits.take(ip, kind))
-    if (!ok) reply.code(429).send({ error: 'limit', message: `That is today's limit of ${LIMIT_TEXT[kind]}. The ready-built programmes are still open, and limits reset at midnight UTC.` })
+    if (!ok) reply.code(429).send({ error: 'limit', code: `limit_${kind}`, message: `That is today's limit of ${LIMIT_TEXT[kind]}. The ready-built programmes are still open, and limits reset at midnight UTC.` })
     return ok
   }
   const notFull = (reply: FastifyReply) =>
-    reply.code(503).send({ error: 'busy', message: "Today's budget for building new programmes is used up. The ready-built programmes are still open." })
+    reply.code(503).send({ error: 'busy', code: 'budget_build', message: "Today's budget for building new programmes is used up. The ready-built programmes are still open." })
 
   app.get('/api/health', async () => ({ ok: true }))
   app.get('/api/status', async () => ({ mode: mode() }))
@@ -120,12 +130,12 @@ export function buildApp(deps: Deps) {
     const ws = visitor(req, reply)
     if (!ws) return reply
     const file = await req.file().catch(() => undefined)
-    if (!file) return reply.code(400).send({ error: 'bad request', message: 'No file was sent.' })
+    if (!file) return reply.code(400).send({ error: 'bad request', code: 'no_file', message: 'No file was sent.' })
     const bytes = await file.toBuffer().catch(() => null)
-    if (!bytes || file.file.truncated) return reply.code(400).send({ error: 'too_big', message: INTAKE_MESSAGES.too_big })
+    if (!bytes || file.file.truncated) return reply.code(400).send({ error: 'too_big', code: 'too_big', message: INTAKE_MESSAGES.too_big })
     const name = file.filename.slice(0, 120)
     const res = await extractText(name, bytes)
-    if ('error' in res) return reply.code(400).send({ error: res.error, message: INTAKE_MESSAGES[res.error] })
+    if ('error' in res) return reply.code(400).send({ error: res.error, code: res.error, message: INTAKE_MESSAGES[res.error] })
     return { id: deps.store.addFile(ws, name, res.text), name, chars: res.text.length }
   })
 
@@ -134,7 +144,7 @@ export function buildApp(deps: Deps) {
     if (!ws) return reply
     const text = typeof req.body?.text === 'string' ? req.body.text.trim() : ''
     const fileIds = Array.isArray(req.body?.fileIds) ? req.body.fileIds.filter((x): x is string => typeof x === 'string').slice(0, 5) : []
-    if (text.length < 10 || text.length > 4000) return reply.code(400).send({ error: 'bad request', message: 'Please describe the problem in 10 to 4,000 characters.' })
+    if (text.length < 10 || text.length > 4000) return reply.code(400).send({ error: 'bad request', code: 'request_length', message: 'Please describe the problem in 10 to 4,000 characters.' })
     if (mode() !== 'full') return notFull(reply)
     if (!take(req, reply, ws, 'programme')) return reply
     const jobId = deps.store.createJob(ws)
@@ -195,7 +205,7 @@ export function buildApp(deps: Deps) {
       testCall: p.testCall,
       questions: p.questions,
       readyBuilt: p.readyBuilt,
-      sampleCallId: p.readyBuilt && p.caseId && deps.store.call(LIBRARY, sampleCallId(p.caseId)) ? sampleCallId(p.caseId) : null,
+      sampleCallId: p.readyBuilt && deps.store.call(LIBRARY, sampleCallId(p.id)) ? sampleCallId(p.id) : null,
       versions: deps.store.versionsOf(p.id),
     }
   })
@@ -205,7 +215,7 @@ export function buildApp(deps: Deps) {
     if (!ws) return reply
     const p = deps.store.programme(ws, req.params.id)
     if (!p) return reply.code(404).send({ error: 'not found' })
-    if (p.ws !== ws) return reply.code(403).send({ error: 'forbidden', message: 'Ready-built programmes cannot be changed. Build your own to edit it.' })
+    if (p.ws !== ws) return reply.code(403).send({ error: 'forbidden', code: 'ready_built_edit', message: 'Ready-built programmes cannot be changed. Build your own to edit it.' })
     const instruction = typeof req.body?.instruction === 'string' ? req.body.instruction.trim().slice(0, MAX_INSTRUCTION) : ''
     if (!instruction || !p.programme || !p.brief) return reply.code(400).send({ error: 'bad request' })
     if (mode() !== 'full') return notFull(reply)
@@ -242,7 +252,7 @@ export function buildApp(deps: Deps) {
     const p = deps.store.programme(ws, req.params.id)
     if (!p) return reply.code(404).send({ error: 'not found' })
     if (p.ws !== ws) return reply.code(403).send({ error: 'forbidden' })
-    if (!p.programme || !p.brief) return reply.code(400).send({ error: 'bad request', message: 'There is no programme to publish yet.' })
+    if (!p.programme || !p.brief) return reply.code(400).send({ error: 'bad request', code: 'nothing_to_publish', message: 'There is no programme to publish yet.' })
     return deps.store.publish(ws, p.id)
   })
 
@@ -271,9 +281,9 @@ export function buildApp(deps: Deps) {
     const learner = typeof b.learner === 'string' ? b.learner.trim().slice(0, 40) : ''
     const callMode = b.mode === 'drill' ? 'drill' : 'full'
     const drillLine = callMode === 'drill' ? p.rubric.find((r) => r.id === b.drillLineId) : undefined
-    if (!level || !learner || (callMode === 'drill' && !drillLine)) return reply.code(400).send({ error: 'bad request', message: 'Please type your name and pick a level.' })
-    if (mode() === 'read_only') return reply.code(503).send({ error: 'busy', message: "Today's budget is used up. Calls open again at midnight UTC." })
-    if (mode() === 'calls_only' && version.ws !== LIBRARY) return reply.code(503).send({ error: 'busy', message: "Today's budget for your own programmes is used up. The ready-built programmes are still open for calls." })
+    if (!level || !learner || (callMode === 'drill' && !drillLine)) return reply.code(400).send({ error: 'bad request', code: 'name_and_level', message: 'Please type your name and pick a level.' })
+    if (mode() === 'read_only') return reply.code(503).send({ error: 'busy', code: 'budget_calls', message: "Today's budget is used up. Calls open again at midnight UTC." })
+    if (mode() === 'calls_only' && version.ws !== LIBRARY) return reply.code(503).send({ error: 'busy', code: 'budget_own_calls', message: "Today's budget for your own programmes is used up. The ready-built programmes are still open for calls." })
     if (!take(req, reply, ws, 'call')) return reply
     const callId = deps.store.createCall(ws, { versionId: version.id, learner, level: level.id, mode: callMode, drillLineId: drillLine?.id ?? null, mood: level.moodStart }, now())
     const created = deps.store.call(ws, callId)!
@@ -292,16 +302,41 @@ export function buildApp(deps: Deps) {
     }
   })
 
+  /** A summary of the visitor's own calls: no transcripts or judge readings, and no model call. */
+  app.get('/api/calls', async (req, reply) => {
+    const ws = visitor(req, reply)
+    if (!ws) return reply
+    return deps.store.callsOf(ws).flatMap((c) => {
+      const version = deps.store.version(c.versionId)
+      if (!version) return []
+      const result = c.verdicts ? gate(scored(c, version).programme.rubric, c.verdicts) : null
+      return [{
+        id: c.id,
+        title: version.programme.title,
+        language: version.programme.language,
+        programmeId: version.programmeId,
+        versionId: c.versionId,
+        level: c.level,
+        mode: c.mode,
+        learner: c.learner,
+        created: c.created,
+        ended: c.ended,
+        durationMs: c.turns.at(-1)?.atMs ?? 0,
+        status: !result ? 'unscored' : result.passed ? 'passed' : result.waiting > 0 ? 'waiting' : 'not_yet',
+      }]
+    })
+  })
+
   app.post<{ Params: { id: string }; Body: { text?: unknown } }>('/api/calls/:id/turn', async (req, reply) => {
     const ws = visitor(req, reply)
     if (!ws) return reply
     const call = deps.store.call(ws, req.params.id)
     if (!call) return reply.code(404).send({ error: 'not found' })
-    if (call.ended) return reply.code(409).send({ error: 'ended', message: 'This call has ended.' })
+    if (call.ended) return reply.code(409).send({ error: 'ended', code: 'call_ended', message: 'This call has ended.' })
     const text = typeof req.body?.text === 'string' ? req.body.text.trim().slice(0, 1000) : ''
     if (!text) return reply.code(400).send({ error: 'bad request' })
     // One turn at a time per call: a second one would be answered against a transcript that is about to change.
-    if (inFlight.has(call.id)) return reply.code(409).send({ error: 'busy', message: 'Wait for the reply, then speak again.' })
+    if (inFlight.has(call.id)) return reply.code(409).send({ error: 'busy', code: 'turn_busy', message: 'Wait for the reply, then speak again.' })
     inFlight.add(call.id)
     try {
     const version = deps.store.version(call.versionId)!
@@ -375,7 +410,7 @@ export function buildApp(deps: Deps) {
     const result = LineResultSchema.safeParse(req.body?.result)
     const verdict = call.verdicts?.find((v) => v.lineId === req.body?.lineId)
     if (!result.success || !verdict) return reply.code(400).send({ error: 'bad request' })
-    if (verdict.result !== 'unsure') return reply.code(409).send({ error: 'not unsure', message: 'Only lines the judges disagreed on can be settled.' })
+    if (verdict.result !== 'unsure') return reply.code(409).send({ error: 'not unsure', code: 'not_unsure', message: 'Only lines the judges disagreed on can be settled.' })
     deps.store.saveCall(ws, call.id, { verdicts: settle(call.verdicts!, verdict.lineId, result.data) })
     return debriefOf(deps.store.call(ws, call.id)!, deps.store.version(call.versionId)!)
   })
@@ -447,7 +482,7 @@ export function buildApp(deps: Deps) {
     scoped.get('/ws/stt', { websocket: true }, (socket, req) => {
       const q = req.query as Record<string, string | undefined>
       const ws = q.v && VISITOR.test(q.v) ? q.v : null
-      if (!deps.stt || !ws || mode() === 'read_only') return socket.close()
+      if (!sameOrigin(req.headers) || !deps.stt || !ws || mode() === 'read_only') return socket.close()
       let opts: { language: Language; keywords: string[] } = { language: LanguageSchema.catch('en').parse(q.lang), keywords: [] }
       if (q.callId) {
         // In a call: only while the call is live.
