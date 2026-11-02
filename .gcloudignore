@@ -1,0 +1,14 @@
+# What `gcloud run deploy --source .` uploads. Keep in step with .dockerignore.
+.git
+.gitignore
+.gcloudignore
+node_modules
+**/node_modules
+.env
+.env.*
+.superpowers
+**/dist
+*.log
+data
+reports
+research_notes
