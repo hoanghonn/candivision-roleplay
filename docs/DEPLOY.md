@@ -83,3 +83,9 @@ SQLite is on the instance disk, so visitors' own programmes and calls are wiped 
 3. Build your own programme from the outage example; research should finish in under 90 seconds.
 4. Open the site from two different networks (for example laptop wifi and a phone on mobile data) and check both can start calls. If everyone seems to share one limit, the client address is not being read correctly (`clientIp` in `apps/server/src/app.ts`), and the per-address caps in `apps/server/src/main.ts` should be removed.
 5. With the ElevenLabs key disabled, or its limit reached, a call should continue in the browser's own voice.
+
+## Usage and failures
+
+`scripts/usage.sh [days]` reports, per day, how many visitors took calls, which programmes they picked, how calls were scored, and every failure: voice (`tts_failed`, with ElevenLabs' own reason such as `quota_exceeded`), speech recognition, the character's model, portraits, unexpected server errors, daily limits and budget blocks. It reads the server's structured events from Cloud Logging, which keeps them 30 days.
+
+The events come from `apps/server/src/events.ts`. They never carry learner names, transcripts, customer files, the titles of a customer's own programmes or the raw visitor id (that id opens its workspace); visitors are counted by a short hash of it instead. For one event type in the console, use Logs Explorer with `jsonPayload.event="tts_failed"`.

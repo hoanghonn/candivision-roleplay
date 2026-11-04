@@ -43,7 +43,8 @@ Reply ONLY with JSON: {"say": "<your words>", "mood": <0-100>, "reveal": ["<ids 
 
 const transcript = (turns: Turn[], name: string) => turns.map((t) => `${t.speaker === 'persona' ? name : 'Learner'}: ${t.text}`).join('\n')
 
-export async function personaTurn(client: ChatClient, input: TurnInput): Promise<PersonaReply> {
+/** On a model failure the character says a holding line instead; `onFail` hears the error. */
+export async function personaTurn(client: ChatClient, input: TurnInput, onFail?: (error: string) => void): Promise<PersonaReply> {
   try {
     return await chatJson(client, {
       model: MUSE,
@@ -55,6 +56,7 @@ export async function personaTurn(client: ChatClient, input: TurnInput): Promise
     })
   } catch (e) {
     if (!(e instanceof LlmError)) throw e
+    onFail?.(e.message.slice(0, 200))
     return { say: HOLDING_LINE[input.programme.language], mood: input.mood, reveal: [], hangUp: false }
   }
 }

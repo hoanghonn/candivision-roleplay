@@ -10,6 +10,7 @@ import { loadLibrary, readSeeds, SEED_DIR } from './library'
 import { openStore } from './store'
 import { openUpstream } from './stt'
 import { Budget, metered, PRICES } from './usage'
+import { stdoutLog } from './events'
 
 const meta = new OpenAI({ apiKey: process.env.META_API_KEY, baseURL: 'https://api.meta.ai/v1' })
 const open = process.env.BASETEN_API_KEY
@@ -37,6 +38,7 @@ const app = buildApp({
   tts: { apiKey: process.env.ELEVENLABS_API_KEY ?? '' },
   stt: { connect: openUpstream, apiKey: process.env.META_API_KEY ?? '' },
   images: meta.images,
+  log: stdoutLog,
 })
 
 // In production the same server hands out the built web app.

@@ -4,6 +4,7 @@ import type { ChatClient } from './llm'
 import type { Paper } from './papers'
 import { runResearch } from './research'
 import type { RequestInput, Store } from './store'
+import { clip, type LogEvent } from './events'
 
 export const TERMINAL = new Set(['done', 'declined', 'questions', 'failed'])
 
@@ -27,6 +28,7 @@ export type JobDeps = {
   meta: ChatClient
   searchPapers: (q: string) => Promise<Paper[] | null>
   doiResolves: (doi: string) => Promise<boolean>
+  log?: LogEvent
 }
 
 /** Request -> case match -> research -> programme, streaming every step. Never throws. */
@@ -36,11 +38,15 @@ export async function runRequestJob(deps: JobDeps, ws: string, jobId: string, re
     deps.hub.publish(jobId, e)
   }
   let programmeId: string | null = null
+  const started = Date.now()
+  const finished = (outcome: string, extra: Record<string, unknown> = {}) =>
+    deps.log?.('build_finished', { jobId, programmeId, outcome, seconds: Math.round((Date.now() - started) / 1000), ...extra })
   try {
     const files = deps.store.files(ws, request.fileIds)
     const match = await matchCase(deps.meta, request.text, files)
     if ('declined' in match) {
       emit({ type: 'declined', reason: match.reason })
+      finished('declined')
       deps.store.finishJob(jobId, 'done')
       return
     }
@@ -54,12 +60,15 @@ export async function runRequestJob(deps: JobDeps, ws: string, jobId: string, re
     if ('questions' in built) {
       deps.store.saveProgramme(ws, programmeId, { questions: built.questions })
       emit({ type: 'questions', questions: built.questions, programmeId })
+      finished('questions', { questions: built.questions.length })
     } else {
       deps.store.saveProgramme(ws, programmeId, { programme: built.programme })
       emit({ type: 'done', programmeId })
+      finished('done', { language: built.programme.language, sources: brief.sources.length })
     }
     deps.store.finishJob(jobId, 'done', programmeId)
-  } catch {
+  } catch (e) {
+    finished('failed', { error: clip((e as Error)?.message) })
     emit({ type: 'failed', code: 'build_failed', message: 'Something went wrong while researching and building. Please try again in a minute.' })
     deps.store.finishJob(jobId, 'failed', programmeId)
   }

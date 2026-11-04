@@ -29,7 +29,7 @@ export const openUpstream = (): SocketLike => new WebSocket(`${STT_URL}?sessionI
  * in the programme's language with its own keywords.
  * The API key only ever travels on the upstream socket.
  */
-export function bridgeStt(browser: SocketLike, connect: () => SocketLike, apiKey: string, opts: SttOptions): void {
+export function bridgeStt(browser: SocketLike, connect: () => SocketLike, apiKey: string, opts: SttOptions, onError?: (detail: string) => void): void {
   const upstream = connect()
   const pending: Buffer[] = []
   let ready = false
@@ -69,6 +69,7 @@ export function bridgeStt(browser: SocketLike, connect: () => SocketLike, apiKey
       return
     }
     if (ev.type === 'error') {
+      onError?.(String(ev.message ?? ev.code ?? ev.error ?? 'error').slice(0, 200))
       finalSent = true // the error is the last word on this utterance
       toBrowser({ type: 'error' })
       upstream.close()

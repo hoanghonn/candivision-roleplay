@@ -18,6 +18,7 @@ import { runTestCall } from './testcall'
 import { bridgeStt, type SocketLike } from './stt'
 import { MAX_TTS_CHARS, synthesize, type TtsDeps } from './tts'
 import { PRICES, type Budget } from './usage'
+import { anon, clip, noLog, type LogEvent } from './events'
 
 export type Deps = {
   store: Store
@@ -35,6 +36,8 @@ export type Deps = {
   stt?: { connect: () => SocketLike; apiKey: string }
   images?: ImageClient
   now?: () => number
+  /** usage and failure events; see events.ts for what may go in them */
+  log?: LogEvent
 }
 
 export type ImageClient = { generate: (req: any, opts?: any) => Promise<any> }
@@ -77,6 +80,11 @@ export function buildApp(deps: Deps) {
   const hub = new JobHub()
   const mode = () => siteMode(deps.budget, deps.dailyUsd)
   const now = deps.now ?? Date.now
+  const log = deps.log ?? noLog
+  app.setErrorHandler((err: Error & { statusCode?: number }, req, reply) => {
+    if ((err.statusCode ?? 500) >= 500) log('server_error', { route: req.routeOptions?.url ?? clip(req.url, 80), method: req.method, error: clip(err.message) })
+    reply.send(err)
+  })
   const portraits = new Map<string, string>()
   const inFlight = new Set<string>()
   const plays = new Map<string, number>()
@@ -117,11 +125,14 @@ export function buildApp(deps: Deps) {
   function take(req: FastifyRequest, reply: FastifyReply, ws: string, kind: LimitKind): boolean {
     const ip = clientIp(req.headers, req.socket?.remoteAddress)
     const ok = (!deps.limits || deps.limits.take(ws, kind)) && (!deps.ipLimits || deps.ipLimits.take(ip, kind))
+    if (!ok) log('limit_hit', { visitor: anon(ws), kind })
     if (!ok) reply.code(429).send({ error: 'limit', code: `limit_${kind}`, message: `That is today's limit of ${LIMIT_TEXT[kind]}. The ready-built programmes are still open, and limits reset at midnight UTC.` })
     return ok
   }
-  const notFull = (reply: FastifyReply) =>
-    reply.code(503).send({ error: 'busy', code: 'budget_build', message: "Today's budget for building new programmes is used up. The ready-built programmes are still open." })
+  const notFull = (reply: FastifyReply) => {
+    log('budget_blocked', { code: 'budget_build' })
+    return reply.code(503).send({ error: 'busy', code: 'budget_build', message: "Today's budget for building new programmes is used up. The ready-built programmes are still open." })
+  }
 
   app.get('/api/health', async () => ({ ok: true }))
   app.get('/api/status', async () => ({ mode: mode() }))
@@ -148,7 +159,8 @@ export function buildApp(deps: Deps) {
     if (mode() !== 'full') return notFull(reply)
     if (!take(req, reply, ws, 'programme')) return reply
     const jobId = deps.store.createJob(ws)
-    void runRequestJob({ ...deps, hub }, ws, jobId, { text, fileIds: deps.store.files(ws, fileIds).map((f) => f.id) })
+    log('build_requested', { visitor: anon(ws), jobId, files: fileIds.length, chars: text.length })
+    void runRequestJob({ ...deps, hub, log }, ws, jobId, { text, fileIds: deps.store.files(ws, fileIds).map((f) => f.id) })
     return reply.code(202).send({ jobId })
   })
 
@@ -253,7 +265,9 @@ export function buildApp(deps: Deps) {
     if (!p) return reply.code(404).send({ error: 'not found' })
     if (p.ws !== ws) return reply.code(403).send({ error: 'forbidden' })
     if (!p.programme || !p.brief) return reply.code(400).send({ error: 'bad request', code: 'nothing_to_publish', message: 'There is no programme to publish yet.' })
-    return deps.store.publish(ws, p.id)
+    const published = deps.store.publish(ws, p.id)
+    log('programme_published', { visitor: anon(ws), programmeId: p.id, language: p.programme.language })
+    return published
   })
 
   app.post<{ Params: { id: string } }>('/api/programmes/:id/test-call', async (req, reply) => {
@@ -282,12 +296,16 @@ export function buildApp(deps: Deps) {
     const callMode = b.mode === 'drill' ? 'drill' : 'full'
     const drillLine = callMode === 'drill' ? p.rubric.find((r) => r.id === b.drillLineId) : undefined
     if (!level || !learner || (callMode === 'drill' && !drillLine)) return reply.code(400).send({ error: 'bad request', code: 'name_and_level', message: 'Please type your name and pick a level.' })
+    if (mode() !== 'full') log('budget_blocked', { code: mode() === 'read_only' ? 'budget_calls' : 'budget_own_calls', readyBuilt: version.ws === LIBRARY })
     if (mode() === 'read_only') return reply.code(503).send({ error: 'busy', code: 'budget_calls', message: "Today's budget is used up. Calls open again at midnight UTC." })
     if (mode() === 'calls_only' && version.ws !== LIBRARY) return reply.code(503).send({ error: 'busy', code: 'budget_own_calls', message: "Today's budget for your own programmes is used up. The ready-built programmes are still open for calls." })
     if (!take(req, reply, ws, 'call')) return reply
     const callId = deps.store.createCall(ws, { versionId: version.id, learner, level: level.id, mode: callMode, drillLineId: drillLine?.id ?? null, mood: level.moodStart }, now())
     const created = deps.store.call(ws, callId)!
     deps.store.saveCall(ws, callId, { turns: [{ speaker: 'persona', text: level.opening, atMs: 0, mood: level.moodStart }] })
+    // Titles of a customer's own programme can name the customer, so only ready-built titles are logged.
+    const readyBuilt = version.ws === LIBRARY
+    log('call_started', { visitor: anon(ws), callId, programme: readyBuilt ? p.title : null, readyBuilt, language: p.language, level: level.id, mode: callMode })
     return {
       callId,
       opening: level.opening,
@@ -350,12 +368,13 @@ export function buildApp(deps: Deps) {
       return { say: '', mood: call.mood, revealed: [], ended: true }
     }
     const drillLine = call.drillLineId ? p.rubric.find((r) => r.id === call.drillLineId) : undefined
-    const out = await personaTurn(deps.meta, { programme: p, level, turns, revealed: call.revealed, mood: call.mood, drillLine })
+    const out = await personaTurn(deps.meta, { programme: p, level, turns, revealed: call.revealed, mood: call.mood, drillLine }, (error) => log('persona_failed', { callId: call.id, error }))
     const applied = applyReply({ mood: call.mood, revealed: call.revealed }, out, level, p.persona)
     turns.push({ speaker: 'persona', text: applied.say, atMs: now() - startedAt, mood: applied.mood })
     const learnerTurns = turns.filter((t) => t.speaker === 'learner').length
     const ended = out.hangUp || learnerTurns >= MAX_LEARNER_TURNS || now() - startedAt >= maxSeconds(call) * 1000
     deps.store.saveCall(ws, call.id, { turns, mood: applied.mood, revealed: applied.revealed, ...(ended ? { ended: now() } : {}) })
+    if (ended) log('call_ended', { visitor: anon(ws), callId: call.id, reason: out.hangUp ? 'hang_up' : learnerTurns >= MAX_LEARNER_TURNS ? 'turn_limit' : 'time' })
     return { say: applied.say, mood: applied.mood, revealed: applied.newlyRevealed.map((id) => p.persona.facts.find((f) => f.id === id)!.fact), ended, turn: turns.length - 1 }
     } finally {
       inFlight.delete(call.id)
@@ -373,6 +392,15 @@ export function buildApp(deps: Deps) {
     const { verdicts, complete } = await scoreCall({ meta: deps.meta, open: deps.open, store: deps.store }, scored(call, version), call.turns)
     // A judge that could not be reached leaves lines unsure; keep nothing, so the next /end scores again.
     if (complete) deps.store.saveCall(ws, call.id, { verdicts })
+    const result = gate(scored(call, version).programme.rubric, verdicts)
+    log('call_scored', {
+      visitor: anon(ws), callId: call.id, mode: call.mode, level: call.level,
+      learnerTurns: call.turns.filter((t) => t.speaker === 'learner').length,
+      seconds: Math.round((now() - call.created) / 1000),
+      moodStart: call.turns[0]?.mood ?? null, moodEnd: call.mood, factsFound: call.revealed.length,
+      result: result.passed ? 'passed' : result.waiting > 0 ? 'waiting' : 'not_yet',
+      complete, judge2: verdicts[0]?.judge2 ?? null,
+    })
     return { ...debriefOf(call, version, verdicts), scoredFully: complete }
   })
 
@@ -446,12 +474,13 @@ export function buildApp(deps: Deps) {
     try {
       const res = await deps.images.generate({ model: 'muse-image-1.0', prompt, n: 1, reasoning_strength: 'low' }, { timeout: 40_000 })
       const b64 = res?.data?.[0]?.b64_json
-      if (!b64) return reply.code(503).send({ error: 'unavailable' })
+      if (!b64) { log('portrait_failed', { reason: 'empty' }); return reply.code(503).send({ error: 'unavailable' }) }
       deps.budget?.add(0.01)
       const url = `data:image/webp;base64,${b64}`
       portraits.set(version.hash, url)
       return { url }
-    } catch {
+    } catch (e) {
+      log('portrait_failed', { reason: 'error', error: clip((e as Error)?.message) })
       return reply.code(503).send({ error: 'unavailable' })
     }
   })
@@ -471,7 +500,8 @@ export function buildApp(deps: Deps) {
     if ((plays.get(key) ?? 0) >= MAX_PLAYS) return reply.code(429).send({ error: 'limit' })
     plays.set(key, (plays.get(key) ?? 0) + 1)
     const voice = deps.store.version(call.versionId)!.programme.persona.voice
-    const audio = await synthesize(deps.tts, voice, line.text).catch(() => null)
+    const fail = (f: { status: number; reason: string; detail: string }) => log('tts_failed', { callId: call.id, turn, chars: line.text.length, ...f })
+    const audio = await synthesize(deps.tts, voice, line.text, fail).catch((e) => { fail({ status: 0, reason: 'network', detail: clip((e as Error)?.message) }); return null })
     if (!audio) return reply.code(503).send({ error: 'voice unavailable' })
     deps.budget?.add(line.text.length * PRICES.ttsPerChar)
     return reply.type('audio/mpeg').send(Buffer.from(audio))
@@ -499,7 +529,7 @@ export function buildApp(deps: Deps) {
       socket.on('message', (data: Buffer, isBinary: boolean) => {
         if (isBinary) deps.budget?.add((data.length / 48000) * PRICES.sttPerSecond)
       })
-      bridgeStt(socket as unknown as SocketLike, deps.stt.connect, deps.stt.apiKey, opts)
+      bridgeStt(socket as unknown as SocketLike, deps.stt.connect, deps.stt.apiKey, opts, (detail) => log('stt_failed', { callId: q.callId ?? null, language: opts.language, detail }))
     })
   })
 
