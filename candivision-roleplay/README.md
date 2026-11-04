@@ -1,6 +1,6 @@
 # CandiVision Roleplay UI
 
-The front end for this repo's role-play product, styled with the Candivision design system. It talks to the agents through `apps/server`. It began as a study of another product's UI. The screens have since been redrawn around this product's own needs, and the navigation labels and route names have been replaced.
+The front end for this repo's role-play product, styled with the Candivision design system. It talks to the agents through `apps/server`.
 
 ## Run it
 

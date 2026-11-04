@@ -2,6 +2,10 @@
 
 **Voice role-play training built on research, not guesswork.**
 
+**Try it live: [platform.candivision.co](https://platform.candivision.co)** (no login, works on a phone) · **Demo video: [3 minutes](DEMO_VIDEO_URL)**
+
+Built for the Meta Global AI Developer Hackathon 2026 on Meta Muse Spark, Muse Spark Open, Muse Voice Transcribe and Muse Image.
+
 A training lead describes a conversation their people get wrong ("our engineers make outage calls worse", "our call-centre staff read the refund policy like robots"), attaches their own material, and CandiVision Roleplay:
 
 1. **Researches first.** It searches open scholarly databases (OpenAlex, Crossref) and our own library of proven methods for how experts handle the situation and how people learn it. Sources appear on screen as they are checked.
