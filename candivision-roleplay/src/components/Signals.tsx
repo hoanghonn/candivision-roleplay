@@ -13,14 +13,14 @@ const BANDS = ["calm", "settling", "tense", "angry", "furious"] as const;
 const clamp = (mood: number) => Math.max(0, Math.min(100, mood));
 
 /** The mood scale for the live call. Local, so it can sit on the dark call room. */
-export function MoodMeter({ mood }: { mood: number }) {
+export function MoodMeter({ mood, name }: { mood: number; name?: string }) {
   const { t } = useTranslation();
   const tone = moodTone(mood);
   const label = moodLabel(mood);
   return (
     <div className="mood-meter" data-mood={tone}>
       <div className="mood-head">
-        <span className="tag-face">{t("mood.meter")}</span>
+        <span className="tag-face">{name ? t("mood.meterOf", { name }) : t("mood.meter")}</span>
         <strong>{label}</strong>
       </div>
       <div className="mood-track" role="meter" aria-label={t("mood.meterAria")} aria-valuemin={0} aria-valuemax={100} aria-valuenow={mood} aria-valuetext={label}>

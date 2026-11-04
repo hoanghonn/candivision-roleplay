@@ -14,6 +14,8 @@ import { LoadingLines, StatePanel } from "../components/States";
 import { MoodMeter, moodTone, moodWord } from "../components/Signals";
 import { codeText, errorText, readName, saveName, tipText, useProgrammes } from "../live";
 
+type Line = Turn | { speaker: "fact"; text: string };
+
 type Started = {
   callId: string;
   opening: string;
@@ -104,14 +106,13 @@ function Call({ versionId, level, drillLineId }: { versionId: string; level: str
   const navigate = useNavigate();
   const [name, setName] = useState(readName);
   const [call, setCall] = useState<Started | null>(null);
-  const [turns, setTurns] = useState<Turn[]>([]);
+  const [turns, setTurns] = useState<Line[]>([]);
   const [mood, setMood] = useState(50);
   const [ptt, setPtt] = useState<PttState>("idle");
   const [partial, setPartial] = useState("");
   const [typing, setTyping] = useState(false);
   const [typed, setTyped] = useState("");
   const [waiting, setWaiting] = useState(false);
-  const [toast, setToast] = useState("");
   const [left, setLeft] = useState(0);
   const [portrait, setPortrait] = useState<string | null>(null);
   const [error, setError] = useState("");
@@ -120,8 +121,8 @@ function Call({ versionId, level, drillLineId }: { versionId: string; level: str
   const callRef = useRef<Started | null>(null);
   const transcriptRef = useRef<HTMLDivElement>(null);
   const waitingRef = useRef(false);
-  // Open by default where there is room for it; on a phone it stays one tap away so the conversation gets the space.
-  const [briefOpen] = useState(() => window.matchMedia("(min-width: 900px)").matches);
+  // Open at the start so the learner knows their job before answering. On a phone it folds away after their first line, so the conversation gets the space.
+  const [briefOpen, setBriefOpen] = useState(true);
 
   async function start() {
     setError("");
@@ -159,15 +160,16 @@ function Call({ versionId, level, drillLineId }: { versionId: string; level: str
   async function say(text: string) {
     const c = callRef.current;
     if (!c || ending.current || !text.trim()) return;
+    if (!turns.some((x) => x.speaker === "learner") && !window.matchMedia("(min-width: 900px)").matches) setBriefOpen(false);
     setTurns((all) => [...all, { speaker: "learner", text, atMs: 0, mood: null }]);
     setError("");
     setWaiting(true);
     waitingRef.current = true;
     try {
       const r = await post<{ say: string; mood: number; revealed: string[]; ended: boolean; turn: number }>(`/api/calls/${encodeURIComponent(c.callId)}/turn`, { text });
-      if (r.say) setTurns((all) => [...all, { speaker: "persona", text: r.say, atMs: 0, mood: r.mood }]);
+      const fact: Line[] = r.revealed.length ? [{ speaker: "fact", text: r.revealed.join(" ") }] : [];
+      setTurns((all) => [...all, ...(r.say ? [{ speaker: "persona" as const, text: r.say, atMs: 0, mood: r.mood }] : []), ...fact]);
       setMood(r.mood);
-      if (r.revealed.length) setToast(t("call.newFact", { fact: r.revealed.join(" ") }));
       if (r.say) await browserPlayer.say({ voice: c.persona.voice, text: r.say, lang: c.language, callId: c.callId, turn: r.turn });
       if (r.ended) await end();
     } catch (e) {
@@ -190,7 +192,6 @@ function Call({ versionId, level, drillLineId }: { versionId: string; level: str
     return () => clearInterval(tick);
   }, [call]);
   useEffect(() => { if (call && left === 0) void end(); }, [left, call]);
-  useEffect(() => { if (toast) { const hide = setTimeout(() => setToast(""), 6000); return () => clearTimeout(hide); } }, [toast]);
   useEffect(() => { transcriptRef.current?.scrollTo?.({ top: transcriptRef.current.scrollHeight, behavior: "smooth" }); }, [turns, partial]);
   useEffect(() => {
     if (!call || typing) return;
@@ -233,7 +234,6 @@ function Call({ versionId, level, drillLineId }: { versionId: string; level: str
   const mm = String(Math.floor(left / 60));
   const ss = String(left % 60).padStart(2, "0");
   const tone = moodTone(mood);
-  const latest = [...turns].reverse().find((x) => x.speaker === "persona");
   const status = ptt === "listening" ? t("call.statusListening") : ptt === "thinking" ? t("call.hearing") : waiting ? t("call.statusResponding", { name: call.persona.name }) : t("call.statusYourTurn");
 
   return (
@@ -266,17 +266,18 @@ function Call({ versionId, level, drillLineId }: { versionId: string; level: str
           <p>{call.persona.role}</p>
           <p className="call-status" role="status"><i aria-hidden="true" /> {status}</p>
         </div>
-        {latest && <p className="call-caption" aria-hidden="true" lang={call.language}>{latest.text}</p>}
-        <MoodMeter mood={mood} />
+        <MoodMeter mood={mood} name={call.persona.name} />
       </section>
 
       <section className="call-log" aria-label={t("call.conversation")}>
-        <details className="call-brief" open={briefOpen}>
+        <details className="call-brief" open={briefOpen} onToggle={(e) => setBriefOpen(e.currentTarget.open)}>
           <summary className="tag-face" onKeyDown={keepSpace}>{t(call.drill ? "call.tryThis" : "call.yourBrief")}</summary>
           <p lang={call.language}>{call.drill ? t("programme.try", { tip: tipText(call.drill.tryThis) }) : call.instructions}</p>
         </details>
         <div className="transcript" ref={transcriptRef}>
-          {turns.map((x, i) => (
+          {turns.map((x, i) => x.speaker === "fact" ? (
+            <p key={i} className="fact-note" role="status"><Sparkles size={15} aria-hidden="true" /> <span>{t("call.factFound")} <span lang={call.language}>{x.text}</span></span></p>
+          ) : (
             <div key={i} className={`turn ${x.speaker}`} lang={call.language}>
               <div className="who">{x.speaker === "persona" ? call.persona.name : t("common.you")}</div>
               {x.text}
@@ -319,7 +320,6 @@ function Call({ versionId, level, drillLineId }: { versionId: string; level: str
         </button>
       </section>
 
-      {toast && <div className="toast" role="status"><Sparkles size={16} aria-hidden="true" /> <span lang={call.language}>{toast}</span></div>}
     </div>
   );
 }
